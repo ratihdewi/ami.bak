@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Auditor;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('daftarAuditor', [
+        "title" => "Daftar Auditor",
+        "dataAuditor" => Auditor::all()
+    ]);
+});
+
+Route::get('/addAuditor', function() {
+    return view('addAuditor');
+});
+
+Route::get('/daftarAuditee', function() {
+    return view('daftarAuditee');
+});
+
+Route::get('/daftarAuditor', function() {
+    return view('daftarAuditor', [
+        "title" => "Daftar Auditor",
+        "dataAuditor" => Auditor::all()
+    ]);
 });
