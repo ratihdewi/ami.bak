@@ -113,45 +113,99 @@
         </a>
     </nav>
   </div>
-    <!--Container Main start-->
-    <div id="main-container" class="container height-100 border rounded">
-      <a
-      href="addAuditee"
-      class="text-white"
-      style="font-weight: 600; text-decoration: none"
-      ><button type="button" class="btn btn-primary btn-sm float-end my-4 px-3">
-          Tambah
-      </button>
-      </a>
-      <table class="table table-hover">
-        <thead>
-            <tr class="d-flex">
-                <th class="col-1 text-center">  No  </th>
-                <th class="col-3 text-center">  Ketua Auditee  </th>
-                <th class="col-3 text-center">  Jabatan Ketua Auditee  </th>
-                <th class="col-2 text-center">  Ketua Auditor  </th>
-                <th class="col-3 text-center">  Anggota Auditor  </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="d-flex">
-                <td class="col-1 text-center">1</td>
-                <td class="col-3">Raka Sudira Wanara, M.T</td>
-                <td class="col-3">Ketua Program Studi Teknik Perminyakan</td>
-                <td class="col-2">Rinaldi M Rachman, M.S</td>
-                <td class="col-3">Evi Siti Sofiyah, Ph.D</td>
-            </tr>
-            <tr class="d-flex">
-              <th class="col-1 text-center"></th>
-              <td class="col-3"></td>
-              <td class="col-3"></td>
-              <td class="col-2"></td>
-              <td class="col-3">Fatimah DInan Q., M.T</td>
-            </tr>
-            
-        </tbody>
-    </table>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col w-100">
+                <div class="card mb-5" style="margin-top: 50px; height: 100vh">
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <a
+                                href="addAuditee"
+                                class="text-white"
+                                style="font-weight: 600; text-decoration: none"
+                                ><button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
+                                    Tambah
+                                </button></a
+                            >
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="">
+                                        <th class="col-1 text-center">No</th>
+                                        <th class="col-2 text-center">Ketua Auditee</th>
+                                        <th class="col-3 text-center">Jabatan Ketua Auditee</th>
+                                        <th class="col-2 text-center">Ketua Auditor</th>
+                                        <th class="col-2 text-center">Anggota Auditor</th>
+                                        <th class="col-2 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $item)
+                                        <tr>
+                                            <th scope="row" class="text-center">{{ $item->id }}</th>
+                                                        <td>{{ $item->ketua_auditee }}</td>
+                                            <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
+                                            <td>{{ $item->ketua_auditor }}</td>
+                                            <td>{{ $item->anggota_auditor }}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-warning">Edit</button>
+                                                <button type="button" class="btn btn-danger">Delete</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
     </div>
+    <!--Container Main start-->
+    {{-- <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <a
+                        href="addAuditor"
+                        class="text-white"
+                        style="font-weight: 600; text-decoration: none"
+                        ><button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
+                            Tambah
+                        </button></a
+                    >
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="">
+                                <th class="col-1 text-center">No</th>
+                                <th class="col-2 text-center">Ketua Auditee</th>
+                                <th class="col-3 text-center">Jabatan Ketua Auditee</th>
+                                <th class="col-2 text-center">Ketua Auditor</th>
+                                <th class="col-2 text-center">Anggota Auditor</th>
+                                <th class="col-2 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $item)
+                                <tr>
+                                    <th scope="row" class="text-center">{{ $item->id }}</th>
+                                                <td>{{ $item->ketua_auditee }}</td>
+                                    <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
+                                    <td>{{ $item->ketua_auditor }}</td>
+                                    <td>{{ $item->anggota_auditor }}</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-warning">Edit</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                </div>    
+            </div>
+        </div>
+    </div> --}}
     <!--Container Main end-->
   </body>
 </html>

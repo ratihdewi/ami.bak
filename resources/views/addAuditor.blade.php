@@ -1,108 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        @include('inc.head')
-        <title>AMI - Tambah Auditor</title>
-    </head>
-    <body id="body-pd">
-        @include('inc.nav_auditor')
-        <div
-            id="main-container"
-            class="container height-100 border rounded mb-4"
-        >
-            <div
-                class="main-form d-flex justify-content-center"
-                style="max-height: 100%"
-            >
-                <div
-                    class="form-container border w-75 py-4 px-5 mb-4"
-                    style="margin-top: 80px"
-                >
-                    <form action="daftarAuditee" method="POST">
-                        <div class="mb-3">
-                            <label for="selectUnitKerja" class="form-label"
-                                >Unit Kerja</label
-                            >
-                            <select
-                                id="selectUnitKerja"
-                                class="form-select"
-                                name="unitKerja"
-                                required
-                            >
-                                <option selected>
-                                    Pilih unit yang akan diaudit
-                                </option>
-                                <option value="1">
-                                    Program Studi Ilmu Komputer
-                                </option>
-                                <option value="2">
-                                    Fakultas Sains dan Ilmu Komputer
-                                </option>
-                                <option value="3">Direktorat IT</option>
-                            </select>
+@extends('layout.main') @section('title') AMI - Daftar Auditor @endsection
+@section('container')
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body p-4">
+                    <form action="/insertAuditor" method="POST">
+                        @csrf
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="nipAuditor" class="form-label">NIP</label>
+                                <input type="text" name="nip" class="form-control" id="nipAuditor" placeholder="NIP Auditor" aria-label="NIP">
+                            </div>
+                            <div class="col">
+                                <label for="namaAuditor" class="form-label">Nama</label>
+                                <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor">
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="ketuaAuditee" class="form-label"
-                                >Ketua Auditee</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="ketuaAuditee"
-                                placeholder="Masukkan nama Ketua Auditee"
-                                name="ketuaAuditee"
-                                required
-                            />
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="fakultas" class="form-label">Fakultas</label>
+                                <input type="text" name="fakultas" class="form-control" id="fakultas" placeholder="Fakultas" aria-label="Fakultas">
+                            </div>
+                            <div class="col">
+                                <label for="programstudi" class="form-label">Program Studi</label>
+                                <input type="text" name="program_studi" class="form-control" id="programstudi" placeholder="Program Studi" aria-label="Program Studi">
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="jabatanKetuaAuditee" class="form-label"
-                                >Jabatan Ketua Auditee</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="jabatanKetuaAuditee"
-                                placeholder="Masukkan jabatan Ketua Auditee"
-                                name="jabatanKetuaAuditee"
-                                required
-                            />
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="tanggalmulai" class="form-label">Tanggal Mulai</label>
+                                <input type="date" name="tgl_mulai" class="form-control" id="tanggalmulai" placeholder="Tanggal Mulai Tugas" aria-label="Tanggal Mulai Tugas">
+                            </div>
+                            <div class="col">
+                                <label for="tanggalberakhir" class="form-label">Tanggal Berakhir</label>
+                                <input type="date" name="tgl_berakhir" class="form-control" id="tanggalberakhir" placeholder="Tanggal Berakhir Tugas" aria-label="Tanggal Berakhir Tugas">
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="ketuaAuditor" class="form-label"
-                                >Ketua Auditor</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="ketuaAuditor"
-                                placeholder="Masukkan nama Ketua Auditor"
-                                name="ketuaAuditor"
-                                required
-                            />
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
+                                <input type="number" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon">
+                            </div>
+                            <div class="col">
+                                <label for="esignAuditor" class="form-label">eSign</label>
+                                <input class="form-control" type="file" id="esignAuditor">
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="anggotaAuditor" class="form-label"
-                                >Anggota Auditor</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="anggotaAuditor"
-                                placeholder="Masukkan nama Anggota Auditor"
-                                name="anggotaAuditor"
-                                required
-                            />
-                        </div>
+                        <button type="submit" class="btn btn-primary float-end">Submit</button>
                     </form>
                 </div>
             </div>
-            <input
-                class="saveAddAuditee"
-                type="submit"
-                name="simpan"
-                value="Simpan"
-            />
         </div>
-        <div></div>
-    </body>
-</html>
+        
+    </div>
+</div>
+
+@endsection
