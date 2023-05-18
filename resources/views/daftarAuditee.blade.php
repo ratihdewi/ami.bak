@@ -127,6 +127,11 @@
                                     Tambah
                                 </button></a
                             >
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @endif
                             <table class="table table-hover">
                                 <thead>
                                     <tr class="">
@@ -139,16 +144,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $no = 1;    
+                                    @endphp
                                     @foreach ($data as $item)
                                         <tr>
-                                            <th scope="row" class="text-center">{{ $item->id }}</th>
-                                                        <td>{{ $item->ketua_auditee }}</td>
+                                            <th scope="row" class="text-center">{{ $no++ }}</th>
+                                            <td>{{ $item->ketua_auditee }}</td>
                                             <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
                                             <td>{{ $item->ketua_auditor }}</td>
                                             <td>{{ $item->anggota_auditor }}</td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-warning">Edit</button>
-                                                <button type="button" class="btn btn-danger">Delete</button>
+                                                <a href="tampilAuditee/{{ $item->id }}" class="btn btn-warning">Edit</a>
+                                                <a href="deleteAuditee/{{ $item->id }}" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

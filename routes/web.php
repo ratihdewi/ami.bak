@@ -29,6 +29,14 @@ Route::post('/insertAuditor', [AuditorController::class, 'insertdata'])->name('i
 Route::get('/addAuditee', [AuditeeController::class, 'tambahauditee'])->name('tambahauditee');
 Route::post('/insertAuditee', [AuditeeController::class, 'insertdata'])->name('insertauditee');
 
+Route::get('/tampilAuditee/{id}', [AuditeeController::class, 'tampildata'])->name('tampilauditee');
+Route::post('/updateAuditee/{id}', [AuditeeController::class, 'updatedata'])->name('updateauditee');
+Route::get('/deleteAuditee/{id}', [AuditeeController::class, 'deletedata'])->name('deleteauditee');
+
+Route::get('/tampilAuditor/{id}', [AuditorController::class, 'tampildata'])->name('tampilauditor');
+Route::post('/updateAuditor/{id}', [AuditorController::class, 'updatedata'])->name('updateauditor');
+Route::get('/deleteAuditor/{id}', [AuditorController::class, 'deletedata'])->name('deleteauditor');
+
 Route::get('/daftarAuditee', [AuditeeController::class, 'index'])->name('auditee');
 
 Route::get('/daftarAuditor', [AuditorController::class, 'index'])->name('auditor');

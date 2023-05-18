@@ -13,6 +13,11 @@
                 Tambah
             </button></a
         >
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" role="alert">
+                {{ $message }}
+            </div>
+        @endif
         <table class="table table-hover">
             <thead>
                 <tr class="">
@@ -26,21 +31,23 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $no = 1;    
+                @endphp
                 @foreach ($dataAuditor as $item)
                     <tr>
-                        <th scope="row" class="text-center">{{ $item->id }}</th>
+                        <th scope="row" class="text-center">{{ $no++ }}</th>
                         <td>{{ $item->nama }}</td>
                         <td class="text-center">{{ $item->nip }}</td>
                         <td>{{ $item->program_studi }}</td>
                         <td>{{ $item->fakultas }}</td>
                         <td class="text-center">{{ $item->noTelepon }}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-warning">Edit</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <a href="tampilAuditor\{{ $item->id }}" class="btn btn-warning">Edit</a>
+                            <a href="deleteAuditor\{{ $item->id }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach
-                
             </tbody>
         </table>
     </div>
