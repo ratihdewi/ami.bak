@@ -118,14 +118,14 @@
                       /></i>
                       <span class="nav_name"> Dokumen Resmi AMI </span>
                   </a>
-                  <a href="#" class="nav_link">
+                  <a href="user/daftarUser" class="nav_link">
                       <i class="bx nav_icon"
                           ><img
                               src="asset/sideBar/tindakanKoreksi.png"
                               alt="Logo-Role"
                               width="25"
                       /></i>
-                      <span class="nav_name"> Users </span>
+                      <span class="nav_name"> Daftar User </span>
                   </a>
               </div>
           </div>
@@ -140,46 +140,6 @@
         @yield('container')
     </div>
     <!--Container Main end-->
-    <script>
-        //sideBar
-        document.addEventListener("DOMContentLoaded", function (event) {
-            const showNavbar = (toggleId, navId, bodyId, headerId) => {
-                const toggle = document.getElementById(toggleId),
-                    nav = document.getElementById(navId),
-                    bodypd = document.getElementById(bodyId),
-                    headerpd = document.getElementById(headerId);
-
-                // Validate that all variables exist
-                if (toggle && nav && bodypd && headerpd) {
-                    toggle.addEventListener("click", () => {
-                        // show navbar
-                        nav.classList.toggle("show");
-                        // change icon
-                        toggle.classList.toggle("bx-x");
-                        // add padding to body
-                        bodypd.classList.toggle("body-pd");
-                        // add padding to header
-                        headerpd.classList.toggle("body-pd");
-                    });
-                }
-            };
-
-            showNavbar("header-toggle", "nav-bar", "body-pd", "header");
-
-            /*===== LINK ACTIVE =====*/
-            const linkColor = document.querySelectorAll(".nav_link");
-
-            function colorLink() {
-                if (linkColor) {
-                    linkColor.forEach((l) => l.classList.remove("active"));
-                    this.classList.add("active");
-                }
-            }
-            linkColor.forEach((l) => l.addEventListener("click", colorLink));
-
-            // Your code to run since DOM is loaded and ready
-        });
-    </script>
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
