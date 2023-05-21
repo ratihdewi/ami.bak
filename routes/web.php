@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\Auditor;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +19,19 @@ use App\Http\Controllers\AuditorController;
 |
 */
 
-Route::get('/', function () {
-    return view('daftarAuditor', [
-        "title" => "Daftar Auditor",
-        "dataAuditor" => Auditor::all()
-    ]);
+// Route::get('/', function () {
+//     return view('daftarAuditor', [
+//         "title" => "Daftar Auditor",
+//         "dataAuditor" => Auditor::all()
+//     ]);
+// });
+
+// Route::get('/', function(){
+//     return redirect()->route('login');
+// });
+
+Route::get('/', function(){
+    return view('welcome');
 });
 
 Route::get('/addAuditor', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
@@ -40,3 +51,10 @@ Route::get('/deleteAuditor/{id}', [AuditorController::class, 'deletedata'])->nam
 Route::get('/daftarAuditee', [AuditeeController::class, 'index'])->name('auditee');
 
 Route::get('/daftarAuditor', [AuditorController::class, 'index'])->name('auditor');
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -19,6 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('unit_kerja', ['Program Studi Ilmu Komputer', 'Fakultas Sains dan Ilmu Komputer', 'Direktorat IT']);
+            $table->string('username');
+            $table->enum('role', ['Auditor', 'Auditee', 'SPM']);
+            $table->string('jabatan');
             $table->rememberToken();
             $table->timestamps();
         });

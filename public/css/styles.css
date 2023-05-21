@@ -58,7 +58,7 @@ a {
     width: 40px;
 }
 .dropdown-toggle {
-    background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 100%);
+    background: #ffffff !important;
     color: #303030 !important;
     font-weight: 600px !important;
 }
@@ -68,7 +68,7 @@ a {
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
-    background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 100%);
+    background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%);
     padding: 0.5rem 1rem 0 0;
     transition: 0.5s;
     z-index: var(--z-fixed);

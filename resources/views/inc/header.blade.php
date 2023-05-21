@@ -10,9 +10,9 @@
             aria-expanded="false"
         >
             <img src="asset/profile.png" alt="Account" width="25" />
-            Auditor
+            {{ Auth::user()->name }}
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu ">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
