@@ -42,7 +42,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
-                                <input type="number" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon">
+                                <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon">
                             </div>
                             <div class="col">
                                 <label for="esignAuditor" class="form-label">eSign</label>

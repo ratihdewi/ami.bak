@@ -10,10 +10,28 @@
             aria-expanded="false"
         >
             <img src="asset/profile.png" alt="Account" width="25" />
-            {{ Auth::user()->name }}
+            {{ Auth::user()->role }}
         </button>
-        <ul class="dropdown-menu ">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+        <ul class="dropdown-menu">
+            <li>
+                <a
+                    class="dropdown-item"
+                    href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                >
+                    {{ __("Logout") }}
+                </a>
+
+                <form
+                    id="logout-form"
+                    action="{{ route('logout') }}"
+                    method="POST"
+                    class="d-none"
+                >
+                    @csrf
+                </form>
+            </li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
         </ul>

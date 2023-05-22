@@ -17,7 +17,7 @@
                   <span class="nav_logo-name"> AMI </span>
               </a>
               <div class="nav_list">
-                  <a href="/daftarAuditor" class="nav_link active">
+                  <a href="{{ url('auditee-auditor') }}" class="nav_link active">
                       <i class="bx nav_icon"
                           ><img
                               src="asset/sideBar/auditor.png"
@@ -26,7 +26,7 @@
                       /></i>
                       <span class="nav_name"> Daftar Auditor </span>
                   </a>
-                  <a href="/daftarAuditee" class="nav_link">
+                  <a href="/auditee-daftarauditee" class="nav_link">
                       <i class="bx nav_icon"
                           ><img
                               src="asset/sideBar/auditee.png"
@@ -97,15 +97,6 @@
                               width="25"
                       /></i>
                       <span class="nav_name"> Dokumen Resmi AMI </span>
-                  </a>
-                  <a href="{{ route('daftaruser') }}" class="nav_link">
-                      <i class="bx nav_icon"
-                          ><img
-                              src="asset/sideBar/tindakanKoreksi.png"
-                              alt="Logo-Role"
-                              width="25"
-                      /></i>
-                      <span class="nav_name"> Daftar User </span>
                   </a>
               </div>
           </div>

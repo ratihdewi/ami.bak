@@ -45,4 +45,22 @@ class AuditeeController extends Controller
         $data->delete();
         return redirect()->route('auditee')->with('success', 'Data berhasil dihapus');
     }
+
+    //role auditor start
+    public function indexauditor()
+    {
+        $data = Auditee::all();
+        // dd($data);
+        return view('auditor/daftarAuditee', compact('data'));
+    }
+    //role auditor end
+
+    //role auditee start
+    public function indexauditee()
+    {
+        $data = Auditee::all();
+        // dd($data);
+        return view('auditee/daftarAuditee', compact('data'));
+    }
+    //role auditee end
 };

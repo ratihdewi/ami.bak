@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'role' => 'spm',
             'jabatan' => 'kaprodi',
         ]);
-
+         
         $spm->assignRole('spm');
 
         $auditor = User::create([

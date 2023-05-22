@@ -41,12 +41,13 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        $user->assignRole($user->role);
         if ($user->hasRole('auditor')) {
-            return redirect()->route('auditor');
+            return redirect()->route('auditor-auditor');
         } elseif ($user->hasRole('auditee')) {
-            return redirect()->route('auditee');
+            return redirect()->route('auditee-auditor');
         }
 
-        return 'SPM';
+        return redirect()->route('auditor');
     }
 }

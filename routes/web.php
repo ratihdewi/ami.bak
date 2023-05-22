@@ -4,6 +4,7 @@ use App\Models\Auditor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\Auth\LoginController;
@@ -34,6 +35,26 @@ Route::get('/', function(){
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Route Role SPM
+Route::get('/usercontrol', [UserController::class, 'index'])->name('daftaruser');
+Route::get('/addUser', [UserController::class, 'tambahuser'])->name('tambahuser');
+Route::post('/insertUser', [UserController::class, 'insertdata'])->name('insertuser');
+Route::get('/tampilUser/{id}', [UserController::class, 'tampildata'])->name('tampiluser');
+Route::post('/updateUser/{id}', [UserController::class, 'updatedata'])->name('updateuser');
+Route::get('/deleteUser/{id}', [UserController::class, 'deletedata'])->name('deleteuser');
+
+// Role Auditor
+Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');
+Route::get('/auditor-daftarauditor', [AuditorController::class, 'indexauditor'])->name('auditor-auditor');
+
+//Role Auditee
+Route::get('/auditee-daftarauditee', [AuditeeController::class, 'indexauditee'])->name('auditee-auditee');
+Route::get('/auditee-daftarauditor', [AuditorController::class, 'indexauditee'])->name('auditee-auditor');
+
 Route::get('/addAuditor', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
 Route::post('/insertAuditor', [AuditorController::class, 'insertdata'])->name('insertauditor');
 
@@ -55,6 +76,3 @@ Route::get('/daftarAuditor', [AuditorController::class, 'index'])->name('auditor
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class AuditorController extends Controller
 {
+    //role spm start
     public function index()
     {
         $dataAuditor = Auditor::all();
@@ -45,4 +46,23 @@ class AuditorController extends Controller
         $data->delete();
         return redirect()->route('auditor')->with('success', 'Data berhasil dihapus');
     }
+    //role spm end
+
+    //role auditor start
+    public function indexauditor()
+    {
+        $dataAuditor = Auditor::all();
+        // dd($data);
+        return view('auditor/daftarAuditor', compact('dataAuditor'));
+    }
+    //role auditor end
+
+    //role auditee start
+    public function indexauditee()
+    {
+        $dataAuditor = Auditor::all();
+        // dd($data);
+        return view('auditee/daftarAuditor', compact('dataAuditor'));
+    }
+    //role auditee end
 }
