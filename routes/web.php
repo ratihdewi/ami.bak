@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\Auth\LoginController;
@@ -46,6 +47,7 @@ Route::post('/insertUser', [UserController::class, 'insertdata'])->name('insertu
 Route::get('/tampilUser/{id}', [UserController::class, 'tampildata'])->name('tampiluser');
 Route::post('/updateUser/{id}', [UserController::class, 'updatedata'])->name('updateuser');
 Route::get('/deleteUser/{id}', [UserController::class, 'deletedata'])->name('deleteuser');
+Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudit');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');

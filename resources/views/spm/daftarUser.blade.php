@@ -42,7 +42,7 @@
                     /></i>
                     <span class="nav_name"> DaftarTilik </span>
                 </a>
-                <a href="#" class="nav_link">
+                <a href="{{ route('jadwalaudit') }}" class="nav_link">
                     <i class="bx nav_icon"
                         ><img
                             src="asset/sideBar/jadwalAudit.png"
