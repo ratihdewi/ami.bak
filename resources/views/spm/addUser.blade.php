@@ -122,12 +122,12 @@
                                   @csrf
                                   <div class="row mb-4">
                                       <div class="col">
-                                          <label for="nama" class="form-label">Nama</label>
-                                          <input type="text" name="name" class="form-control" id="nama" placeholder="Nama Auditor" aria-label="Nama">
+                                          <label for="nip" class="form-label">NIP</label>
+                                          <input type="number" name="nip" class="form-control" id="nip" placeholder="nip" aria-label="nip">
                                       </div>
                                       <div class="col">
-                                          <label for="username" class="form-label">Username</label>
-                                          <input type="text" name="username" class="form-control" id="username" placeholder="Username" aria-label="Username">
+                                          <label for="nama" class="form-label">Nama</label>
+                                          <input type="text" name="name" class="form-control" id="nama" placeholder="Nama Auditor" aria-label="Nama">
                                       </div>
                                   </div>
                                   <div class="row mb-4">
@@ -160,12 +160,12 @@
                                   </div>
                                   <div class="row mb-4">
                                       <div class="col">
-                                          <label for="pwd" class="form-label">Password</label>
-                                          <input type="password" name="password" class="form-control" id="pwd" placeholder="Password" aria-label="Password">
+                                          <label for="username" class="form-label">Username</label>
+                                          <input type="text" name="username" class="form-control" id="username" placeholder="Username" aria-label="Username">
                                       </div>
                                       <div class="col">
-                                          <label for="jabatan" class="form-label">Jabatan</label>
-                                          <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan">
+                                          <label for="pwd" class="form-label">Password</label>
+                                          <input type="password" name="password" class="form-control" id="pwd" placeholder="Password" aria-label="Password">
                                       </div>
                                   </div>
                                   <div class="row mb-4">
@@ -180,7 +180,7 @@
                                               required
                                           >
                                               <option selected>
-                                                  Pilih unit yang akan diaudit
+                                                  Pilih unit kerja
                                               </option>
                                               <option value="1">
                                                   Program Studi Ilmu Komputer
@@ -192,7 +192,10 @@
                                           </select>
                                       </div>
                                       <div class="col">
-                                          
+                                          <div class="col">
+                                            <label for="jabatan" class="form-label">Jabatan</label>
+                                            <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan">
+                                        </div>    
                                       </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary float-end">Submit</button>

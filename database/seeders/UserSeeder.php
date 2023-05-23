@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $spm = User::create([
+            'nip' => '119012',
             'name' => 'SPM Role',
             'email' => 'spm@role.test',
             'password' => bcrypt('SPM12345'),
@@ -27,6 +28,7 @@ class UserSeeder extends Seeder
         $spm->assignRole('spm');
 
         $auditor = User::create([
+            'nip' => '119022',
             'name' => 'Auditor Role',
             'email' => 'auditor@role.test',
             'password' => bcrypt('Auditor123'),
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
         $auditor->assignRole('auditor');
 
         $auditee = User::create([
+            'nip' => '119032',
             'name' => 'Auditee Role',
             'email' => 'auditee@role.test',
             'password' => bcrypt('Auditee123'),

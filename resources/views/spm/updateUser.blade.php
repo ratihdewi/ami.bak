@@ -122,12 +122,12 @@
                                     @csrf
                                     <div class="row mb-4">
                                       <div class="col">
-                                          <label for="nama" class="form-label">Nama</label>
-                                          <input type="text" name="name" class="form-control" id="nama" placeholder="Nama Auditor" aria-label="Nama" value="{{ $data->name }}">
+                                          <label for="nip" class="form-label">NIP</label>
+                                          <input type="number" name="nip" class="form-control" id="nip" placeholder="nip" aria-label="nip" value="{{ $data->nip }}">
                                       </div>
                                       <div class="col">
-                                          <label for="username" class="form-label">Username</label>
-                                          <input type="text" name="username" class="form-control" id="username" placeholder="Username" aria-label="Username" value="{{ $data->username }}">
+                                          <label for="nama" class="form-label">Nama</label>
+                                          <input type="text" name="name" class="form-control" id="nama" placeholder="Nama Auditor" aria-label="Nama" value="{{ $data->name }}">
                                       </div>
                                   </div>
                                   <div class="row mb-4">
@@ -160,12 +160,12 @@
                                   </div>
                                   <div class="row mb-4">
                                       <div class="col">
-                                          <label for="pwd" class="form-label">Password</label>
-                                          <input type="password" name="password" class="form-control" id="pwd" placeholder="Password" aria-label="Password" value="{{ $data->password }}">
+                                          <label for="username" class="form-label">Username</label>
+                                          <input type="text" name="username" class="form-control" id="username" placeholder="Username" aria-label="Username" value="{{ $data->username }}">
                                       </div>
                                       <div class="col">
-                                          <label for="jabatan" class="form-label">Jabatan</label>
-                                          <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan }}">
+                                          <label for="pwd" class="form-label">Password</label>
+                                          <input type="password" name="password" class="form-control" id="pwd" placeholder="Password" aria-label="Password" value="{{ $data->password }}">
                                       </div>
                                   </div>
                                   <div class="row mb-4">
@@ -192,7 +192,8 @@
                                           </select>
                                       </div>
                                       <div class="col">
-                                          
+                                          <label for="jabatan" class="form-label">Jabatan</label>
+                                          <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan }}">
                                       </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary float-end">Submit</button>
