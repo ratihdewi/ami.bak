@@ -1,5 +1,8 @@
 
-@extends('layout.main') @section('title') AMI - Daftar Auditor @endsection
+@extends('layout.main') 
+
+@section('title') AMI - Daftar Auditor @endsection
+
 @section('container')
 
 

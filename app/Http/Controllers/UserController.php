@@ -49,4 +49,17 @@ class UserController extends Controller
         $data->delete();
         return redirect()->route('daftaruser')->with('success', 'Data berhasil dihapus');
     }
+
+    //add auditor
+    public function viewuser()
+    {
+        return view('addAuditor');
+    }
+
+    public function getuser()
+    {
+        $p = User::all();
+
+        return response()->json($p);
+    }
 }

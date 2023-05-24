@@ -12,7 +12,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nipAuditor" class="form-label">NIP</label>
-                                <input type="text" name="nip" class="form-control" id="nipAuditor" placeholder="NIP Auditor" aria-label="NIP">
+                                <input type="text" name="nip" class="form-control" id="nipAuditor" placeholder="NIP Auditor" aria-label="NIP" oninput="myFunction()">
                             </div>
                             <div class="col">
                                 <label for="namaAuditor" class="form-label">Nama</label>
@@ -59,3 +59,74 @@
 </div>
 
 @endsection
+
+@push('script')
+    {{-- <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@master/dist/latest/bootstrap-autocomplete.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> --}}
+    <script>
+        function myFunction()
+        {
+            var nip = document.getElementById("nipAuditor");
+            var nama = document.getElementById("namaAuditor");
+            var fakultas = document.getElementById("fakultas");
+            var programstudi = document.getElementById("programstudi");
+            var nomorTelepon = document.getElementById("nomorTelepon");
+            console.log(nip.value);
+
+            if (nip.value == '119012') {
+                nama.value = "SPM Role";
+                // document.getElementById("nama").innerHTML = nama.value;
+                fakultas.value = "Program Studi Ilmu Komputer";
+                programstudi.value = "Program Studi Ilmu Komputer";
+                nomorTelepon.value = "082344556326";
+            } if (nip.value == '119022') {
+                nama.value = "Auditor Role";
+                fakultas.value = "Fakultas Sains dan Ilmu Komputer";
+                programstudi.value = "Fakultas Sains dan Ilmu Komputer";
+                nomorTelepon.value = "082344553626";
+            } if (nip.value == '119032') {
+                nama.value = "Auditee Role";
+                fakultas.value = "Direktorat IT";
+                programstudi.value = "Direktorat IT";
+                nomorTelepon.value = "082343553626";
+            } else {
+                window.print("Data Tidak Ditemukan");
+            }
+
+        }
+    </script>
+    {{-- <script type="text/javascript">
+        
+        // $(document).ready(function() {
+        //     console.log('test');
+        //     $.ajax({
+        //         type:'get',
+        //         url:'{!!URL::to('findusers')!!}',
+        //         success:function(response){
+        //             console.log(response);
+
+        //             var userArray = response;
+        //             var dataUser = [];
+        //             var dataUser2 = [];
+        //             var dataUser3 = [];
+        //             var dataUser4 = [];
+        //             for (var i=0; i<userArray.length; i++){
+        //                 dataUser[i] = userArray[i].nip;
+        //                 dataUser2[i] = userArray[i].name; 
+        //                 dataUser3[i] = userArray[i].unit_kerja; 
+        //                 dataUser4[i] = userArray[i].unit_kerja;  
+        //             }
+        //             console.log(dataUser2);  
+        //             $('input#nipAuditor').autocomplete({
+        //                 source : dataUser,
+        //                 onSelect:function(reqdata){
+        //                     console.log(reqdata);
+
+        //                 }
+        //             });
+        //         }
+        //     })
+        // })
+    </script> --}}
+@endpush

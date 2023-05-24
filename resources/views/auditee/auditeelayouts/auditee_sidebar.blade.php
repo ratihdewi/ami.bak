@@ -6,8 +6,8 @@
         </a>
         <div class="nav_list">
             <a
-                href="/daftarAuditor"
-                class="nav_link {{ Request::routeIs('auditor') ? 'active' : '' || Request::routeIs('tambahauditor') ? 'active' : '' || Request::routeIs('tampilauditor') ? 'active' : '' }}"
+                href="/auditee-daftarauditor"
+                class="nav_link {{ Request::is('auditee-daftarauditor') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -18,8 +18,8 @@
                 <span class="nav_name"> Daftar Auditor </span>
             </a>
             <a
-                href="/daftarAuditee"
-                class="nav_link {{ Request::routeIs('daftarAuditee') ? 'active' : '' || Request::routeIs('tambahauditee') ? 'active' : '' || Request::routeIs('tampilauditee') ? 'active' : '' }}"
+                href="/auditee-daftarauditee"
+                class="nav_link {{ Request::is('auditee-daftarauditee') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -88,15 +88,6 @@
                         width="25"
                 /></i>
                 <span class="nav_name"> Dokumen Resmi AMI </span>
-            </a>
-            <a href="{{ route('daftaruser') }}" class="nav_link {{ Request::routeIs('daftaruser') ? 'active' : '' || Request::routeIs('tambahuser') ? 'active' : '' || Request::routeIs('tampiluser') ? 'active' : '' }}">
-                <i class="bx nav_icon"
-                    ><img
-                        src="asset/sideBar/tindakanKoreksi.png"
-                        alt="Logo-Role"
-                        width="25"
-                /></i>
-                <span class="nav_name"> Daftar User </span>
             </a>
         </div>
     </div>

@@ -18,7 +18,7 @@ class AuditeeSeeder extends Seeder
             'unit_kerja' => 'Direktorat IT',
             'ketua_auditee' => 'Karsyn Stevenson',
             'jabatan_ketua_auditee' => 'Ketua Program Studi Ilmu Komputer',
-            'ketua_auditor' => 'Teknik Perminyakan',
+            'ketua_auditor' => 'Chintya Collier',
             'anggota_auditor' =>'Thalia Collier'
         ]);
     }

@@ -47,6 +47,8 @@ Route::post('/insertUser', [UserController::class, 'insertdata'])->name('insertu
 Route::get('/tampilUser/{id}', [UserController::class, 'tampildata'])->name('tampiluser');
 Route::post('/updateUser/{id}', [UserController::class, 'updatedata'])->name('updateuser');
 Route::get('/deleteUser/{id}', [UserController::class, 'deletedata'])->name('deleteuser');
+Route::get('/searchuser-addauditor', [UserController::class, 'viewuser'])->name('searchnipauditor');
+Route::get('/findusers', [UserController::class, 'getuser'])->name('finduserauditor');
 Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudit');
 
 // Role Auditor
