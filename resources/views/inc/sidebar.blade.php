@@ -19,7 +19,7 @@
             </a>
             <a
                 href="/daftarAuditee"
-                class="nav_link {{ Request::routeIs('daftarAuditee') ? 'active' : '' || Request::routeIs('tambahauditee') ? 'active' : '' || Request::routeIs('tampilauditee') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditee') ? 'active' : '' || Request::routeIs('tambahauditee') ? 'active' : '' || Request::routeIs('tampilauditee') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -38,7 +38,7 @@
                 /></i>
                 <span class="nav_name"> DaftarTilik </span>
             </a>
-            <a href="{{ route('jadwalaudit') }}" class="nav_link">
+            <a href="/jadwalaudit" class="nav_link {{ Request::routeIs('jadwalaudit') ? 'active' : '' || Request::routeIs('tambahjadwal') ? 'active' : '' || Request::routeIs('tambahjadwalaudit') ? 'active' : '' }} }}  ">
                 <i class="bx nav_icon"
                     ><img
                         src="asset/sideBar/jadwalAudit.png"
@@ -80,7 +80,7 @@
                 /></i>
                 <span class="nav_name"> RTM </span>
             </a>
-            <a href="#" class="nav_link">
+            <a href="/dokresmi" class="nav_link {{ Request::is('dokresmi') ? 'active' : '' }}">
                 <i class="bx nav_icon"
                     ><img
                         src="asset/sideBar/dokumenResmiAMI.png"
@@ -89,7 +89,10 @@
                 /></i>
                 <span class="nav_name"> Dokumen Resmi AMI </span>
             </a>
-            <a href="{{ route('daftaruser') }}" class="nav_link {{ Request::routeIs('daftaruser') ? 'active' : '' || Request::routeIs('tambahuser') ? 'active' : '' || Request::routeIs('tampiluser') ? 'active' : '' }}">
+            <a
+                href="{{ route('daftaruser') }}"
+                class="nav_link {{ Request::routeIs('daftaruser') ? 'active' : '' || Request::routeIs('tambahuser') ? 'active' : '' || Request::routeIs('tampiluser') ? 'active' : '' }}"
+            >
                 <i class="bx nav_icon"
                     ><img
                         src="asset/sideBar/tindakanKoreksi.png"

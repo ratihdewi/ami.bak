@@ -33,7 +33,7 @@ use App\Http\Controllers\Auth\LoginController;
 // });
 
 Route::get('/', function(){
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
@@ -50,6 +50,13 @@ Route::get('/deleteUser/{id}', [UserController::class, 'deletedata'])->name('del
 Route::get('/searchuser-addauditor', [UserController::class, 'viewuser'])->name('searchnipauditor');
 Route::get('/findusers', [UserController::class, 'getuser'])->name('finduserauditor');
 Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudit');
+Route::get('/jadwalaudit-filter', [JadwalController::class, 'filter'])->name('jadwalauditfilter');
+Route::get('/jadwalauditAMI-tambahjadwal', [JadwalController::class, 'tambahjadwal'])->name('tambahjadwal');
+Route::get('/jadwalaudit-tambahjadwal', [JadwalController::class, 'tambahjadwalaudit'])->name('tambahjadwalaudit');
+Route::post('/insertJadwal', [JadwalController::class, 'insertdata'])->name('insertjadwal');
+Route::get('/dokresmi', function(){
+    return view('spm/dokResmi');
+});
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');

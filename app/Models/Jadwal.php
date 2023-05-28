@@ -15,4 +15,5 @@ class Jadwal extends Model
         'waktu',
         'kegiatan',
     ];
+    protected $dates = ['hari_tgl'];
 }

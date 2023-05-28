@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,42 @@ class JadwalController extends Controller
         $data = Jadwal::all();
         // dd($data);
         return view('spm/jadwalAudit', compact('data'));
+    }
+
+    public function filter(Request $request)
+    {
+        $jadwal = Jadwal::query();
+
+        $jadwal->when($request->auditee, function($query) use ($request) {
+            return $query->where('auditee', 'like', '%'.$request->name.'%');
+        });
+
+        // $tahun = ($request->hari_tgl)->format('Y');
+
+        // $jadwal->when($tahun, function($query) use ($request) {
+        //     return $query->where($tahun, 'like', '%'.($request->hari_tgl)->format('Y').'%');
+        // });
+
+        // dd($jadwal);
+
+        return view('spm/jadwalAudit'); 
+    }
+
+    public function tambahjadwal()
+    {
+        return view('spm/addJadwal');
+    }
+
+    public function tambahjadwalaudit()
+    {
+        return view ('spm/addJadwalAudit');
+    }
+
+    public function insertdata(Request $request)
+    {
+        // dd($request->all());
+        Jadwal::create($request->all());
+        return redirect()->route('jadwalaudit');
     }
 
     /**

@@ -41,8 +41,8 @@
                                             <td>{{ $item->ketua_auditor }}</td>
                                             <td>{{ $item->anggota_auditor }}</td>
                                             <td class="text-center">
-                                                <a href="tampilAuditee/{{ $item->id }}" class="btn btn-warning">Edit</a>
-                                                <a href="deleteAuditee/{{ $item->id }}" class="btn btn-danger">Delete</a>
+                                                <a href="tampilAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                                                <a href="deleteAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

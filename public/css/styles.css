@@ -80,6 +80,7 @@ a {
     justify-content: space-between;
     overflow: hidden;
 }
+
 .nav a {
     text-decoration: none;
 }
@@ -103,17 +104,25 @@ a {
     font-weight: 700;
     margin-left: 10px;
 }
+
 .nav_name {
     margin-left: 10px;
+    font-weight: 700;
+    font-size: 12px;
 }
 .nav_link {
     position: relative;
-    color: var(--first-color-light);
+    color: var(--medBlack-color);
     margin-bottom: 0.5rem;
     transition: 0.3s;
 }
 .nav_link:hover {
     color: var(--medBlack-color);
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 200px;
+    background-clip: padding-box;
+    opacity: 80%;
 }
 .nav_icon {
     font-size: 1.25rem;
@@ -124,23 +133,51 @@ a {
 .body-pd {
     padding-left: calc(var(--nav-width) + 1rem);
 }
-.active {
+nav .active {
     color: var(--medBlack-color);
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 200px;
+    background-clip: padding-box;
 }
-.active::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 5px;
-    height: 32px;
-    background-color: var(--medBlack-color);
-}
+
 .height-100 {
     height: 100vh;
 }
 #main-container {
     margin-top: 90px;
 }
+.bi {
+    color: var(--medBlack-color);
+    font-size: 15px;
+}
+/* Jadwal Audit */
+.search {
+    background: #b1e3e5;
+    border: 1px solid #ababab;
+}
+
+.jadwalAudit .nav-tabs .nav-item button {
+    color: var(--medBlack-color);
+    font-weight: 600;
+}
+
+.jadwalAudit .nav-tabs button.active,
+.jadwalKeseluruhan .nav-tabs button.active {
+    color: var(--medBlack-color);
+    background-color: #d8f3d6;
+}
+
+button.btn.btn-success.float-end {
+    background: #00d215;
+    border: 1px solid #008f0e;
+}
+
+/* Dokumen Resmi */
+.card .dokresmi {
+    background: #bfe9df;
+}
+
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;

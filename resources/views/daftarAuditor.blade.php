@@ -46,8 +46,8 @@
                         <td>{{ $item->fakultas }}</td>
                         <td class="text-center">{{ $item->noTelepon }}</td>
                         <td class="text-center">
-                            <a href="tampilAuditor\{{ $item->id }}" class="btn btn-warning">Edit</a>
-                            <a href="deleteAuditor\{{ $item->id }}" class="btn btn-danger">Delete</a>
+                            <a href="tampilAuditor\{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                            <a href="deleteAuditor\{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                 @endforeach
