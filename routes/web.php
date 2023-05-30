@@ -9,6 +9,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FullCalenderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,10 @@ Route::get('/deleteAuditor/{id}', [AuditorController::class, 'deletedata'])->nam
 Route::get('/daftarAuditee', [AuditeeController::class, 'index'])->name('auditee');
 
 Route::get('/daftarAuditor', [AuditorController::class, 'index'])->name('auditor');
+
+Route::get('/ketersediaan-jadwal', [FullCalenderController::class, 'index']);
+
+Route::post('/ketersediaan-jadwal/action', [FullCalenderController::class, 'action']);
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
