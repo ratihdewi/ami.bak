@@ -173,6 +173,28 @@ button.btn.btn-success.float-end {
     border: 1px solid #008f0e;
 }
 
+/* Ketersediaan Jadwal */
+#inputKetersediaan {
+    background: rgba(177, 227, 229, 0.37);
+    min-height: 260px;
+}
+#dateInfo {
+    font-size: 16px;
+    font-weight: 500;
+    color: #303030;
+}
+#inputKetersediaan form input {
+    min-height: 100px;
+    padding: 10px 20px 50px;
+    vertical-align: top;
+}
+
+@media (max-width: 382px) {
+    #inputKetersediaan {
+        min-height: 320px;
+    }
+}
+
 /* Dokumen Resmi */
 .card .dokresmi {
     background: #bfe9df;

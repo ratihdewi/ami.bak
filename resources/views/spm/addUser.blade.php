@@ -88,7 +88,7 @@
                                         </div>    
                                       </div>
                                   </div>
-                                  <button type="submit" class="btn btn-primary float-end">Submit</button>
+                                  <button type="submit" class="btn btn-primary float-end">Simpan</button>
                               </form>
                           </div>
                       </div>

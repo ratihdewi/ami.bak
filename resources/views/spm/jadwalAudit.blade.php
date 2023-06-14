@@ -60,7 +60,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php $no = 1; @endphp @foreach ($data as $item)
+                    @php $no = 1; @endphp
+                    <tr>
+                        <th scope="row" class="text-center">{{ $no++ }}</th>
+                        <td class="text-center">Program Studi Ilmu Komputer</td>
+                        <td class="text-center">Auditor 01</td>
+                        <td class="text-center">Universitas Pertamina</td>
+                        <td class="text-center">Senin. 19 Juni 2023</td>
+                        <td class="text-center">09:00 WIB</td>
+                        <td class="text-center">Audit Lapangan</td>
+                        <td class="text-center">
+                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                    @foreach ($data as $item)
                     <tr>
                         <th scope="row" class="text-center">{{ $no++ }}</th>
                         <td class="text-center">{{ $item->auditee }}</td>
@@ -84,6 +98,16 @@
       <div class="tab-pane fade w-100" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container mt-3">
             <div id="calendar"></div>
+            <div id="inputKetersediaan" class="inputKetersediaan mt-3 p-3 border rounded">
+              <h5 class="fw-bold">Ketersediaan Jadwal</h5>
+              <p id="dateInfo">15 Juni</p>
+              <form action="">
+                <input type="text" placeholder="Silahkan masukkan sesi menrut ketersediaan dan kesediaan Anda" class="w-100 border rounded">
+
+                <button type="button" class="btn btn-success btn-sm float-end mt-3 mx-1">Simpan</button>
+                <button type="button" class="btn btn-danger btn-sm float-end mt-3 mx-1">Batal</button>
+              </form>
+            </div>
         </div>
       </div>
     </div>

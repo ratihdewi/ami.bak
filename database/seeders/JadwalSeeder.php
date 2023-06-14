@@ -14,7 +14,7 @@ class JadwalSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('jadwal')->insert([
+        DB::table('jadwals')->insert([
             'auditee' => 'Direktorat IT',
             'auditor' => 'Karsyn Stevenson',
             'tempat' => 'Ketua Program Studi Ilmu Komputer',

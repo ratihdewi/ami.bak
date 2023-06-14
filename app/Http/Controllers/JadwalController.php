@@ -16,7 +16,7 @@ class JadwalController extends Controller
     public function index()
     {
         $data = Jadwal::all();
-        // dd($data);
+        //dd($data);
         return view('spm/jadwalAudit', compact('data'));
     }
 
@@ -51,7 +51,7 @@ class JadwalController extends Controller
 
     public function insertdata(Request $request)
     {
-        // dd($request->all());
+        //dd($request->all());
         Jadwal::create($request->all());
         return redirect()->route('jadwalaudit');
     }

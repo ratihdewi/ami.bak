@@ -29,7 +29,7 @@
                 /></i>
                 <span class="nav_name">Daftar Auditee</span>
             </a>
-            <a href="#" class="nav_link">
+            <a href="/daftartilik" class="nav_link {{ Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' }}">
                 <i class="bx nav_icon"
                     ><img
                         src="asset/sideBar/daftarTilik.png"

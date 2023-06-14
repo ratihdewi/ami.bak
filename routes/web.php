@@ -9,6 +9,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DaftarTilikController;
 use App\Http\Controllers\FullCalenderController;
 
 /*
@@ -54,10 +55,13 @@ Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudi
 Route::get('/jadwalaudit-filter', [JadwalController::class, 'filter'])->name('jadwalauditfilter');
 Route::get('/jadwalauditAMI-tambahjadwal', [JadwalController::class, 'tambahjadwal'])->name('tambahjadwal');
 Route::get('/jadwalaudit-tambahjadwal', [JadwalController::class, 'tambahjadwalaudit'])->name('tambahjadwalaudit');
-Route::post('/insertJadwal', [JadwalController::class, 'insertdata'])->name('insertjadwal');
+// Route::post('/insertjadwal', [JadwalController::class, 'insertdata'])->name('insertjadwal');
+Route::get('/insertjadwal', [JadwalController::class, 'index'])->name('insertjadwal');
 Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });
+Route::get('/daftartilik', [DaftarTilikController::class, 'index'])->name('daftartilik');
+Route::get('/DaftarTilik-adddaftartilik', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');
