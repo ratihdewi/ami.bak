@@ -231,4 +231,44 @@ button.btn.btn-success.float-end {
     #main-container input .saveAddAuditee {
         margin-right: 5rem;
     }
+
+    /* .inputGrupText .col-7 {
+        width: 65%;
+        margin-right: 0px !important;
+    }
+    .inputGrupText .col-4 {
+        width: 30%;
+        margin-left: 0px !important;
+    } */
+}
+
+@media screen and (min-width: 1024px) {
+    /* Form Daftar Tilik */
+    .inputGrupText .col-7 {
+        width: 65%;
+        margin-right: 0px !important;
+    }
+    .inputGrupText .col-4 {
+        width: 30%;
+        margin-left: 0px !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    /* Form Daftar Tilik */
+    .inputGrupText .col-7 {
+        width: 100%;
+        margin-right: 0px !important;
+    }
+    .inputGrupText .col-4 {
+        width: 100%;
+        margin-left: 0px !important;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    /* Form Daftar Tilik */
+    .inputGrupText .inputReferensi {
+        padding-top: 24px;
+    }
 }
