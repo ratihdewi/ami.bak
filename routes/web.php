@@ -65,6 +65,7 @@ Route::get('/daftartilik', [DaftarTilikController::class, 'index'])->name('dafta
 Route::get('/DaftarTilik-adddaftartilik', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
+Route::get('/BA-AMI', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-AMI');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');

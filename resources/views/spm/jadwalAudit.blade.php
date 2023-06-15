@@ -115,7 +115,7 @@
   
   {{-- Jadwal keseluruhan --}}
   <div class="jadwalKeseluruhan" style="margin-top: 100px">
-    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist">
+    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist" style="border: none;">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jadwal Audit Mutu Internal</button>
       </li>
@@ -127,7 +127,7 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
-            <table class="table table-hover mt-2">
+            <table class="table table-hover">
                 <thead>
                     <tr class="">
                         <th class="col-1 text-center">No</th>

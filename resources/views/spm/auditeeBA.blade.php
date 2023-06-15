@@ -5,7 +5,7 @@
         <div class="input-group w-50 h-25 my-3 ms-4">
             <input class="form-control" id="myInput" type="text" placeholder="Cari berdasarkan Auditee">
         </div>
-        <a href="#"><button type="button" class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"><i class="bi bi-file-earmark-text me-2"></i>BA AMI</button></a>
+        <a href="/BA-AMI"><button type="button" class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"><i class="bi bi-file-earmark-text me-2"></i>BA AMI</button></a>
     </div>
     <div class="topSection d-flex justify-content-around mx-2 mt-4">
         @if ($message = Session::get('success'))

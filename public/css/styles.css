@@ -268,3 +268,30 @@ button.btn.btn-success.float-end {
 .borderless th {
     border: none;
 }
+.dataDokumenBA {
+    font-size: 12px;
+}
+.dataDokumenBA .label {
+    background: #ddf5d4;
+}
+
+.dataDokumenBA .border {
+    border-color: #636363 !important;
+}
+
+.dataDokBA .nav-item {
+    background: #bfe9df;
+    border: 2px solid #75c8be;
+    border-bottom: none;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.dataDokBA .nav-link {
+    color: #303030;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.dataDokBA .nav-tabs {
+    border-bottom: 2px solid #75c8be;
+}

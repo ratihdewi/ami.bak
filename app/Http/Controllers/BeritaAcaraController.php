@@ -14,4 +14,9 @@ class BeritaAcaraController extends Controller
     {
         return view('spm/auditeeBA');
     }
+
+    public function tampilBA_AMI()
+    {
+        return view('spm/beritaAcaraAMI');
+    }
 }
