@@ -231,15 +231,6 @@ button.btn.btn-success.float-end {
     #main-container input .saveAddAuditee {
         margin-right: 5rem;
     }
-
-    /* .inputGrupText .col-7 {
-        width: 65%;
-        margin-right: 0px !important;
-    }
-    .inputGrupText .col-4 {
-        width: 30%;
-        margin-left: 0px !important;
-    } */
 }
 
 @media screen and (min-width: 1024px) {
@@ -271,4 +262,9 @@ button.btn.btn-success.float-end {
     .inputGrupText .inputReferensi {
         padding-top: 24px;
     }
+}
+
+/* Berita acara */
+.borderless th {
+    border: none;
 }

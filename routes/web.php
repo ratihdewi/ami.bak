@@ -9,6 +9,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BeritaAcaraController;
 use App\Http\Controllers\DaftarTilikController;
 use App\Http\Controllers\FullCalenderController;
 
@@ -62,6 +63,8 @@ Route::get('/dokresmi', function(){
 });
 Route::get('/daftartilik', [DaftarTilikController::class, 'index'])->name('daftartilik');
 Route::get('/DaftarTilik-adddaftartilik', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
+Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
+Route::get('/auditeeBA', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');
