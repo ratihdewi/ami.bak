@@ -168,7 +168,8 @@ nav .active {
     background-color: #d8f3d6;
 }
 
-button.btn.btn-success.float-end {
+button.btn.btn-success.float-end,
+.simpanBA button.btn.btn-success {
     background: #00d215;
     border: 1px solid #008f0e;
 }
@@ -275,11 +276,8 @@ button.btn.btn-success.float-end {
     background: #ddf5d4;
 }
 
-.dataDokumenBA .border {
-    border-color: #636363 !important;
-}
-
-.dataDokBA .nav-item {
+.dataDokBA .nav-item,
+.sectionName {
     background: #bfe9df;
     border: 2px solid #75c8be;
     border-bottom: none;
@@ -289,9 +287,20 @@ button.btn.btn-success.float-end {
 .dataDokBA .nav-link {
     color: #303030;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
 }
 
-.dataDokBA .nav-tabs {
+.dataDokBA .nav-tabs,
+.sectionName {
     border-bottom: 2px solid #75c8be;
+}
+
+.sectionName {
+    color: #303030;
+}
+.inputAbsen button.moreItems_add {
+    margin-top: 30px;
+}
+.temuanAuditBA2 {
+    font-size: 12px;
 }

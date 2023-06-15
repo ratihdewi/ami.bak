@@ -1,12 +1,12 @@
 @extends('layout.main') @section('title') AMI - Temuan Berita Acara @endsection
 @section('container')
   <div class="container">
-      <div class="d-flex my-3 justify-content-between">
-        <div class="btn-left ms-3">
+      <div class="d-flex my-4 justify-content-between">
+        <div class="btn-left">
           <a href="/auditeeBA"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
-          <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
+          <a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a>
         </div>
-        <div class="btn-right me-3">
+        <div class="btn-right">
           <button class="btn btn-primary btn-sm" type="button">Cetak</button>
         </div>
       </div>
@@ -18,7 +18,7 @@
           @endif
       </div>
       <div class="dataDokumenAMI mb-4">
-        <div class="dataDokBA mt-5">
+        <div class="dataDokBA mt-3">
           <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Data Dokumen BA</button>
@@ -261,8 +261,8 @@
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
           <div class="row mt-4">
-            <div class="col-1 logoDokumen border rounded-start py-3"><i class="bi bi-file-earmark-text-fill h2"></i></div>
-            <div class="col-3 infoDokumen border rounded-end text-start py-3">
+            <div class="col-1 logoDokumen bg-warning bg-opacity-10 border border-info rounded-start py-3"><i class="bi bi-file-earmark-text-fill h2"></i></div>
+            <div class="col-3 infoDokumen bg-warning bg-opacity-10 border border-info rounded-end text-start py-3">
               <h3 class="fs-6 mb-0">Judul dokumen pendukung</h3>
               <p class="fs-6 mb-0">Kode dokumen</p>
             </div>
@@ -329,19 +329,3 @@
       </div>         
   </div>
 @endsection
-
-@push('script')
-
-<script>
-  $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $(".listTemuanBA").filter(function() {
-        // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
-</script>
-    
-@endpush

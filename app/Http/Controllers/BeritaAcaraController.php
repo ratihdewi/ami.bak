@@ -19,4 +19,9 @@ class BeritaAcaraController extends Controller
     {
         return view('spm/beritaAcaraAMI');
     }
+
+    public function ubahdata()
+    {
+        return view('spm/ubahDataBA');
+    }
 }
