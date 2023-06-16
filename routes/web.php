@@ -70,6 +70,7 @@ Route::get('/BA-AMI', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-
 Route::get('/ubahdataBA', [BeritaAcaraController::class, 'ubahdata'])->name('ubahdataBA');
 Route::get('/tindakankoreksi', [TindakanKoreksiController::class, 'index'])->name('tindakankoreksi');
 Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');
+Route::get('/tindakankoreksi-formtemuan', [TindakanKoreksiController::class, 'tampilForm'])->name('tindakankoreksi-formtemuan');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');

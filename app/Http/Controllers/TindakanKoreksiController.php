@@ -15,4 +15,9 @@ class TindakanKoreksiController extends Controller
     {
         return view('spm/temuanTindakanKoreksi');
     }
+
+    public function tampilForm()
+    {
+        return view('spm/formTindakanKoreksi');
+    }
 }

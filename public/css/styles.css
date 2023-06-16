@@ -169,7 +169,8 @@ nav .active {
 }
 
 button.btn.btn-success.float-end,
-.simpanBA button.btn.btn-success {
+.simpanBA button.btn.btn-success,
+.form-tindakankoreksiTemuan button.btn.btn-success.simpanTK {
     background: #00d215;
     border: 1px solid #008f0e;
 }
@@ -306,6 +307,14 @@ button.btn.btn-success.float-end,
 }
 
 /* view temuanTindakanKoreksi */
-.temuanTK {
+.temuanTK,
+.form-tindakankoreksiTemuan {
     font-size: 12px;
+}
+
+/* view form tindakan koreksi */
+.auditorSection button.btn.btn-success.approvalAuditor,
+.auditeeSection button.btn.btn-success.approvalAuditee {
+    background: #b4ddb8;
+    border: 1px solid #008f0e;
 }
