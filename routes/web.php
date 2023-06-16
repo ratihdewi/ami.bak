@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BeritaAcaraController;
 use App\Http\Controllers\DaftarTilikController;
 use App\Http\Controllers\FullCalenderController;
+use App\Http\Controllers\TindakanKoreksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,8 @@ Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('berit
 Route::get('/auditeeBA', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
 Route::get('/BA-AMI', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-AMI');
 Route::get('/ubahdataBA', [BeritaAcaraController::class, 'ubahdata'])->name('ubahdataBA');
+Route::get('/tindakankoreksi', [TindakanKoreksiController::class, 'index'])->name('tindakankoreksi');
+Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');

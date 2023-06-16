@@ -1,4 +1,4 @@
-@extends('layout.main') @section('title') AMI - Berita Acara @endsection
+@extends('layout.main') @section('title') AMI - Tindakan Koreksi @endsection
 @section('container')
 <div class="container">
     <div class="container-fluid d-flex justify-content-between mt-4">
@@ -26,12 +26,12 @@
                 @php $no = 1; @endphp
                 <tr class="row ListAuditee">
                     <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-7 auditee"><a href="/auditeeBA" class="text-decoration-none text-black">Fakultas Sains dan Ilmu Komputer</a></td>
+                    <td class="col-7 auditee"><a href="/tindakankoreksi-temuan" class="text-decoration-none text-black">Fakultas Sains dan Ilmu Komputer</a></td>
                     <td class="col-4 text-center">2023</td>
                 </tr>
                 <tr class="row ListAuditee">
                     <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-7 auditee"><a href="/auditeeBA" class="text-decoration-none text-black">Program Studi Ilmu Komputer</a></td>
+                    <td class="col-7 auditee"><a href="/tindakankoreksi-temuan" class="text-decoration-none text-black">Program Studi Ilmu Komputer</a></td>
                     <td class="col-4 text-center">2022</td>
                 </tr>
                 {{-- @foreach ($data as $item)

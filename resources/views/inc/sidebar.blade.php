@@ -56,7 +56,7 @@
                 /></i>
                 <span class="nav_name"> Berita Acara </span>
             </a>
-            <a href="#" class="nav_link">
+            <a href="/tindakankoreksi" class="nav_link {{ Request::routeIs('tindakankoreksi') ? 'active' : '' || Request::routeIs('tindakankoreksi-temuan') ? 'active' : '' }}">
                 <i class="bx nav_icon"
                     ><img
                         src="asset/sideBar/tindakanKoreksi.png"
