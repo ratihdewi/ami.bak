@@ -2,23 +2,23 @@
 @section('container')
 <div class="container">
     <div class="container-fluid d-flex justify-content-between mt-4">
-        <div class="input-group w-50 h-25 my-3 ms-4">
-            <select class="form-select" id="inputGroupSelect02">
+        <div class="input-group w-50 h-25 my-2 ms-4">
+            {{-- <select class="form-select" id="inputGroupSelect02">
                 <option selected disabled>Saring berdasarkan area</option>
                 <option value="Pendidikan">Pendidikan</option>
                 <option value="Penelitian">Penelitian</option>
                 <option value="PkM">PkM</option>
                 <option value="Tambahan">Tambahan</option>
             </select>
-            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button> --}}
         </div>
         <a
             href="DaftarTilik-adddaftartilik"
-            class="text-white me-4"
+            class="text-white"
             style="font-weight: 600; text-decoration: none"
             ><button
                 type="button"
-                class="btn btn-primary btn-sm float-end my-3 px-3"
+                class="btn btn-primary btn-sm float-end my-2 px-3"
             >
                 Tambah
             </button></a
@@ -32,34 +32,34 @@
         @endif
     </div>
     <div class="tableDaftarTilik mx-3">
-        <table class="table table-hover">
+        <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 12px">
             <thead>
-                <tr class="row">
-                    <th class="col-1 text-center">No</th>
-                    <th class="col-2 text-center">Auditee</th>
-                    <th class="col-1 text-center">Area</th>
-                    <th class="col-1 text-center">Butir Standar</th>
-                    <th class="col-1 text-center">Nomor Butir</th>
-                    <th class="col-2 text-center">
+                <tr class="row mt-3">
+                    <th class="col-1 px-0 text-center">No</th>
+                    <th class="col-2 px-0 text-center">Auditee</th>
+                    <th class="col-1 px-0 text-center">Area</th>
+                    <th class="col-1 px-0 text-center">Butir Standar</th>
+                    <th class="col-1 px-0 text-center">Nomor Butir</th>
+                    <th class="col-2 px-0 text-center">
                         Batas Pengisian Respon Auditee
                     </th>
-                    <th class="col-2 text-center">Pertanyaan</th>
-                    <th class="col-2 text-center">Aksi</th>
+                    <th class="col-3 px-0 text-center">Pertanyaan</th>
+                    <th class="col-1 px-0 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1; @endphp
                 <tr class="row">
-                    <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-2 text-center">Auditee01</td>
-                    <td class="col-1 text-center">Pendidikan</td>
-                    <td class="col-1 text-center">01 Kompetensi Lulusan/Hasil</td>
-                    <td class="col-1 text-center">01</td>
-                    <td class="col-2 text-center">12 Juli 2023</td>
-                    <td class="col-2">
+                    <td class="col-1 px-0 text-center">{{ $no++ }}</td>
+                    <td class="col-2 px-0 text-center">Auditee01</td>
+                    <td class="col-1 px-0 text-center">Pendidikan</td>
+                    <td class="col-1 px-0 text-center">01 Kompetensi Lulusan/Hasil</td>
+                    <td class="col-1 px-0 text-center">01</td>
+                    <td class="col-2 px-0 text-center">12 Juli 2023</td>
+                    <td class="col-3 px-0">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </td>
-                    <td class="col-2 text-center">
+                    <td class="col-1 px-0 text-center">
                         <a href="#" class="mx-2"
                             ><i class="bi bi-pencil-square"></i
                         ></a>
@@ -67,17 +67,17 @@
                     </td>
                 </tr>
                 <tr class="row">
-                    <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-2 text-center">Auditee01</td>
-                    <td class="col-1 text-center">Penelitian</td>
-                    <td class="col-1 text-center">03 Proses</td>
-                    <td class="col-1 text-center">15</td>
-                    <td class="col-2 text-center">12 Juli 2023</td>
-                    <td class="col-2">
+                    <td class="col-1 px-0 text-center">{{ $no++ }}</td>
+                    <td class="col-2 px-0 text-center">Auditee01</td>
+                    <td class="col-1 px-0 text-center">Penelitian</td>
+                    <td class="col-1 px-0 text-center">03 Proses</td>
+                    <td class="col-1 px-0 text-center">15</td>
+                    <td class="col-2 px-0 text-center">12 Juli 2023</td>
+                    <td class="col-3 px-0">
                         Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                         Eaque, explicabo.
                     </td>
-                    <td class="col-2 text-center">
+                    <td class="col-1 px-0 text-center">
                         <a href="#" class="mx-2"
                             ><i class="bi bi-pencil-square"></i
                         ></a>
@@ -106,3 +106,16 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+    <!-- jQuery library file -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+      <!-- Datatable plugin JS library file -->
+     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tableDaftarTilik').DataTable({ });
+        });
+    </script>
+@endpush

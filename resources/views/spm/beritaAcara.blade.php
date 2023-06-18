@@ -1,9 +1,9 @@
 @extends('layout.main') @section('title') AMI - Berita Acara @endsection
 @section('container')
-<div class="container">
+<div class="container" style="font-size: 15px">
     <div class="container-fluid d-flex justify-content-between mt-4">
         <div class="input-group w-50 h-25 my-3 ms-4">
-            <input class="form-control" id="myInput" type="text" placeholder="Cari berdasarkan Auditee">
+            <input class="form-control" id="myInput" type="text" style="font-size: 15px" placeholder="Cari berdasarkan Auditee">
         </div>
     </div>
     <div class="topSection d-flex justify-content-around mx-2 mt-4">

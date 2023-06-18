@@ -3,7 +3,7 @@
 @section('title') AMI - Daftar Auditee @endsection
 
 @section('container')
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="font-size: 15px">
         <div class="row">
                             <a
                                 href="addAuditee"
@@ -18,7 +18,7 @@
                                     {{ $message }}
                                 </div>
                             @endif
-                            <table class="table table-hover">
+                            <table class="table table-hover mt-5 mb-3" id="tableAuditee">
                                 <thead>
                                     <tr class="">
                                         <th class="col-1 text-center">No</th>
@@ -60,3 +60,16 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <!-- jQuery library file -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+      <!-- Datatable plugin JS library file -->
+     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tableAuditee').DataTable({ });
+        });
+    </script>
+@endpush

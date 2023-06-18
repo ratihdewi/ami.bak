@@ -56,7 +56,7 @@
                 /></i>
                 <span class="nav_name"> Berita Acara </span>
             </a>
-            <a href="/tindakankoreksi" class="nav_link {{ Request::routeIs('tindakankoreksi') ? 'active' : '' || Request::routeIs('tindakankoreksi-temuan') ? 'active' : '' }}">
+            <a href="/tindakankoreksi" class="nav_link {{ Request::routeIs('tindakankoreksi') ? 'active' : '' || Request::routeIs('tindakankoreksi-temuan') ? 'active' : '' || Request::routeIs('tindakankoreksi-formtemuan') ? 'active' : '' }}">
                 <i class="bx nav_icon"
                     ><img
                         src="asset/sideBar/tindakanKoreksi.png"
@@ -103,8 +103,17 @@
             </a>
         </div>
     </div>
-    <a href="#" class="nav_link">
+    <a href="{{ route('logout') }}" class="nav_link" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
         <i class="bx bx-log-out nav_icon"></i>
         <span class="nav_name"> SignOut </span>
     </a>
+    <form 
+        id="logout-form"
+        action="{{ route('logout') }}"
+        method="POST"
+        class="d-none"
+    >
+    @csrf
+    </form>
 </nav>

@@ -18,7 +18,7 @@
         {{ $message }}
     </div>
     @endif
-    <table class="table table-hover">
+    <table class="table table-hover" id="tableUser">
         <thead>
             <tr class="">
                 <th class="col-1 text-center">No</th>
@@ -52,3 +52,16 @@
 </div>
 
 @endsection
+
+@push('script')
+    <!-- jQuery library file -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+      <!-- Datatable plugin JS library file -->
+     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tableUser').DataTable({ });
+        });
+    </script>
+@endpush

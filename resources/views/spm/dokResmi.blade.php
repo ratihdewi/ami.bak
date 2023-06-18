@@ -28,14 +28,12 @@
       </div>
     </div>
   </div>
-  <div class="jadwalKeseluruhan" style="margin-top: 50px">
-    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist">
+  <div class="jadwalKeseluruhan mx-3" style="margin-top: 50px">
+    <ul class="nav nav-tabs flex-row justify-content-between jadwalAudit mt-5" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">SK dan Pedoman</button>
       </li>
-      <a href="jadwalaudit-tambahjadwal" class="ms-auto">
-        <button type="button" class="btn btn-primary btn-sm my-2">Tambah File</button>
-      </a>
+      <button type="button" class="btn btn-primary btn-sm my-2" data-bs-toggle="modal" data-bs-target="#formBatasAkses">Tambah File</button>
       
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -55,11 +53,11 @@
                     @php $no = 1; @endphp
                     <tr>
                         <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="">SK AMI 2023</td>
+                        <td class=""><a href="/auditor-dokresmi">SK AMI 2023</a></td>
                         <td class="text-center">SK</td>
                         <td class="text-center">28/03/2023 12:34</td>
                         <td class="text-center">
-                          <a href="deleteJadwalKeseluruhan" class="btn btn-danger">Delete</a>
+                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                     {{-- @foreach ($data as $item)
@@ -77,9 +75,55 @@
             </table>
         </div>
       </div>
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        Kalender Ketersediaan Jadwal
       </div>
+        <div class="modal" id="formBatasAkses">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Batas Akses Pengisian Tanda Tangan</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="namaPengisi" class="col-form-label">Auditor/Auditee</label>
+                    <input type="text" class="form-control" id="namaPengisi" placeholder="Nama Auditor atau Auditee">
+                  </div>
+                  <div class="mb-3">
+                    <label for="tglMulaiPengisian" class="col-form-label">Tanggal mulai persetujuan</label>
+                    <input type="date" class="form-control" id="tglMulaiPengisian" placeholder="Masukkan tanggal mulai persetujuan tindakan koreksi">
+                  </div>
+                  <div class="mb-3">
+                    <label for="tglBerakhirPengisian" class="col-form-label">Tanggal berakhir persetujuan</label>
+                    <input type="date" class="form-control" id="tglBerakhirPengisian" placeholder="Masukkan tanggal berakhir persetujuan tindakan koreksi">
+                  </div>
+                </form>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Simpan</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
-  </div>    
+    {{-- <div class="preview" id="previewDokResmi">
+      <embed src="/dokumen/example.pdf" type="application/pdf" width="300" height="200">
+      <object data="/dokumen/example.pdf" type="application/pdf" width="300" height="200">
+        
+      </object>
+      <iframe src="/dokumen/example.pdf"
+        width="250"
+        height="200">
+    </div>     --}}
 @endsection
+
+@push('script')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
+@endpush

@@ -1,12 +1,13 @@
 @extends('layout.main') @section('title') AMI - Temuan Berita Acara @endsection
 @section('container')
-<div class="container">
+<div class="container" style="font-size: 15px">
     <div class="container-fluid d-flex mt-4">
         <div class="input-group w-50 h-25 my-3 ms-4">
             <input
                 class="form-control"
                 id="myInput"
                 type="text"
+                style="font-size: 15px"
                 placeholder="Cari berdasarkan Auditee"
             />
         </div>
@@ -14,6 +15,7 @@
             ><button
                 type="button"
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
+                style="font-size: 15px"
             >
                 <i class="bi bi-file-earmark-text me-2"></i>BA AMI
             </button></a
@@ -27,95 +29,90 @@
         @endif
     </div>
     <div class="temuanBA mx-4">
-        <table class="table table-hover listAuditee">
+        <table class="table table-hover listAuditee display mb-4" id="tableTemuanBA" style="width: 100%">
             <thead>
-                <tr class="row mx-2 borderless">
-                    <th class="col-1 text-center">No</th>
-                    <th class="col-3 text-center">Deskripsi/Uraian Temuan</th>
-                    <th class="col-2 text-center">Kategori Temuan</th>
-                    <th class="col-2 text-center">Nomor Butir Mutu</th>
-                    <th class="col-2 text-center">eSign</th>
-                    <th class="col-1 text-center">Dokumentasi</th>
-                    <th class="col-1 text-center">Aksi</th>
+                <tr class="text-center">
+                    <th class="align-middle" rowspan="2">No</th>
+                    <th class="align-middle" rowspan="2">Deskripsi/Uraian Temuan</th>
+                    <th class="border border-0" colspan="2">Kategori Temuan</th>
+                    <th class="align-middle" rowspan="2">Nomor Butir Mutu</th>
+                    <th class="border border-0" colspan="2">eSign</th>
+                    <th class="align-middle" rowspan="2">Dokumentasi</th>
+                    <th class="align-middle" rowspan="2">Aksi</th>
                 </tr>
-                <tr class="row mx-2">
-                    <th class="col-1 text-center"></th>
-                    <th class="col-3 text-center"></th>
-                    <th class="col-1 text-center">OB</th>
-                    <th class="col-1 text-center">KTS</th>
-                    <th class="col-2 text-center"></th>
-                    <th class="col-1 text-center">Auditee</th>
-                    <th class="col-1 text-center">Auditor</th>
-                    <th class="col-1 text-center"></th>
-                    <th class="col-1 text-center"></th>
+                <tr class="text-center">
+                    <th>OB</th>
+                    <th>KTS</th>
+                    <th>Auditee</th>
+                    <th>Auditor</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                <tr class="row mx-2 listTemuanBA">
-                    <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-3">
+                <tr class="listTemuanBA">
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Eum, repellendus?
                     </td>
-                    <td class="col-1 text-center">
+                    <td class="text-center">
                         <i class="bi bi-check-lg"></i>
                     </td>
-                    <td class="col-1 text-center"></td>
+                    <td class="text-center"></td>
                     <td class="col-2 text-center">XX Nomor Butir Mutu <br> 01</td>
-                    <td class="col-1 text-center">
+                    <td  class="text-center">
                         <a
                             href="/DaftarTilik-adddaftartilik"
                             class="btn btn-outline-success"
                             ><i class="bi bi-pen"></i
                         ></a>
                     </td>
-                    <td class="col-1 text-center">
+                    <td  class="text-center">
                         <a
                             href="/DaftarTilik-adddaftartilik"
                             class="btn btn-outline-success"
                             ><i class="bi bi-pen"></i
                         ></a>
                     </td>
-                    <td class="col-1 text-center">
+                    <td  class="text-center">
                         <a href="/DaftarTilik-adddaftartilik"
                             ><i class="bi bi-folder-fill h3"></i
                         ></a>
                     </td>
-                    <td class="col-1 text-center mt-1">
+                    <td class="text-center align-middle">
                         <a href="#" class="mx-2"
                             ><i class="bi bi-pencil-square h5"></i
                         ></a>
                     </td>
                 </tr>
-                <tr class="row mx-2 listTemuanBA">
-                    <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-3">Lorem ipsum dolor sit amet.</td>
-                    <td class="col-1 text-center"></td>
-                    <td class="col-1 text-center">
+                <tr class="listTemuanBA">
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
                         <i class="bi bi-check-lg"></i>
                     </td>
-                    <td class="col-2 text-center">XX Nomor Butir Mutu<br>02</td>
-                    <td class="col-1 text-center">
+                    <td>XX Nomor Butir Mutu<br>02</td>
+                    <td class="text-center">
                         <a
                             href="/DaftarTilik-adddaftartilik"
                             class="btn btn-outline-success"
                             ><i class="bi bi-pen"></i
                         ></a>
                     </td>
-                    <td class="col-1 text-center">
+                    <td class="text-center">
                         <a
                             href="/DaftarTilik-adddaftartilik"
                             class="btn btn-outline-success"
                             ><i class="bi bi-pen"></i
                         ></a>
                     </td>
-                    <td class="col-1 text-center">
+                    <td class="text-center">
                         <a href="/DaftarTilik-adddaftartilik"
                             ><i class="bi bi-folder-fill h3"></i
                         ></a>
                     </td>
-                    <td class="col-1 text-center mt-1">
+                    <td class="text-center align-middle">
                         <a href="#" class="mx-2"
                             ><i class="bi bi-pencil-square h5"></i
                         ></a>
@@ -142,20 +139,31 @@
         </table>
     </div>
 </div>
-@endsection @push('script')
+@endsection
 
-<script>
-    $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $(".listTemuanBA").filter(function () {
-                // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                $(this).toggle(
-                    $(this).text().toLowerCase().indexOf(value) > -1
-                );
-            });
+@push('script')
+
+    {{-- jQuery library file --}}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    {{-- Datatable plugin JS library file --}}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        // $(document).ready(function () {
+        //     $("#myInput").on("keyup", function () {
+        //         var value = $(this).val().toLowerCase();
+        //         $(".listTemuanBA").filter(function () {
+        //             // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //             $(this).toggle(
+        //                 $(this).text().toLowerCase().indexOf(value) > -1
+        //             );
+        //         });
+        //     });
+        // });
+
+        $(document).ready(function() {
+            $('#tableTemuanBA').DataTable({ });
         });
-    });
-</script>
+    </script>
 
 @endpush

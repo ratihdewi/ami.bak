@@ -55,6 +55,11 @@ class AuditorController extends Controller
         // dd($data);
         return view('auditor/daftarAuditor', compact('dataAuditor'));
     }
+
+    public function profil()
+    {
+        return view('spm/detailAuditor');
+    }
     //role auditor end
 
     //role auditee start
@@ -65,4 +70,9 @@ class AuditorController extends Controller
         return view('auditee/daftarAuditor', compact('dataAuditor'));
     }
     //role auditee end
+
+    public function testPDF()
+    {
+        return response()->file(public_path('dokumen/example.pdf'),['content-type'=>'application/pdf']);
+    }
 }

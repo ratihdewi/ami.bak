@@ -6,7 +6,7 @@
 @section('container')
 
 
-<div class="container">
+<div class="container"  style="font-size: 15px">
     <div class="row">
         <a
             href="addAuditor"
@@ -21,7 +21,7 @@
                 {{ $message }}
             </div>
         @endif
-        <table class="table table-hover">
+        <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>
                 <tr class="">
                     <th class="col-1 text-center">  No  </th>
@@ -57,3 +57,16 @@
 </div>
 
 @endsection
+
+@push('script')
+    <!-- jQuery library file -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+      <!-- Datatable plugin JS library file -->
+     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tableAuditor').DataTable({ });
+        });
+    </script>
+@endpush

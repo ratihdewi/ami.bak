@@ -151,6 +151,7 @@ nav .active {
     color: var(--medBlack-color);
     font-size: 15px;
 }
+
 /* Jadwal Audit */
 .search {
     background: #b1e3e5;
@@ -191,7 +192,7 @@ button.btn.btn-success.float-end,
     vertical-align: top;
 }
 
-@media (max-width: 382px) {
+@media screen and (max-width: 382px) {
     #inputKetersediaan {
         min-height: 320px;
     }
@@ -200,6 +201,23 @@ button.btn.btn-success.float-end,
 /* Dokumen Resmi */
 .card .dokresmi {
     background: #bfe9df;
+}
+
+@media only screen and (min-width: 280px) {
+    .card.login-card {
+        width: 90% !important;
+        height: 50%;
+        margin-top: 10% !important;
+        margin-bottom: 8% !important;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    .card.login-card {
+        width: 70%;
+        height: 80%;
+        margin-top: 10%;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -233,6 +251,11 @@ button.btn.btn-success.float-end,
     #main-container input .saveAddAuditee {
         margin-right: 5rem;
     }
+    .card.login-card {
+        width: 55% !important;
+        margin-top: 22% !important;
+        margin-bottom: 8% !important;
+    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -244,6 +267,12 @@ button.btn.btn-success.float-end,
     .inputGrupText .col-4 {
         width: 30%;
         margin-left: 0px !important;
+    }
+    .card.login-card {
+        width: 30% !important;
+        max-width: 40%;
+        margin-top: 12% !important;
+        margin-bottom: 8% !important;
     }
 }
 
@@ -263,6 +292,11 @@ button.btn.btn-success.float-end,
     /* Form Daftar Tilik */
     .inputGrupText .inputReferensi {
         padding-top: 24px;
+    }
+
+    .card.login-card {
+        margin-top: 8% !important;
+        margin-bottom: 8% !important;
     }
 }
 
@@ -309,12 +343,13 @@ button.btn.btn-success.float-end,
 /* view temuanTindakanKoreksi */
 .temuanTK,
 .form-tindakankoreksiTemuan {
-    font-size: 12px;
+    font-size: 15px;
 }
 
 /* view form tindakan koreksi */
 .auditorSection button.btn.btn-success.approvalAuditor,
-.auditeeSection button.btn.btn-success.approvalAuditee {
+.auditeeSection button.btn.btn-success.approvalAuditee,
+.auditorSection2 button.btn.btn-success.approvalAuditor2 {
     background: #b4ddb8;
     border: 1px solid #008f0e;
 }

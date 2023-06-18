@@ -5,15 +5,13 @@
         <title>AMI - Login</title>
     </head>
     <body>
-      <div class="container">
-        <div class="row justify-content-center my-5">
-            <div class="col-4">
-                <div class="card my-5">
+        <div class="container w-100 m-auto">
+                <div class="card login-card mx-auto">
                     <div class="card-header">{{ __('Login') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
-                            <img src="asset/Logo-UP.png" alt="LogoUPer" width="150" class="mt-4 mb-5 mx-auto d-block">
+                            <img src="asset/Logo-UP.png" alt="LogoUPer" width="100" class="mt-3 mb-4 mx-auto d-block">
                             @csrf
 
                             <div class="row mb-4">
@@ -44,9 +42,9 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-4">
+                            <div class="row mb-2">
                                 <div class="col-md-7 offset-md-4">
-                                    <div class="form-check">
+                                    <div class="form-check" style="font-size: 12px">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
@@ -56,14 +54,14 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row mb-1">
                                 <div class="d-grid gap-2 col-7 mx-auto">
                                     <button type="submit" class="btn btn-primary px-5">
                                         {{ __('Login') }}
                                     </button>
 
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        <a class="btn btn-link" href="{{ route('password.request') }}" style="font-size: 12px">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif
@@ -72,8 +70,6 @@
                         </form>
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
     </body>
 </html>
