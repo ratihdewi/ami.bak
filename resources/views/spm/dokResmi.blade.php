@@ -53,10 +53,11 @@
                     @php $no = 1; @endphp
                     <tr>
                         <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class=""><a href="/auditor-dokresmi">SK AMI 2023</a></td>
+                        <td class="">SK AMI 2023</td>
                         <td class="text-center">SK</td>
                         <td class="text-center">28/03/2023 12:34</td>
                         <td class="text-center">
+                          <a href="/auditor-dokresmi"><i class="bi bi-eye"></i></a>
                           <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>

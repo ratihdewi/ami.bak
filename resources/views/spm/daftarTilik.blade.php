@@ -32,7 +32,7 @@
         @endif
     </div>
     <div class="tableDaftarTilik mx-3">
-        <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 12px">
+        <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px">
             <thead>
                 <tr class="row mt-3">
                     <th class="col-1 px-0 text-center">No</th>

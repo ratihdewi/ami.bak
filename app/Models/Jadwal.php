@@ -7,17 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jadwal extends Model
 {
-    //use HasFactory;
+    use HasFactory;
 
-    // protected $fillable = [
-    //     'auditee',
-    //     'auditor',
-    //     'tempat',
-    //     'hari_tgl',
-    //     'waktu',
-    //     'kegiatan',
-    // ];
+    protected $fillable = [
+        'auditee',
+        'auditor',
+        'tempat',
+        'hari_tgl',
+        'waktu',
+        'kegiatan',
+    ];
 
-    // protected $dates = ['hari_tgl'];
-    protected $guarded = [];
+    protected $dates = ['hari_tgl'];
 }

@@ -5,8 +5,7 @@
         <div class="col-8">
             <div class="card mb-5">
                 <div class="card-body p-4">
-                    <form action="/insertjadwal" method="">
-                    {{-- <form action="/insertJadwal" method="POST"> --}}
+                    <form action="/insertjadwal" method="POST">
                         @csrf
                         <div class="row mb-3 px-5 py-3">
                             <label for="auditee" class="col-sm-3 col-form-label"
@@ -20,13 +19,13 @@
                                     required
                                 >
                                     <option selected disabled>Auditee</option>
-                                    <option value="1">
+                                    <option value="Program Studi Ilmu Komputer">
                                         Program Studi Ilmu Komputer
                                     </option>
-                                    <option value="2">
+                                    <option value="Fakultas Sains dan Ilmu Komputer">
                                         Fakultas Sains dan Ilmu Komputer
                                     </option>
-                                    <option value="3">Direktorat IT</option>
+                                    <option value="Direktorat IT">Direktorat IT</option>
                                 </select>
                             </div>
                         </div>
@@ -40,6 +39,7 @@
                                     class="form-control"
                                     id="auditor"
                                     placeholder="Auditor"
+                                    name="auditor"
                                     required
                                 />
                             </div>
@@ -73,6 +73,7 @@
                                             type="date"
                                             class="form-control"
                                             id="hari_tgl"
+                                            name="hari_tgl"
                                             required
                                         />
                                     </div>
@@ -89,6 +90,7 @@
                                             class="form-control"
                                             id="tempat"
                                             placeholder="Tempat Pelaksanaan"
+                                            name="tempat"
                                             required
                                         />
                                     </div>
@@ -105,6 +107,7 @@
                                             class="form-control"
                                             id="waktu"
                                             placeholder="Tempat Pelaksanaan"
+                                            name="waktu"
                                         />
                                     </div>
                                 </div>
@@ -120,6 +123,7 @@
                                             class="form-control"
                                             id="kegiatan"
                                             placeholder="Kegiatan"
+                                            name="kegiatan"
                                         />
                                     </div>
                                 </div>

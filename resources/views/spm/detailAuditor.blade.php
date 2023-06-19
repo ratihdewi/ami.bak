@@ -10,15 +10,15 @@
         <div class="card-body my-5">
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start">Nama</div>
-            <div class="col-6 border py-2 text-start">col-4</div>
+            <div class="col-6 border py-2 text-start">{{ Auth::user()->name }}</div>
           </div>
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start">NIP</div>
-            <div class="col-6 border py-2 text-start">col-4</div>
+            <div class="col-6 border py-2 text-start">{{ Auth::user()->nip }}</div>
           </div>
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start">Program Studi</div>
-            <div class="col-6 border py-2 text-start">col-4</div>
+            <div class="col-6 border py-2 text-start">{{ Auth::user()->unit_kerja }}</div>
           </div>
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start">Fakultas</div>

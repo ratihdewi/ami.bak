@@ -24,18 +24,6 @@ use App\Http\Controllers\TindakanKoreksiController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('daftarAuditor', [
-//         "title" => "Daftar Auditor",
-//         "dataAuditor" => Auditor::all()
-//     ]);
-// });
-
-// Route::get('/', function(){
-//     return redirect()->route('login');
-// });
-
 Route::get('/', function(){
     return redirect()->route('login');
 });
@@ -57,8 +45,8 @@ Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudi
 Route::get('/jadwalaudit-filter', [JadwalController::class, 'filter'])->name('jadwalauditfilter');
 Route::get('/jadwalauditAMI-tambahjadwal', [JadwalController::class, 'tambahjadwal'])->name('tambahjadwal');
 Route::get('/jadwalaudit-tambahjadwal', [JadwalController::class, 'tambahjadwalaudit'])->name('tambahjadwalaudit');
-// Route::post('/insertjadwal', [JadwalController::class, 'insertdata'])->name('insertjadwal');
-Route::get('/insertjadwal', [JadwalController::class, 'index'])->name('insertjadwal');
+Route::post('/insertjadwal', [JadwalController::class, 'insertdata'])->name('insertjadwal');
+// Route::get('/insertjadwal', [JadwalController::class, 'index'])->name('insertjadwal');
 Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });
