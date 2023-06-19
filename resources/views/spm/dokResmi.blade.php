@@ -82,7 +82,7 @@
 
               <!-- Modal Header -->
               <div class="modal-header">
-                <h4 class="modal-title">Batas Akses Pengisian Tanda Tangan</h4>
+                <h4 class="modal-title">Unggah Dokumen SK / Pedoman AMI</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
 
@@ -90,16 +90,20 @@
               <div class="modal-body">
                 <form>
                   <div class="mb-3">
-                    <label for="namaPengisi" class="col-form-label">Auditor/Auditee</label>
-                    <input type="text" class="form-control" id="namaPengisi" placeholder="Nama Auditor atau Auditee">
+                    <label for="inputTglPelaksanaanAMI" class="col-form-label">Peruntukan tahun pelaksanaan AMI:</label>
+                    <input type="date" class="form-control" id="inputTglPelaksanaanAMI" placeholder="Tanggal pelaksanaan AMI">
                   </div>
                   <div class="mb-3">
-                    <label for="tglMulaiPengisian" class="col-form-label">Tanggal mulai persetujuan</label>
-                    <input type="date" class="form-control" id="tglMulaiPengisian" placeholder="Masukkan tanggal mulai persetujuan tindakan koreksi">
+                    <label for="inputJenisDok" class="col-form-label">Jenis Dokumen:</label>
+                    <select id="inputJenisDok" class="form-select" aria-label="Default select example">
+                      <option selected disabled>Pilih jenis dokumen</option>
+                      <option value="SK">SK</option>
+                      <option value="Pedoman AMI">Pedoman AMI</option>
+                    </select>
                   </div>
                   <div class="mb-3">
-                    <label for="tglBerakhirPengisian" class="col-form-label">Tanggal berakhir persetujuan</label>
-                    <input type="date" class="form-control" id="tglBerakhirPengisian" placeholder="Masukkan tanggal berakhir persetujuan tindakan koreksi">
+                    <label for="formFileMultiple" class="form-label">Dokumen:</label>
+                    <input class="form-control" type="file" id="formFileMultiple" multiple>
                   </div>
                 </form>
               </div>
