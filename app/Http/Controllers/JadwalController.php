@@ -53,7 +53,27 @@ class JadwalController extends Controller
     {
         //dd($request->all());
         Jadwal::create($request->all());
-        return redirect()->route('jadwalaudit');
+        return redirect()->route('jadwalaudit')->with('success', 'Data berhasil ditambah');
+    }
+
+    public function tampildata($id){
+        $data = Jadwal::find($id);
+        //dd($data);
+        return view('spm/updateJadwalAudit', compact('data'));
+    }
+
+    public function updatedata(Request $request, $id)
+    {
+        $data = Jadwal::find($id);
+        $data->update($request->all());
+        return redirect()->route('jadwalaudit')->with('success', 'Data berhasil diupdate');
+    }
+
+    public function deletedata($id)
+    {
+        $data = Jadwal::find($id);
+        $data->delete();
+        return redirect()->route('jadwalaudit')->with('success', 'Data berhasil dihapus');
     }
 
     /**

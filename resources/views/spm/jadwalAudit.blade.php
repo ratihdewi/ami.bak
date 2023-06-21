@@ -43,6 +43,11 @@
       </a>
       
     </ul>
+    @if ($message = Session::get('success'))
+      <div class="alert alert-success" role="alert">
+        {{ $message }}
+      </div>
+    @endif
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
@@ -61,20 +66,23 @@
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">Program Studi Ilmu Komputer</td>
-                        <td class="text-center">Auditor 01</td>
-                        <td class="text-center">Universitas Pertamina</td>
-                        <td class="text-center">Senin. 19 Juni 2023</td>
-                        <td class="text-center">09:00 WIB</td>
-                        <td class="text-center">Audit Lapangan</td>
-                        <td class="text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
                     @foreach ($data as $item)
+                      <tr>
+                        <th scope="row" class="text-center">{{ $no++ }}</th>
+                        <td class="text-center">{{ $item->auditee }}</td>
+                        <td class="text-center">{{ $item->auditor }}</td>
+                        <td class="text-center">{{ $item->tempat }}</td>
+                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
+                        <td class="text-center">{{ $item->waktu }}</td>
+                        <td class="text-center">{{ $item->kegiatan }}</td>
+                        <td class="text-center">
+                          <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                          <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                        </td>
+                      </tr>
+                    @endforeach
+                    
+                    {{-- @foreach ($data as $item)
                     <tr>
                         <th scope="row" class="text-center">{{ $no++ }}</th>
                         <td class="text-center">{{ $item->auditee }}</td>
@@ -88,7 +96,7 @@
                           <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>

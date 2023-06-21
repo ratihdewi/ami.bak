@@ -47,6 +47,9 @@ Route::get('/jadwalauditAMI-tambahjadwal', [JadwalController::class, 'tambahjadw
 Route::get('/jadwalaudit-tambahjadwal', [JadwalController::class, 'tambahjadwalaudit'])->name('tambahjadwalaudit');
 Route::post('/insertjadwal', [JadwalController::class, 'insertdata'])->name('insertjadwal');
 // Route::get('/insertjadwal', [JadwalController::class, 'index'])->name('insertjadwal');
+Route::get('/jadwalaudit-tampiljadwalaudit/{id}', [JadwalController::class, 'tampildata'])->name('tampiljadwalaudit');
+Route::post('/jadwalaudit-updatejadwalaudit/{id}', [JadwalController::class, 'updatedata'])->name('updatejadwalaudit');
+Route::get('/jadwalaudit-deletejadwalaudit/{id}', [JadwalController::class, 'deletedata'])->name('deletejadwalaudit');
 Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });
@@ -91,7 +94,4 @@ Route::get('/daftarAuditor', [AuditorController::class, 'index'])->name('auditor
 Route::get('/ketersediaan-jadwal', [FullCalenderController::class, 'index']);
 
 Route::post('/ketersediaan-jadwal/action', [FullCalenderController::class, 'action']);
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

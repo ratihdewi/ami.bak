@@ -29,7 +29,7 @@ class AuditeeController extends Controller
     public function tampildata($id){
         $data = Auditee::find($id);
         //dd($data);
-        return view('updateAuditee', compact('data'));
+        return view('spm/updateAuditee', compact('data'));
     }
 
     public function updatedata(Request $request, $id)
