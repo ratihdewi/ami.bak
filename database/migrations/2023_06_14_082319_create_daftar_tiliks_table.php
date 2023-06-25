@@ -15,6 +15,9 @@ class CreateDaftarTiliksTable extends Migration
     {
         Schema::create('daftar_tiliks', function (Blueprint $table) {
             $table->id();
+            $table->String('area');
+            $table->String('tempat');
+            $table->Date('tgl_pelaksanaan');
             $table->timestamps();
         });
     }
