@@ -20,10 +20,12 @@
                                     id="nipAuditor"
                                     placeholder="NIP Auditor"
                                     aria-label="NIP"
-                                    oninput="myFunction()"
+                                    
+                                    {{-- oninput="myFunction()" --}}
                                 />
                             </div>
-                            <div class="col">
+                            {{-- @foreach ($dataModified as $data) --}}
+                                <div class="col">
                                 <label for="namaAuditor" class="form-label"
                                     >Nama</label
                                 >
@@ -34,8 +36,11 @@
                                     id="namaAuditor"
                                     placeholder="Nama Auditor"
                                     aria-label="Nama Auditor"
+                                    {{-- value="{{ $data->name }}" --}}
                                 />
                             </div>
+                            {{-- @endforeach --}}
+                            
                         </div>
                         <div class="row mb-3">
                             <div class="col">
@@ -135,7 +140,30 @@
 {{--
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 --}}
-<script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+<script type="text/javascript">
+    var path = "{{ route('auditor-searchAuditor') }}";
+    $(function () {
+        $.ajaxSetup({
+            headers:{
+                'C-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        })
+    })
+    
+
+    $('#nipAuditor').typeahead({
+        minlength: 1,
+        source:  function (query, process) {
+        return $.get(path, { query: query }, function (data) {
+                return process(data);
+            });
+        }
+    });
+</script>
+{{-- <script>
     function myFunction() {
         var nip = document.getElementById("nipAuditor");
         var nama = document.getElementById("namaAuditor");
@@ -146,7 +174,7 @@
 
         if (nip.value == "119012") {
             nama.value = "SPM Role";
-            // document.getElementById("nama").innerHTML = nama.value;
+            document.getElementById("nama").innerHTML = nama.value;
             fakultas.value = "Program Studi Ilmu Komputer";
             programstudi.value = "Program Studi Ilmu Komputer";
             nomorTelepon.value = "082344556326";
@@ -166,7 +194,7 @@
             window.print("Data Tidak Ditemukan");
         }
     }
-</script>
+</script> --}}
 {{--
 <script type="text/javascript">
     // $(document).ready(function() {

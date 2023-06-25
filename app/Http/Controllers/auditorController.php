@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Auditor;
 use Illuminate\Http\Request;
 
@@ -74,5 +75,19 @@ class AuditorController extends Controller
     public function testPDF()
     {
         return response()->file(public_path('dokumen/example.pdf'),['content-type'=>'application/pdf']);
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $datas = User::select("nip", "name")->where('role','LIKE','%'.'Auditor'.'%')
+                ->where("nip","LIKE","%{$request->input('query')}%")
+                ->get();
+        $dataModified = array();
+        foreach ($datas as $data)
+        {
+        $dataModified[] = $data->nip;
+        }
+        // dd($datas);
+        return response()->json($dataModified);
     }
 }
