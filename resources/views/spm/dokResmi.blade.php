@@ -92,7 +92,7 @@
                 <form>
                   <div class="mb-3">
                     <label for="inputTglPelaksanaanAMI" class="col-form-label">Peruntukan tahun pelaksanaan AMI:</label>
-                    <input type="date" class="form-control" id="inputTglPelaksanaanAMI" placeholder="Tanggal pelaksanaan AMI">
+                    <input type="text" class="form-control" id="inputTglPelaksanaanAMI" placeholder="Tanggal pelaksanaan AMI">
                   </div>
                   <div class="mb-3">
                     <label for="inputJenisDok" class="col-form-label">Jenis Dokumen:</label>

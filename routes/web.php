@@ -68,6 +68,7 @@ Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])
 Route::get('/auditor-daftarauditor', [AuditorController::class, 'indexauditor'])->name('auditor-auditor');
 Route::get('/auditor-detailauditor', [AuditorController::class, 'profil'])->name('auditor-detailauditor');
 Route::get('/auditor-dokresmi', [AuditorController::class, 'testPDF'])->name('auditor-dokresmi');
+Route::get('/auditor-searchAuditor', [AuditorController::class, 'autocompleteSearch'])->name('auditor-searchAuditor');
 
 //Role Auditee
 Route::get('/auditee-daftarauditee', [AuditeeController::class, 'indexauditee'])->name('auditee-auditee');

@@ -8,20 +8,18 @@
         <div class="row g-3 my-4 mx-3">
           <div class="col">
             <label for="inputAuditee" class="visually-hidden">Auditee</label>
-            <select id="inputAuditee" class="form-select">
-              <option selected disabled>Pilih Auditee</option>
-              <option>Auditee 01</option>
-              <option>Auditee 02</option>
-              <option>Auditee 03</option>
-            </select>
+            @include('inc.listAuditee')
           </div>
           <div class="col">
             <label for="inputAuditor" class="visually-hidden">Auditor</label>
             <select id="inputAuditor" class="form-select">
               <option selected disabled>Pilih Auditor</option>
-              <option>Auditor 01</option>
+              @foreach ($listAuditor as $item)
+                  <option>{{ $item->nama }}</option>
+              @endforeach
+              {{-- <option>Auditor 01</option>
               <option>Auditor 02</option>
-              <option>Auditor 03</option>
+              <option>Auditor 03</option> --}}
             </select>
           </div>
         </div>

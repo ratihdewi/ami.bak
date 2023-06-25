@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditor;
 use App\Models\DaftarTilik;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,14 @@ class DaftarTilikController extends Controller
 
     public function tambahDT()
     {
-        return view('spm/addDaftarTilik');
+        $listAuditor = Auditor::all();
+        // dd($listAuditor);
+        return view('spm/addDaftarTilik', compact('listAuditor'));
     }
+
+    // public function readDataAuditor()
+    // {
+    //     $listAuditor = Auditor::all();
+    //     dd($data);
+    // }
 }
