@@ -15,8 +15,8 @@ class CreateAuditeesTable extends Migration
     {
         Schema::create('auditees', function (Blueprint $table) {
             $table->id();
-            $table->enum('unit_kerja',['Program Studi Ilmu Komputer', 'Fakultas Sains dan Ilmu Komputer', 'Direktorat IT']);
-            $table->String('ketua_auditee');
+            $table->String('unit_kerja')->unique();
+            $table->String('ketua_auditee')->unique();
             $table->String('jabatan_ketua_auditee');
             $table->String('ketua_auditor');
             $table->String('anggota_auditor');

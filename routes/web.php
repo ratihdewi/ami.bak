@@ -9,6 +9,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\BeritaAcaraController;
 use App\Http\Controllers\DaftarTilikController;
 use App\Http\Controllers\FullCalenderController;
@@ -33,6 +34,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route Role SPM
+Route::get('/auditor-searchAuditor', [AuditorController::class, 'autocomplete'])->name('auditor-searchAuditor');
+Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'autocomplete'])->name('tambahauditee-searchAuditee');
 Route::get('/usercontrol', [UserController::class, 'index'])->name('daftaruser');
 Route::get('/addUser', [UserController::class, 'tambahuser'])->name('tambahuser');
 Route::post('/insertUser', [UserController::class, 'insertdata'])->name('insertuser');
@@ -54,7 +57,13 @@ Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });
 Route::get('/daftartilik', [DaftarTilikController::class, 'index'])->name('daftartilik');
-Route::get('/DaftarTilik-adddaftartilik', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
+Route::get('/tambahDT-searchAuditee', [DaftarTilikController::class, 'autocomplete'])->name('tambahDT-searchAuditee');
+Route::get('/daftarTilik-addareadaftartilik', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
+Route::get('/daftartilik-tampildaftartilik/{id}', [DaftarTilikController::class, 'tampildata'])->name('daftartilik-tampildaftartilik');
+Route::post('/daftartilik-updatedataareadaftartilik/{id}', [DaftarTilikController::class, 'updatedata'])->name('daftartilik-updatedataareadaftartilik');
+Route::get('/daftartilik-deletedataareadaftartilik/{id}', [DaftarTilikController::class, 'deletedata'])->name('daftartilik-deletedataareadaftartilik');
+Route::get('/daftarTilik-areadaftartilik', [PertanyaanController::class, 'index'])->name('areadaftartilik');
+Route::post('/insertareaDT', [DaftarTilikController::class, 'insertdataArea'])->name('insertareaDT');
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
 Route::get('/BA-AMI', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-AMI');
@@ -68,7 +77,7 @@ Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])
 Route::get('/auditor-daftarauditor', [AuditorController::class, 'indexauditor'])->name('auditor-auditor');
 Route::get('/auditor-detailauditor', [AuditorController::class, 'profil'])->name('auditor-detailauditor');
 Route::get('/auditor-dokresmi', [AuditorController::class, 'testPDF'])->name('auditor-dokresmi');
-Route::get('/auditor-searchAuditor', [AuditorController::class, 'autocomplete'])->name('auditor-searchAuditor');
+
 
 //Role Auditee
 Route::get('/auditee-daftarauditee', [AuditeeController::class, 'indexauditee'])->name('auditee-auditee');

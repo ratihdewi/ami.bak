@@ -274,6 +274,13 @@ button.btn.btn-success.float-end,
         margin-top: 12% !important;
         margin-bottom: 8% !important;
     }
+    table#tableAreaDaftarTilik td,
+    table#tableDaftarTilik td {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -297,6 +304,19 @@ button.btn.btn-success.float-end,
     .card.login-card {
         margin-top: 8% !important;
         margin-bottom: 8% !important;
+    }
+    table#tableAreaDaftarTilik,
+    table#tableDaftarTilik {
+        font-size: 12px !important  ;
+        display: block;
+        overflow-x: auto;
+    }
+    table#tableAreaDaftarTilik th,
+    table#tableDaftarTilik th {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
     }
 }
 
@@ -352,4 +372,9 @@ button.btn.btn-success.float-end,
 .auditorSection2 button.btn.btn-success.approvalAuditor2 {
     background: #b4ddb8;
     border: 1px solid #008f0e;
+}
+
+tr.row.header_areadaftartilik,
+tr.row.header_pertanyaandaftartilik {
+    display: block;
 }

@@ -16,16 +16,8 @@
                             name="unit_kerja"
                             required
                         >
-                            <option selected>
-                                Pilih unit yang akan diaudit
-                            </option>
-                            <option value="1">
-                                Program Studi Ilmu Komputer
-                            </option>
-                            <option value="2">
-                                Fakultas Sains dan Ilmu Komputer
-                            </option>
-                            <option value="3">Direktorat IT</option>
+                            <option selected disabled>Pilih Unit Kerja</option>
+                            @include('inc.listAuditee')
                         </select>
                     </div>
                     <div class="mb-3">
@@ -89,3 +81,31 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+<script type="text/javascript">
+    var path = "{{ route('tambahauditee-searchAuditee') }}";
+    $(function () {
+        $.ajaxSetup({
+            headers:{
+                'C-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        })
+    })
+    
+
+    $('#ketuaAuditee').typeahead({
+        minlength: 1,
+        source:  function (query, process) {
+        return $.get(path, { query: query }, function (data) {
+                return process(data);
+            });
+        }
+    });
+</script>
+    
+@endpush

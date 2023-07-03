@@ -14,10 +14,14 @@ class CreateDaftarTiliksTable extends Migration
     public function up()
     {
         Schema::create('daftar_tiliks', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
+            $table->unsignedBigInteger('auditee_id');
+            $table->String('auditor');
             $table->String('area');
             $table->String('tempat');
             $table->Date('tgl_pelaksanaan');
+            $table->Date('bataspengisianRespon');
+            $table->foreign('auditee_id')->references('id')->on('auditees');
             $table->timestamps();
         });
     }

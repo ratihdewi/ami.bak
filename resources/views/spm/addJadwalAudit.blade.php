@@ -12,7 +12,9 @@
                                 >Auditee</label
                             >
                             <div class="col-sm-9">
-                                @include('inc.listAuditee')
+                                <select id="auditee" class="form-select" name="auditee" required>
+                                    @include('inc.listAuditee')
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3 px-5 py-3">

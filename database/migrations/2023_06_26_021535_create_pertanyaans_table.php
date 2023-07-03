@@ -15,6 +15,7 @@ class CreatePertanyaansTable extends Migration
     {
         Schema::create('pertanyaans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('area_id');
             $table->Integer('nomorButir');
             $table->String('indikatormutu');
             $table->String('targetStandar');

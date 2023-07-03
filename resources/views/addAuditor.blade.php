@@ -20,12 +20,10 @@
                                     id="nipAuditor"
                                     placeholder="NIP Auditor"
                                     aria-label="NIP"
-                                    
-                                    {{-- oninput="myFunction()" --}}
                                 />
                             </div>
-                            {{-- @foreach ($dataModified as $data) --}}
-                                <div class="col">
+                            {{-- @foreach ($datas as $data) --}}
+                            <div class="col">
                                 <label for="namaAuditor" class="form-label"
                                     >Nama</label
                                 >

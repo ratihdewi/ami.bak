@@ -16,7 +16,7 @@ class CreateAuditorsTable extends Migration
         Schema::create('auditors', function (Blueprint $table) {
             $table->id();
             $table->String('nama');
-            $table->String('nip');
+            $table->String('nip')->unique();
             $table->String('program_studi');
             $table->String('fakultas');
             $table->String('noTelepon');

@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Auditee extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'unit_kerja',
+        'ketua_auditee',
+        'jabatan_ketua_auditee',
+        'ketua_auditor',
+        'anggota_auditor',
+    ];
+    // protected $guarded = [];
+
+    public function daftartilik()
+    {
+        return $this->hasMany(DaftarTilik::class);
+    }
 }

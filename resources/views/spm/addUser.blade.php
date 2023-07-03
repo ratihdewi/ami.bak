@@ -72,13 +72,7 @@
                                               <option selected>
                                                   Pilih unit kerja
                                               </option>
-                                              <option value="1">
-                                                  Program Studi Ilmu Komputer
-                                              </option>
-                                              <option value="2">
-                                                  Fakultas Sains dan Ilmu Komputer
-                                              </option>
-                                              <option value="3">Direktorat IT</option>
+                                              @include('inc.listAuditee')
                                           </select>
                                       </div>
                                       <div class="col">

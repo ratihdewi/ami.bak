@@ -3,49 +3,50 @@
 
 @section('container')
     {{-- Form setiap auditee --}}
-    <form action="#" method="POST">
-      <div id="infoDT" class="card mt-5 mb-5 mx-4 px-3">
-        <div class="row g-3 my-4 mx-3">
-          <div class="col">
-            <label for="inputAuditee" class="visually-hidden">Auditee</label>
-            @include('inc.listAuditee')
+    <form action="/insertareaDT" method="POST">
+      @csrf
+      {{-- <form action="/insertareaDT" method="POST">
+        @csrf --}}
+        <div id="infoDT" class="card mt-5 mb-5 mx-4 px-3">
+          <div class="row g-3 my-4 mx-3">
+            <div class="col">
+              <label for="inputAuditee" class="visually-hidden">Auditee</label>
+              @include('inc.listAuditee')
+            </div>
+            <div class="col">
+              <label for="auditor" class="visually-hidden">Auditor</label>
+              <select id="auditor" class="form-select" name="auditor">
+                <option selected disabled>Pilih Auditor</option>
+                @foreach ($listAuditor as $item)
+                    <option>{{ $item->nama }}</option>
+                @endforeach
+              </select>
+            </div>
           </div>
-          <div class="col">
-            <label for="inputAuditor" class="visually-hidden">Auditor</label>
-            <select id="inputAuditor" class="form-select">
-              <option selected disabled>Pilih Auditor</option>
-              @foreach ($listAuditor as $item)
-                  <option>{{ $item->nama }}</option>
-              @endforeach
-              {{-- <option>Auditor 01</option>
-              <option>Auditor 02</option>
-              <option>Auditor 03</option> --}}
-            </select>
+          <div class="row g-3 mb-4 mx-3">
+            <div class="col">
+              <input type="date" id="tgl-pelaksanaan" class="form-control" placeholder="Masukkan Hari/Tanggal Pelaksanaan" aria-label="Masukkan Hari/Tanggal Pelaksanaan" name="tgl_pelaksanaan">
+            </div>
+            <div class="col">
+              <input type="text" id="tempat" class="form-control" placeholder="Masukkan tempat pelaksanaan" aria-label="Masukkan tempat pelaksanaan" name="tempat">
+            </div>
+          </div>
+          <div class="row g-3 mb-4 mx-4">
+            <label for="area" class="visually-hidden">Area Audit</label>
+              <select id="area" class="form-select" name="area">
+                <option selected disabled>Pilih area yang akan diaudit</option>
+                <option>Pendidikan</option>
+                <option>Penelitian</option>
+                <option>PkM</option>
+                <option>Tambahan</option>
+              </select>
+          </div>
+          <div class="row g-3 mb-5 mx-4">
+            <label for="bataspengisianRespon" class="visually-hidden">Batas Pengisian Respon</label>
+            <input id="bataspengisianRespon" type="text" class="form-control" placeholder="Berika Batas Pengisian Respon Auditee" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Berika Batas Pengisian Respon Auditee" name="bataspengisianRespon">
           </div>
         </div>
-        <div class="row g-3 mb-4 mx-3">
-          <div class="col">
-            <input type="date" class="form-control" placeholder="Masukkan Hari/Tanggal Pelaksanaan" aria-label="Masukkan Hari/Tanggal Pelaksanaan">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Masukkan tempat pelaksanaan" aria-label="Masukkan tempat pelaksanaan">
-          </div>
-        </div>
-        <div class="row g-3 mb-4 mx-4">
-          <label for="areaAudit" class="visually-hidden">Area Audit</label>
-            <select id="areaAudit" class="form-select">
-              <option selected disabled>Pilih area yang akan diaudit</option>
-              <option>Pendidikan</option>
-              <option>Penelitian</option>
-              <option>PkM</option>
-              <option>Tambahan</option>
-            </select>
-        </div>
-        <div class="row g-3 mb-5 mx-4">
-          <label for="batasWaktuAudit" class="visually-hidden">Area Audit</label>
-          <input id="batasWaktuAudit" type="text" class="form-control" placeholder="Berika Batas Pengisian Respon Auditee" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Berika Batas Pengisian Respon Auditee">
-        </div>
-      </div>
+      {{-- </form> --}}
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
       <form action="#" method="POST">
         <div id="temuanDT" class="card mt-4 mb-4 mx-4 px-3">

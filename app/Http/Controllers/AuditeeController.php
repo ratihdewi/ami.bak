@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Auditee;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class AuditeeController extends Controller
     public function index()
     {
         $data = Auditee::all();
-        //dd($data);
+        // dd($data);
         return view('daftarAuditee', compact('data'));
     }
 
@@ -23,7 +24,7 @@ class AuditeeController extends Controller
     {
         // dd($request->all());
         Auditee::create($request->all());
-        return redirect()->route('auditee');
+        return redirect()->route('auditee')->with('success', 'Data berhasil ditambah');
     }
 
     public function tampildata($id){
@@ -44,6 +45,20 @@ class AuditeeController extends Controller
         $data = Auditee::find($id);
         $data->delete();
         return redirect()->route('auditee')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $datas = User::select("name")->where('role','LIKE','%'.'Auditee'.'%')
+                ->where("name","LIKE","%{$request->input('query')}%")
+                ->get();
+        $dataModified = array();
+        foreach ($datas as $data)
+        {
+        $dataModified[] = $data->name;
+        }
+        // dd($datas);
+        return response()->json($dataModified);
     }
 
     //role auditor start

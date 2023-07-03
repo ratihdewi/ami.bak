@@ -16,16 +16,20 @@ class AuditorController extends Controller
         return view('daftarAuditor', compact('dataAuditor'));
     }
 
-    public function tambahauditor()
+    public function tambahauditor(Request $request)
     {
-        return view('addAuditor');
+        // $datas = User::select("nip", "name")->where('role','LIKE','%'.'Auditor'.'%')
+        //         ->where("nip","LIKE","%{$request->input('query')}%")
+        //         ->get();
+
+        return view('addAuditor',);
     }
 
     public function insertdata(Request $request)
     {
         // dd($request->all());
         Auditor::create($request->all());
-        return redirect()->route('auditor');
+        return redirect()->route('auditor')->with('success', 'Data berhasil ditambah');
     }
 
     public function tampildata($id){
@@ -82,12 +86,13 @@ class AuditorController extends Controller
         $datas = User::select("nip", "name")->where('role','LIKE','%'.'Auditor'.'%')
                 ->where("nip","LIKE","%{$request->input('query')}%")
                 ->get();
+        
         $dataModified = array();
         foreach ($datas as $data)
         {
         $dataModified[] = $data->nip;
         }
-        // dd($datas);
+        //dd($datas);
         return response()->json($dataModified);
     }
 }
