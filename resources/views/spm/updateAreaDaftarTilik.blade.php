@@ -26,7 +26,7 @@
             <div class="col">
                 <label for="auditor" class="visually-hidden">Auditor</label>
                 <select id="auditor" class="form-select" name="auditor">
-                    <option selected disabled>{{ $data->auditor }}</option>
+                    <option selected disabled>{{ $data->auditor->nama }}</option>
                     @foreach ($listAuditor as $item)
                     <option>{{ $item->nama }}</option>
                     @endforeach
@@ -44,7 +44,7 @@
                     onblur="(this.type='text')"
                     aria-label="Masukkan Hari/Tanggal Pelaksanaan"
                     name="tgl_pelaksanaan"
-                    value="{{ $data->tgl_pelaksanaan }}"
+                    value="{{ $data->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
                 />
             </div>
             <div class="col">
@@ -82,7 +82,7 @@
                 onblur="(this.type='text')"
                 aria-label="Berika Batas Pengisian Respon Auditee"
                 name="bataspengisianRespon"
-                value="{{ $data->bataspengisianRespon }}"
+                value="{{ $data->bataspengisianRespon->translatedFormat('d-m-y') }}"
             />
         </div>
     </div>

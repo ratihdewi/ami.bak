@@ -75,6 +75,12 @@ class AuditorController extends Controller
     //role auditor end
 
     //role auditee start
+    public function indexauditor_()
+    {
+        $dataAuditor = Auditor::all();
+        // dd($data);
+        return view('auditee/daftarAuditor', compact('dataAuditor'));
+    }
     public function indexauditee_()
     {
         $dataAuditee = Auditee::all();

@@ -13,7 +13,6 @@
                         <th class="col-3 text-center">Jabatan Ketua Auditee</th>
                         <th class="col-2 text-center">Ketua Auditor</th>
                         <th class="col-2 text-center">Anggota Auditor</th>
-                        <th class="col-2 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,10 +26,6 @@
                             <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
                             <td>{{ $item->ketua_auditor }}</td>
                             <td>{{ $item->anggota_auditor }}</td>
-                            <td class="text-center">
-                                <a href="tampilAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                                <a href="deleteAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
-                            </td>
                         </tr>
                     @endforeach
                     

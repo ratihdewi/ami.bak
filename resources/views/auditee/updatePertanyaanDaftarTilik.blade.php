@@ -1,4 +1,4 @@
-@extends('layout.main') 
+@extends('auditee.main_') 
 @section('title') AMI - Daftar Tilik @endsection
 
 @section('container')
@@ -98,7 +98,6 @@
       @endforeach
       @endforeach
     
-      {{ $datas->narasiPLOR }}
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
       <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST">
         @csrf
@@ -144,25 +143,25 @@
           </div>
           @endforeach
           <div class="row g-3 my-4 mx-3">
-            <div class="col">
+            <div class="col" disabled>
               <label for="butirStandar" class="visually-hidden">Butir Standar</label>
-              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}">
+              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" disabled>
             </div>
             <div class="col">
               <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
-              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}">
+              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" disabled>
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}">{{ $datas->pertanyaan }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" disabled>{{ $datas->pertanyaan }}</textarea>
             <label for="pertanyaan">Masukkan pertanyaan disini</label>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu">{{ $datas->indikatormutu }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" disabled>{{ $datas->indikatormutu }}</textarea>
             <label for="indikatorMutu">Masukkan indikator mutu disini</label>
           </div>        
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="tergetStandar">{{ $datas->tergetStandar }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="tergetStandar" disabled>{{ $datas->tergetStandar }}</textarea>
             <label for="targetStandar">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
@@ -170,11 +169,11 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
                   <label for="inputButirStandar" class="form-label">Butir Standar</label>
-                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}">
+                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" disabled>
                 </div>
                 <div class="col inputReferensi">
                   <label for="inputReferensi" class="form-label">Referensi</label>
-                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}">
+                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}" disabled>
                 </div>
               </div>
             </div>
@@ -182,7 +181,7 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputKeterangan">
                   <label for="inputKeterangan" class="form-label">Keterangan</label>
-                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}">
+                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}" disabled>
                 </div>
               </div>
             </div>
@@ -192,11 +191,27 @@
             <div class="col my-4">
               <label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label>
               <div class="input-group mx-4 mb-4">
-                <input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="dokSahih" value="{{ $datas->dokSahih }}">
+                <input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="dokSahih" value="{{ $datas->dokSahih }}"
+                
+                @if ($datas->dokSahih != NULL &&  Auth::user()->role == "Auditor")
+                    {{ "disabled" }}
+                @elseif ($datas->dokSahih == NULL &&  Auth::user()->role == "Auditee")
+                    {{ "required" }}
+                @endif
+                >
                 <button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button>
               </div>
+              
               <div class="form-floating mb-3 mx-4">
-                <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee">{{ $datas->responAuditee }}</textarea>
+                <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"
+                
+                @if ($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor")
+                    {{ "disabled" }}
+                @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
+                    {{ "required" }}
+                @endif
+
+                >{{ $datas->responAuditee }}</textarea>
                 <label for="responAuditee">Tuliskan respon Auditee disini</label>
               </div>
             </div>
@@ -282,35 +297,34 @@
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-        var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
+  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
 
-        if(document.getElementById('kategoriKTS').checked) {
-            document.getElementById("narasiPLOR").innerHTML
-                = plor;
-        }
-        else if(document.getElementById('kategoriOB').checked) {
-            document.getElementById("narasiPLOR").innerHTML
-                = plor; 
-        } else {
-            document.getElementById("narasiPLOR").innerHTML
-                  = ''; 
-        }
+  if(document.getElementById('kategoriKTS').checked) {
+      document.getElementById("narasiPLOR").innerHTML
+          = plor;
+  }
+  else if(document.getElementById('kategoriOB').checked) {
+      document.getElementById("narasiPLOR").innerHTML
+          = plor; 
+  } else {
+      document.getElementById("narasiPLOR").innerHTML
+            = ''; 
+  }
+        // function display() {
+        //     var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
 
-        function display() {
-            var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
-
-            if(document.getElementById('kategoriKTS').checked) {
-                document.getElementById("narasiPLOR").innerHTML
-                    = plor;
-            }
-            else if(document.getElementById('kategoriOB').checked) {
-                document.getElementById("narasiPLOR").innerHTML
-                    = plor; 
-            } else {
-                document.getElementById("narasiPLOR").innerHTML
-                      = ''; 
-            }
-        }
+        //     if(document.getElementById('kategoriKTS').checked) {
+        //         document.getElementById("narasiPLOR").innerHTML
+        //             = plor;
+        //     }
+        //     else if(document.getElementById('kategoriOB').checked) {
+        //         document.getElementById("narasiPLOR").innerHTML
+        //             = plor; 
+        //     } else {
+        //         document.getElementById("narasiPLOR").innerHTML
+        //               = ''; 
+        //     }
+        // }
 
   $(document).ready(function(){
     var max_fields = 50;
@@ -322,7 +336,7 @@
       if (i < max_fields) {
         i++;
 
-        $(wrapper).append('<div id="temuanDT" class="card mt-5 mb-4 mx-4 px-3"><div class="row g-3 my-4 mx-3"><div class="col"><label for="butirStandar" class="visually-hidden">Butir Standar</label><input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar"></div><div class="col"><label for="nomorButir" class="visually-hidden">Nomor Butir</label><input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir"></div></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan"></textarea><label for="pertanyaan">Masukkan pertanyaan disini</label></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatorMutu"></textarea><label for="indikatorMutu">Masukkan indikator mutu disini</label></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar"></textarea><label for="targetStandar">Masukkan target standar</label></div><div class="inputGrupText row justify-content-between g-3 mb-4 mx-4"><div class="col-7 border rounded me-5"><div class="row g-3 my-4 mx-3"><div class="col inputButirStandar"><label for="inputButirStandar" class="form-label">Butir Standar</label><input type="text" class="form-control" id="inputButirStandar" name="butirStandar"></div><div class="col inputReferensi"><label for="inputReferensi" class="form-label">Referensi</label><input type="text" class="form-control" id="inputReferensi" name="referensi"></div></div></div><div class="col-4 border rounded ms-5"><div class="row g-3 my-4 mx-3"><div class="col inputKeterangan"><label for="inputKeterangan" class="form-label">Keterangan</label><input type="text" class="form-control" id="inputKeterangan" name="keterangan"></div></div></div></div><label for="#" class="mb-4 mx-4">Respon Auditee</label><div class="row g-3 mb-4 mx-4 border rounded"><div class="col my-4"><label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label><div class="input-group mx-4 mb-4"><input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="dokSahih"><button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button></div><div class="form-floating mb-3 mx-4"><textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px"></textarea><label for="responAuditee">Tuliskan respon Auditee disini</label></div></div></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px"></textarea><label for="responAuditor">Tuliskan respon Auditor disini</label></div><div class="row g-3 mb-4 mx-3"><div class="col"><label for="kategoriTemuan" class="form-label">Kategori Temuan</label><div id="kategoriTemuan" class="border rounded ps-4 py-2"><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriKTS" value="KTS" onclick="display()"><label class="form-check-label" for="kategoriKTS">KTS</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriOB" value="OB" onclick="display()"><label class="form-check-label" for="kategoriOB">OB</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriSesuai" value="Sesuai" onclick="display()"><label class="form-check-label" for="kategoriSesuai">Sesuai</label></div></div></div><div class="col"><label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label><input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan"></div></div><div id="narasiPLOR" class="form-floating mb-4 mx-4"></div><div class="row g-3 mb-4 mx-4"><div class="col border rounded px-4 py-4 me-2"><label for="inisialAuditor" class="form-label">Inisial Auditor</label><input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar"></div><div class="col border rounded px-4 py-4 ms-2"><label for="skorAuditor" class="form-label">Skor Auditor</label><input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor"></div></div></div>')
+        $(wrapper).append('<div id="temuanDT" class="card mt-5 mb-4 mx-4 px-3"><div class="row g-3 my-4 mx-3"><div class="col"><label for="butirStandar" class="visually-hidden">Butir Standar</label><input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar"></div><div class="col"><label for="nomorButir" class="visually-hidden">Nomor Butir</label><input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir"></div></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px"></textarea><label for="pertanyaan">Masukkan pertanyaan disini</label></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu"></textarea><label for="indikatorMutu">Masukkan indikator mutu disini</label></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar"></textarea><label for="targetStandar">Masukkan target standar</label></div><div class="inputGrupText row justify-content-between g-3 mb-4 mx-4"><div class="col-7 border rounded me-5"><div class="row g-3 my-4 mx-3"><div class="col inputButirStandar"><label for="inputButirStandar" class="form-label">Butir Standar</label><input type="text" class="form-control" id="inputButirStandar"></div><div class="col inputReferensi"><label for="inputReferensi" class="form-label">Referensi</label><input type="text" class="form-control" id="inputReferensi"></div></div></div><div class="col-4 border rounded ms-5"><div class="row g-3 my-4 mx-3"><div class="col inputKeterangan"><label for="inputKeterangan" class="form-label">Keterangan</label><input type="text" class="form-control" id="inputKeterangan"></div></div></div></div><label for="#" class="mb-4 mx-4">Respon Auditee</label><div class="row g-3 mb-4 mx-4 border rounded"><div class="col my-4"><label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label><div class="input-group mx-4 mb-4"><input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload"><button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button></div><div class="form-floating mb-3 mx-4"><textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px"></textarea><label for="responAuditee">Tuliskan respon Auditee disini</label></div></div></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px"></textarea><label for="responAuditor">Tuliskan respon Auditor disini</label></div><div class="row g-3 mb-4 mx-3"><div class="col"><label for="kategoriTemuan" class="form-label">Kategori Temuan</label><div id="kategoriTemuan" class="border rounded ps-4 py-2"><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriKTS" value="KTS" onclick="display()"><label class="form-check-label" for="kategoriKTS">KTS</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriOB" value="OB" onclick="display()"><label class="form-check-label" for="kategoriOB">OB</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriSesuai" value="Sesuai" onclick="display()"><label class="form-check-label" for="kategoriSesuai">Sesuai</label></div></div></div><div class="col"><label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label><input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan"></div></div><div id="narasiPLOR" class="form-floating mb-4 mx-4"></div><div class="row g-3 mb-4 mx-4"><div class="col border rounded px-4 py-4 me-2"><label for="inisialAuditor" class="form-label">Inisial Auditor</label><input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar"></div><div class="col border rounded px-4 py-4 ms-2"><label for="skorAuditor" class="form-label">Skor Auditor</label><input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor"></div></div></div>')
       }
     });
   });

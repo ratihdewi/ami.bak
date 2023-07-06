@@ -8,6 +8,7 @@ use App\Models\Auditee;
 use App\Models\Auditor;
 use App\Models\DaftarTilik;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class DaftarTilikController extends Controller
@@ -89,5 +90,14 @@ class DaftarTilikController extends Controller
         $data_ = Auditee::all();
         // dd($data_);
         return view('auditor/daftarTilik', compact('data_'));
+    }
+
+    //Role AUDITEE
+    public function indexAuditee() {
+        $unitkerja = Auth::User()->unit_kerja;
+        $data_ = Auditee::where('unit_kerja', $unitkerja)->get();
+        
+        //dd($datas);
+        return view('auditee/daftarTilik', compact('data_'));
     }
 }

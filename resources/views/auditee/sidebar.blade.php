@@ -6,8 +6,8 @@
         </a>
         <div class="nav_list">
             <a
-                href="/auditor-daftarauditor"
-                class="nav_link {{ Request::routeIs('auditor-daftarauditor') ? 'active' : '' }}"
+                href="/auditee-daftarauditor"
+                class="nav_link {{ Request::routeIs('auditee-daftarauditor') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -18,8 +18,8 @@
                 <span class="nav_name"> Daftar Auditor </span>
             </a>
             <a
-                href="/auditor-daftarauditee"
-                class="nav_link {{ Request::routeIs('auditor-daftarauditee') ? 'active' : '' }}"
+                href="/auditee-daftarauditee"
+                class="nav_link {{ Request::routeIs('auditee-daftarauditee') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -30,8 +30,8 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href=""
-                class="nav_link {{ Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' }}"
+                href="/auditee-daftartilik"
+                class="nav_link {{ Request::routeIs('auditee-daftartilik') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -77,7 +77,10 @@
                 /></i>
                 <span class="nav_name"> Tindakan Koreksi </span>
             </a>
-            <a href=""nav_link">
+            <a
+                href="#"
+                class="nav_link {{ Request::routeIs('tindakankoreksi') ? 'active' : '' || Request::routeIs('tindakankoreksi-temuan') ? 'active' : '' || Request::routeIs('tindakankoreksi-formtemuan') ? 'active' : '' }}"
+            >
                 <i class="bx nav_icon"
                     ><img
                         src="/asset/sideBar/laporan.png"
@@ -86,7 +89,10 @@
                 /></i>
                 <span class="nav_name"> Laporan </span>
             </a>
-            <a href=""nav_link">
+            <a
+                href="#"
+                class="nav_link {{ Request::routeIs('tindakankoreksi') ? 'active' : '' || Request::routeIs('tindakankoreksi-temuan') ? 'active' : '' || Request::routeIs('tindakankoreksi-formtemuan') ? 'active' : '' }}"
+            >
                 <i class="bx nav_icon"
                     ><img
                         src="/asset/sideBar/RTM.png"

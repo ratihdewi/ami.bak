@@ -1,19 +1,8 @@
-@extends('layout.main') @section('title') AMI - Daftar Tilik @endsection
+@extends('auditor.main_') @section('title') AMI - Daftar Tilik @endsection
 @section('container')
 <div class="container">
     <div class="container-fluid float-end my-4">
         {{-- @foreach ($data_ as $item)  --}}
-                <a
-                    href="/daftartilik-adddaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
-                    class="text-white"
-                    style="font-weight: 600; text-decoration: none"
-                    ><button
-                        type="button"
-                        class="btn btn-primary btn-sm float-end my-2 px-3"
-                    >
-                        Tambah
-                    </button></a
-                >
                 <a
                     href="DaftarTilik-adddaftartilik"
                     class="text-white"
@@ -27,13 +16,6 @@
                     </button></a
                 >
         {{-- @endforeach --}}
-    </div>
-    <div class="topSection d-flex justify-content-around mx-2 mt-4">
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
-        </div>
-        @endif
     </div>
 
     {{-- test muncul gambar --}}
@@ -73,7 +55,6 @@
                                     <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
                                         ><i class="bi bi-pencil-square"></i
                                     ></a>
-                                    <a href="/daftartilik-deletedatapertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
                                 </td>
                             
                         {{-- @endforeach --}}

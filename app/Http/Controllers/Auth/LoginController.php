@@ -45,7 +45,7 @@ class LoginController extends Controller
         if ($user->hasRole('auditor')) {
             return redirect()->route('auditor-daftarauditor');
         } elseif ($user->hasRole('auditee')) {
-            return redirect()->route('auditee-auditor');
+            return redirect()->route('auditee-daftarauditor');
         }
 
         return redirect()->route('auditor');
