@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Auditee;
 use App\Models\Auditor;
 use Illuminate\Http\Request;
 
@@ -60,6 +61,12 @@ class AuditorController extends Controller
         // dd($data);
         return view('auditor/daftarAuditor', compact('dataAuditor'));
     }
+    public function indexauditee()
+    {
+        $dataAuditee = Auditee::all();
+        // dd($data);
+        return view('auditor/daftarAuditee', compact('dataAuditee'));
+    }
 
     public function profil()
     {
@@ -68,11 +75,11 @@ class AuditorController extends Controller
     //role auditor end
 
     //role auditee start
-    public function indexauditee()
+    public function indexauditee_()
     {
-        $dataAuditor = Auditor::all();
+        $dataAuditee = Auditee::all();
         // dd($data);
-        return view('auditee/daftarAuditor', compact('dataAuditor'));
+        return view('auditee/daftarAuditee', compact('dataAuditee'));
     }
     //role auditee end
 

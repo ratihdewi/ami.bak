@@ -6,8 +6,8 @@
         </a>
         <div class="nav_list">
             <a
-                href="/daftarAuditor"
-                class="nav_link {{ Request::routeIs('auditor') ? 'active' : '' || Request::routeIs('tambahauditor') ? 'active' : '' || Request::routeIs('tampilauditor') ? 'active' : '' }}"
+                href="/auditor-daftarauditor"
+                class="nav_link {{ Request::routeIs('auditor-daftarauditor') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -18,8 +18,8 @@
                 <span class="nav_name"> Daftar Auditor </span>
             </a>
             <a
-                href="/daftarAuditee"
-                class="nav_link {{ Request::routeIs('auditee') ? 'active' : '' || Request::routeIs('tambahauditee') ? 'active' : '' || Request::routeIs('tampilauditee') ? 'active' : '' }}"
+                href="/auditor-daftarauditee"
+                class="nav_link {{ Request::routeIs('auditor-daftarauditee') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -30,7 +30,7 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href="/daftartilik"
+                href=""
                 class="nav_link {{ Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
@@ -42,7 +42,7 @@
                 <span class="nav_name"> DaftarTilik </span>
             </a>
             <a
-                href="/jadwalaudit"
+                href=""
                 class="nav_link {{ Request::routeIs('jadwalaudit') ? 'active' : '' || Request::routeIs('tambahjadwal') ? 'active' : '' || Request::routeIs('tambahjadwalaudit') ? 'active' : '' }} }}  "
             >
                 <i class="bx nav_icon"
@@ -54,7 +54,7 @@
                 <span class="nav_name"> Jadwal Audit </span>
             </a>
             <a
-                href="/beritaacara"
+                href=""
                 class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
@@ -66,7 +66,7 @@
                 <span class="nav_name"> Berita Acara </span>
             </a>
             <a
-                href="/tindakankoreksi"
+                href=""
                 class="nav_link {{ Request::routeIs('tindakankoreksi') ? 'active' : '' || Request::routeIs('tindakankoreksi-temuan') ? 'active' : '' || Request::routeIs('tindakankoreksi-formtemuan') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
@@ -77,7 +77,7 @@
                 /></i>
                 <span class="nav_name"> Tindakan Koreksi </span>
             </a>
-            <a href="#" class="nav_link">
+            <a href=""nav_link">
                 <i class="bx nav_icon"
                     ><img
                         src="/asset/sideBar/laporan.png"
@@ -86,7 +86,7 @@
                 /></i>
                 <span class="nav_name"> Laporan </span>
             </a>
-            <a href="#" class="nav_link">
+            <a href=""nav_link">
                 <i class="bx nav_icon"
                     ><img
                         src="/asset/sideBar/RTM.png"
@@ -96,7 +96,7 @@
                 <span class="nav_name"> RTM </span>
             </a>
             <a
-                href="/dokresmi"
+                href=""
                 class="nav_link {{ Request::is('dokresmi') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
@@ -106,18 +106,6 @@
                         width="25"
                 /></i>
                 <span class="nav_name"> Dokumen Resmi AMI </span>
-            </a>
-            <a
-                href="{{ route('daftaruser') }}"
-                class="nav_link {{ Request::routeIs('daftaruser') ? 'active' : '' || Request::routeIs('tambahuser') ? 'active' : '' || Request::routeIs('tampiluser') ? 'active' : '' }}"
-            >
-                <i class="bx nav_icon"
-                    ><img
-                        src="/asset/sideBar/tindakanKoreksi.png"
-                        alt="Logo-Role"
-                        width="25"
-                /></i>
-                <span class="nav_name"> Daftar User </span>
             </a>
         </div>
     </div>

@@ -16,12 +16,13 @@ class CreateDaftarTiliksTable extends Migration
         Schema::create('daftar_tiliks', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('auditee_id');
-            $table->String('auditor');
+            $table->unsignedBigInteger('auditor_id');
             $table->String('area');
             $table->String('tempat');
             $table->Date('tgl_pelaksanaan');
             $table->Date('bataspengisianRespon');
             $table->foreign('auditee_id')->references('id')->on('auditees');
+            $table->foreign('auditor_id')->references('id')->on('auditors');
             $table->timestamps();
         });
     }

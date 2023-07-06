@@ -9,11 +9,15 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
         >
-            <img src="asset/profile.png" alt="Account" width="25" />
+            <img src="/asset/profile.png" alt="Account" width="25" />
             {{ Auth::user()->role }}
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/auditor-detailauditor">Profil</a></li>
+            <li>
+                <a class="dropdown-item" href="/auditor-detailauditor"
+                    >Profil</a
+                >
+            </li>
         </ul>
     </div>
 </header>

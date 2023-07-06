@@ -15,10 +15,13 @@ class CreatePertanyaansTable extends Migration
     {
         Schema::create('pertanyaans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('area_id');
-            $table->Integer('nomorButir');
+            $table->unsignedBigInteger('daftartilik_id');
+            $table->unsignedBigInteger('auditee_id');
+            $table->unsignedBigInteger('auditor_id');
+            $table->String('butirStandar');
+            $table->String('nomorButir');
             $table->String('indikatormutu');
-            $table->String('targetStandar');
+            $table->String('targetStandar')->nullable();
             $table->String('referensi');
             $table->String('keterangan');
             $table->String('pertanyaan');
@@ -28,8 +31,11 @@ class CreatePertanyaansTable extends Migration
             $table->float('skorAuditor');
             $table->enum('Kategori', ['KTS','OB','Sesuai']);
             $table->String('narasiPLOR');
-            $table->binary('fotoKegiatan');
-            $table->binary('dokSahih');
+            $table->String('fotoKegiatan')->nullable();
+            $table->String('dokSahih')->nullable();
+            $table->foreign('daftartilik_id')->references('id')->on('daftar_tiliks');
+            $table->foreign('auditee_id')->references('id')->on('auditees');
+            $table->foreign('auditor_id')->references('id')->on('auditors');
             $table->timestamps();
         });
     }

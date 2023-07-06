@@ -11,7 +11,7 @@ class DaftarTilik extends Model
 
     protected $fillable = [
         'auditee_id',
-        'auditor',
+        'auditor_id',
         'area',
         'tempat',
         'tgl_pelaksanaan',
@@ -20,6 +20,16 @@ class DaftarTilik extends Model
 
     protected $dates = ['tgl_pelaksanaan', 'bataspengisianRespon'];
 
-     public function auditee()
+    public function auditee()
     {
-        return $this->belongsTo(Auditee::class); } }
+        return $this->belongsTo(Auditee::class); 
+    }
+    public function auditor()
+    {
+        return $this->belongsTo(Auditor::class); 
+    }
+    public function pertanyaan()
+    {
+        return $this->hasMany(Pertanyaan::class); 
+    }  
+}

@@ -62,7 +62,12 @@ Route::get('/daftarTilik-addareadaftartilik', [DaftarTilikController::class, 'ta
 Route::get('/daftartilik-tampildaftartilik/{id}', [DaftarTilikController::class, 'tampildata'])->name('daftartilik-tampildaftartilik');
 Route::post('/daftartilik-updatedataareadaftartilik/{id}', [DaftarTilikController::class, 'updatedata'])->name('daftartilik-updatedataareadaftartilik');
 Route::get('/daftartilik-deletedataareadaftartilik/{id}', [DaftarTilikController::class, 'deletedata'])->name('daftartilik-deletedataareadaftartilik');
-Route::get('/daftarTilik-areadaftartilik', [PertanyaanController::class, 'index'])->name('areadaftartilik');
+Route::get('/daftarTilik-areadaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'index'])->name('areadaftartilik');
+Route::get('/daftartilik-adddaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'tambahdata'])->name('daftartilik-adddaftartilik');
+Route::post('/daftartilik-insertpertanyaan', [PertanyaanController::class, 'insertpertanyaan'])->name('daftartilik-insertpertanyaan');
+Route::get('/daftartilik-tampilpertanyaandaftartilik/{id}', [PertanyaanController::class, 'tampildata'])->name('daftartilik-tampilpertanyaandaftartilik');
+Route::post('/daftartilik-updatedatapertanyaandaftartilik/{id}', [PertanyaanController::class, 'updatedata'])->name('daftartilik-updatedatapertanyaandaftartilik');
+Route::get('/daftartilik-deletedatapertanyaandaftartilik/{id}', [PertanyaanController::class, 'deletedata'])->name('daftartilik-deletedataareadaftartilik');
 Route::post('/insertareaDT', [DaftarTilikController::class, 'insertdataArea'])->name('insertareaDT');
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
@@ -73,9 +78,10 @@ Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftar
 Route::get('/tindakankoreksi-formtemuan', [TindakanKoreksiController::class, 'tampilForm'])->name('tindakankoreksi-formtemuan');
 
 // Role Auditor
-Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-auditee');
-Route::get('/auditor-daftarauditor', [AuditorController::class, 'indexauditor'])->name('auditor-auditor');
+Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
+Route::get('/auditor-daftarauditor', [AuditorController::class, 'indexauditor'])->name('auditor-daftarauditor');
 Route::get('/auditor-detailauditor', [AuditorController::class, 'profil'])->name('auditor-detailauditor');
+Route::get('/auditor-daftartilik', [DaftarTilikController::class, 'indexAuditor'])->name('/auditor-daftartilik');
 Route::get('/auditor-dokresmi', [AuditorController::class, 'testPDF'])->name('auditor-dokresmi');
 
 

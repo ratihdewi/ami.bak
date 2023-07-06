@@ -1,4 +1,4 @@
-@extends('layout.main') @section('title') AMI - Daftar Tilik @endsection
+@extends('auditee.main_') @section('title') AMI - Daftar Tilik @endsection
 @section('container')
 <div class="container pb-3">
     <div class="container-fluid float-end my-3">

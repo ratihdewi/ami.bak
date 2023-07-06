@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Validator;
 class DaftarTilikController extends Controller
 {
     public function index() {
-        $data = DaftarTilik::all();
         $data_ = Auditee::all();
         // dd($data_);
-        return view('spm/daftarTilik', compact('data','data_'));
+        return view('spm/daftarTilik', compact('data_'));
     }
 
     public function tambahDT()
@@ -83,5 +82,12 @@ class DaftarTilikController extends Controller
         $data = DaftarTilik::find($id);
         $data->delete();
         return redirect()->route('daftartilik')->with('success', 'Data berhasil dihapus');
+    }
+
+    // Role AUDITOR
+    public function indexAuditor() {
+        $data_ = Auditee::all();
+        // dd($data_);
+        return view('auditor/daftarTilik', compact('data_'));
     }
 }

@@ -3,8 +3,8 @@
 
 @section('container')
       {{-- Form setiap auditee --}}
-      @foreach ($data as $item)
-      @foreach ($item->auditee()->get() as $dt)
+      @foreach ($_daftartiliks as $_daftartilik)
+      @foreach ($_daftartilik->auditee()->get() as $auditee)
       {{-- @foreach ($item->auditor()->get() as $da)
         {{ $da }}
       @endforeach --}}
@@ -20,7 +20,7 @@
                           name="auditee_id"
                           disabled
                       >
-                          <option selected disabled>{{ $dt->unit_kerja }}</option>
+                          <option selected disabled>{{ $auditee->unit_kerja }}</option>
                           @foreach ($listAuditee as $liAuditee)
                           <option value="{{ $liAuditee->id }}" name="auditee_id">
                               {{ $liAuditee->unit_kerja }}
@@ -31,7 +31,7 @@
                   <div class="col">
                       <label for="auditor_id" class="visually-hidden">Auditor</label>
                       <select id="auditor_id" class="form-select" name="auditor_id" disabled>
-                          <option selected disabled>{{ $item->auditor->nama }}</option>
+                          <option selected disabled>{{ $_daftartilik->auditor->nama }}</option>
                           @foreach ($listAuditor as $liAuditor)
                           <option>{{ $liAuditor->nama }}</option>
                           @endforeach
@@ -49,7 +49,7 @@
                           onblur="(this.type='text')"
                           aria-label="Masukkan Hari/Tanggal Pelaksanaan"
                           name="tgl_pelaksanaan"
-                          value="{{ $item->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
+                          value="{{ $_daftartilik->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
                           disabled
                       />
                   </div>
@@ -61,7 +61,7 @@
                           placeholder="Masukkan tempat pelaksanaan"
                           aria-label="Masukkan tempat pelaksanaan"
                           name="tempat"
-                          value="{{ $item->tempat }}"
+                          value="{{ $_daftartilik->tempat }}"
                           disabled
                       />
                   </div>
@@ -69,7 +69,7 @@
               <div class="row g-3 mb-4 mx-4">
                   <label for="area" class="visually-hidden">Area Audit</label>
                   <select id="area" class="form-select" name="area" disabled>
-                      <option selected disabled>{{ $item->area }}</option>
+                      <option selected disabled>{{ $_daftartilik->area }}</option>
                       <option>Pendidikan</option>
                       <option>Penelitian</option>
                       <option>PkM</option>
@@ -89,7 +89,7 @@
                       onblur="(this.type='text')"
                       aria-label="Berikan Batas Pengisian Respon Auditee"
                       name="bataspengisianRespon"
-                      value="{{ $item->bataspengisianRespon->translatedFormat('d-m-y') }}"
+                      value="{{ $_daftartilik->bataspengisianRespon->translatedFormat('d-m-y') }}"
                       disabled
                   />
               </div>
@@ -99,12 +99,10 @@
       @endforeach
     
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
-      @foreach ($data as $item)
-      <form action="/daftartilik-insertpertanyaan" method="POST" enctype="multipart/form-data">
-      @endforeach
+      <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST">
         @csrf
         <div id="temuanDT" class="card mt-4 mb-4 mx-4 px-3">
-          @foreach ($data as $item)
+          @foreach ($_daftartiliks as $_daftartilik)
           <div class="row g-3 my-4 mx-3" hidden>
             <div class="col">
                 <input
@@ -114,7 +112,7 @@
                     placeholder="Masukkan tempat pelaksanaan"
                     aria-label="Masukkan tempat pelaksanaan"
                     name="daftartilik_id"
-                    value="{{ $item->id }}"
+                    value="{{ $_daftartilik->id }}"
                     hidden
                 />
             </div>
@@ -126,7 +124,7 @@
                     placeholder="Masukkan tempat pelaksanaan"
                     aria-label="Masukkan tempat pelaksanaan"
                     name="auditee_id"
-                    value="{{ $item->auditee->id }}"
+                    value="{{ $_daftartilik->auditee->id }}"
                     hidden
                 />
             </div>
@@ -138,7 +136,7 @@
                     placeholder="Masukkan tempat pelaksanaan"
                     aria-label="Masukkan tempat pelaksanaan"
                     name="auditor_id"
-                    value="{{ $item->auditor->id }}"
+                    value="{{ $_daftartilik->auditor->id }}"
                     hidden
                 />
             </div>
@@ -147,23 +145,23 @@
           <div class="row g-3 my-4 mx-3">
             <div class="col">
               <label for="butirStandar" class="visually-hidden">Butir Standar</label>
-              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ old('butirStandar') }}">
+              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}">
             </div>
             <div class="col">
               <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
-              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ old('nomorButir') }}">
+              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}">
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ old('pertanyaan') }}"></textarea>
+            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}">{{ $datas->pertanyaan }}</textarea>
             <label for="pertanyaan">Masukkan pertanyaan disini</label>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" value="{{ old('indikatormutu') }}"></textarea>
+            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu">{{ $datas->indikatormutu }}</textarea>
             <label for="indikatorMutu">Masukkan indikator mutu disini</label>
           </div>        
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="tergetStandar" value="{{ old('targetStandar') }}"></textarea>
+            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="tergetStandar">{{ $datas->tergetStandar }}</textarea>
             <label for="targetStandar">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
@@ -171,11 +169,11 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
                   <label for="inputButirStandar" class="form-label">Butir Standar</label>
-                  <input type="text" class="form-control" id="inputButirStandar" value="{{ old('butirStandar') }}">
+                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}">
                 </div>
                 <div class="col inputReferensi">
                   <label for="inputReferensi" class="form-label">Referensi</label>
-                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ old('referensi') }}">
+                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}">
                 </div>
               </div>
             </div>
@@ -183,7 +181,7 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputKeterangan">
                   <label for="inputKeterangan" class="form-label">Keterangan</label>
-                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ old('keterangan') }}">
+                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}">
                 </div>
               </div>
             </div>
@@ -191,18 +189,19 @@
           <label for="#" class="mb-4 mx-4">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <div class="col mx-4 mb-4">
-                <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
-                <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dokSahih">
+              <label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label>
+              <div class="input-group mx-4 mb-4">
+                <input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="dokSahih" value="{{ $datas->dokSahih }}">
+                <button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button>
               </div>
               <div class="form-floating mb-3 mx-4">
-                <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"></textarea>
+                <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee">{{ $datas->responAuditee }}</textarea>
                 <label for="responAuditee">Tuliskan respon Auditee disini</label>
               </div>
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor"></textarea>
+            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor">{{ $datas->responAuditee }}</textarea>
             <label for="responAuditor">Tuliskan respon Auditor disini</label>
           </div>
           <div class="row g-3 mb-4 mx-3">
@@ -210,33 +209,51 @@
               <label for="kategoriTemuan" class="form-label">Kategori Temuan</label>
               <div id="kategoriTemuan" class="border rounded ps-4 py-2">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()">
+                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()" value="{{ $datas->Kategori }}"
+                  
+                    @if ($datas->Kategori == "KTS")
+                        {{ "checked" }}
+                    @endif
+                  
+                  >
                   <label class="form-check-label" for="kategoriKTS">KTS</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriOB" value="OB" onclick="display()">
+                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriOB" value="OB" onclick="display()" value="{{ $datas->Kategori }}"
+                  
+                    @if ($datas->Kategori == "OB")
+                        {{ "checked" }}
+                    @endif
+                  
+                  >
                   <label class="form-check-label" for="kategoriOB">OB</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriSesuai" value="Sesuai" onclick="display()">
+                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriSesuai" value="Sesuai" onclick="display()" value="{{ $datas->Kategori }}"
+                  
+                    @if ($datas->Kategori == "Sesuai")
+                        {{ "checked" }}
+                    @endif
+                  
+                  >
                   <label class="form-check-label" for="kategoriSesuai">Sesuai</label>
                 </div>
               </div>
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan">
+              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}">
             </div>
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
               <label for="inisialAuditor" class="form-label">Inisial Auditor</label>
-              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor">
+              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}">
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label">Skor Auditor</label>
-              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor">
+              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}">
             </div>
           </div>
         </div>
@@ -256,21 +273,34 @@
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-        function display() {
-            var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR"></textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
+  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
 
-            if(document.getElementById('kategoriKTS').checked) {
-                document.getElementById("narasiPLOR").innerHTML
-                    = plor;
-            }
-            else if(document.getElementById('kategoriOB').checked) {
-                document.getElementById("narasiPLOR").innerHTML
-                    = plor; 
-            } else {
-                document.getElementById("narasiPLOR").innerHTML
-                      = ''; 
-            }
-        }
+  if(document.getElementById('kategoriKTS').checked) {
+      document.getElementById("narasiPLOR").innerHTML
+          = plor;
+  }
+  else if(document.getElementById('kategoriOB').checked) {
+      document.getElementById("narasiPLOR").innerHTML
+          = plor; 
+  } else {
+      document.getElementById("narasiPLOR").innerHTML
+            = ''; 
+  }
+        // function display() {
+        //     var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
+
+        //     if(document.getElementById('kategoriKTS').checked) {
+        //         document.getElementById("narasiPLOR").innerHTML
+        //             = plor;
+        //     }
+        //     else if(document.getElementById('kategoriOB').checked) {
+        //         document.getElementById("narasiPLOR").innerHTML
+        //             = plor; 
+        //     } else {
+        //         document.getElementById("narasiPLOR").innerHTML
+        //               = ''; 
+        //     }
+        // }
 
   $(document).ready(function(){
     var max_fields = 50;
