@@ -5,11 +5,6 @@
       {{-- Form setiap auditee --}}
       @foreach ($_daftartiliks as $_daftartilik)
       @foreach ($_daftartilik->auditee()->get() as $auditee)
-      {{-- @foreach ($item->auditor()->get() as $da)
-        {{ $da }}
-      @endforeach --}}
-      {{-- <form action="/insertareaDT" method="POST">
-          @csrf --}}
           <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">

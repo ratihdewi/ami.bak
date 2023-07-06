@@ -49,17 +49,23 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
+                @foreach ($pertanyaan_ as $pertanyaan)
                 <tr class="listTemuanBA">
                     <td class="text-center">{{ $no++ }}</td>
                     <td>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Eum, repellendus?
+                        {{ $pertanyaan->pertanyaan }}
                     </td>
                     <td class="text-center">
-                        <i class="bi bi-check-lg"></i>
+                        @if ($pertanyaan->Kategori == "OB")
+                            <i class="bi bi-check-lg"></i>
+                        @endif
                     </td>
-                    <td class="text-center"></td>
-                    <td class="col-2 text-center">XX Nomor Butir Mutu <br> 01</td>
+                    <td class="text-center">
+                        @if ($pertanyaan->Kategori == "KTS")
+                            <i class="bi bi-check-lg"></i>
+                        @endif
+                    </td>
+                    <td class="col-2 text-center">{{ $pertanyaan->butirStandar }} <br> {{ $pertanyaan->nomorButir }}</td>
                     <td  class="text-center">
                         <a
                             href="/DaftarTilik-adddaftartilik"
@@ -85,39 +91,7 @@
                         ></a>
                     </td>
                 </tr>
-                <tr class="listTemuanBA">
-                    <td class="text-center">{{ $no++ }}</td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <i class="bi bi-check-lg"></i>
-                    </td>
-                    <td>XX Nomor Butir Mutu<br>02</td>
-                    <td class="text-center">
-                        <a
-                            href="/DaftarTilik-adddaftartilik"
-                            class="btn btn-outline-success"
-                            ><i class="bi bi-pen"></i
-                        ></a>
-                    </td>
-                    <td class="text-center">
-                        <a
-                            href="/DaftarTilik-adddaftartilik"
-                            class="btn btn-outline-success"
-                            ><i class="bi bi-pen"></i
-                        ></a>
-                    </td>
-                    <td class="text-center">
-                        <a href="/DaftarTilik-adddaftartilik"
-                            ><i class="bi bi-folder-fill h3"></i
-                        ></a>
-                    </td>
-                    <td class="text-center align-middle">
-                        <a href="#" class="mx-2"
-                            ><i class="bi bi-pencil-square h5"></i
-                        ></a>
-                    </td>
-                </tr>
+                @endforeach
                 {{-- @foreach ($data as $item)
                 <tr>
                     <th scope="row" class="text-center">{{ $no++ }}</th>

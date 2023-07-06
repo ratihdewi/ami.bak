@@ -13,6 +13,7 @@
         </div>
         @endif
     </div>
+
     <div class="tableBA mx-3">
         <table class="table table-hover listAuditee">
             <thead>
@@ -24,16 +25,18 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                <tr class="row ListAuditee">
-                    <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-7 auditee"><a href="/auditeeBA" class="text-decoration-none text-black">Fakultas Sains dan Ilmu Komputer</a></td>
-                    <td class="col-4 text-center">2023</td>
+                    <tr class="row ListAuditee">
+                    
+                        @foreach ($auditee_ as $auditee)
+                        @foreach ($auditee->daftartilik()->get() as $item)
+                            <td class="col-1 text-center">{{ $no++ }}</td>
+                            <td class="col-7 auditee"><a href="/auditeeBA/{{ $item->auditee_id }}" class="text-decoration-none text-black">{{ $auditee->unit_kerja }}</a></td>
+                            <td class="col-4 text-center">{{ $item->tgl_pelaksanaan->translatedFormat('Y') }}</td>
+                        @endforeach
+                        @endforeach
+                    
                 </tr>
-                <tr class="row ListAuditee">
-                    <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-7 auditee"><a href="/auditeeBA" class="text-decoration-none text-black">Program Studi Ilmu Komputer</a></td>
-                    <td class="col-4 text-center">2022</td>
-                </tr>
+                {{-- @endforeach --}}
                 {{-- @foreach ($data as $item)
                 <tr>
                     <th scope="row" class="text-center">{{ $no++ }}</th>

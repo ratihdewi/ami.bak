@@ -22,9 +22,7 @@ class PertanyaanController extends Controller
     }
 
     public function tambahdata($auditee_id, $area){
-        // $data =  DaftarTilik::select("id")->where('auditee_id', $auditee_id)
-        //         ->where('area', $area)
-        //         ->get();
+        
         $data = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('area', $area);
         $data_ = Pertanyaan::all();
         $listAuditee = Auditee::all();
