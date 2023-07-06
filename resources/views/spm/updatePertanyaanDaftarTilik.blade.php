@@ -190,10 +190,9 @@
           <label for="#" class="mb-4 mx-4">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label>
-              <div class="input-group mx-4 mb-4">
-                <input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="dokSahih" value="{{ $datas->dokSahih }}">
-                <button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button>
+              <div class="col mx-4 mb-4">
+                <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
+                <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dokSahih" value="{{ $datas->dokSahih }}">
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee">{{ $datas->responAuditee }}</textarea>
