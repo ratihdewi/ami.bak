@@ -278,12 +278,14 @@
             @if (Auth::user()->role != "Auditor")
                 {{ "disabled" }}
             @endif
-          >Persetujuan Auditor</button>
-          <button class="btn btn-success me-md-2" type="button"
-            @if (Auth::user()->role != "Auditee")
-                {{ "disabled" }}
-            @endif
-          >Persetujuan Auditee</button>
+          >{{ $datas->approvalAuditor }}</button>
+          <a href="/approvalAuditee-daftartilik/{{ $datas->id }}">
+            <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui Audit Lapangan ini?')"
+              @if (Auth::user()->role != "Auditee")
+                  {{ "disabled" }}
+              @endif
+            >{{ $datas->approvalAuditee }}</button>
+          </a>
           <button class="btn btn-success" type="submit" style="background: #00D215; border: 1px solid #008F0E;">Simpan</button>
         </div>
       </form>

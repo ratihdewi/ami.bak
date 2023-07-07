@@ -273,17 +273,19 @@
             </div>
           </div>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
-          <button class="btn btn-success me-md-2" type="button"
-            @if (Auth::user()->role != "Auditor")
-                {{ "disabled" }}
-            @endif
-          >Persetujuan Auditor</button>
+        <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+          <a href="/approvalAuditor-daftartilik/{{ $datas->id }}">
+            <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui Audit Lapangan ini?')"
+              @if (Auth::user()->role != "Auditor")
+                  {{ "disabled" }}
+              @endif
+            >{{ $datas->approvalAuditor }}</button>
+          </a>
           <button class="btn btn-success me-md-2" type="button"
             @if (Auth::user()->role != "Auditee")
                 {{ "disabled" }}
             @endif
-          >Persetujuan Auditee</button>
+          >{{ $datas->approvalAuditee }}</button>
           <button class="btn btn-success" type="submit" style="background: #00D215; border: 1px solid #008F0E;">Simpan</button>
         </div>
       </form>

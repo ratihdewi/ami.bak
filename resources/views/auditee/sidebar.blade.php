@@ -54,8 +54,8 @@
                 <span class="nav_name"> Jadwal Audit </span>
             </a>
             <a
-                href=""
-                class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' }}"
+                href="/auditee-beritaacara"
+                class="nav_link {{ Request::routeIs('auditee-beritaacara') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

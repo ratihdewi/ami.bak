@@ -93,7 +93,6 @@
       @endforeach
       @endforeach
     
-      {{ $datas->narasiPLOR }}
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
       <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST">
         @csrf
@@ -255,7 +254,7 @@
         <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="moreItems_add btn btn-primary float-end" type="button">Tambah Pertanyaan</button>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+        <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="btn btn-success me-md-2" type="button"
             @if (Auth::user()->role != "Auditor")
                 {{ "disabled" }}

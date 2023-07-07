@@ -30,6 +30,8 @@ class CreatePertanyaansTable extends Migration
             $table->char('inisialAuditor')->nullable();
             $table->float('skorAuditor')->nullable();
             $table->enum('Kategori', ['KTS','OB','Sesuai'])->nullable();
+            $table->String('approvalAuditor')->default('Belum disetujui Auditor');
+            $table->String('approvalAuditee')->default('Belum disetujui Auditee');
             $table->String('narasiPLOR')->nullable();
             $table->String('fotoKegiatan')->nullable();
             $table->String('dokSahih')->nullable();

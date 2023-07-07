@@ -15,10 +15,10 @@ class CreateBeritaAcarasTable extends Migration
     {
         Schema::create('berita_acaras', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInt('auditee_id');
-            $table->insignedBigInt('pertanyaan_id');
-            $table->String('eSign_auditor');
-            $table->String('eSign_auditee');
+            $table->unsignedBigInteger('auditee_id');
+            $table->unsignedBigInteger('pertanyaan_id');
+            $table->foreign('auditee_id')->references('id')->on('auditees');
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans');
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-@extends('layout.main') @section('title') AMI - Temuan Berita Acara @endsection
+@extends('auditee.main_') @section('title') AMI - Temuan Berita Acara @endsection
 @section('container')
 <div class="container" style="font-size: 15px">
     <div class="container-fluid d-flex mt-4">
@@ -50,7 +50,6 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($pertanyaan_ as $beritaacara)
-        
                 <tr class="listTemuanBA">
                     <td class="text-center">{{ $no++ }}</td>
                     <td>
@@ -68,18 +67,26 @@
                     </td>
                     <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
                     <td  class="text-center">
-                        <a
-                            href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
-                            class="btn btn-outline-success"
-                            ><i class="bi bi-pen"></i
-                        ></a>
+                        @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
+                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                        @else
+                            <a
+                                href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
+                                class="btn btn-outline-success"
+                                ><i class="bi bi-pen"></i
+                            ></a>
+                        @endif
                     </td>
                     <td  class="text-center">
-                        <a
-                            href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
-                            class="btn btn-outline-success"
-                            ><i class="bi bi-pen"></i
-                        ></a>
+                        @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
+                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                        @else
+                            <a
+                                href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
+                                class="btn btn-outline-success"
+                                ><i class="bi bi-pen"></i
+                            ></a>
+                        @endif
                     </td>
                     <td  class="text-center">
                         <a href="/DaftarTilik-adddaftartilik"

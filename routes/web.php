@@ -83,6 +83,9 @@ Route::get('/auditor-daftarauditor', [AuditorController::class, 'indexauditor'])
 Route::get('/auditor-detailauditor', [AuditorController::class, 'profil'])->name('auditor-detailauditor');
 Route::get('/auditor-daftartilik', [DaftarTilikController::class, 'indexAuditor'])->name('auditor-daftartilik');
 Route::get('/auditor-daftarTilik-areadaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'indexAuditor'])->name('auditor-daftarTilik-areadaftartilik');
+Route::get('/auditor-beritaacara', [BeritaAcaraController::class, 'indexAuditor'])->name('auditor-beritaacara');
+Route::get('/approvalAuditee-daftartilik/{id}', [PertanyaanController::class, 'approvalAuditee'])->name('approval-daftartilik');
+Route::get('/approvalAuditor-daftartilik/{id}', [PertanyaanController::class, 'approvalAuditor'])->name('approval-daftartilik');
 Route::get('/auditor-dokresmi', [AuditorController::class, 'testPDF'])->name('auditor-dokresmi');
 
 
@@ -91,6 +94,7 @@ Route::get('/auditee-daftarauditee', [AuditeeController::class, 'indexauditee'])
 Route::get('/auditee-daftarauditor', [AuditorController::class, 'indexauditor_'])->name('auditee-daftarauditor');
 Route::get('/auditee-daftartilik', [DaftarTilikController::class, 'indexAuditee'])->name('auditee-daftartilik');
 Route::get('/auditee-daftarTilik-areadaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'indexAuditee'])->name('auditee-daftarTilik-areadaftartilik');
+Route::get('/auditee-beritaacara', [BeritaAcaraController::class, 'indexAuditee'])->name('auditee-beritaacara');
 
 Route::get('/addAuditor', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
 Route::post('/insertAuditor', [AuditorController::class, 'insertdata'])->name('insertauditor');

@@ -158,4 +158,28 @@ class PertanyaanController extends Controller
         //dd($data_);
         return view('/auditee/areaDaftarTilik', compact('data', 'data_'));
     }
+
+    public function approvalAuditee($id)
+    {
+        $approve_ = Pertanyaan::find($id);
+        
+        $approve_->approvalAuditee = 'Disetujui Auditee';
+ 
+        $approve_->save();
+
+        // dd($approve_);
+        return redirect()->back()->with('message', 'Audit Lapangan sudah berhasil disetujui');
+    }
+
+     public function approvalAuditor($id)
+    {
+        $approve_ = Pertanyaan::find($id);
+        
+        $approve_->approvalAuditor = 'Disetujui Auditor';
+ 
+        $approve_->save();
+
+        // dd($approve_);
+        return redirect()->back()->with('message', 'Audit Lapangan sudah berhasil disetujui');
+    }
 }

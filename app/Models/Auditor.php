@@ -20,9 +20,9 @@ class Auditor extends Model
     ];
     // protected $guarded = [];
 
-    public function dartarTilik()
+    public function dartartilik()
     {
-        return $this->hasMany(DartarTilik::class);
+        return $this->hasMany(DaftarTilik::class);
     }
 
     public function pertanyaan()

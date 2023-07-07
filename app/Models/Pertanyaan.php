@@ -44,4 +44,9 @@ class Pertanyaan extends Model
     {
         return $this->belongsTo(Auditor::class); 
     }
+
+    public function beritaacara()
+    {
+        return $this->belongsTo(BeritaAcara::class);
+    }
 }
