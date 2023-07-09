@@ -71,7 +71,7 @@ Route::get('/daftartilik-deletedatapertanyaandaftartilik/{id}', [PertanyaanContr
 Route::post('/insertareaDT', [DaftarTilikController::class, 'insertdataArea'])->name('insertareaDT');
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA/{auditee_id}', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
-Route::get('/BA-AMI', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-AMI');
+Route::get('/BA-AMI/{auditee_id}', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-AMI');
 Route::get('/ubahdataBA', [BeritaAcaraController::class, 'ubahdata'])->name('ubahdataBA');
 Route::get('/tindakankoreksi', [TindakanKoreksiController::class, 'index'])->name('tindakankoreksi');
 Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');

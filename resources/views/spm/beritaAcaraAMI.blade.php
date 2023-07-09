@@ -44,6 +44,7 @@
           </div>
         </div>
       </div>
+      
       <div class="BA_AMI mb-4">
         <div class="dataDokBA mt-5">
           <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
@@ -53,10 +54,14 @@
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
-            <div class="row">
-              <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
-              <div class="col-9 border py-2 text-start">col-4</div>
-            </div>
+            
+              <div class="row">
+                <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
+                {{-- @foreach ($pertanyaan_ as $beritaacara) --}}
+                <div class="col-9 border py-2 text-start"></div>
+                {{-- @endforeach --}}
+              </div>
+            
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Tahun Ajaran</div>
               <div class="col border py-2 text-start">col</div>
@@ -70,7 +75,8 @@
               <div class="col border py-2 text-start">col</div>
             </div>
         </div>
-      </div>  
+      </div>
+        
       <div class="daftarHadir mb-4">
         <div class="dataDokBA mt-5">
           <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">

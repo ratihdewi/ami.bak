@@ -39,9 +39,14 @@ class BeritaAcaraController extends Controller
         
     }
 
-    public function tampilBA_AMI()
+    public function tampilBA_AMI($auditee_id)
     {
-        return view('spm/beritaAcaraAMI');
+        $auditee_ = Auditee::where('id', $auditee_id);
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+
+        dd($auditee_);
+
+        return view('spm/beritaAcaraAMI', compact('pertanyaan_'));
     }
 
     public function ubahdata()

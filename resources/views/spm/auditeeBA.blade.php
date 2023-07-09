@@ -11,8 +11,10 @@
                 placeholder="Cari berdasarkan Auditee"
             />
         </div>
-        <a href="/BA-AMI"
-            ><button
+        @foreach ($pertanyaan_ as $beritaacara)
+        <a href="/BA-AMI/{{ $beritaacara->auditee_id }}">
+        @endforeach
+            <button
                 type="button"
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
                 style="font-size: 15px"
@@ -20,6 +22,7 @@
                 <i class="bi bi-file-earmark-text me-2"></i>BA AMI
             </button></a
         >
+        
     </div>
     <div class="topSection d-flex justify-content-around mx-2 mt-4">
         @if ($message = Session::get('success'))
@@ -68,18 +71,26 @@
                     </td>
                     <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
                     <td  class="text-center">
-                        <a
-                            href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
-                            class="btn btn-outline-success"
-                            ><i class="bi bi-pen"></i
-                        ></a>
+                        @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
+                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                        @else
+                            <a
+                                href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
+                                class="btn btn-outline-success"
+                                ><i class="bi bi-pen"></i
+                            ></a>
+                        @endif
                     </td>
                     <td  class="text-center">
-                        <a
-                            href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
-                            class="btn btn-outline-success"
-                            ><i class="bi bi-pen"></i
-                        ></a>
+                        @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
+                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                        @else
+                            <a
+                                href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
+                                class="btn btn-outline-success"
+                                ><i class="bi bi-pen"></i
+                            ></a>
+                        @endif
                     </td>
                     <td  class="text-center">
                         <a href="/DaftarTilik-adddaftartilik"

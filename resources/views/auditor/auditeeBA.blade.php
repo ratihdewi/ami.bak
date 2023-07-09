@@ -11,8 +11,10 @@
                 placeholder="Cari berdasarkan Auditee"
             />
         </div>
-        <a href="/BA-AMI"
-            ><button
+        @foreach ($pertanyaan_ as $beritaacara)
+        <a href="/BA-AMI/{{ $beritaacara->auditee_id }}">
+        @endforeach
+            <button
                 type="button"
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
                 style="font-size: 15px"
