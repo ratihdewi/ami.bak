@@ -41,12 +41,17 @@ class BeritaAcaraController extends Controller
 
     public function tampilBA_AMI($auditee_id)
     {
-        $auditee_ = Auditee::where('id', $auditee_id);
+        // $auditee_ = Auditee::where('id', $auditee_id)->get();
+        $auditee_ = Auditee::all();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $get_auditee = $pertanyaan_->first();
+        $auditeeid_find = $get_auditee->auditee_id;
+        $unitKerja = Auditee::where('id', $auditeeid_find)->first();
 
-        dd($auditee_);
+        //dd($daftartilik_->unique('tempat'));
 
-        return view('spm/beritaAcaraAMI', compact('pertanyaan_'));
+        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'unitKerja'));
     }
 
     public function ubahdata()

@@ -28,19 +28,19 @@
         <div class="container text-center dataDokumenBA my-3 px-3">
           <div class="row">
             <div class="col-3 label border py-2 fw-semibold text-start">Judul Dokumen</div>
-            <div class="col-9 border py-2 text-start">col-4</div>
+            <div class="col-9 border py-2 text-start"></div>
           </div>
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Kode Dokumen</div>
-            <div class="col border py-2 text-start">col</div>
+            <div class="col border py-2 text-start"></div>
             <div class="col label border py-2 fw-semibold text-start">Revisi Ke-</div>
-            <div class="col border py-2 text-start">col</div>
+            <div class="col border py-2 text-start"></div>
           </div>
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Tanggal Revisi</div>
-            <div class="col border py-2 text-start">col</div>
+            <div class="col border py-2 text-start"></div>
             <div class="col label border py-2 fw-semibold text-start">Tanggal Berlaku</div>
-            <div class="col border py-2 text-start">col</div>
+            <div class="col border py-2 text-start"></div>
           </div>
         </div>
       </div>
@@ -57,22 +57,29 @@
             
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
-                {{-- @foreach ($pertanyaan_ as $beritaacara) --}}
-                <div class="col-9 border py-2 text-start"></div>
-                {{-- @endforeach --}}
+                <div class="col-9 border py-2 text-start">{{ $unitKerja->unit_kerja }}</div>
               </div>
             
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Tahun Ajaran</div>
-              <div class="col border py-2 text-start">col</div>
+              <div class="col border py-2 text-start"></div>
               <div class="col label border py-2 fw-semibold text-start">Waktu</div>
-              <div class="col border py-2 text-start">col</div>
+              <div class="col border py-2 text-start"></div>
             </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Hari/Tanggal</div>
-              <div class="col border py-2 text-start">col</div>
+              <div class="col border py-2 text-start">
+                @foreach ($daftartilik_ as $daftartilik)
+                {{ $daftartilik->tgl_pelaksanaan->translatedFormat('l, d M Y') }},
+                <br> 
+                @endforeach</div>
               <div class="col label border py-2 fw-semibold text-start">Media</div>
-              <div class="col border py-2 text-start">col</div>
+              <div class="col border py-2 text-start">
+                @foreach ($daftartilik_->unique('tempat') as $daftartilik)
+                {{ $daftartilik->tempat }},
+                <br> 
+                @endforeach</div>
+              </div>
             </div>
         </div>
       </div>
@@ -299,7 +306,7 @@
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="col-2 text-center">Ketua Auditor</td>
-                        <td class="col-3 text-start">Giselle Malone</td>
+                        <td class="col-3 text-start">{{ $unitKerja->ketua_auditor }}</td>
                         <td class="col-2 text-center"><i class="bi bi-pen" type="button"></i></td>
                         <td class="col-2 text-center">
                           <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
@@ -308,7 +315,7 @@
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="col-2 text-center">Ketua Auditee</td>
-                        <td class="col-3 text-start">Anthony Vance</td>
+                        <td class="col-3 text-start">{{ $unitKerja->ketua_auditee }}</td>
                         <td class="col-2 text-center"><i class="bi bi-pen" type="button"></i></td>
                         <td class="col-2 text-center">
                           <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
