@@ -94,7 +94,7 @@
       @endforeach
     
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
-      <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST">
+      <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div id="temuanDT" class="card mt-4 mb-4 mx-4 px-3">
           @foreach ($_daftartiliks as $_daftartilik)
@@ -184,9 +184,20 @@
           <label for="#" class="mb-4 mx-4">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <div class="col mx-4 mb-4">
-                <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
-                <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dokSahih" value="{{ $datas->dokSahih }}">
+              <div class="row">
+                <div class="col mx-4 mb-4">
+                  <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
+                  <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]">
+                </div>
+                <div class="col mx-4 mb-4">
+                  <label for="listDokSahih" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
+                  <select id="listDokSahih" class="form-select" name="dok_sahihs[]">
+                      <option selected>{{ $dokSahih->count() }}</option>
+                      @foreach ($dokSahih as $file)
+                      <option>{{ $file->dokSahih }}</option>
+                      @endforeach
+                  </select>
+                </div>
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee">{{ $datas->responAuditee }}</textarea>
@@ -236,7 +247,16 @@
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}">
+              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]">
+            </div>
+            <div class="col">
+              <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
+              <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
+                  <option selected>{{ $fotoKegiatan->count() }}</option>
+                  @foreach ($fotoKegiatan as $foto)
+                  <option>{{ $foto->foto }}</option>
+                  @endforeach
+              </select>
             </div>
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>

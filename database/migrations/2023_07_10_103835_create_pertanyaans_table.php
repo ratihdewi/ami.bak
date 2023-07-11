@@ -18,6 +18,7 @@ class CreatePertanyaansTable extends Migration
             $table->unsignedBigInteger('daftartilik_id');
             $table->unsignedBigInteger('auditee_id');
             $table->unsignedBigInteger('auditor_id');
+            // $table->unsignedBigInteger('beritaacara_id');
             $table->String('butirStandar');
             $table->String('nomorButir');
             $table->String('indikatormutu');
@@ -33,11 +34,12 @@ class CreatePertanyaansTable extends Migration
             $table->String('approvalAuditor')->default('Belum disetujui Auditor');
             $table->String('approvalAuditee')->default('Belum disetujui Auditee');
             $table->String('narasiPLOR')->nullable();
-            $table->String('fotoKegiatan')->nullable();
-            $table->String('dokSahih')->nullable();
+            // $table->String('fotoKegiatan')->nullable();
+            // $table->String('dokSahih')->nullable();
             $table->foreign('daftartilik_id')->references('id')->on('daftar_tiliks');
             $table->foreign('auditee_id')->references('id')->on('auditees');
             $table->foreign('auditor_id')->references('id')->on('auditors');
+            // $table->foreign('beritaacara_id')->references('id')->on('berita_acaras');
             $table->timestamps();
         });
     }

@@ -72,6 +72,9 @@ Route::post('/insertareaDT', [DaftarTilikController::class, 'insertdataArea'])->
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA/{auditee_id}', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
 Route::get('/BA-AMI/{auditee_id}', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-AMI');
+Route::get('/BA-ubahdataDokumenBAAMI', [BeritaAcaraController::class, 'ubahdataDokumenBA'])->name('BA-ubahdataDokumenBAAMI');
+Route::post('/BA-AMI-insertdatadokumen', [BeritaAcaraController::class, 'insertdataDokumenBA'])->name('BA-AMI-insertdatasokumen');
+Route::get('/BA-daftarhadir', [BeritaAcaraController::class, 'ubahDaftarHadir'])->name('BA-daftarhadir');
 Route::get('/ubahdataBA', [BeritaAcaraController::class, 'ubahdata'])->name('ubahdataBA');
 Route::get('/tindakankoreksi', [TindakanKoreksiController::class, 'index'])->name('tindakankoreksi');
 Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');

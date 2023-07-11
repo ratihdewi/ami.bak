@@ -25,4 +25,14 @@ class Auditee extends Model
     {
         return $this->hasMany(Pertanyaan::class);
     }
+
+    public function beritaacara()
+    {
+        return $this->hasOne(BeritaAcara::class);
+    }
+
+    public function daftarhadir()
+    {
+        return $this->hasOne(DaftarHadir::class);
+    }
 }

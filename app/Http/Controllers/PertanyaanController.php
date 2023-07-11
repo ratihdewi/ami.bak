@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\DokSahih;
 use App\Models\Pertanyaan;
 use App\Models\DaftarTilik;
+use App\Models\FotoKegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,14 +40,55 @@ class PertanyaanController extends Controller
         $daftartilik_id = $request->get('daftartilik_id');
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('id', $daftartilik_id)->first();
 
-        $requestData = $request->all();
-        $fileName = time().$request->file('dokSahih')->getClientOriginalName();
-        $fileFoto = time().$request->file('fotoKegiatan')->getClientOriginalName();
-        $pathFile = $request->file('dokSahih')->storeAs('dokumenSahih', $fileName, 'public');
-        $pathFoto = $request->file('fotoKegiatan')->storeAs('DokumenFoto', $fileFoto, 'public');
-        $requestData["dokSahih"] = '/storage/'.$pathFile;
-        $requestData["fotoKegiatan"] = '/storage/'.$pathFoto;
-        Pertanyaan::create($requestData);
+        // $requestData = $request->all();
+        $pertanyaan =new Pertanyaan([
+            "daftartilik_id" => $request->daftartilik_id,
+            "auditee_id"=> $request->auditee_id,
+            "auditor_id"=> $request->auditor_id,
+            "butirStandar" => $request->butirStandar,
+            "nomorButir"=> $request->nomorButir,
+            "indikatormutu"=> $request->indikatormutu,
+            "targetStandar"=> $request->targetStandar,
+            "referensi"=> $request->referensi,
+            "keterangan"=> $request->keterangan,
+            "pertanyaan"=> $request->pertanyaan,
+            "responAuditee"=> $request->responAuditee,
+            "responAuditor"=> $request->responAuditor,
+            "inisialAuditor"=> $request->inisialAuditor,
+            "skorAuditor"=> $request->skorAuditor,
+            "Kategori"=> $request->Kategori,
+            "approvalAuditee"=> $request->approvalAuditee,
+            "approvalAuditor"=> $request->approvalAuditor,
+            "narasiPLOR"=> $request->narasiPLOR,
+        ]);
+        $pertanyaan->save();
+
+        //dd($pertanyaan);
+        // Pertanyaan::create($requestData);
+
+        if ($request->hasFile('dok_sahihs')) {
+
+            //upload new image
+            $files = $request->file('dok_sahihs');
+            foreach ($files as $file) {
+                $fileName = time().$file->getClientOriginalName();
+                $pathFile = $file->storeAs('dokumenSahih', $fileName, 'public');
+                $request["pertanyaan_id"] = $pertanyaan->id;
+                $request["dokSahih"] = '/storage/'.$pathFile;
+                DokSahih::create($request->all());
+            }
+        } 
+
+        if ($request->hasFile('foto_kegiatans')) {
+            $photos = $request->file('foto_kegiatans');
+            foreach ($photos as $key => $photo) {
+                $fileFoto = time().$photo->getClientOriginalName();
+                $pathFoto = $photo->storeAs('DokumenFoto', $fileFoto, 'public');
+                $request["pertanyaan_id"] = $pertanyaan->id;
+                $request["foto"] = '/storage/'.$pathFoto;
+                FotoKegiatan::create($request->all());
+            }
+        }
 
         return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil ditambah!');
     }
@@ -58,13 +101,15 @@ class PertanyaanController extends Controller
         $listAuditee = Auditee::all();
         $listAuditor = Auditor::all();
         $role_ = Auth::user()->role;
+        $fotoKegiatan = FotoKegiatan::where('pertanyaan_id', $id)->get();
+        $dokSahih = DokSahih::where('pertanyaan_id', $id)->get();
         
         if ($role_ == "SPM") {
-            return view('spm/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor'));
+            return view('spm/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
         } elseif ($role_ == "Auditor") {
-            return view('auditor/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor'));
+            return view('auditor/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
         } elseif ($role_ == "Auditee") {
-            return view('auditee/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor'));
+            return view('auditee/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
         }
     }
 
@@ -74,19 +119,54 @@ class PertanyaanController extends Controller
         $auditee_id = $data->auditee_id;
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->first();
         
-        // dd($request->get('narasiPLOR'));
-
-        $data->update($request->all());
-        $role_ = Auth::user()->role;
-
-        $requestNarasi = $request->get('narasiPLOR');
-
-        if ($data->Kategori == "Sesuai") {
-           $data->narasiPLOR = NULL;
+        if ($request->Kategori == "Sesuai") {
+            $request->narasiPLOR = NULL;
         }
 
-        //dd($data);
+        $data->update([
+            "butirStandar" => $request->butirStandar,
+            "nomorButir"=> $request->nomorButir,
+            "indikatorMutu"=> $request->indikatorMutu,
+            "targetStandar"=> $request->targetStandar,
+            "referensi"=> $request->referensi,
+            "keterangan"=> $request->keterangan,
+            "pertanyaan"=> $request->pertanyaan,
+            "responAuditee"=> $request->responAuditee,
+            "responAuditor"=> $request->responAuditor,
+            "inisialAuditor"=> $request->inisialAuditor,
+            "skorAuditor"=> $request->skorAuditor,
+            "Kategori"=> $request->Kategori,
+            "approvalAuditee"=> $request->approvalAuditee,
+            "approvalAuditor"=> $request->approvalAuditor,
+            "narasiPLOR"=> $request->narasiPLOR,
+        ]);
 
+        if ($request->hasFile('foto_kegiatans')) {
+            $photos = $request->file('foto_kegiatans');
+            foreach ($photos as $key => $photo) {
+                $fileFoto = time().$photo->getClientOriginalName();
+                $pathFoto = $photo->storeAs('DokumenFoto', $fileFoto, 'public');
+                $request["pertanyaan_id"] = $data->id;
+                $request["foto"] = '/storage/'.$pathFoto;
+                FotoKegiatan::create($request->all());
+            }
+        }
+
+        if ($request->hasFile('dok_sahihs')) {
+
+            //upload new image
+            $files = $request->file('dok_sahihs');
+            foreach ($files as $key => $file) {
+                $fileName = time().$file->getClientOriginalName();
+                $pathFile = $file->storeAs('dokumenSahih', $fileName, 'public');
+                $request["pertanyaan_id"] = $data->id;
+                $request["dokSahih"] = '/storage/'.$pathFile;
+                DokSahih::create($request->all());
+            }
+        } 
+
+        //dd($data);
+        $role_ = Auth::user()->role;
         if ($role_ == "SPM") {
             return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate');
         } elseif ($role_ == "Auditor") {
@@ -100,39 +180,15 @@ class PertanyaanController extends Controller
     public function deletedata($id)
     {
         $data = Pertanyaan::find($id);
+        $fotoKegiatan_ = FotoKegiatan::all();
+        $dokSahih_ = DokSahih::all();
         $auditee_id = $data->auditee_id;
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->first();
+
 
         $data->delete();
         return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil dihapus');
     }
-
-    // public function proses_upload(Request $request){
-	// 	$this->validate($request, [
-	// 		'dokSahih' => 'required|file|image|mimes:pdf,docx,xlsx,xls|max:2048',
-	// 		'fotoKegiatan' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
-	// 	]);
- 
-	// 	// menyimpan data file yang diupload ke variabel $file
-	// 	$file = $request->file('dokSahih');
-    //     $foto = $request->file('fotoKegiatan');
- 
-	// 	$nama_file = time()."_".$file->getClientOriginalName();
-    //     $nama_foto = time()."_".$file->getClientOriginalName();
- 
-    //   	        // isi dengan nama folder tempat kemana file diupload
-	// 	$tujuan_uploadFile = 'dokumen_sahih';
-    //     $tujuan_uploadFoto = 'foto_kegiatan';
-	// 	$nama_file->move($tujuan_uploadFile,$nama_file);
-    //     $nama_foto->move($tujuan_uploadFoto,$nama_fot);
- 
-	// 	// Gambar::create([
-	// 	// 	'file' => $nama_file,
-	// 	// 	'keterangan' => $request->keterangan,
-	// 	// ]);
- 
-	// 	return redirect()->back();
-	// }
 
     // Role Auditor
     public function indexAuditor($auditee_id, $area)

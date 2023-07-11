@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeritaAcarasTable extends Migration
+class CreateDokLaporansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateBeritaAcarasTable extends Migration
      */
     public function up()
     {
-        Schema::create('berita_acaras', function (Blueprint $table) {
+        Schema::create('dok_laporans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('auditee_id');
-            $table->foreign('auditee_id')->references('id')->on('auditees');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class CreateBeritaAcarasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('berita_acaras');
+        Schema::dropIfExists('dok_laporans');
     }
 }

@@ -29,4 +29,9 @@ class Auditor extends Model
     {
         return $this->hasMany(Pertanyaan::class);
     }
+
+    public function daftarhadir()
+    {
+        return $this->hasMany(DaftarHadir::class);
+    }
 }

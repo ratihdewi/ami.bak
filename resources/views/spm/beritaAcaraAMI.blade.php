@@ -4,7 +4,7 @@
       <div class="d-flex my-4 justify-content-between">
         <div class="btn-left">
           <a href="/auditeeBA"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
-          <a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a>
+          {{-- <a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a> --}}
         </div>
         <div class="btn-right">
           <button class="btn btn-primary btn-sm" type="button">Cetak</button>
@@ -19,38 +19,68 @@
       </div>
       <div class="dataDokumenAMI mb-4">
         <div class="dataDokBA mt-3">
-          <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
+          <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Data Dokumen BA</button>
             </li>
+            <li>
+              <a href="/BA-ubahdataDokumenBAAMI">
+                <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
+              </a>
+            </li>
+            
           </ul>
+          
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
+          
           <div class="row">
             <div class="col-3 label border py-2 fw-semibold text-start">Judul Dokumen</div>
-            <div class="col-9 border py-2 text-start"></div>
+            <div class="col-9 border py-2 text-start">
+              @foreach ($ba_ami as $ba)
+                {{ $ba->judulDokumen }}
+              @endforeach
+            </div>
           </div>
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Kode Dokumen</div>
-            <div class="col border py-2 text-start"></div>
+            <div class="col border py-2 text-start">
+              @foreach ($ba_ami as $ba)
+                {{ $ba->kodeDokumen }}
+              @endforeach
+            </div>
             <div class="col label border py-2 fw-semibold text-start">Revisi Ke-</div>
-            <div class="col border py-2 text-start"></div>
+            <div class="col border py-2 text-start">
+              @foreach ($ba_ami as $ba)
+                {{ $ba->revisiKe }}
+              @endforeach
+            </div>
           </div>
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Tanggal Revisi</div>
-            <div class="col border py-2 text-start"></div>
+            <div class="col border py-2 text-start">
+              @foreach ($ba_ami as $ba)
+              {{ $ba->tgl_revisi }}
+              @endforeach
+            </div>
             <div class="col label border py-2 fw-semibold text-start">Tanggal Berlaku</div>
-            <div class="col border py-2 text-start"></div>
+            <div class="col border py-2 text-start">
+              @foreach ($ba_ami as $ba)
+              {{ $ba->tgl_berlaku }}
+              @endforeach
+            </div>
           </div>
         </div>
+        
       </div>
       
       <div class="BA_AMI mb-4">
         <div class="dataDokBA mt-5">
-          <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
+          <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Berita Acara AMI</button>
             </li>
+            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -85,11 +115,12 @@
       </div>
         
       <div class="daftarHadir mb-4">
-        <div class="dataDokBA mt-5">
-          <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
+        <div class="dataDokBA mt-5 mx-3 mx-3">
+          <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Berita Acara AMI - Daftar Hadir</button>
             </li>
+            <li><a href="/BA-daftarhadir"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -145,11 +176,12 @@
         </div>
       </div>
       <div class="temuanAudit mb-4">
-        <div class="dataDokBA mt-5">
-          <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
+        <div class="dataDokBA mt-5 mx-3">
+          <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Temuan Audit</button>
             </li>
+            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -205,11 +237,12 @@
         </div>
       </div>
       <div class="peluangPeningkatan mb-4">
-        <div class="dataDokBA mt-5">
-          <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
+        <div class="dataDokBA mt-5 mx-3">
+          <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Peluang Peningkatan</button>
             </li>
+            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -265,14 +298,15 @@
         </div>
       </div>
       <div class="dokumenPendukung mb-4">
-        <div class="dataDokBA mt-5">
-          <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
+        <div class="dataDokBA mt-5 mx-3">
+          <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dokumen Pendukung</button>
             </li>
+            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container text-center dataDokumenBA my-3 px-3 mx-3">
           <div class="row mt-4">
             <div class="col-1 logoDokumen bg-warning bg-opacity-10 border border-info rounded-start py-3"><i class="bi bi-file-earmark-text-fill h2"></i></div>
             <div class="col-3 infoDokumen bg-warning bg-opacity-10 border border-info rounded-end text-start py-3">
@@ -283,11 +317,12 @@
         </div>
       </div>
       <div class="persetujuan mb-4">
-        <div class="dataDokBA mt-5">
-          <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
+        <div class="dataDokBA mt-5 mx-3">
+          <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Persetujuan</button>
             </li>
+            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">

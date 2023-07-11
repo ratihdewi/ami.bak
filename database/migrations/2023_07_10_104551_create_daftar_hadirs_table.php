@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeritaAcarasTable extends Migration
+class CreateDaftarHadirsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateBeritaAcarasTable extends Migration
      */
     public function up()
     {
-        Schema::create('berita_acaras', function (Blueprint $table) {
+        Schema::create('daftar_hadirs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('beritaacara_id');
             $table->unsignedBigInteger('auditee_id');
+            $table->unsignedBigInteger('auditor_id');
+            $table->String('eSign')->default('Tidak Hadir');
+            $table->foreign('auditor_id')->references('id')->on('auditors');
             $table->foreign('auditee_id')->references('id')->on('auditees');
+            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras');
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ class CreateBeritaAcarasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('berita_acaras');
+        Schema::dropIfExists('daftar_hadirs');
     }
 }

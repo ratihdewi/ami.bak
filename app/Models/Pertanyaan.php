@@ -45,8 +45,18 @@ class Pertanyaan extends Model
         return $this->belongsTo(Auditor::class); 
     }
 
-    public function beritaacara()
+    public function dokSahih()
     {
-        return $this->belongsTo(BeritaAcara::class);
+        return $this->hasMany(DokSahih::class); 
     }
+
+    public function fotoKegiatan()
+    {
+        return $this->hasMany(FotoKegiatan::class); 
+    }
+
+    // public function beritaacara()
+    // {
+    //     return $this->belongsTo(BeritaAcara::class);
+    // }
 }
