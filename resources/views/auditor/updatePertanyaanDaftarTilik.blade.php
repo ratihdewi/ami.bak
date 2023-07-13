@@ -143,25 +143,25 @@
           </div>
           @endforeach
           <div class="row g-3 my-4 mx-3">
-            <div class="col" disabled>
+            <div class="col">
               <label for="butirStandar" class="visually-hidden">Butir Standar</label>
-              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" disabled>
+              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" readonly>
             </div>
             <div class="col">
               <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
-              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" disabled>
+              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" readonly>
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" disabled>{{ $datas->pertanyaan }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" readonly>{{ $datas->pertanyaan }}</textarea>
             <label for="pertanyaan">Masukkan pertanyaan disini</label>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" disabled>{{ $datas->indikatormutu }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" readonly>{{ $datas->indikatormutu }}</textarea>
             <label for="indikatorMutu">Masukkan indikator mutu disini</label>
           </div>        
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="tergetStandar" disabled>{{ $datas->tergetStandar }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" readonly>{{ $datas->targetStandar }}</textarea>
             <label for="targetStandar">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
@@ -169,11 +169,11 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
                   <label for="inputButirStandar" class="form-label">Butir Standar</label>
-                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" disabled>
+                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" readonly>
                 </div>
                 <div class="col inputReferensi">
                   <label for="inputReferensi" class="form-label">Referensi</label>
-                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}" disabled>
+                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}" readonly>
                 </div>
               </div>
             </div>
@@ -181,7 +181,7 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputKeterangan">
                   <label for="inputKeterangan" class="form-label">Keterangan</label>
-                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}" disabled>
+                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}" readonly>
                 </div>
               </div>
             </div>
@@ -189,29 +189,31 @@
           <label for="#" class="mb-4 mx-4">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label>
-              <div class="input-group mx-4 mb-4">
-                <input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="dokSahih" value="{{ $datas->dokSahih }}"
-                
-                @if ($datas->dokSahih != NULL &&  Auth::user()->role == "Auditor")
-                    {{ "disabled" }}
-                @else
-                    {{ "required" }}
-                @endif
-                >
-                <button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button>
+              <div class="row">
+                <div class="col mx-4 mb-4">
+                  <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
+                  <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]"
+                    @if ($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor")
+                        {{ "readonly" }}
+                    @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
+                        {{ "required" }}
+                    @endif
+                    disabled
+                  >
+                </div>
+                <div class="col mx-4 mb-4">
+                  <label for="listDokSahih" class="form-label">Daftar dokumen sahih yang sudah diunggah</label>
+                  <select id="listDokSahih" class="form-select" name="dok_sahihs[]" readonly>
+                      <option selected>Daftar dokumen sahih yang sudah diunggah</option>
+                      @foreach ($dokSahih as $file)
+                      <option><a href="/view-doksahih">{{ $file->namaFile }}</a></option>
+                      @endforeach
+                      
+                  </select>
+                </div>
               </div>
-              
               <div class="form-floating mb-3 mx-4">
-                <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"
-                
-                @if ($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor")
-                    {{ "disabled" }}
-                @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
-                    {{ "required" }}
-                @endif
-
-                >{{ $datas->responAuditee }}</textarea>
+                <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee" readonly>{{ $datas->responAuditee }}</textarea>
                 <label for="responAuditee">Tuliskan respon Auditee disini</label>
               </div>
             </div>
@@ -259,6 +261,15 @@
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
               <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}">
+            </div>
+            <div class="col">
+              <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
+              <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
+                  <option selected>Daftar foto kegiatan yang sudah diunggah</option>
+                  @foreach ($fotoKegiatan as $foto)
+                  <option>{{ $foto->namaFile }}</option>
+                  @endforeach
+              </select>
             </div>
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
@@ -309,21 +320,21 @@
       document.getElementById("narasiPLOR").innerHTML
             = ''; 
   }
-        // function display() {
-        //     var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
+  function display() {
+      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
 
-        //     if(document.getElementById('kategoriKTS').checked) {
-        //         document.getElementById("narasiPLOR").innerHTML
-        //             = plor;
-        //     }
-        //     else if(document.getElementById('kategoriOB').checked) {
-        //         document.getElementById("narasiPLOR").innerHTML
-        //             = plor; 
-        //     } else {
-        //         document.getElementById("narasiPLOR").innerHTML
-        //               = ''; 
-        //     }
-        // }
+      if(document.getElementById('kategoriKTS').checked) {
+          document.getElementById("narasiPLOR").innerHTML
+              = plor;
+      }
+      else if(document.getElementById('kategoriOB').checked) {
+          document.getElementById("narasiPLOR").innerHTML
+              = plor; 
+      } else {
+          document.getElementById("narasiPLOR").innerHTML
+                = ''; 
+      }
+  }
 
   $(document).ready(function(){
     var max_fields = 50;

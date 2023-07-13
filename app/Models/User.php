@@ -28,6 +28,7 @@ class User extends Authenticatable
         'username',
         'role',
         'jabatan',
+        'noTelepon',
     ];
 
     /**

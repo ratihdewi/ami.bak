@@ -36,6 +36,7 @@ class PertanyaanController extends Controller
 
     public function insertpertanyaan(Request $request)
     {
+        //dd($request->targetStandar);
         $auditee_id = $request->get('auditee_id');
         $daftartilik_id = $request->get('daftartilik_id');
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('id', $daftartilik_id)->first();
@@ -61,10 +62,8 @@ class PertanyaanController extends Controller
             "approvalAuditor"=> $request->approvalAuditor,
             "narasiPLOR"=> $request->narasiPLOR,
         ]);
+        
         $pertanyaan->save();
-
-        //dd($pertanyaan);
-        // Pertanyaan::create($requestData);
 
         if ($request->hasFile('dok_sahihs')) {
 
@@ -75,6 +74,8 @@ class PertanyaanController extends Controller
                 $pathFile = $file->storeAs('dokumenSahih', $fileName, 'public');
                 $request["pertanyaan_id"] = $pertanyaan->id;
                 $request["dokSahih"] = '/storage/'.$pathFile;
+                $request["namaFile"] = $fileName;
+                
                 DokSahih::create($request->all());
             }
         } 
@@ -86,6 +87,7 @@ class PertanyaanController extends Controller
                 $pathFoto = $photo->storeAs('DokumenFoto', $fileFoto, 'public');
                 $request["pertanyaan_id"] = $pertanyaan->id;
                 $request["foto"] = '/storage/'.$pathFoto;
+                $request["namaFile"] = $fileFoto;
                 FotoKegiatan::create($request->all());
             }
         }
@@ -117,12 +119,14 @@ class PertanyaanController extends Controller
     {
         $data = Pertanyaan::find($id);
         $auditee_id = $data->auditee_id;
-        $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->first();
+        $_area = DaftarTilik::all()->where('id', $data->daftartilik_id)->where('auditee_id', $auditee_id)->first();
+        $role_ = Auth::user()->role;
         
         if ($request->Kategori == "Sesuai") {
             $request->narasiPLOR = NULL;
         }
 
+        
         $data->update([
             "butirStandar" => $request->butirStandar,
             "nomorButir"=> $request->nomorButir,
@@ -148,6 +152,7 @@ class PertanyaanController extends Controller
                 $pathFoto = $photo->storeAs('DokumenFoto', $fileFoto, 'public');
                 $request["pertanyaan_id"] = $data->id;
                 $request["foto"] = '/storage/'.$pathFoto;
+                $request["namaFile"] = $fileFoto;
                 FotoKegiatan::create($request->all());
             }
         }
@@ -161,12 +166,12 @@ class PertanyaanController extends Controller
                 $pathFile = $file->storeAs('dokumenSahih', $fileName, 'public');
                 $request["pertanyaan_id"] = $data->id;
                 $request["dokSahih"] = '/storage/'.$pathFile;
+                $request["namaFile"] = $fileName;
                 DokSahih::create($request->all());
             }
         } 
 
         //dd($data);
-        $role_ = Auth::user()->role;
         if ($role_ == "SPM") {
             return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate');
         } elseif ($role_ == "Auditor") {
@@ -175,6 +180,11 @@ class PertanyaanController extends Controller
             return redirect()->route('auditee-daftarTilik-areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate');
         }
         
+    }
+
+    public function testPDF()
+    {
+        return response()->file(public_path('dokumen/example.pdf'),['content-type'=>'application/pdf']);
     }
 
     public function deletedata($id)

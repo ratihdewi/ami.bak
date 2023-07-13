@@ -87,9 +87,13 @@ class DaftarTilikController extends Controller
 
     // Role AUDITOR
     public function indexAuditor() {
-        $data_ = Auditee::all();
-        // dd($data_);
-        return view('auditor/daftarTilik', compact('data_'));
+        $namaUser = Auth::user()->name;
+        $dataAuditor_ = Auditor::where('nama', $namaUser)->get();
+        // $data_ = DaftarTilik::where('auditor_id', $dataAuditor_->id)->get();
+        // $dataAuditee_ = Auditee::all();
+        //dd($dataAuditor_);
+        
+        return view('auditor/daftarTilik', compact('dataAuditor_'));
     }
 
     //Role AUDITEE

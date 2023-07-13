@@ -16,6 +16,7 @@ class CreateDokSahihsTable extends Migration
         Schema::create('dok_sahihs', function (Blueprint $table) {
             $table->id();
             $table->String('dokSahih');
+            $table->String('namaFile')->nullable();
             $table->unsignedBigInteger('pertanyaan_id');
             $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans');
             $table->timestamps();

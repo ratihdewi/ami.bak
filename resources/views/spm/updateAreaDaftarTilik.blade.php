@@ -25,10 +25,10 @@
             </div>
             <div class="col">
                 <label for="auditor" class="visually-hidden">Auditor</label>
-                <select id="auditor" class="form-select" name="auditor">
+                <select id="auditor" class="form-select" name="auditor_id">
                     <option selected disabled>{{ $data->auditor->nama }}</option>
                     @foreach ($listAuditor as $item)
-                    <option>{{ $item->nama }}</option>
+                    <option value="{{ $item->id }}" name="auditor_id">{{ $item->nama }}</option>
                     @endforeach
                 </select>
             </div>

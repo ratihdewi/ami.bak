@@ -99,7 +99,7 @@
       @endforeach
     
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
-      <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST">
+      <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div id="temuanDT" class="card mt-4 mb-4 mx-4 px-3">
           @foreach ($_daftartiliks as $_daftartilik)
@@ -145,23 +145,23 @@
           <div class="row g-3 my-4 mx-3">
             <div class="col" disabled>
               <label for="butirStandar" class="visually-hidden">Butir Standar</label>
-              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" disabled>
+              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" readonly>
             </div>
             <div class="col">
               <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
-              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" disabled>
+              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" readonly>
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" disabled>{{ $datas->pertanyaan }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" readonly>{{ $datas->pertanyaan }}</textarea>
             <label for="pertanyaan">Masukkan pertanyaan disini</label>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" disabled>{{ $datas->indikatormutu }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" readonly>{{ $datas->indikatormutu }}</textarea>
             <label for="indikatorMutu">Masukkan indikator mutu disini</label>
           </div>        
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="tergetStandar" disabled>{{ $datas->tergetStandar }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" readonly>{{ $datas->targetStandar }}</textarea>
             <label for="targetStandar">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
@@ -169,11 +169,11 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
                   <label for="inputButirStandar" class="form-label">Butir Standar</label>
-                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" disabled>
+                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" readonly>
                 </div>
                 <div class="col inputReferensi">
                   <label for="inputReferensi" class="form-label">Referensi</label>
-                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}" disabled>
+                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}" readonly>
                 </div>
               </div>
             </div>
@@ -181,7 +181,7 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputKeterangan">
                   <label for="inputKeterangan" class="form-label">Keterangan</label>
-                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}" disabled>
+                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}" readonly>
                 </div>
               </div>
             </div>
@@ -189,19 +189,27 @@
           <label for="#" class="mb-4 mx-4">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label>
-              <div class="input-group mx-4 mb-4">
-                <input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="dokSahih" value="{{ $datas->dokSahih }}"
-                
-                @if ($datas->dokSahih != NULL &&  Auth::user()->role == "Auditor")
-                    {{ "disabled" }}
-                @elseif ($datas->dokSahih == NULL &&  Auth::user()->role == "Auditee")
-                    {{ "required" }}
-                @endif
-                >
-                <button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button>
+              <div class="row">
+                <div class="col mx-4 mb-4">
+                  <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
+                  <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]"
+                    @if ($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor")
+                        {{ "disabled" }}
+                    @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
+                        {{ "required" }}
+                    @endif
+                  >
+                </div>
+                <div class="col mx-4 mb-4">
+                  <label for="listDokSahih" class="form-label">Daftar dokumen sahih yang sudah diunggah</label>
+                  <select id="listDokSahih" class="form-select" name="dok_sahihs[]">
+                      <option selected>Daftar dokumen sahih yang sudah diunggah</option>
+                      @foreach ($dokSahih as $file)
+                      <option><a href="/view-doksahih">{{ $file->namaFile }}</a></option>
+                      @endforeach
+                  </select>
+                </div>
               </div>
-              
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"
                 
@@ -217,7 +225,7 @@
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor">{{ $datas->responAuditor }}</textarea>
+            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor" readonly>{{ $datas->responAuditor }}</textarea>
             <label for="responAuditor">Tuliskan respon Auditor disini</label>
           </div>
           <div class="row g-3 mb-4 mx-3">
@@ -230,7 +238,8 @@
                     @if ($datas->Kategori == "KTS")
                         {{ "checked" }}
                     @endif
-                  
+
+                    disabled
                   >
                   <label class="form-check-label" for="kategoriKTS">KTS</label>
                 </div>
@@ -240,7 +249,8 @@
                     @if ($datas->Kategori == "OB")
                         {{ "checked" }}
                     @endif
-                  
+
+                    disabled
                   >
                   <label class="form-check-label" for="kategoriOB">OB</label>
                 </div>
@@ -250,7 +260,8 @@
                     @if ($datas->Kategori == "Sesuai")
                         {{ "checked" }}
                     @endif
-                  
+
+                    disabled
                   >
                   <label class="form-check-label" for="kategoriSesuai">Sesuai</label>
                 </div>
@@ -258,18 +269,27 @@
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}">
+              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]">
+            </div>
+            <div class="col">
+              <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
+              <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
+                  <option selected>Daftar foto kegiatan yang sudah diunggah</option>
+                  @foreach ($fotoKegiatan as $foto)
+                  <option>{{ $foto->namaFile }}</option>
+                  @endforeach
+              </select>
             </div>
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
               <label for="inisialAuditor" class="form-label">Inisial Auditor</label>
-              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}">
+              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}" readonly>
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label">Skor Auditor</label>
-              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}">
+              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}" readonly>
             </div>
           </div>
         </div>

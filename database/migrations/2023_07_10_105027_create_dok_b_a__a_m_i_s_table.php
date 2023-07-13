@@ -21,7 +21,7 @@ class CreateDokBAAMISTable extends Migration
             $table->String('kodeDokumen')->default("Data kode dokumen belum ada");
             $table->String('tgl_revisi')->default("Data tanggal revisi belum ada");
             $table->String('tgl_berlaku')->default("Data tanggal berlaku belum ada");
-            $table->Integer('revisiKe')->default("Data jumlah revisi belum ada");
+            $table->Integer('revisiKe')->default('0');
             $table->foreign('beritaacara_id')->references('id')->on('berita_acaras');
             $table->foreign('auditee_id')->references('id')->on('auditees');
             $table->timestamps();

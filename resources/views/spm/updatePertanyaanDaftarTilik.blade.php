@@ -156,7 +156,7 @@
             <label for="indikatorMutu">Masukkan indikator mutu disini</label>
           </div>        
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="tergetStandar">{{ $datas->tergetStandar }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar">{{ $datas->targetStandar }}</textarea>
             <label for="targetStandar">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
@@ -190,11 +190,11 @@
                   <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]">
                 </div>
                 <div class="col mx-4 mb-4">
-                  <label for="listDokSahih" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
+                  <label for="listDokSahih" class="form-label">Daftar dokumen sahih yang sudah diunggah</label>
                   <select id="listDokSahih" class="form-select" name="dok_sahihs[]">
-                      <option selected>{{ $dokSahih->count() }}</option>
+                      <option selected>Daftar dokumen sahih yang sudah diunggah</option>
                       @foreach ($dokSahih as $file)
-                      <option>{{ $file->dokSahih }}</option>
+                      <option><a href="/view-doksahih">{{ $file->namaFile }}</a></option>
                       @endforeach
                   </select>
                 </div>
@@ -252,9 +252,9 @@
             <div class="col">
               <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
               <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
-                  <option selected>{{ $fotoKegiatan->count() }}</option>
+                  <option selected>Daftar foto kegiatan yang sudah diunggah</option>
                   @foreach ($fotoKegiatan as $foto)
-                  <option>{{ $foto->foto }}</option>
+                  <option>{{ $foto->namaFoto }}</option>
                   @endforeach
               </select>
             </div>
@@ -279,12 +279,12 @@
             @if (Auth::user()->role != "Auditor")
                 {{ "disabled" }}
             @endif
-          >Persetujuan Auditor</button>
+          >{{ $datas->approvalAuditor }}</button>
           <button class="btn btn-success me-md-2" type="button"
             @if (Auth::user()->role != "Auditee")
                 {{ "disabled" }}
             @endif
-          >Persetujuan Auditee</button>
+          >{{ $datas->approvalAuditee }}</button>
           <button class="btn btn-success" type="submit" style="background: #00D215; border: 1px solid #008F0E;">Simpan</button>
         </div>
       </form>

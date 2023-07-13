@@ -16,6 +16,7 @@ class CreateFotoKegiatansTable extends Migration
         Schema::create('foto_kegiatans', function (Blueprint $table) {
             $table->id();
             $table->String('foto');
+            $table->String('namaFile')->nullable();
             $table->unsignedBigInteger('pertanyaan_id');
             $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans');
             $table->timestamps();

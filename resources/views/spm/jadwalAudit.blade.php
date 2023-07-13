@@ -57,10 +57,11 @@
                         <th class="col-1 text-center">No</th>
                         <th class="col-2 text-center">Auditee</th>
                         <th class="col-2 text-center">Auditor</th>
+                        <th class="col-1 text-center">Tahun Ajaran</th>
                         <th class="col-1 text-center">Tempat</th>
                         <th class="col-2 text-center">Hari/Tanggal</th>
                         <th class="col-1 text-center">Waktu</th>
-                        <th class="col-2 text-center">Kegiatan</th>
+                        <th class="col-1 text-center">Kegiatan</th>
                         <th class="col-1 text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -71,6 +72,7 @@
                         <th scope="row" class="text-center">{{ $no++ }}</th>
                         <td class="text-center">{{ $item->auditee }}</td>
                         <td class="text-center">{{ $item->auditor }}</td>
+                        <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
                         <td class="text-center">{{ $item->tempat }}</td>
                         <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
                         <td class="text-center">{{ $item->waktu }}</td>

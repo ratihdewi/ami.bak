@@ -22,11 +22,11 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start">Fakultas</div>
-            <div class="col-6 border py-2 text-start">col-4</div>
+            <div class="col-6 border py-2 text-start"></div>
           </div>
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start">Nomor Telepon</div>
-            <div class="col-6 border py-2 text-start">col-4</div>
+            <div class="col-6 border py-2 text-start"></div>
           </div>
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start">Surat Keputusan</div>
@@ -34,7 +34,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-3 label border py-2 fw-semibold text-start"><i>eSign</i></div>
-            <div class="col-6 border py-2 text-start">col-4</div>
+            <div class="col-6 border py-2 text-start"></div>
           </div>
         </div>
       </div>

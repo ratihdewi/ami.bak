@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
+use App\Http\Controllers\DokBAAMIController;
+use App\Http\Controllers\DokSahihController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\BeritaAcaraController;
@@ -71,14 +73,18 @@ Route::get('/daftartilik-deletedatapertanyaandaftartilik/{id}', [PertanyaanContr
 Route::post('/insertareaDT', [DaftarTilikController::class, 'insertdataArea'])->name('insertareaDT');
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA/{auditee_id}', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
-Route::get('/BA-AMI/{auditee_id}', [BeritaAcaraController::class, 'tampilBA_AMI'])->name('BA-AMI');
-Route::get('/BA-ubahdataDokumenBAAMI', [BeritaAcaraController::class, 'ubahdataDokumenBA'])->name('BA-ubahdataDokumenBAAMI');
-Route::post('/BA-AMI-insertdatadokumen', [BeritaAcaraController::class, 'insertdataDokumenBA'])->name('BA-AMI-insertdatasokumen');
+Route::get('/BA-AMI/{auditee_id}', [DokBAAMIController::class, 'tampilBA_AMI'])->name('BA-AMI');
+Route::get('/BA-ubahdataDokumenBAAMI/{auditee_id}', [DokBAAMIController::class, 'ubahdataDokumenBA'])->name('BA-ubahdataDokumenBAAMI');
+Route::get('/BA-ubahdataberitaacaraAMI/{auditee_id}', [DokBAAMIController::class, 'ubahdataBAAMI'])->name('BA-ubahdataberitaacaraAMI');
+Route::post('/BA-AMI-insertdatadokumen/{auditee_id}', [DokBAAMIController::class, 'insertdataDokumenBA'])->name('BA-AMI-insertdatasokumen');
+Route::post('/BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('BA-AMI-updatedataBAAMI');
+Route::get('/view-doksahih', [PertanyaanController::class, 'testPDF'])->name('auditor-dokresmi');
 Route::get('/BA-daftarhadir', [BeritaAcaraController::class, 'ubahDaftarHadir'])->name('BA-daftarhadir');
 Route::get('/ubahdataBA', [BeritaAcaraController::class, 'ubahdata'])->name('ubahdataBA');
 Route::get('/tindakankoreksi', [TindakanKoreksiController::class, 'index'])->name('tindakankoreksi');
 Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');
 Route::get('/tindakankoreksi-formtemuan', [TindakanKoreksiController::class, 'tampilForm'])->name('tindakankoreksi-formtemuan');
+Route::get('/coba', [DokSahihController::class, 'updatedata']);
 
 // Role Auditor
 Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

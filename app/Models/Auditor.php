@@ -20,7 +20,7 @@ class Auditor extends Model
     ];
     // protected $guarded = [];
 
-    public function dartartilik()
+    public function daftartilik()
     {
         return $this->hasMany(DaftarTilik::class);
     }

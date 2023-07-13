@@ -4,9 +4,9 @@
 @section('container')
 
     <div class="container my-5">
-        {{-- @foreach ($ba_ as $ba) --}}
-        <form action="/BA-AMI-insertdatadokumen" method="post">
-        {{-- @endforeach --}}
+        @foreach ($beritaacara_ as $ba)
+        <form action="/BA-AMI-insertdatadokumen/{{ $ba->auditee_id }}" method="post">
+        @endforeach
             @csrf
         {{-- Data DOkumen AMI --}}
             <div class="row sectionName mx-4 mb-5">
@@ -14,10 +14,10 @@
             </div>
             
             <div class="row inputDataBA my-4 mx-5">
-                @foreach ($ba_ as $ba)
+                @foreach ($dokBA_ as $ba)
                     <div class="col-6 mb-4" hidden>
                         <label for="beritaacara_id" class="form-label fw-semibold">ID Berita Acara</label>
-                        <input type="text" class="form-control" id="beritaacara_id" placeholder="Masukkan kode dokumen yang akan dibuat" name="beritaacara_id" value="{{ $ba->id }}">
+                        <input type="text" class="form-control" id="beritaacara_id" placeholder="Masukkan kode dokumen yang akan dibuat" name="beritaacara_id" value="{{ $ba->beritaacara_id }}">
                     </div>
                     <div class="col-6 mb-4" hidden>
                         <label for="auditee_id" class="form-label fw-semibold">ID Auditee</label>
@@ -26,23 +26,23 @@
                 @endforeach
                 <div class="col-12 mb-4">
                     <label for="inputJudul" class="form-label fw-semibold">Judul Dokumen</label>
-                    <input type="text" class="form-control" id="inputJudul" placeholder="Masukkan judul dokumen yang akan dibuat" name="judulDokumen">
+                    <input type="text" class="form-control" id="inputJudul" placeholder="Masukkan judul dokumen yang akan dibuat" name="judulDokumen" value="{{ $ba->judulDokumen }}">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputKode" class="form-label fw-semibold">Kode Dokumen</label>
-                    <input type="text" class="form-control" id="inputKode" placeholder="Masukkan kode dokumen yang akan dibuat" name="kodeDokumen">
+                    <input type="text" class="form-control" id="inputKode" placeholder="Masukkan kode dokumen yang akan dibuat" name="kodeDokumen" value="{{ $ba->kodeDokumen }}">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputInfoRevisi" class="form-label fw-semibold">Revisi Ke-</label>
-                    <input type="text" class="form-control" id="inputInfoRevisi" placeholder="Masukkan revisi ke berapa" name="revisiKe">
+                    <input type="text" class="form-control" id="inputInfoRevisi" placeholder="Masukkan revisi ke berapa" name="revisiKe" value="{{ $ba->revisiKe }}">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
-                    <input type="date" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi">
+                    <input type="date" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $ba->tgl_revisi }}">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku</label>
-                    <input type="date" class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku">
+                    <input type="date" class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $ba->tgl_berlaku }}">
                 </div>
             </div>
             {{-- Simpan Perubahan --}}

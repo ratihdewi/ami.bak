@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->enum('role', ['Auditor', 'Auditee', 'SPM']);
             $table->string('jabatan');
+            $table->String('noTelepon')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -14,20 +14,23 @@ use Illuminate\Support\Facades\Auth;
 
 class BeritaAcaraController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $auditee_ = Auditee::all();
         $daftartilik_ = DaftarTilik::all();
-        $beritaacara_ = BeritaAcara::all();
         
+
         foreach ($auditee_ as $key => $auditee) {
-            $auditee_id = $auditee->id;
-            $beritaacara = new BeritaAcara([
-                'auditee_id' => $auditee_id,
-            ]);
-            $beritaacara->save();
+            
+            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee->id)->get();
+            $notExist = BeritaAcara::where('auditee_id', $auditee->id)->doesntExist();
+            
+            if ($notExist) {
+                BeritaAcara::create([
+                    'auditee_id' => $auditee->id,
+                ]);
+            } 
         }
-        
         return view('spm/beritaAcara', compact('auditee_', 'daftartilik_'));
     }
 
@@ -52,40 +55,6 @@ class BeritaAcaraController extends Controller
 
     // DOkumen BA AMI
 
-    public function tampilBA_AMI($auditee_id)
-    {
-        $auditee_ = Auditee::all();
-        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
-        $get_auditee = $pertanyaan_->first();
-        $auditeeid_find = $get_auditee->auditee_id;
-        $unitKerja = Auditee::where('id', $auditeeid_find)->first();
-        $beritaacara_ = BeritaAcara::all()->unique('auditee_id');
-        $ba_ami = DokBA_AMI::all();
-
-        // dd($auditee_->daftartilik);
-        
-        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'unitKerja', 'ba_ami', 'beritaacara_', 'auditee_'));
-    }
-
-    public function ubahdataDokumenBA()
-    {
-        $ba_ = BeritaAcara::all()->unique('auditee_id');
-
-        // dd($ba_);
-        
-        return view('spm/ubahDataInfoDokumen', compact('ba_'));
-    }
-
-    public function insertdataDokumenBA(Request $request)
-    {
-        $ba_ = BeritaAcara::all();
-        // dd($ba_);
-        DokBA_AMI::create($request->all());
-
-        return redirect()->route('BA-AMI', compact('ba_'))->with('success', 'Data berhasil ditambah');
-    }
-
     public function ubahDaftarHadir()
     {
         // $ba_ = BeritaAcara::where('auditee_id', $auditee_id)->get();
@@ -99,12 +68,19 @@ class BeritaAcaraController extends Controller
 
     public function indexAuditor()
     {
-        $user_nama = Auth::user()->name;
-        $auditor_ = Auditor::where('nama', $user_nama)->get();
-        
+        $auditee_ = Auditee::all();
         $daftartilik_ = DaftarTilik::all();
+        $beritaacara_ = BeritaAcara::all();
+        
+        foreach ($auditee_ as $key => $auditee) {
+            $auditee_id = $auditee->id;
+            $beritaacara = new BeritaAcara([
+                'auditee_id' => $auditee_id,
+            ]);
+            $beritaacara->save();
+        }
 
-        return view('auditor/beritaAcara', compact('auditor_', 'daftartilik_'));
+        return view('auditor/beritaAcara', compact('auditee_', 'daftartilik_', 'beritaacara_'));
     }
 
     public function indexAuditee()

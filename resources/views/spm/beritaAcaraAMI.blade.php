@@ -24,7 +24,9 @@
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Data Dokumen BA</button>
             </li>
             <li>
-              <a href="/BA-ubahdataDokumenBAAMI">
+              @foreach ($auditee_ as $ba)
+              <a href="/BA-ubahdataDokumenBAAMI/{{ $ba->id }}">
+              @endforeach
                 <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
               </a>
             </li>
@@ -80,14 +82,22 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Berita Acara AMI</button>
             </li>
-            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
+            {{-- <li>
+              @foreach ($auditee_ as $ba)
+              <a href="/BA-ubahdataberitaacaraAMI/{{ $ba->id }}">
+              @endforeach
+              <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
+              </a>
+            </li> --}}
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
             
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
-                <div class="col-9 border py-2 text-start">{{ $unitKerja->unit_kerja }}</div>
+                @foreach ($auditee_ as $auditee)
+                <div class="col-9 border py-2 text-start">{{ $auditee->unit_kerja }}</div>
+                @endforeach
               </div>
             
             <div class="row">
@@ -156,21 +166,6 @@
                           <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                        <td class="text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -181,7 +176,7 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Temuan Audit</button>
             </li>
-            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
+            {{-- <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li> --}}
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -322,7 +317,7 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Persetujuan</button>
             </li>
-            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
+            {{-- <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li> --}}
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -341,7 +336,7 @@
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="col-2 text-center">Ketua Auditor</td>
-                        <td class="col-3 text-start">{{ $unitKerja->ketua_auditor }}</td>
+                        <td class="col-3 text-start"></td>
                         <td class="col-2 text-center"><i class="bi bi-pen" type="button"></i></td>
                         <td class="col-2 text-center">
                           <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
@@ -350,7 +345,7 @@
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="col-2 text-center">Ketua Auditee</td>
-                        <td class="col-3 text-start">{{ $unitKerja->ketua_auditee }}</td>
+                        <td class="col-3 text-start"></td>
                         <td class="col-2 text-center"><i class="bi bi-pen" type="button"></i></td>
                         <td class="col-2 text-center">
                           <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>

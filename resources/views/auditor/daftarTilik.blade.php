@@ -20,17 +20,19 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                @foreach ($data_ as $item)
+                @foreach ($dataAuditor_ as $item)
                     @foreach ($item->daftartilik()->get() as $dt)
+                    @foreach ($dt->auditee()->get() as $dt_auditee)
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-4 px-0 text-center">{{ $item->unit_kerja }}</td>
+                        <td class="col-4 px-0 text-center">{{ $dt_auditee->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center"><a href="/auditor-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}" class="text-decoration-none text-black">{{ $dt->area }}</a></td>
                         <td class="col-2 px-0 text-center">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
                         @foreach ($dt->auditor()->get() as $dt_)
                             <td class="col-3 px-0 text-center">{{ $dt_->nama }}</td>
                         @endforeach
                     </tr>
+                    @endforeach
                     @endforeach
                 @endforeach
             </tbody>

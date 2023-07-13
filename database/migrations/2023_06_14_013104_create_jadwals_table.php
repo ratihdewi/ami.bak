@@ -15,12 +15,16 @@ class CreateJadwalsTable extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
-            $table->String('auditee');
-            $table->String('auditor');
+            $table->unsignedBigInteger('auditee_id');
+            $table->unsignedBigInteger('auditor_id');
+            $table->integer('th_ajaran1')->nullable();
+            $table->integer('th_ajaran2')->nullable();
             $table->String('tempat');
             $table->Date('hari_tgl');
             $table->time('waktu');
             $table->String('kegiatan');
+            $table->foreign('auditee_id')->references('id')->on('auditees');
+            $table->foreign('auditor_id')->references('id')->on('auditors');
             $table->timestamps();
         });
     }

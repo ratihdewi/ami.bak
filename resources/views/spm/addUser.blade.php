@@ -38,7 +38,7 @@
                                               <option selected>
                                                   Pilih Role
                                               </option>
-                                              <option value="Satuan Penjaminan Mutu">
+                                              <option value="SPM">
                                                   Satuan Penjaminan Mutu
                                               </option>
                                               <option value="Auditor">
@@ -82,6 +82,14 @@
                                         </div>    
                                       </div>
                                   </div>
+                                  <div class="row mb-4">
+                                    <div class="col">
+                                        <div class="col">
+                                          <label for="noTelepon" class="form-label">Nomor Telepon</label>
+                                          <input type="tel" placeholder="08XXXXXXXXXX" name="noTelepon" class="form-control" id="noTelepon" aria-label="noTelepon">
+                                      </div>    
+                                    </div>
+                                </div>
                                   <button type="submit" class="btn btn-primary float-end">Simpan</button>
                               </form>
                           </div>

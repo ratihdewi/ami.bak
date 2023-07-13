@@ -12,6 +12,8 @@ class Jadwal extends Model
     protected $fillable = [
         'auditee',
         'auditor',
+        'th_ajaran1',
+        'th_ajaran2',
         'tempat',
         'hari_tgl',
         'waktu',

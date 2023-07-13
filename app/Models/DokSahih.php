@@ -9,9 +9,13 @@ class DokSahih extends Model
 {
     use HasFactory;
 
+    protected $table = 'dok_sahihs';
+    // protected $fillable = '_token';
+
     protected $fillable = [
         'dokSahih',
         'pertanyaan_id',
+        'namaFile',
     ];
 
     public function pertanyaan()

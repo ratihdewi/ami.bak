@@ -32,6 +32,36 @@
                                 />
                             </div>
                         </div>
+                        <div class="row mb-3 px-5 py-3">
+                            <label for="auditor" class="col-sm-3 col-form-label"
+                                >Tahun Ajaran</label
+                            >
+                            <div class="col-sm-4">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    min="2016"
+                                    max="2500"
+                                    id="th_ajaran1"
+                                    name="th_ajaran1"
+                                    placeholder="Tahun ajaran mulai"
+                                />
+                            </div>
+                            <div class="col-sm-1">
+                                <h3>/</h3>
+                            </div>
+                            <div class="col-sm-4">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    min="2016"
+                                    max="2500"
+                                    id="th_ajaran2"
+                                    name="th_ajaran2"
+                                    placeholder="Tahun ajaran selesai"
+                                />
+                            </div>
+                        </div>
                         <div class="card mb-4" id="firstJadwal">
                             <div class="body-card px-5 pt-5 pb-4">
                                 <div class="row mb-4">

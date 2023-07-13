@@ -12,6 +12,7 @@ class FotoKegiatan extends Model
     protected $fillable = [
         'foto',
         'pertanyaan_id',
+        'namaFile'
     ];
 
 
