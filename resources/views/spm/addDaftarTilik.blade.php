@@ -103,7 +103,7 @@
       <form action="/daftartilik-insertpertanyaan" method="POST" enctype="multipart/form-data">
       @endforeach
         @csrf
-        <div id="temuanDT" class="card mt-4 mb-4 mx-4 px-3">
+        <div id="temuanDT" class="card mt-4 mb-1 mx-4 px-3">
           @foreach ($data as $item)
           <div class="row g-3 my-4 mx-3" hidden>
             <div class="col">
@@ -203,11 +203,11 @@
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor"></textarea>
-            <label for="responAuditor">Tuliskan respon Auditor disini</label>
+            <label for="responAuditor">Tuliskan respon Auditor disini <b>**)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
             <div class="col">
-              <label for="kategoriTemuan" class="form-label">Kategori Temuan</label>
+              <label for="kategoriTemuan" class="form-label">Kategori Temuan <b>*)</b></label>
               <div id="kategoriTemuan" class="border rounded ps-4 py-2">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()">
@@ -240,6 +240,10 @@
             </div>
           </div>
         </div>
+        <div class="keteranganTambahan mx-4 mb-2">
+          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media Line dan mengunggah dokumen bukti sahih yang baru</p>
+          <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
+        </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="moreItems_add btn btn-primary float-end" type="button">Tambah Pertanyaan</button>
         </div>
@@ -257,7 +261,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
         function display() {
-            var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR"></textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)</label>';
+            var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR"></textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference) <b>**)</b></label>';
 
             if(document.getElementById('kategoriKTS').checked) {
                 document.getElementById("narasiPLOR").innerHTML

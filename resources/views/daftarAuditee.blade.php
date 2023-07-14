@@ -17,6 +17,10 @@
                                 <div class="alert alert-success" role="alert">
                                     {{ $message }}
                                 </div>
+                            @elseif ($message = Session::get('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ $message }}
+                                </div>
                             @endif
                             <table class="table table-hover mt-5 mb-3" id="tableAuditee">
                                 <thead>

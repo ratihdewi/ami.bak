@@ -16,8 +16,10 @@
                             name="unit_kerja"
                             required
                         >
-                            <option selected disabled>Pilih Unit Kerja</option>
-                            @include('inc.listAuditee')
+                            <option selected disabled>Pilih unit kerja yang akan diaudit</option>
+                            @foreach ($users_ as $user)
+                                <option value="{{ $user->unit_kerja }}">{{ $user->unit_kerja }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
@@ -50,27 +52,35 @@
                         <label for="ketuaAuditor" class="form-label"
                             >Ketua Auditor</label
                         >
-                        <input
-                            type="text"
+                        <select
                             class="form-control"
                             id="ketuaAuditor"
                             placeholder="Masukkan nama Ketua Auditor"
                             name="ketua_auditor"
                             required
-                        />
+                        >
+                            <option selected disabled>Pilih ketua Auditor yang akan mengaudit</option>
+                            @foreach ($auditor_ as $auditor)
+                                <option value="{{ $auditor->nama }}">{{ $auditor->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="anggotaAuditor" class="form-label"
                             >Anggota Auditor</label
                         >
-                        <input
-                            type="text"
+                        <select
                             class="form-control"
                             id="anggotaAuditor"
                             placeholder="Masukkan nama Anggota Auditor"
                             name="anggota_auditor"
                             required
-                        />
+                        >
+                            <option selected disabled>Pilih Auditor yang akan mengaudit</option>
+                            @foreach ($auditor_ as $auditor)
+                                <option value="{{ $auditor->nama }}">{{ $auditor->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary float-end">
                         Simpan
@@ -87,25 +97,29 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
-<script type="text/javascript">
-    var path = "{{ route('tambahauditee-searchAuditee') }}";
-    $(function () {
-        $.ajaxSetup({
-            headers:{
-                'C-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-            }
-        })
-    })
+<script>
+    $('#selectUnitKerja').change(function(){
+    var unitKerja = $(this).val();
+    var url = '{{ route("searchAuditee") }}';
     
-
-    $('#ketuaAuditee').typeahead({
-        minlength: 1,
-        source:  function (query, process) {
-        return $.get(path, { query: query }, function (data) {
-                return process(data);
-            });
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        success: function(response){
+            
+            if(response != null){
+                response.forEach(respon => {
+                    if (respon.unit_kerja == unitKerja) {
+                        $('#ketuaAuditee').val(respon.name);
+                        $('#jabatanKetuaAuditee').val(respon.jabatan);
+                    }
+                });
+                
+            }
         }
     });
+});
 </script>
     
 @endpush

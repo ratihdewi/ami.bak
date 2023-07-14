@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Auditee;
+use App\Models\Auditor;
 use Illuminate\Http\Request;
 
 class AuditeeController extends Controller
@@ -17,14 +18,34 @@ class AuditeeController extends Controller
 
     public function tambahauditee()
     {
-        return view('addAuditee');
+        $users_ = User::where('role', 'Auditee')->get();
+        $auditor_ = Auditor::all();
+
+        return view('addAuditee', compact('users_', 'auditor_'));
     }
+
+    public function getAuditee()
+    {
+        $users_ = User::where('role', 'Auditee')->get();
+
+        return response()->json($users_);
+    }
+
 
     public function insertdata(Request $request)
     {
-        // dd($request->all());
-        Auditee::create($request->all());
-        return redirect()->route('auditee')->with('success', 'Data berhasil ditambah');
+        $isAlreadyExist = Auditee::where('ketua_auditee', $request->ketua_auditee)->exists();
+        //dd($isSimilarAuditor_);
+
+        if ($request->ketua_auditor == $request->anggota_auditor) {
+            return redirect()->route('auditee')->with('error', 'Ketua Auditor tidak dapat menjadi anggota Auditor secara bersamaan!');
+        } elseif ($isAlreadyExist) {
+            return redirect()->route('auditee')->with('error', 'Data Auditee sudah tersedia!');
+        } else {
+            Auditee::create($request->all());
+            return redirect()->route('auditee')->with('success', 'Data berhasil ditambah');
+        }
+        
     }
 
     public function tampildata($id){

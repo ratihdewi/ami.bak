@@ -17,20 +17,32 @@ class AuditorController extends Controller
         return view('daftarAuditor', compact('dataAuditor'));
     }
 
+    public function getAuditor()
+    {
+        $users_ = User::where('role', 'Auditor')->get();
+
+        return response()->json($users_);
+    }
+
     public function tambahauditor(Request $request)
     {
-        // $datas = User::select("nip", "name")->where('role','LIKE','%'.'Auditor'.'%')
-        //         ->where("nip","LIKE","%{$request->input('query')}%")
-        //         ->get();
-
-        return view('addAuditor',);
+        $users_ = User::where('role', 'Auditor')->get();
+        
+        return view('addAuditor', compact('users_'));
     }
 
     public function insertdata(Request $request)
     {
-        // dd($request->all());
-        Auditor::create($request->all());
-        return redirect()->route('auditor')->with('success', 'Data berhasil ditambah');
+    
+        $isAlreadyExist = Auditor::where('nip', $request->nip)->exists();
+        //dd($isAlreadyExist);
+        if ($isAlreadyExist) {
+            return redirect()->route('auditor')->with('error', 'Data sudah tersedia!');
+        } else {
+            Auditor::create($request->all());
+            return redirect()->route('auditor')->with('success', 'Data berhasil ditambah');
+        }
+
     }
 
     public function tampildata($id){

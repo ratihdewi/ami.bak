@@ -36,8 +36,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route Role SPM
-Route::get('/auditor-searchAuditor', [AuditorController::class, 'autocomplete'])->name('auditor-searchAuditor');
-Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'autocomplete'])->name('tambahauditee-searchAuditee');
+Route::get('/auditor-searchAuditor', [AuditorController::class, 'getAuditor'])->name('auditor-searchAuditor');
+Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
 Route::get('/usercontrol', [UserController::class, 'index'])->name('daftaruser');
 Route::get('/addUser', [UserController::class, 'tambahuser'])->name('tambahuser');
 Route::post('/insertUser', [UserController::class, 'insertdata'])->name('insertuser');
