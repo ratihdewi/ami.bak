@@ -53,7 +53,6 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($pertanyaan_ as $beritaacara)
-        
                 <tr class="listTemuanBA">
                     <td class="text-center">{{ $no++ }}</td>
                     <td>

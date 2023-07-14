@@ -67,22 +67,26 @@
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    @foreach ($data as $item)
+                    @foreach ($auditee_ as $auditee)
+                    @foreach ($auditee->jadwalaudit()->get() as $item)
                       <tr>
                         <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
                         <td class="text-center">
-                          <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                          {{ $auditee->unit_kerja }}
                         </td>
+                          <td class="text-center">{{ $item->auditor->nama }}</td>
+                          <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
+                          <td class="text-center">{{ $item->tempat }}</td>
+                          <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
+                          <td class="text-center">{{ $item->waktu }}</td>
+                          <td class="text-center">{{ $item->kegiatan }}</td>
+                          <td class="text-center">
+                            <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                          </td>
                       </tr>
-                    @endforeach
+                      @endforeach
+                      @endforeach
                     
                     {{-- @foreach ($data as $item)
                     <tr>

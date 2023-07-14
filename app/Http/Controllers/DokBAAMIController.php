@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\Auditee;
+use App\Models\DokBA_AMI;
 use App\Models\Pertanyaan;
 use App\Models\BeritaAcara;
 use App\Models\DaftarTilik;
-use App\Models\DokBA_AMI;
 use Illuminate\Http\Request;
 
 class DokBAAMIController extends Controller
@@ -22,9 +23,10 @@ class DokBAAMIController extends Controller
         // $unitKerja = Auditee::where('id', $auditeeid_find)->first();
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->get();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id)->get();
+        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
 
         
-        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_'));
+        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_'));
     }
 
     public function ubahdataDokumenBA($auditee_id)

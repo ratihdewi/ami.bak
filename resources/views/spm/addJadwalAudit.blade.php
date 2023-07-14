@@ -12,24 +12,25 @@
                                 >Auditee</label
                             >
                             <div class="col-sm-9">
-                                <select id="auditee" class="form-select" name="auditee" required>
-                                    @include('inc.listAuditee')
+                                <select id="auditee_id" class="form-select" name="auditee_id" required>
+                                    <option selected disabled>Pilih Auditee yang akan dijadwalkan</option>
+                                    @foreach ($auditee_ as $auditee)
+                                        <option value="{{ $auditee->id }}">{{ $auditee->unit_kerja }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3 px-5 py-3">
-                            <label for="auditor" class="col-sm-3 col-form-label"
+                            <label for="auditor_id" class="col-sm-3 col-form-label"
                                 >Auditor</label
                             >
                             <div class="col-sm-9">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="auditor"
-                                    placeholder="Auditor"
-                                    name="auditor"
-                                    required
-                                />
+                                <select id="auditor_id" class="form-select" name="auditor_id" required>
+                                    <option selected disabled>Pilih Auditor yang akan dijadwalkan</option>
+                                    @foreach ($auditor_ as $auditor)
+                                        <option value="{{ $auditor->id }}">{{ $auditor->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3 px-5 py-3">

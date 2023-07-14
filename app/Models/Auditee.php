@@ -21,6 +21,11 @@ class Auditee extends Model
         return $this->hasMany(DaftarTilik::class);
     }
 
+    public function jadwalaudit()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
+
     public function pertanyaan()
     {
         return $this->hasMany(Pertanyaan::class);

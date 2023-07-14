@@ -10,8 +10,8 @@ class Jadwal extends Model
     use HasFactory;
 
     protected $fillable = [
-        'auditee',
-        'auditor',
+        'auditee_id',
+        'auditor_id',
         'th_ajaran1',
         'th_ajaran2',
         'tempat',
@@ -20,5 +20,15 @@ class Jadwal extends Model
         'kegiatan',
     ];
 
-    protected $dates = ['hari_tgl'];
+    protected $dates = ['hari_tgl', 'waktu'];
+
+    public function auditee()
+    {
+        return $this->belongsTo(Auditee::class);
+    }
+
+    public function auditor()
+    {
+        return $this->belongsTo(Auditor::class);
+    }
 }

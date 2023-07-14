@@ -4,8 +4,8 @@
 @section('container')
 
     <div class="container my-5">
-        @foreach ($beritaacara_ as $ba)
-        <form action="/BA-AMI-updatedataberitaacaraAMI/{{ $ba->auditee_id }}" method="post">
+        @foreach ($jadwalAudit_ as $jadwalAudit)
+        <form action="/BA-AMI-updatedataberitaacaraAMI/{{ $jadwalAudit->auditee_id }}" method="post">
         @endforeach
             @csrf
         {{-- Berita Acara AMI --}}

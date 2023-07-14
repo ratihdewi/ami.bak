@@ -18,6 +18,7 @@ class BeritaAcaraController extends Controller
     {
         $auditee_ = Auditee::all();
         $daftartilik_ = DaftarTilik::all();
+        // $beritaacaras_ = BeritaAcara::where
         
 
         foreach ($auditee_ as $key => $auditee) {
@@ -29,7 +30,7 @@ class BeritaAcaraController extends Controller
                 BeritaAcara::create([
                     'auditee_id' => $auditee->id,
                 ]);
-            } 
+            }
         }
         return view('spm/beritaAcara', compact('auditee_', 'daftartilik_'));
     }
@@ -41,7 +42,7 @@ class BeritaAcaraController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
-        // dd($pertanyaan_);
+        //dd($pertanyaan_);
         if ($role_ == "SPM") {
             return view('spm/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
         } elseif ($role_ == "Auditor") {
@@ -68,19 +69,11 @@ class BeritaAcaraController extends Controller
 
     public function indexAuditor()
     {
-        $auditee_ = Auditee::all();
-        $daftartilik_ = DaftarTilik::all();
+        $auditor_ = Auditor::where('nama', Auth::user()->name)->get();
+        //$daftartilik_ = DaftarTilik::where('auditor_id', $auditor_->id)->get();
         $beritaacara_ = BeritaAcara::all();
-        
-        foreach ($auditee_ as $key => $auditee) {
-            $auditee_id = $auditee->id;
-            $beritaacara = new BeritaAcara([
-                'auditee_id' => $auditee_id,
-            ]);
-            $beritaacara->save();
-        }
 
-        return view('auditor/beritaAcara', compact('auditee_', 'daftartilik_', 'beritaacara_'));
+        return view('auditor/beritaAcara', compact('auditor_', 'beritaacara_'));
     }
 
     public function indexAuditee()

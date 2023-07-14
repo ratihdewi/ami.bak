@@ -92,33 +92,39 @@
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
-            
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
-                @foreach ($auditee_ as $auditee)
-                <div class="col-9 border py-2 text-start">{{ $auditee->unit_kerja }}</div>
+                @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                <div class="col-9 border py-2 text-start">{{ $jadwalAudit->auditee->unit_kerja }}</div>
                 @endforeach
               </div>
-            
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Tahun Ajaran</div>
-              <div class="col border py-2 text-start"></div>
+              <div class="col border py-2 text-start">
+                @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                  {{ $jadwalAudit->th_ajaran1 }}/{{ $jadwalAudit->th_ajaran2 }}
+                @endforeach
+              </div>
               <div class="col label border py-2 fw-semibold text-start">Waktu</div>
-              <div class="col border py-2 text-start"></div>
+              <div class="col border py-2 text-start">
+                @foreach ($jadwalAudit_ as $jadwalAudit)
+                {{ $jadwalAudit->waktu->isoFormat('hh:mm') }} WIB,
+                @endforeach 
+              </div>
             </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Hari/Tanggal</div>
               <div class="col border py-2 text-start">
-                @foreach ($daftartilik_ as $daftartilik)
-                {{ $daftartilik->tgl_pelaksanaan->translatedFormat('l, d M Y') }},
-                <br> 
-                @endforeach</div>
+                @foreach ($jadwalAudit_ as $jadwalAudit)
+                {{ $jadwalAudit->hari_tgl->translatedFormat('l, d M Y') }}; 
+                @endforeach
+              </div>
               <div class="col label border py-2 fw-semibold text-start">Media</div>
               <div class="col border py-2 text-start">
-                @foreach ($daftartilik_->unique('tempat') as $daftartilik)
-                {{ $daftartilik->tempat }},
-                <br> 
-                @endforeach</div>
+                @foreach ($jadwalAudit_ as $jadwalAudit)
+                {{ $jadwalAudit->tempat }},   
+                @endforeach
+              </div>
               </div>
             </div>
         </div>

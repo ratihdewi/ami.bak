@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Jadwal;
+use App\Models\Auditee;
+use App\Models\Auditor;
 use Illuminate\Http\Request;
 
 class JadwalController extends Controller
@@ -15,9 +18,10 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $data = Jadwal::all();
-        //dd($data);
-        return view('spm/jadwalAudit', compact('data'));
+        $auditee_ = Auditee::all();
+        
+        //dd($auditee_);
+        return view('spm/jadwalAudit', compact('auditee_'));
     }
 
     public function filter(Request $request)
@@ -46,7 +50,10 @@ class JadwalController extends Controller
 
     public function tambahjadwalaudit()
     {
-        return view ('spm/addJadwalAudit');
+        $auditee_ = Auditee::all();
+        $auditor_ = Auditor::all();
+
+        return view ('spm/addJadwalAudit', compact('auditee_', 'auditor_'));
     }
 
     public function insertdata(Request $request)
