@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Jadwal;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\Pertanyaan;
 use App\Models\DaftarTilik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,6 +94,17 @@ class DaftarTilikController extends Controller
         $data = DaftarTilik::find($id);
         $data->delete();
         return redirect()->route('daftartilik')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function pratinjaudt($auditee_id, $area)
+    {
+        $daftartilik = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->first();
+        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
+        $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
+        // dd($jadwal_);
+
+        return view('spm/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
     }
 
     // Role AUDITOR

@@ -15,7 +15,7 @@
                     </button></a
                 >
                 <a
-                    href="DaftarTilik-adddaftartilik"
+                    href="/daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
                     class="text-white"
                     style="font-weight: 600; text-decoration: none;"
                     ><button
