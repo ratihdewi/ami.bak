@@ -123,4 +123,29 @@ class DokBAAMIController extends Controller
 
         return redirect()->route('BA-AMI', ['auditee_id' => $auditee_id])->with(compact('beritaacara_'));
     }
+
+    public function approvalAuditee($id)
+    {
+        $approve_ = DokBA_AMI::find($id);
+        dd($approve_);
+        
+        $approve_->eSignAuditee = 'Disetujui';
+ 
+        $approve_->save();
+
+        // dd($approve_);
+        return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditee');
+    }
+
+     public function approvalAuditor($id)
+    {
+        $approve_ = DokBA_AMI::find($id);
+        
+        $approve_->eSignAuditor = 'Disetujui';
+ 
+        $approve_->save();
+
+        // dd($approve_);
+        return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditor');
+    }
 }

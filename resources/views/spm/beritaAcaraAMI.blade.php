@@ -315,22 +315,47 @@
                       <td scope="row" class="text-center">{{ $no++ }}</td>
                       <td class="col-2 text-center">Ketua Auditor</td>
                       <td class="col-3 text-start">{{ $auditee->ketua_auditor }}</td>
-                      <td id="signed" class="col-2 text-center"><i id="eSign" class="bi bi-pen" type="button"
-                        @if (Auth::user()->name == $auditee->ketua_auditee)
-                          onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')"
-                        @endif
-                        ></i>
+                      <td id="signed" class="col-2 text-center">
+                        @foreach ($ba_ami as $ba)
+                            
+                            @if ($ba->eSignAuditor == "Disetujui")
+                              <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                            @else
+                              @foreach ($ba_ami as $ba)
+                              <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}">
+                              @endforeach
+                                <button class="border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                                @if (Auth::user()->name != $auditee->ketua_auditor)
+                                  {{ "disabled" }}
+                                @endif>
+                                <i class="bi bi-pen"></i>
+                                </button>
+                              </a>
+                            @endif
+                        @endforeach
                       </td>
                     </tr>
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="col-2 text-center">Ketua Auditee</td>
                         <td class="col-3 text-start">{{ $auditee->ketua_auditee }}</td>
-                        <td id="signed" class="col-2 text-center"><i id="eSign" class="bi bi-pen" type="button"
-                          @if (Auth::user()->name == $auditee->ketua_auditee)
-                              onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')"
-                          @endif
-                          ></i>
+                        <td id="signed" class="col-2 text-center">
+                          @foreach ($ba_ami as $ba)
+                            @if ($ba->eSignAuditee == "Disetujui")
+                              <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                            @else
+                              @foreach ($ba_ami as $ba)
+                              <a href="/BAAMI-approvalKetuaAuditee/{{ $ba->id }}">
+                              @endforeach
+                              <button class="border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                              @if (Auth::user()->name != $auditee->ketua_auditee)
+                                {{ "disabled" }}
+                              @endif>
+                              <i class="bi bi-pen"></i>
+                              </button>
+                              </a>
+                            @endif
+                          @endforeach
                         </td>
                       </tr>
                     @endforeach
@@ -344,7 +369,7 @@
 @push('script')
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
-    <script>
+    {{-- <script>
       var button = document.getElementById('eSign');
       var contentDiv = document.getElementById('signed');
 
@@ -353,5 +378,5 @@
           // Ganti isi dari elemen div dengan ID content
           contentDiv.innerHTML = '<img src="data:image/png;base64,{{DNS2D::getBarcodePNG("https://www.google.com/", 'QRCODE', 3, 3)}}" alt="barcode" />';
       });
-    </script>
+    </script> --}}
 @endpush
