@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Auditor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,6 +41,14 @@ class UserController extends Controller
     {
         $data = User::find($id);
         $data->update($request->all());
+        $auditor_ = Auditor::where('nama', $request->name)->first();
+        
+        if ($auditor_) {
+            $auditor_->update([
+                'noTelepon' => $request->noTelepon
+            ]);
+            $auditor_->save();
+        }
         return redirect()->route('daftaruser')->with('success', 'Data berhasil diupdate');
     }
 

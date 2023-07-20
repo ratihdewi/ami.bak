@@ -18,7 +18,8 @@ class CreateFotoKegiatansTable extends Migration
             $table->String('foto');
             $table->String('namaFile')->nullable();
             $table->unsignedBigInteger('pertanyaan_id');
-            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans');
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

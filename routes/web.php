@@ -13,9 +13,12 @@ use App\Http\Controllers\DokSahihController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\BeritaAcaraController;
+use App\Http\Controllers\DaftarHadirController;
 use App\Http\Controllers\DaftarTilikController;
+use App\Http\Controllers\DokLampiranController;
 use App\Http\Controllers\FullCalenderController;
 use App\Http\Controllers\TindakanKoreksiController;
+use App\Http\Controllers\PeluangPeningkatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +62,7 @@ Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });
 Route::get('/daftartilik', [DaftarTilikController::class, 'index'])->name('daftartilik');
-Route::get('/tambahDT-searchAuditee', [DaftarTilikController::class, 'autocomplete'])->name('tambahDT-searchAuditee');
+Route::get('/daftartilik-searchAuditeeAuditor', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
 Route::get('/daftarTilik-addareadaftartilik', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
 Route::get('/daftartilik-tampildaftartilik/{id}', [DaftarTilikController::class, 'tampildata'])->name('daftartilik-tampildaftartilik');
 Route::post('/daftartilik-updatedataareadaftartilik/{id}', [DaftarTilikController::class, 'updatedata'])->name('daftartilik-updatedataareadaftartilik');
@@ -79,8 +82,19 @@ Route::get('/BA-ubahdataberitaacaraAMI/{auditee_id}', [DokBAAMIController::class
 Route::post('/BA-AMI-insertdatadokumen/{auditee_id}', [DokBAAMIController::class, 'insertdataDokumenBA'])->name('BA-AMI-insertdatasokumen');
 Route::post('/BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('BA-AMI-updatedataBAAMI');
 Route::get('/view-doksahih', [PertanyaanController::class, 'testPDF'])->name('auditor-dokresmi');
-Route::get('/BA-daftarhadir', [BeritaAcaraController::class, 'ubahDaftarHadir'])->name('BA-daftarhadir');
-Route::get('/ubahdataBA', [BeritaAcaraController::class, 'ubahdata'])->name('ubahdataBA');
+Route::get('/BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'editdaftarhadir'])->name('BA-daftarhadir');
+Route::post('/BA-savedaftarhadir/{auditee_id}', [DaftarHadirController::class, 'storedaftarhadir'])->name('BA-savedaftarhadir');
+Route::get('/BA-deletedaftarhadir/{id}', [DaftarHadirController::class, 'deletedaftarhadir'])->name('BA-deletedaftarhadir');
+Route::get('/BA-esignpeserta/{id}', [DaftarHadirController::class, 'esignpeserta'])->name('BA-esignpeserta');
+Route::get('/BA-peluangpeningkatan/{auditee_id}', [PeluangPeningkatanController::class, 'ubahpeluangpeningkatan'])->name('BA-peluangpeningkatan');
+Route::post('/BA-addpeluangpeningkatan/{auditee_id}', [PeluangPeningkatanController::class, 'storePeluangPeningkatan'])->name('BA-addpeluangpeningkatan');
+Route::post('/BA-updatepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'updatepeluangpeningkatan'])->name('BA-updatepeluangpeningkatan');
+Route::get('/BA-editpeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'editpeluangpeningkatan'])->name('BA-editpeluangpeningkatan');
+Route::get('/BA-deletepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'deletepeluangpeningkatan'])->name('BA-deletepeluangpeningkatan');
+Route::get('/BA-dokumenpendukung/{auditee_id}', [DokLampiranController::class, 'adddokumenpendukung'])->name('BA-dokumenpendukung');
+Route::post('/BA-storedokumenpendukung/{auditee_id}', [DokLampiranController::class, 'storedokumenpendukung'])->name('BA-storedokumenpendukung');
+Route::get('/BA-lihatdokumenpendukung/{auditee_id}', [DokLampiranController::class, 'lihatdokumenpendukung'])->name('BA-lihatdokumenpendukung');
+Route::get('/BA-deletedokumenpendukung/{id}', [DokLampiranController::class, 'deletedokumenpendukung'])->name('BA-deletedokumenpendukung');
 Route::get('/tindakankoreksi', [TindakanKoreksiController::class, 'index'])->name('tindakankoreksi');
 Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');
 Route::get('/tindakankoreksi-formtemuan', [TindakanKoreksiController::class, 'tampilForm'])->name('tindakankoreksi-formtemuan');

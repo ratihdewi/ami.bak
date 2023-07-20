@@ -40,4 +40,9 @@ class Auditee extends Model
     {
         return $this->hasOne(DaftarHadir::class);
     }
+
+    public function doklampiran()
+    {
+        return $this->hasMany(DokLampiran::class);
+    }
 }

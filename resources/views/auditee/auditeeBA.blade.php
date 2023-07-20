@@ -1,4 +1,4 @@
-@extends('auditor.main_') @section('title') AMI - Temuan Berita Acara @endsection
+@extends('auditee.main_') @section('title') AMI - Temuan Berita Acara @endsection
 @section('container')
 <div class="container" style="font-size: 15px">
     <div class="container-fluid d-flex mt-4">
@@ -11,8 +11,10 @@
                 placeholder="Cari berdasarkan Auditee"
             />
         </div>
-        <a href="/BA-AMI"
-            ><button
+        @foreach ($daftartilik_->unique('auditee_id') as $daftartilik)
+        <a href="/BA-AMI/{{ $daftartilik->auditee_id }}">
+        @endforeach
+            <button
                 type="button"
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
                 style="font-size: 15px"

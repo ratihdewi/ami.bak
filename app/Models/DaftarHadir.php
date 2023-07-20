@@ -9,18 +9,20 @@ class DaftarHadir extends Model
 {
     use HasFactory;
 
-    public function auditee()
-    {
-        return $this->belongTo(Auditee::class);
-    }
+    protected $fillable = [
+        'beritaacara_id',
+        'posisi',
+        'namapeserta',
+        'eSign',
+    ];
 
-    public function auditor()
+    public function user()
     {
-        return $this->belongTo(Auditor::class);
+        return $this->belongTo(User::class);
     }
 
     public function beritaacara()
     {
-        return $this->belongTo(BeritaAcara::class);
+        return $this->belongsTo(BeritaAcara::class);
     }
 }

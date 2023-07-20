@@ -19,7 +19,7 @@ class CreateAuditorsTable extends Migration
             $table->String('nip')->unique();
             $table->String('program_studi');
             $table->String('fakultas');
-            $table->String('noTelepon');
+            $table->String('noTelepon')->nullable();
             $table->Date('tgl_mulai');
             $table->Date('tgl_berakhir');
             $table->timestamps();

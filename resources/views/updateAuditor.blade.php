@@ -50,7 +50,7 @@
                                     <input class="form-control" type="file" id="esignAuditor">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary float-end">Submit</button>
+                            <button type="submit" class="btn btn-primary float-end" onclick="return confirm('Mengubah data Auditor akan mempengaruhi data User. Apakah Anda yakin ingin mengubah data?')">Submit</button>
                         </form>
                     </div>
                 </div>

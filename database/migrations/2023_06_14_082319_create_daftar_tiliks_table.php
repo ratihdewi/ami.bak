@@ -21,8 +21,10 @@ class CreateDaftarTiliksTable extends Migration
             $table->String('tempat');
             $table->Date('tgl_pelaksanaan');
             $table->Date('bataspengisianRespon');
-            $table->foreign('auditee_id')->references('id')->on('auditees');
-            $table->foreign('auditor_id')->references('id')->on('auditors');
+            $table->foreign('auditee_id')->references('id')->on('auditees')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreign('auditor_id')->references('id')->on('auditors')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -101,26 +101,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-
-<script type="text/javascript">
-    var path = "{{ route('tambahDT-searchAuditee') }}";
-    $(function () {
-        $.ajaxSetup({
-            headers: {
-                "C-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-    });
-
-    $("#auditee").typeahead({
-        minlength: 1,
-        source: function (query, process) {
-            return $.get(path, { query: query }, function (data) {
-                return process(data);
-            });
-        },
-    });
-</script>
 <script>
     function display() {
         var plor =

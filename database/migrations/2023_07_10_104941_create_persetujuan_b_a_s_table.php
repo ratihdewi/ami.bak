@@ -19,7 +19,8 @@ class CreatePersetujuanBASTable extends Migration
             $table->String('jabatan');
             $table->String('nama');
             $table->String('eSign')->default('Belum disetujui');
-            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras');
+            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

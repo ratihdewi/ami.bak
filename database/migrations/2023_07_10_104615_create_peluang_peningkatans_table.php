@@ -19,7 +19,8 @@ class CreatePeluangPeningkatansTable extends Migration
             $table->String('aspek');
             $table->String('kelebihan');
             $table->String('peningkatan');
-            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras');
+            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

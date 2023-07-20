@@ -55,13 +55,6 @@ class BeritaAcaraController extends Controller
     }
 
     // DOkumen BA AMI
-
-    public function ubahDaftarHadir()
-    {
-        // $ba_ = BeritaAcara::where('auditee_id', $auditee_id)->get();
-        return view('spm/formDaftarHadir');
-    }
-
     public function ubahdata()
     {
         return view('spm/ubahDataBA');

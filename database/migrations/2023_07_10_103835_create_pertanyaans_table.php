@@ -36,9 +36,12 @@ class CreatePertanyaansTable extends Migration
             $table->String('narasiPLOR')->nullable();
             // $table->String('fotoKegiatan')->nullable();
             // $table->String('dokSahih')->nullable();
-            $table->foreign('daftartilik_id')->references('id')->on('daftar_tiliks');
-            $table->foreign('auditee_id')->references('id')->on('auditees');
-            $table->foreign('auditor_id')->references('id')->on('auditors');
+            $table->foreign('daftartilik_id')->references('id')->on('daftar_tiliks')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreign('auditee_id')->references('id')->on('auditees')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreign('auditor_id')->references('id')->on('auditors')->onUpdate('cascade')
+            ->onDelete('cascade');
             // $table->foreign('beritaacara_id')->references('id')->on('berita_acaras');
             $table->timestamps();
         });

@@ -20,25 +20,34 @@ class DaftarTilikController extends Controller
     }
 
     public function tambahDT()
-    {
-        $listAuditor = Auditor::all();
+    {   
         $listAuditee = Auditee::all();
-        // dd([[$listAuditee, $listAuditor]]);
-        return view('spm/addAreaDaftarTilik', compact('listAuditor', 'listAuditee'));
+        $listAuditor = Auditor::all();
+        
+        return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor'));
     }
 
     public function insertdataArea(Request $request)
     {
-        
         $isAlreadyExist = DaftarTilik::where('auditee_id', $request->auditee_id)->where('area', $request->area)->exists();
+        $auditee_ = Auditee::where('id', $request->auditee_id)->first();
+        $auditor_ = Auditor::all();
 
         if ($isAlreadyExist) {
             return redirect()->route('daftartilik')->with('error', 'Data sudah tersedia!');
         } else {
-            DaftarTilik::create($request->all());
-            return redirect()->route('daftartilik')->with('success', 'Data berhasil ditambah!');
+            foreach ($auditor_ as $key => $auditor) {
+                // dd($auditee_->ketua_auditor);
+                if ($request->auditor_id == $auditor->id) {
+                   if ($auditor->nama == $auditee_->ketua_auditor || $auditor->nama == $auditee_->anggota_auditor) {
+                    DaftarTilik::create($request->all());
+                    return redirect()->route('daftartilik')->with('success', 'Data berhasil ditambah!');
+                   } else {
+                    return redirect()->route('daftartilik')->with('error', 'Data Auditor tidak terdaftar sebagai Ketua maupun Anggota Auditor!');
+                   }
+                }
+            }
         }
-        
     }
 
     public function insertdaftartilik(Request $request)

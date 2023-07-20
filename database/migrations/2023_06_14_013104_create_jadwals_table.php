@@ -23,8 +23,10 @@ class CreateJadwalsTable extends Migration
             $table->Date('hari_tgl');
             $table->time('waktu');
             $table->String('kegiatan');
-            $table->foreign('auditee_id')->references('id')->on('auditees');
-            $table->foreign('auditor_id')->references('id')->on('auditors');
+            $table->foreign('auditee_id')->references('id')->on('auditees')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreign('auditor_id')->references('id')->on('auditors')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -15,6 +15,12 @@ class CreateDokLampiransTable extends Migration
     {
         Schema::create('dok_lampirans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('auditee_id');
+            $table->String('namaDokumen');
+            $table->String('kodeDokumen');
+            $table->String('dokumen')->nullable();
+            $table->foreign('auditee_id')->references('id')->on('auditees')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -7,26 +7,34 @@ use App\Models\Auditee;
 use App\Models\DokBA_AMI;
 use App\Models\Pertanyaan;
 use App\Models\BeritaAcara;
+use App\Models\DaftarHadir;
 use App\Models\DaftarTilik;
+use App\Models\DokLampiran;
 use Illuminate\Http\Request;
+use App\Models\PeluangPeningkatan;
+use Illuminate\Support\Facades\Auth;
 
 class DokBAAMIController extends Controller
 {
     public function tampilBA_AMI($auditee_id)
     {
-        // dd($auditee_id);
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
-        // $get_auditee = $pertanyaan_->first();
-        // $auditeeid_find = $get_auditee->auditee_id;
-        // $unitKerja = Auditee::where('id', $auditeeid_find)->first();
-        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->get();
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id)->get();
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
 
-        
-        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_'));
+        if (Auth::user()->role == 'Auditor') {
+            return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_'));
+        } elseif (Auth::user()->role == 'Auditee') {
+            return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_'));
+        } elseif (Auth::user()->role == 'SPM') {
+            return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_'));
+        }
     }
 
     public function ubahdataDokumenBA($auditee_id)

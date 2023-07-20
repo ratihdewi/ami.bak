@@ -16,12 +16,11 @@ class CreateDaftarHadirsTable extends Migration
         Schema::create('daftar_hadirs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('beritaacara_id');
-            $table->unsignedBigInteger('auditee_id');
-            $table->unsignedBigInteger('auditor_id');
-            $table->String('eSign')->default('Tidak Hadir');
-            $table->foreign('auditor_id')->references('id')->on('auditors');
-            $table->foreign('auditee_id')->references('id')->on('auditees');
-            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras');
+            $table->String('posisi');
+            $table->String('namapeserta');
+            $table->String('eSign')->default('Hadir');
+            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

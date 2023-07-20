@@ -19,14 +19,14 @@ class AuditorController extends Controller
 
     public function getAuditor()
     {
-        $users_ = User::where('role', 'Auditor')->get();
+        $users_ = User::where('role', '!=', 'Auditee')->get();
 
         return response()->json($users_);
     }
 
     public function tambahauditor(Request $request)
     {
-        $users_ = User::where('role', 'Auditor')->get();
+        $users_ = User::where('role', '!=', 'Auditee')->get();
         
         return view('addAuditor', compact('users_'));
     }
@@ -54,7 +54,20 @@ class AuditorController extends Controller
     public function updatedata(Request $request, $id)
     {
         $data = Auditor::find($id);
-        $data->update($request->all());
+        $dataAuditorUsers = User::where('nip', $data->nip)->get();
+        
+        foreach ($dataAuditorUsers as $key => $dataAuditorUser) {
+            if ( $dataAuditorUser->nip == $request->nip && $dataAuditorUser->name == $request->nama && $dataAuditorUser->unit_kerja == $request->program_studi && $dataAuditorUser->unit_kerja == $request->fakultas ) {
+                
+                $data->update($request->all());
+                $dataAuditorUser->update([
+                    'noTelepon' => $request->noTelepon,
+                ]);
+                
+            } else {
+                return redirect()->route('auditor')->with('error', 'Data tidak terdaftar sebagai user!');
+            }
+        }
         return redirect()->route('auditor')->with('success', 'Data berhasil diupdate');
     }
 

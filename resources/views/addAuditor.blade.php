@@ -140,28 +140,28 @@
 
 <script>
     $('#nipAuditor').change(function(){
-    var id = $(this).val();
-    var url = '{{ route("auditor-searchAuditor") }}';
-    
-    $.ajax({
-        url: url,
-        type: 'get',
-        dataType: 'json',
-        success: function(response){
-            
-            if(response != null){
-                response.forEach(respon => {
-                    if (respon.nip == id) {
-                        $('#namaAuditor').val(respon.name);
-                        $('#fakultas').val(respon.unit_kerja);
-                        $('#programstudi').val(respon.unit_kerja);
-                        $('#nomorTelepon').val(respon.noTelepon);
-                    }
-                });
+        var id = $(this).val();
+        var url = '{{ route("auditor-searchAuditor") }}';
+        
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function(response){
                 
+                if(response != null){
+                    response.forEach(respon => {
+                        if (respon.nip == id) {
+                            $('#namaAuditor').val(respon.name);
+                            $('#fakultas').val(respon.unit_kerja);
+                            $('#programstudi').val(respon.unit_kerja);
+                            $('#nomorTelepon').val(respon.noTelepon);
+                        }
+                    });
+                    
+                }
             }
-        }
+        });
     });
-});
 </script>
 @endpush

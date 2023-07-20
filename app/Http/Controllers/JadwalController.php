@@ -32,14 +32,6 @@ class JadwalController extends Controller
             return $query->where('auditee', 'like', '%'.$request->name.'%');
         });
 
-        // $tahun = ($request->hari_tgl)->format('Y');
-
-        // $jadwal->when($tahun, function($query) use ($request) {
-        //     return $query->where($tahun, 'like', '%'.($request->hari_tgl)->format('Y').'%');
-        // });
-
-        // dd($jadwal);
-
         return view('spm/jadwalAudit'); 
     }
 
