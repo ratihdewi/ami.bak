@@ -10,7 +10,9 @@ use App\Models\Auditor;
 use App\Models\Pertanyaan;
 use App\Models\DaftarTilik;
 use Illuminate\Http\Request;
+use App\Exports\DaftarTilikExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class DaftarTilikController extends Controller
@@ -105,6 +107,17 @@ class DaftarTilikController extends Controller
         // dd($jadwal_);
 
         return view('spm/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
+    }
+
+    public function exportexcel($id, $auditee_id)
+    {
+        $data = new DaftarTilikExport($id, $auditee_id); 
+
+        // for ($i = 1; $i <= 9; $i++) {
+        //     $data->prepend([]);
+        // }
+
+        return Excel::download($data, 'daftartilik.xlsx');
     }
 
     // Role AUDITOR

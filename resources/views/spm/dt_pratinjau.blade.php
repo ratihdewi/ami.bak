@@ -46,7 +46,11 @@
       <div class="buttongrup d-flex justify-content-end">
         <div class="btn-group btn-group-sm my-3" role="group" aria-label="Basic outlined example">
             <button type="button" class="btn btn-outline-success">.xlsx</button>
-            <button type="button" class="btn btn-success px-3">Unduh</button>
+            @foreach ($daftartilik_ as $daftartilik)
+            <a href="/daftartilik-exportdaftartilik/{{ $daftartilik->id }}/{{ $daftartilik->auditee_id }}">
+            @endforeach
+            <button type="button" class="btn btn-success px-3" style="border-top-left-radius: 0; border-bottom-left-radius: 0">Unduh</button>
+            </a>
           </div>
       </div>
       <div class="table-container" style="overflow-x:auto">
