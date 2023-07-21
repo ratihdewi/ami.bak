@@ -112,12 +112,11 @@ class DaftarTilikController extends Controller
     public function exportexcel($id, $auditee_id)
     {
         $data = new DaftarTilikExport($id, $auditee_id); 
+        $auditee_ = Auditee::where('id', $auditee_id)->first();
+        $filename = 'Rancangan Daftar Tilik - '.$auditee_->unit_kerja.'.xlsx';
+        
 
-        // for ($i = 1; $i <= 9; $i++) {
-        //     $data->prepend([]);
-        // }
-
-        return Excel::download($data, 'daftartilik.xlsx');
+        return Excel::download($data, $filename);
     }
 
     // Role AUDITOR

@@ -15,10 +15,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
-// use Maatwebsite\Excel\Concerns\WithStartRow;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
 
-class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, WithEvents
+class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, WithEvents, WithCustomStartCell
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -55,21 +55,16 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
     public function styles(Worksheet $sheet)
     {
         return [
-            1 => [
+            8 => [
                 'font' => ['bold' => true],
             ],
         ];
     }
 
-    // public function startRow(): int
-    // {
-    //     return 9; // Start exporting from row 2
-    // }
-
-    // public function startCell(): string
-    // {
-    //     return 'A8';
-    // }
+    public function startCell(): string
+    {
+        return 'A8';
+    }
 
     public function registerEvents(): array
     {
@@ -82,17 +77,17 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
                 // $startCell = 'A8';
                 // $event->sheet->getDelegate()->setStartCell($startCell);
 
-                // $event->sheet->setCellValue('A2', 'Auditee: ');
-                // $event->sheet->setCellValue('A3', 'Auditor: ');
-                // $event->sheet->setCellValue('A4', 'Hari/Tanggal: ');
-                // $event->sheet->setCellValue('A5', 'Waktu: ');
-                // $event->sheet->setCellValue('A6', 'Area: ');
+                $event->sheet->setCellValue('A2', 'Auditee: ');
+                $event->sheet->setCellValue('A3', 'Auditor: ');
+                $event->sheet->setCellValue('A4', 'Hari/Tanggal: ');
+                $event->sheet->setCellValue('A5', 'Waktu: ');
+                $event->sheet->setCellValue('A6', 'Area: ');
  
-                // $event->sheet->getDelegate()->setCellValue('B2', $auditee_->unit_kerja);
-                // $event->sheet->getDelegate()->setCellValue('B3', $auditor_->nama);
-                // $event->sheet->getDelegate()->setCellValue('B4', $daftartilik_->tgl_pelaksanaan->translatedFormat('l, d M Y'));
-                // $event->sheet->getDelegate()->setCellValue('B5', '');
-                // $event->sheet->getDelegate()->setCellValue('B6', $daftartilik_->area);
+                $event->sheet->getDelegate()->setCellValue('B2', $auditee_->unit_kerja);
+                $event->sheet->getDelegate()->setCellValue('B3', $auditor_->nama);
+                $event->sheet->getDelegate()->setCellValue('B4', $daftartilik_->tgl_pelaksanaan->translatedFormat('l, d M Y'));
+                $event->sheet->getDelegate()->setCellValue('B5', '');
+                $event->sheet->getDelegate()->setCellValue('B6', $daftartilik_->area);
                 
             },
         ];
