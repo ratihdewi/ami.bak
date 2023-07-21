@@ -2,15 +2,23 @@
 @section('title') AMI - Daftar Tilik @endsection
 
 @section('container')
+
+      <div class="row mt-4 mx-4">
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @elseif (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+      </div>
       {{-- Form setiap auditee --}}
       @foreach ($_daftartiliks as $_daftartilik)
       @foreach ($_daftartilik->auditee()->get() as $auditee)
-      {{-- @foreach ($item->auditor()->get() as $da)
-        {{ $da }}
-      @endforeach --}}
-      {{-- <form action="/insertareaDT" method="POST">
-          @csrf --}}
-          <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
+      
+          <div id="infoDT" class="card mt-4 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">
                       <label for="auditee_id" class="visually-hidden">Auditee</label>
@@ -94,7 +102,7 @@
                   />
               </div>
           </div>
-      {{-- </form> --}}
+      
       @endforeach
       @endforeach
     
@@ -229,9 +237,8 @@
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()" value="{{ $datas->Kategori }}"
                   
-                    @if ($datas->Kategori == "KTS")
-                        {{ "checked" }}
-                    @endif
+                    @if ($datas->Kategori == "KTS"){{ "checked" }}@endif
+                    @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriKTS">KTS</label>
@@ -239,9 +246,8 @@
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriOB" value="OB" onclick="display()" value="{{ $datas->Kategori }}"
                   
-                    @if ($datas->Kategori == "OB")
-                        {{ "checked" }}
-                    @endif
+                    @if ($datas->Kategori == "OB"){{ "checked" }}@endif
+                    @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriOB">OB</label>
@@ -249,9 +255,8 @@
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriSesuai" value="Sesuai" onclick="display()" value="{{ $datas->Kategori }}"
                   
-                    @if ($datas->Kategori == "Sesuai")
-                        {{ "checked" }}
-                    @endif
+                    @if ($datas->Kategori == "Sesuai"){{ "checked" }}@endif
+                    @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriSesuai">Sesuai</label>
@@ -276,21 +281,43 @@
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
               <label for="inisialAuditor" class="form-label">Inisial Auditor</label>
-              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}">
+              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}"
+              @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif
+              >
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label">Skor Auditor</label>
-              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}">
+              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}"
+              @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif
+              >
             </div>
           </div>
         </div>
+        <div class="keteranganTambahan mx-4 mb-2">
+          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media Line dan mengunggah dokumen bukti sahih yang baru</p>
+          <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
+        </div>
         <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+          {{-- {{ $datas->daftartilik }} --}}
           <a href="/approvalAuditor-daftartilik/{{ $datas->id }}">
-            <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui Audit Lapangan ini?')"
-              @if (Auth::user()->role != "Auditor")
-                  {{ "disabled" }}
-              @endif
-            >{{ $datas->approvalAuditor }}</button>
+            <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+            @foreach ($_daftartiliks as $daftartilik)
+            @if ((Auth::user()->role != 'Auditor') || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee'))
+                {{ "disabled" }}
+            @endif
+            @endforeach
+            >
+            {{-- {{ $datas->approvalAuditee }} --}}
+            @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
+                {{ "Ajukan persetujuan AL" }}
+            @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee')
+                {{ "Menunggu persetujuan Auditee" }}
+            @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Disetujui Auditee')
+                {{ "Setujui AL" }}
+            @else
+                {{ $datas->approvalAuditor }}
+            @endif
+            </button>
           </a>
           <button class="btn btn-success me-md-2" type="button"
             @if (Auth::user()->role != "Auditee")
@@ -307,7 +334,7 @@
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
+  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
 
   if(document.getElementById('kategoriKTS').checked) {
       document.getElementById("narasiPLOR").innerHTML
@@ -321,7 +348,7 @@
             = ''; 
   }
   function display() {
-      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
+      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
 
       if(document.getElementById('kategoriKTS').checked) {
           document.getElementById("narasiPLOR").innerHTML

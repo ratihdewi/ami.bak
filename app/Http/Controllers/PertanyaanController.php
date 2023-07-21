@@ -98,7 +98,7 @@ class PertanyaanController extends Controller
     public function tampildata($id){
         $datas = Pertanyaan::find($id);
         $daftartilik_id = $datas->daftartilik_id;
-        $_daftartiliks = DaftarTilik::all()->where('id', $daftartilik_id);
+        $_daftartiliks = DaftarTilik::where('id', $daftartilik_id)->get();
         //dd($datas->pertanyaan);
         $listAuditee = Auditee::all();
         $listAuditor = Auditor::all();
@@ -225,27 +225,43 @@ class PertanyaanController extends Controller
         return view('/auditee/areaDaftarTilik', compact('data', 'data_'));
     }
 
-    public function approvalAuditee($id)
+    public function approvalAuditee(Request $request, $id)
     {
         $approve_ = Pertanyaan::find($id);
-        
+        $auditee_ = Auditee::where('id', $approve_->auditee_id)->first();
+
         $approve_->approvalAuditee = 'Disetujui Auditee';
+
+        $request->session()->flash('success', 'Audit Lapangan sudah berhasil disetujui oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
  
         $approve_->save();
 
         // dd($approve_);
-        return redirect()->back()->with('message', 'Audit Lapangan sudah berhasil disetujui');
+        return redirect()->back();
     }
 
-     public function approvalAuditor($id)
+     public function approvalAuditor(Request $request, $id)
     {
         $approve_ = Pertanyaan::find($id);
-        
-        $approve_->approvalAuditor = 'Disetujui Auditor';
- 
+        $auditor_ = Auditor::where('id', $approve_->auditor_id)->first();
+
+        if (Auth::user()->name == $auditor_->nama) {
+            if ($approve_->approvalAuditor == 'Belum disetujui Auditor') {
+
+                $approve_->approvalAuditor = 'Menunggu persetujuan Auditee';
+                $request->session()->flash('success', 'Persetujuan Audit Lapangan berhasil berhasil diajukan oleh '.$auditor_->nama.' kepada Auditee');
+    
+            } elseif ($approve_->approvalAuditor == 'Menunggu persetujuan Auditee') {
+    
+                $approve_->approvalAuditor = 'Disetujui Auditor';
+                $request->session()->flash('success', 'Audit Lapangan berhasil disetujui oleh Auditor '.$auditor_->nama);
+            }
+        } else {
+            $request->session()->flash('error', 'Audit Lapangan ini harus disetujui oleh Auditor yang terdaftar pada rencana daftar tilik! ('.$auditor_->nama.')');
+        }
+
         $approve_->save();
 
-        // dd($approve_);
-        return redirect()->back()->with('message', 'Audit Lapangan sudah berhasil disetujui');
+        return redirect()->back();
     }
 }

@@ -31,7 +31,7 @@
             </a>
             <a
                 href="/auditor-daftartilik"
-                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/auditor-beritaacara"
-                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

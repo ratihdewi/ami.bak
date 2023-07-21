@@ -70,7 +70,7 @@
                     </td>
                     <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
                     <td  class="text-center">
-                        @if ($beritaacara->approvalAuditee == 'Disetujui')
+                        @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
                             <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
                         @else
                             <a
@@ -81,7 +81,7 @@
                         @endif
                     </td>
                     <td  class="text-center">
-                        @if ($beritaacara->approvalAuditor == 'Disetujui')
+                        @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
                             <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE')}}" alt="barcode" />
                         @else
                             <a

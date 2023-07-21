@@ -186,14 +186,14 @@
               </div>
             </div>
           </div>
-          <label for="#" class="mb-4 mx-4">Respon Auditee</label>
-          <div class="row g-3 mb-4 mx-4 border rounded">
+          <label for="responAuditeeGroup" class="mb-4 mx-4">Respon Auditee</label>
+          <div id="responAuditeeGroup" class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
               <div class="row">
                 <div class="col mx-4 mb-4">
                   <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
                   <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]"
-                    @if ($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor")
+                    @if (($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor") || $datas->approvalAuditor == 'Disetujui Auditor' || $datas->approvalAuditee == 'Disetujui Auditee')
                         {{ "disabled" }}
                     @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
                         {{ "required" }}
@@ -212,13 +212,11 @@
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"
-                
-                @if ($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor")
-                    {{ "disabled" }}
+                @if (($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor") || $datas->approvalAuditor == 'Disetujui Auditor' || $datas->approvalAuditee == 'Disetujui Auditee')
+                    {{ "readonly" }}
                 @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
                     {{ "required" }}
                 @endif
-
                 >{{ $datas->responAuditee }}</textarea>
                 <label for="responAuditee">Tuliskan respon Auditee disini</label>
               </div>
@@ -226,11 +224,11 @@
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor" readonly>{{ $datas->responAuditor }}</textarea>
-            <label for="responAuditor">Tuliskan respon Auditor disini<b>**)</b></label>
+            <label for="responAuditor">Tuliskan respon Auditor disini<b> **)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
             <div class="col">
-              <label for="kategoriTemuan" class="form-label">Kategori Temuan<b>*)</b></label>
+              <label for="kategoriTemuan" class="form-label">Kategori Temuan<b> *)</b></label>
               <div id="kategoriTemuan" class="border rounded ps-4 py-2">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()" value="{{ $datas->Kategori }}"
@@ -293,18 +291,36 @@
             </div>
           </div>
         </div>
+        <div class="keteranganTambahan mx-4 mb-2">
+          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media Line dan mengunggah dokumen bukti sahih yang baru</p>
+          <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
+        </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="btn btn-success me-md-2" type="button"
             @if (Auth::user()->role != "Auditor")
                 {{ "disabled" }}
             @endif
-          >{{ $datas->approvalAuditor }}</button>
+          >
+          @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
+                {{ "Menunggu pengajuan persetujuan Auditor" }}
+          @else
+              {{ $datas->approvalAuditor }}
+          @endif
+          </button>
           <a href="/approvalAuditee-daftartilik/{{ $datas->id }}">
             <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui Audit Lapangan ini?')"
-              @if (Auth::user()->role != "Auditee")
+              @if (Auth::user()->role != "Auditee" || ($datas->approvalAuditor == 'Disetujui Auditor' || $datas->approvalAuditor == 'Belum disetujui Auditor'))
                   {{ "disabled" }}
               @endif
-            >{{ $datas->approvalAuditee }}</button>
+            >
+            @if ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee')
+                {{ "Setujui AL" }}
+            @elseif ($datas->approvalAuditee == 'Disetujui Auditee')
+                {{ "Disetujui Auditee" }}
+            @else
+                {{ "Setujui AL" }}
+            @endif
+            </button>
           </a>
           <button class="btn btn-success" type="submit" style="background: #00D215; border: 1px solid #008F0E;">Simpan</button>
         </div>
@@ -316,7 +332,7 @@
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
+  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" readonly>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
 
   if(document.getElementById('kategoriKTS').checked) {
       document.getElementById("narasiPLOR").innerHTML
@@ -330,7 +346,7 @@
             = ''; 
   }
   function display() {
-      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
+      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" readonly>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
 
       if(document.getElementById('kategoriKTS').checked) {
           document.getElementById("narasiPLOR").innerHTML

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->String('unit_kerja');
             $table->string('username');
-            $table->enum('role', ['Auditor', 'Auditee', 'SPM']);
+            $table->String('role');
             $table->string('jabatan');
             $table->String('noTelepon')->nullable();
             $table->rememberToken();

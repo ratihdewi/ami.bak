@@ -1,4 +1,4 @@
-@extends('auditee.main_') @section('title') AMI - Temuan Berita Acara @endsection
+@extends('auditor.main_') @section('title') AMI - Temuan Berita Acara @endsection
 @section('container')
 <div class="container" style="font-size: 15px">
     <div class="container-fluid d-flex mt-4">

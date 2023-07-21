@@ -2,6 +2,17 @@
 @section('title') AMI - Daftar Tilik @endsection
 
 @section('container')
+      <div class="row">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" role="alert">
+                {{ $message }}
+            </div>
+        @elseif ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+        @endif
+      </div>
       {{-- Form setiap auditee --}}
       @foreach ($_daftartiliks as $_daftartilik)
       @foreach ($_daftartilik->auditee()->get() as $auditee)
@@ -267,7 +278,7 @@
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label">Skor Auditor</label>
-              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}">
+              <input id="skorAuditor" type="number" min="0.00" max="4.00" step="0.01" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}">
             </div>
           </div>
         </div>
@@ -280,10 +291,20 @@
         </div>
         <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="btn btn-success me-md-2" type="button"
-            @if (Auth::user()->role != "Auditor")
+            @if ((Auth::user()->name != $_daftartilik->auditor->nama) || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee'))
                 {{ "disabled" }}
             @endif
-          >{{ $datas->approvalAuditor }}</button>
+          >
+          @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
+              {{ "Ajukan persetujuan AL" }}
+          @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee')
+              {{ "Menunggu persetujuan Auditee" }}
+          @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Disetujui Auditee')
+              {{ "Setujui AL" }}
+          @else
+              {{ $datas->approvalAuditor }}
+          @endif
+          </button>
           <button class="btn btn-success me-md-2" type="button"
             @if (Auth::user()->role != "Auditee")
                 {{ "disabled" }}

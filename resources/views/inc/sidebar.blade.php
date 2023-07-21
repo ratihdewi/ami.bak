@@ -31,7 +31,7 @@
             </a>
             <a
                 href="/daftartilik"
-                class="nav_link {{ Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/beritaacara"
-                class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' || Request::routeIs('BA-ubahdataDokumenBAAMI') ? 'active' : '' || Request::routeIs('BA-daftarhadir') ? 'active' : '' || Request::routeIs('BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('BA-dokumenpendukung') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
