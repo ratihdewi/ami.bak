@@ -22,6 +22,8 @@ class CreateDokBAAMISTable extends Migration
             $table->String('tgl_revisi')->default("Data tanggal revisi belum ada");
             $table->String('tgl_berlaku')->default("Data tanggal berlaku belum ada");
             $table->Integer('revisiKe')->default('0');
+            $table->String('eSignAuditee')->default('Belum Disetujui');
+            $table->String('eSignAuditor')->default('Belum Disetujui');
             $table->foreign('beritaacara_id')->references('id')->on('berita_acaras')->onUpdate('cascade')
             ->onDelete('cascade');
             $table->foreign('auditee_id')->references('id')->on('auditees')->onUpdate('cascade')

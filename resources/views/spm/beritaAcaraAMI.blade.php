@@ -7,6 +7,11 @@
           {{-- <a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a> --}}
         </div>
         <div class="btn-right">
+          @foreach ($ba_ami->get() as $baami)
+          <a href="/BAAMI-downloadBA/{{ $baami->id }}">
+          @endforeach
+            <button class="btn btn-primary btn-sm" type="button">Pratinjau</button>
+          </a>
           <button class="btn btn-primary btn-sm" type="button">Cetak</button>
         </div>
       </div>
@@ -43,7 +48,7 @@
           <div class="row">
             <div class="col-3 label border py-2 fw-semibold text-start">Judul Dokumen</div>
             <div class="col-9 border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
                 {{ $ba->judulDokumen }}
               @endforeach
             </div>
@@ -51,13 +56,13 @@
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Kode Dokumen</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
                 {{ $ba->kodeDokumen }}
               @endforeach
             </div>
             <div class="col label border py-2 fw-semibold text-start">Revisi Ke-</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
                 {{ $ba->revisiKe }}
               @endforeach
             </div>
@@ -65,13 +70,13 @@
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Tanggal Revisi</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
               {{ $ba->tgl_revisi }}
               @endforeach
             </div>
             <div class="col label border py-2 fw-semibold text-start">Tanggal Berlaku</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
               {{ $ba->tgl_berlaku }}
               @endforeach
             </div>
@@ -91,9 +96,11 @@
         <div class="container text-center dataDokumenBA my-3 px-3">
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
-                @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
-                <div class="col-9 border py-2 text-start">{{ $jadwalAudit->auditee->unit_kerja }}</div>
-                @endforeach
+                <div class="col-9 border py-2 text-start">
+                  @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                  {{ $jadwalAudit->auditee->unit_kerja }}
+                  @endforeach
+                </div>
               </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Tahun Ajaran</div>
@@ -271,7 +278,7 @@
           <div class="row mt-4">
             <div class="col-1 logoDokumen bg-warning bg-opacity-10 border border-info rounded-start py-3"><i class="bi bi-file-earmark-text-fill h2"></i></div>
             <div class="col-3 infoDokumen bg-warning bg-opacity-10 border border-info rounded-end text-start py-3">
-              @if ($dokumenpendukung_ == null)
+              @if ($dokumenpendukung__->doesntExist())
                   <h3 class="fs-6 mb-0">
                     Tidak ada Dokumen Pendukung
                   </h3>
@@ -310,55 +317,67 @@
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    @foreach ($auditee_ as $auditee)
                     <tr>
+                      @foreach ($auditee_ as $auditee)
                       <td scope="row" class="text-center">{{ $no++ }}</td>
                       <td class="col-2 text-center">Ketua Auditor</td>
                       <td class="col-3 text-start">{{ $auditee->ketua_auditor }}</td>
                       <td id="signed" class="col-2 text-center">
-                        @foreach ($ba_ami as $ba)
-                            
+                        @if ($ba_ami->doesntExist())
+                          <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+                          @if ((Auth::user()->name != $auditee->ketua_auditor))
+                              {{ "disabled" }}
+                          @endif
+                          style="background: none"></button>
+                        @else
+                            @foreach ($ba_ami->get() as $ba)
                             @if ($ba->eSignAuditor == "Disetujui")
                               <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
                             @else
-                              @foreach ($ba_ami as $ba)
-                              <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}">
+                              @foreach ($ba_ami->get() as $ba)
+                              <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}" disabled>
                               @endforeach
-                                <button class="border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
-                                @if (Auth::user()->name != $auditee->ketua_auditor)
-                                  {{ "disabled" }}
-                                @endif>
-                                <i class="bi bi-pen"></i>
-                                </button>
+                                <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+                                @if ((Auth::user()->name != $auditee->ketua_auditor))
+                                    {{ "disabled" }}
+                                @endif
+                                style="background: none"></button>
                               </a>
                             @endif
-                        @endforeach
+                            @endforeach
+                        
+                        @endif
                       </td>
+                      @endforeach
                     </tr>
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="col-2 text-center">Ketua Auditee</td>
                         <td class="col-3 text-start">{{ $auditee->ketua_auditee }}</td>
                         <td id="signed" class="col-2 text-center">
-                          @foreach ($ba_ami as $ba)
+                          @if ($ba_ami->doesntExist())
+                            <button class="bi bi-pen border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                            @if (Auth::user()->name != $auditee->ketua_auditee)
+                              {{ "disabled" }}
+                            @endif style="background: none"></button>
+                          @else
+                            @foreach ($ba_ami->get() as $ba)
                             @if ($ba->eSignAuditee == "Disetujui")
                               <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
                             @else
-                              @foreach ($ba_ami as $ba)
+                              @foreach ($ba_ami->get() as $ba)
                               <a href="/BAAMI-approvalKetuaAuditee/{{ $ba->id }}">
                               @endforeach
-                              <button class="border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                              <button class="bi bi-pen border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
                               @if (Auth::user()->name != $auditee->ketua_auditee)
                                 {{ "disabled" }}
-                              @endif>
-                              <i class="bi bi-pen"></i>
-                              </button>
+                              @endif style="background: none"></button>
                               </a>
                             @endif
-                          @endforeach
+                            @endforeach
+                          @endif
                         </td>
                       </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>

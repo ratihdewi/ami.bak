@@ -85,6 +85,8 @@ Route::post('/BA-AMI-insertdatadokumen/{auditee_id}', [DokBAAMIController::class
 Route::post('/BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('BA-AMI-updatedataBAAMI');
 Route::get('/BAAMI-approvalKetuaAuditor/{id}', [DokBAAMIController::class, 'approvalAuditor'])->name('BAAMI-approvalKetuaAuditor');
 Route::get('/BAAMI-approvalKetuaAuditee/{id}', [DokBAAMIController::class, 'approvalAuditee'])->name('aBAAMI-approvalKetuaAuditee');
+Route::get('/BAAMI-pratinjauBA/{auditee_id}', [DokBAAMIController::class, 'pratinjauba'])->name('aBAAMI-pratinjauBA');
+Route::get('/BAAMI-downloadBA/{id}', [DokBAAMIController::class, 'downloadba'])->name('aBAAMI-downloadBA');
 Route::get('/view-doksahih', [PertanyaanController::class, 'testPDF'])->name('auditor-dokresmi');
 Route::get('/BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'editdaftarhadir'])->name('BA-daftarhadir');
 Route::post('/BA-savedaftarhadir/{auditee_id}', [DaftarHadirController::class, 'storedaftarhadir'])->name('BA-savedaftarhadir');

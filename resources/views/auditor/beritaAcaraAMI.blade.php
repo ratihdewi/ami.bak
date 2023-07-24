@@ -7,12 +7,17 @@
           {{-- <a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a> --}}
         </div>
         <div class="btn-right">
+          <button class="btn btn-primary btn-sm" type="button">Pratinjau</button>
           <button class="btn btn-primary btn-sm" type="button">Cetak</button>
         </div>
       </div>
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
+              {{ $message }}
+          </div>
+          @elseif ($message = Session::get('error'))
+          <div class="alert alert-danger" role="alert">
               {{ $message }}
           </div>
           @endif
@@ -39,7 +44,7 @@
           <div class="row">
             <div class="col-3 label border py-2 fw-semibold text-start">Judul Dokumen</div>
             <div class="col-9 border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
                 {{ $ba->judulDokumen }}
               @endforeach
             </div>
@@ -47,13 +52,13 @@
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Kode Dokumen</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
                 {{ $ba->kodeDokumen }}
               @endforeach
             </div>
             <div class="col label border py-2 fw-semibold text-start">Revisi Ke-</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
                 {{ $ba->revisiKe }}
               @endforeach
             </div>
@@ -61,13 +66,13 @@
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Tanggal Revisi</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
               {{ $ba->tgl_revisi }}
               @endforeach
             </div>
             <div class="col label border py-2 fw-semibold text-start">Tanggal Berlaku</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami as $ba)
+              @foreach ($ba_ami->get() as $ba)
               {{ $ba->tgl_berlaku }}
               @endforeach
             </div>
@@ -87,9 +92,11 @@
         <div class="container text-center dataDokumenBA my-3 px-3">
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
-                @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
-                <div class="col-9 border py-2 text-start">{{ $jadwalAudit->auditee->unit_kerja }}</div>
-                @endforeach
+                <div class="col-9 border py-2 text-start">
+                  @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                  {{ $jadwalAudit->auditee->unit_kerja }}
+                  @endforeach
+                </div>
               </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Tahun Ajaran</div>
@@ -157,19 +164,14 @@
                       <td class="col-2 text-center">{{ $daftarhadir->posisi }}</td>
                       <td class="col-3 text-center">{{ $daftarhadir->namapeserta }}</td>
                       <td class="col-2 text-center">
-                        @if ($daftarhadir->posisi == Auth::user()->role && $daftarhadir->namapeserta == Auth::user()->name)
-                        <a href="/BA-esignpeserta/{{ $daftarhadir->id }}">
+                        @if ($daftarhadir->eSign == 'Hadir')
+                          <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 2, 2)}}" alt="barcode" />
+                        @else
+                          <a href="/BA-esignpeserta/{{ $daftarhadir->id }}"><i class="bi bi-pen" type="button"></i></a>
                         @endif
-                          @if ($daftarhadir->eSign == 'Hadir')
-                          <i class="bi bi-check2-square"></i>
-                          @else
-                          <i class="bi bi-pen" type="button"></i>
-                          @endif
-                        </a>
                       </td>
                       <td class="col-2 text-center">
-                        <a href="/BA-daftarhadir/{{ $auditee->id }}/#{{ $daftarhadir->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                        <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                        <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><i class="bi bi-trash"></i></a>
                       </td>
                     </tr>
                     @endforeach
@@ -197,12 +199,12 @@
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    @foreach ($daftartilik_ as $daftartilik)
+                    @foreach ($pertanyaan_ as $temuanAudit)
                     <tr>
                       <td scope="row" class="text-center">{{ $no++ }}</td>
-                      <td class="col-2 text-center">{{ $daftartilik->Kategori }}<br>{{ $daftartilik->inisialAuditor }}</td>
-                      <td class="col-3 text-center">{{ $daftartilik->referensi }}<br>{{ $daftartilik->nomorButir }}</td>
-                      <td class="col-2 text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, necessitatibus eveniet! Explicabo doloremque facere autem tenetur dolorem minus quos totam.</td>
+                      <td class="col-2 text-center">{{ $temuanAudit->Kategori }}<br>{{ $temuanAudit->inisialAuditor }}</td>
+                      <td class="col-3 text-center">{{ $temuanAudit->referensi }}<br>{{ $temuanAudit->nomorButir }}</td>
+                      <td class="col-2 text-start">{{ $temuanAudit->narasiPLOR }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -215,7 +217,13 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Peluang Peningkatan</button>
             </li>
-            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
+            <li>
+              @foreach ($auditee_ as $auditee)
+              <a href="/BA-peluangpeningkatan/{{ $auditee->id }}">
+              @endforeach
+              <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
+              </a>
+            </li>
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -231,41 +239,18 @@
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
+                    @foreach ($pelpeningkatan_ as $peningkatan)
                     <tr>
-                        <td scope="row" class="text-center">{{ $no++ }}</td>
-                        <td class="col-2 text-start">Standar Pendidikan A.01.17 dan A.01.18 tentang tugas mahasiswa dalam bentuk project based learning (PBL). </td>
-                        <td class="col-3 text-start">Program studi telah melakukannya melalui mata kuliah capstone design.</td>
-                        <td class="col-2 text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, necessitatibus eveniet! Explicabo doloremque facere autem tenetur dolorem minus quos totam.</td>
-                        <td class="col-2 text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
+                      <td scope="row" class="text-center">{{ $no++ }}</td>
+                      <td class="col-2 text-start">{{ $peningkatan->aspek }}</td>
+                      <td class="col-3 text-start">{{ $peningkatan->kelebihan }}</td>
+                      <td class="col-2 text-start">{{ $peningkatan->peningkatan }}</td>
+                      <td class="col-2 text-center">
+                        <a href="/BA-editpeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                        <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-trash" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></a>
+                      </td>
                     </tr>
-                    <tr>
-                        <td scope="row" class="text-center">{{ $no++ }}</td>
-                        <td class="col-2 text-start">LKPS Tabel 2.a Elemen C.3.4.a) dan C.3.4.b) – Metoda rekrutmen dan keketatan seleksi</td>
-                        <td class="col-3 text-start">Metode seleksi mahasiswa baru menerapkan uji kognitif dan uji aptitude telah mencapai skor 4 serta rasio antara pendaftar calon mahasiswa dengan mahasiswa baru yang diterima lebih dari 5 yang juga mencapai skor 4.</td>
-                        <td class="col-2 text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias eum quidem et omnis. Repellendus, vero.</td>
-                        <td class="col-2 text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                        <td class="text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -276,15 +261,34 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dokumen Pendukung</button>
             </li>
-            <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li>
+            <li>
+              @foreach ($auditee_ as $auditee)
+              <a href="/BA-dokumenpendukung/{{ $auditee->id }}">
+              @endforeach
+              <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
+              </a>
+            </li>
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3 mx-3">
           <div class="row mt-4">
             <div class="col-1 logoDokumen bg-warning bg-opacity-10 border border-info rounded-start py-3"><i class="bi bi-file-earmark-text-fill h2"></i></div>
             <div class="col-3 infoDokumen bg-warning bg-opacity-10 border border-info rounded-end text-start py-3">
-              <h3 class="fs-6 mb-0">Judul dokumen pendukung</h3>
-              <p class="fs-6 mb-0">Kode dokumen</p>
+              @if ($dokumenpendukung__->doesntExist())
+                  <h3 class="fs-6 mb-0">
+                    Tidak ada Dokumen Pendukung
+                  </h3>
+                <p class="fs-6 mb-0"></p>
+              @else
+              @foreach ($dokumenpendukung_ as $dokpendukung)
+                <h3 class="fs-6 mb-0">
+                  @foreach ($auditee_ as $auditee)
+                  <a href="/BA-lihatdokumenpendukung/{{ $auditee->id }}">
+                  @endforeach
+                  {{ $dokpendukung->namaDokumen }}</a></h3>
+                <p class="fs-6 mb-3">{{ $dokpendukung->kodeDokumen }}</p>
+              @endforeach
+              @endif
             </div>
           </div>
         </div>
@@ -295,7 +299,6 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Persetujuan</button>
             </li>
-            {{-- <li><a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a></li> --}}
           </ul>
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
@@ -306,47 +309,89 @@
                         <th class="col-2 text-center">Jabatan</th>
                         <th class="col-3 text-center">Nama</th>
                         <th class="col-2 text-center"><i>eSign</i></th>
-                        <th class="col-2 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
                     <tr>
-                        <td scope="row" class="text-center">{{ $no++ }}</td>
-                        <td class="col-2 text-center">Ketua Auditor</td>
-                        <td class="col-3 text-start"></td>
-                        <td class="col-2 text-center"><i class="bi bi-pen" type="button"></i></td>
-                        <td class="col-2 text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                        </td>
+                      @foreach ($auditee_ as $auditee)
+                      <td scope="row" class="text-center">{{ $no++ }}</td>
+                      <td class="col-2 text-center">Ketua Auditor</td>
+                      <td class="col-3 text-start">{{ $auditee->ketua_auditor }}</td>
+                      <td id="signed" class="col-2 text-center">
+                        @if ($ba_ami->doesntExist())
+                          <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+                          @if ((Auth::user()->name != $auditee->ketua_auditor))
+                              {{ "disabled" }}
+                          @endif
+                          style="background: none"></button>
+                        @else
+                            @foreach ($ba_ami->get() as $ba)
+                            @if ($ba->eSignAuditor == "Disetujui")
+                              <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                            @else
+                              @foreach ($ba_ami->get() as $ba)
+                              <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}" disabled>
+                              @endforeach
+                                <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+                                @if ((Auth::user()->name != $auditee->ketua_auditor))
+                                    {{ "disabled" }}
+                                @endif
+                                style="background: none"></button>
+                              </a>
+                            @endif
+                            @endforeach
+                        
+                        @endif
+                      </td>
+                      @endforeach
                     </tr>
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="col-2 text-center">Ketua Auditee</td>
-                        <td class="col-3 text-start"></td>
-                        <td class="col-2 text-center"><i class="bi bi-pen" type="button"></i></td>
-                        <td class="col-2 text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                        <td class="col-3 text-start">{{ $auditee->ketua_auditee }}</td>
+                        <td id="signed" class="col-2 text-center">
+                          @if ($ba_ami->doesntExist())
+                            <button class="bi bi-pen border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                            @if (Auth::user()->name != $auditee->ketua_auditee)
+                              {{ "disabled" }}
+                            @endif style="background: none"></button>
+                          @else
+                            @foreach ($ba_ami->get() as $ba)
+                            @if ($ba->eSignAuditee == "Disetujui")
+                              <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                            @else
+                              @foreach ($ba_ami->get() as $ba)
+                              <a href="/BAAMI-approvalKetuaAuditee/{{ $ba->id }}">
+                              @endforeach
+                              <button class="bi bi-pen border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                              @if (Auth::user()->name != $auditee->ketua_auditee)
+                                {{ "disabled" }}
+                              @endif style="background: none"></button>
+                              </a>
+                            @endif
+                            @endforeach
+                          @endif
                         </td>
-                    </tr>
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                        <td class="text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach --}}
+                      </tr>
                 </tbody>
             </table>
         </div>
       </div>         
   </div>
 @endsection
+
+@push('script')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
+    {{-- <script>
+      var button = document.getElementById('eSign');
+      var contentDiv = document.getElementById('signed');
+
+      // Event listener untuk saat button diklik
+      button.addEventListener('click', function() {
+          // Ganti isi dari elemen div dengan ID content
+          contentDiv.innerHTML = '<img src="data:image/png;base64,{{DNS2D::getBarcodePNG("https://www.google.com/", 'QRCODE', 3, 3)}}" alt="barcode" />';
+      });
+    </script> --}}
+@endpush
