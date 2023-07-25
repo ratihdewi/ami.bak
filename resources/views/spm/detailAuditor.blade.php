@@ -1,4 +1,10 @@
+@if (count(Auth::user()->auditee()->get('user_id')) != 0)
+@extends('auditee.main_')
+@elseif (count(Auth::user()->auditor()->get('user_id')) != 0)
+@extends('auditor.main_')
+@else
 @extends('layout.main')
+@endif
 
 @section('title')
     AMI - Detail Auditor

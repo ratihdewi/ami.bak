@@ -10,37 +10,44 @@ use Illuminate\Http\Request;
 class AuditorController extends Controller
 {
     //role spm start
-    public function index()
+    public function index($tahunperiode)
     {
-        $dataAuditor = Auditor::all();
+        $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         // dd($data);
         return view('daftarAuditor', compact('dataAuditor'));
     }
 
+    public function indexpertahun()
+    {
+        $dataAuditor = Auditor::all();
+        // dd($data);
+        return view('spm/daftarauditor-tahun', compact('dataAuditor'));
+    }
+
     public function getAuditor()
     {
-        $users_ = User::where('role', '!=', 'Auditee')->get();
+        $users_ = User::all();
 
         return response()->json($users_);
     }
 
     public function tambahauditor(Request $request)
     {
-        $users_ = User::where('role', '!=', 'Auditee')->get();
+        $users_ = User::all();
         
         return view('addAuditor', compact('users_'));
     }
 
     public function insertdata(Request $request)
     {
-    
-        $isAlreadyExist = Auditor::where('nip', $request->nip)->exists();
+        // dd($request->all());
+        $isAlreadyExist = Auditor::where('nip', $request->nip)->where('tahunperiode', $request->tahunperiode)->exists();
         //dd($isAlreadyExist);
         if ($isAlreadyExist) {
-            return redirect()->route('auditor')->with('error', 'Data sudah tersedia!');
+            return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data sudah tersedia!');
         } else {
             Auditor::create($request->all());
-            return redirect()->route('auditor')->with('success', 'Data berhasil ditambah');
+            return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil ditambah');
         }
 
     }
@@ -53,6 +60,7 @@ class AuditorController extends Controller
 
     public function updatedata(Request $request, $id)
     {
+        // dd($request->all());
         $data = Auditor::find($id);
         $dataAuditorUsers = User::where('nip', $data->nip)->get();
         
@@ -65,27 +73,35 @@ class AuditorController extends Controller
                 ]);
                 
             } else {
-                return redirect()->route('auditor')->with('error', 'Data tidak terdaftar sebagai user!');
+                return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data tidak terdaftar sebagai user!');
             }
         }
-        return redirect()->route('auditor')->with('success', 'Data berhasil diupdate');
+        return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');
     }
 
     public function deletedata($id)
     {
         $data = Auditor::find($id);
         $data->delete();
-        return redirect()->route('auditor')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil dihapus');
     }
     //role spm end
 
     //role auditor start
-    public function indexauditor()
+    public function indexauditor($tahunperiode)
     {
-        $dataAuditor = Auditor::all();
+        $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         // dd($data);
         return view('auditor/daftarAuditor', compact('dataAuditor'));
     }
+
+    public function indexauditorpertahun()
+    {
+        $dataAuditor = Auditor::all();
+        // dd($data);
+        return view('auditor/daftarauditor-tahun', compact('dataAuditor'));
+    }
+
     public function indexauditee()
     {
         $dataAuditee = Auditee::all();
@@ -95,7 +111,10 @@ class AuditorController extends Controller
 
     public function profil()
     {
-        return view('spm/detailAuditor');
+        $dataAuditor = Auditor::all();
+        $dataAuditee = Auditee::all();
+
+        return view('spm/detailAuditor', compact('dataAuditor', 'dataAuditee'));
     }
     //role auditor end
 
@@ -106,6 +125,14 @@ class AuditorController extends Controller
         // dd($data);
         return view('auditee/daftarAuditor', compact('dataAuditor'));
     }
+
+    public function indexauditorpertahun_()
+    {
+        $dataAuditor = Auditor::all();
+        // dd($data);
+        return view('auditee/daftarauditor-tahun', compact('dataAuditor'));
+    }
+
     public function indexauditee_()
     {
         $dataAuditee = Auditee::all();

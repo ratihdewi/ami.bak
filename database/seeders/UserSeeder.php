@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'username' => 'r.spm',
             'role' => 'SPM',
             'jabatan' => 'kaprodi',
+            'noTelepon' => '081234567810',
         ]);
          
         $spm->assignRole('SPM');
@@ -34,11 +35,12 @@ class UserSeeder extends Seeder
             'password' => bcrypt('Auditor123'),
             'unit_kerja' => 'Fakultas Sains dan Ilmu Komputer',
             'username' => 'r.auditor',
-            'role' => 'Auditor',
+            'role' => 'User',
             'jabatan' => 'dekan',
+            'noTelepon' => '082345678901',
         ]);
 
-        $auditor->assignRole('Auditor');
+        $auditor->assignRole('User');
 
         $auditee = User::create([
             'nip' => '119032',
@@ -47,10 +49,11 @@ class UserSeeder extends Seeder
             'password' => bcrypt('Auditee123'),
             'unit_kerja' => 'Direktorat IT',
             'username' => 'r.auditee',
-            'role' => 'Auditee',
+            'role' => 'User',
             'jabatan' => 'dekan',
+            'noTelepon' => '089712345634',
         ]);
 
-        $auditee->assignRole('Auditee');
+        $auditee->assignRole('User');
     }
 }

@@ -4,10 +4,28 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-8">
-            <div class="card">
+            <div class="card mb-5">
                 <div class="card-body p-4">
                     <form action="/insertAuditor" method="POST">
                         @csrf
+                        <div class="row mb-3">
+                            <div class="col" hidden>
+                                <label for="user_id" class="form-label"
+                                    >ID User</label
+                                >
+                                {{-- @foreach ($users_ as $user) --}}
+                                <input
+                                    type="text"
+                                    name="user_id"
+                                    class="form-control"
+                                    id="user_id"
+                                    placeholder="ID User"
+                                    aria-label="ID User"
+                                    {{-- value="{{ $user->id }}" --}}
+                                />
+                                {{-- @endforeach      --}}
+                            </div>         
+                        </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nipAuditor" class="form-label"
@@ -114,15 +132,20 @@
                                 />
                             </div>
                             <div class="col">
-                                <label for="esignAuditor" class="form-label"
-                                    >eSign</label
+                                <label for="tahunperiode" class="form-label"
+                                    >Tahun Periode</label
                                 >
                                 <input
+                                    type="number"
+                                    name="tahunperiode"
                                     class="form-control"
-                                    type="file"
-                                    id="esignAuditor"
+                                    id="tahunperiode"
+                                    placeholder="Tahun Periode"
+                                    aria-label="Tahun Periode"
+                                    min="2016" max="3000"
+                                    required
                                 />
-                            </div>
+                            </div>   
                         </div>
                         {{-- {{ json_encode($json_) }} --}}
                         <button type="submit" class="btn btn-primary float-end">
@@ -152,6 +175,7 @@
                 if(response != null){
                     response.forEach(respon => {
                         if (respon.nip == id) {
+                            $('#user_id').val(respon.id);
                             $('#namaAuditor').val(respon.name);
                             $('#fakultas').val(respon.unit_kerja);
                             $('#programstudi').val(respon.unit_kerja);

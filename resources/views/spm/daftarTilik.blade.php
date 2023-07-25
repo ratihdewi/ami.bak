@@ -2,11 +2,14 @@
 @section('container')
 <div class="container pb-3">
     <div class="container-fluid float-end my-3">
+        @foreach ($data_ as $auditee)
         <a
-            href="daftarTilik-addareadaftartilik"
+            href="/daftarTilik-addareadaftartilik/{{ $auditee->tahunperiode }}"
             class="text-white"
             style="font-weight: 600; text-decoration: none"
-            ><button
+        >
+        @endforeach
+            <button
                 type="button"
                 class="btn btn-primary btn-sm float-end my-2 px-3"
             >
@@ -58,10 +61,10 @@
                             <td class="col-3 px-0 text-center">{{ $dt_->nama }}</td>
                         @endforeach
                         <td class="col-1 px-0 text-center">
-                            <a href="daftartilik-tampildaftartilik/{{ $dt->id }}" class="mx-2"
+                            <a href="/daftartilik-tampildaftartilik/{{ $dt->id }}" class="mx-2"
                                 ><i class="bi bi-pencil-square"></i
                             ></a>
-                            <a href="daftartilik-deletedataareadaftartilik/{{ $dt->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                     

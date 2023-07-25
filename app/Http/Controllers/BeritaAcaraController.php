@@ -45,13 +45,11 @@ class BeritaAcaraController extends Controller
         //dd($pertanyaan_);
         if ($role_ == "SPM") {
             return view('spm/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
-        } elseif ($role_ == "Auditor") {
+        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
             return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
-        } elseif ($role_ == "Auditee") {
+        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
             return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
         }
-        
-        
     }
 
     // DOkumen BA AMI

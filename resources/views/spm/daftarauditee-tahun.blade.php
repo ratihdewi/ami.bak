@@ -1,15 +1,13 @@
 
 @extends('layout.main') 
 
-@section('title') AMI - Daftar Auditor @endsection
+@section('title') AMI - Daftar Auditee @endsection
 
 @section('container')
-
-
-<div class="container"  style="font-size: 15px">
-    <div class="row my-4">
+<div class="container my-4"  style="font-size: 15px">
+    <div class="row">
         <a
-            href="/addAuditor"
+            href="/addAuditee"
             class="text-white"
             style="font-weight: 600; text-decoration: none"
             ><button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
@@ -27,13 +25,9 @@
         @endif
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>
-                <tr class="">
-                    <th class="col-1 text-center">  No  </th>
-                    <th class="col-2 text-center">  Nama  </th>
-                    <th class="col-1 text-center">  NIP  </th>
-                    <th class="col-2 text-center">  Program Studi  </th>
-                    <th class="col-2 text-center">  Fakultas  </th>
-                    <th class="col-2 text-center">  Nomor Telepon  </th>
+                <tr>
+                    <th class="col-2 text-center">  No  </th>
+                    <th class="col-8 text-center">  Tahun  </th>
                     <th class="col-2 text-center">  Aksi  </th>
                 </tr>
             </thead>
@@ -41,18 +35,11 @@
                 @php
                     $no = 1;    
                 @endphp
-                @foreach ($dataAuditor as $item)
+                @foreach ($dataAuditee->unique('tahunperiode') as $item)
                     <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td>{{ $item->nama }}</td>
-                        <td class="text-center">{{ $item->nip }}</td>
-                        <td>{{ $item->program_studi }}</td>
-                        <td>{{ $item->fakultas }}</td>
-                        <td class="text-center">{{ $item->noTelepon }}</td>
-                        <td class="text-center">
-                            <a href="/tampilAuditor/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                            <a href="/deleteAuditor/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
+                        <th scope="row" class=" col-2 text-center">{{ $no++ }}</th>
+                        <th class="col-8">Periode {{ $item->tahunperiode }}</th>
+                        <th class="col-2 text-center"><a href="/daftarAuditee/{{ $item->tahunperiode }}" style="text-decoration-line: none; color: black"><i class="bi bi-eye-fill"></i></a></th>
                     </tr>
                 @endforeach
             </tbody>

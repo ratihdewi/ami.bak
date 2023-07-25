@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Auditee extends Model
 {
     protected $fillable = [
+        'user_id',
+        'nip',
         'unit_kerja',
         'ketua_auditee',
         'jabatan_ketua_auditee',
         'ketua_auditor',
         'anggota_auditor',
+        'tahunperiode',
     ];
     // protected $guarded = [];
 
@@ -44,5 +47,10 @@ class Auditee extends Model
     public function doklampiran()
     {
         return $this->hasMany(DokLampiran::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

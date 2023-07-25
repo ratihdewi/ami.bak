@@ -37,10 +37,15 @@ Route::get('/', function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/changerole/{id}', [UserController::class, 'changerole'])->name('changerole');
 
 //Route Role SPM
+Route::get('/daftarAuditor-periode', [AuditorController::class, 'indexpertahun'])->name('auditor-periode');
+Route::get('/daftarAuditee-periode', [AuditeeController::class, 'indexpertahun'])->name('auditee-periode');
+Route::get('/daftartilik-periode', [DaftarTilikController::class, 'indexpertahun'])->name('daftartilik-periode');
 Route::get('/auditor-searchAuditor', [AuditorController::class, 'getAuditor'])->name('auditor-searchAuditor');
 Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
+Route::get('/tambahauditee-searchAuditor', [AuditeeController::class, 'getAuditor'])->name('searchAuditor');
 Route::get('/usercontrol', [UserController::class, 'index'])->name('daftaruser');
 Route::get('/addUser', [UserController::class, 'tambahuser'])->name('tambahuser');
 Route::post('/insertUser', [UserController::class, 'insertdata'])->name('insertuser');
@@ -61,9 +66,9 @@ Route::get('/jadwalaudit-deletejadwalaudit/{id}', [JadwalController::class, 'del
 Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });
-Route::get('/daftartilik', [DaftarTilikController::class, 'index'])->name('daftartilik');
+Route::get('/daftartilik/{tahunperiode}', [DaftarTilikController::class, 'index'])->name('daftartilik');
 Route::get('/daftartilik-searchAuditeeAuditor', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
-Route::get('/daftarTilik-addareadaftartilik', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
+Route::get('/daftarTilik-addareadaftartilik/{tahunperiode}', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
 Route::get('/daftartilik-tampildaftartilik/{id}', [DaftarTilikController::class, 'tampildata'])->name('daftartilik-tampildaftartilik');
 Route::post('/daftartilik-updatedataareadaftartilik/{id}', [DaftarTilikController::class, 'updatedata'])->name('daftartilik-updatedataareadaftartilik');
 Route::get('/daftartilik-deletedataareadaftartilik/{id}', [DaftarTilikController::class, 'deletedata'])->name('daftartilik-deletedataareadaftartilik');
@@ -107,21 +112,26 @@ Route::get('/tindakankoreksi-formtemuan', [TindakanKoreksiController::class, 'ta
 Route::get('/coba', [DokSahihController::class, 'updatedata']);
 
 // Role Auditor
-Route::get('/auditor-daftarauditee', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
-Route::get('/auditor-daftarauditor', [AuditorController::class, 'indexauditor'])->name('auditor-daftarauditor');
+Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
+Route::get('/auditor-daftarauditor/{tahunperiode}', [AuditorController::class, 'indexauditor'])->name('auditor-daftarauditor');
+Route::get('/auditor-daftarauditor-periode', [AuditorController::class, 'indexauditorpertahun'])->name('auditor-daftarauditor-periode');
+Route::get('/auditor-daftarauditee-periode', [AuditeeController::class, 'indexauditorpertahun'])->name('auditor-daftarauditee-periode');
 Route::get('/auditor-detailauditor', [AuditorController::class, 'profil'])->name('auditor-detailauditor');
-Route::get('/auditor-daftartilik', [DaftarTilikController::class, 'indexAuditor'])->name('auditor-daftartilik');
+Route::get('/auditor-daftartilik/{tahunperiode}', [DaftarTilikController::class, 'indexAuditor'])->name('auditor-daftartilik');
 Route::get('/auditor-daftarTilik-areadaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'indexAuditor'])->name('auditor-daftarTilik-areadaftartilik');
 Route::get('/auditor-beritaacara', [BeritaAcaraController::class, 'indexAuditor'])->name('auditor-beritaacara');
 Route::get('/approvalAuditee-daftartilik/{id}', [PertanyaanController::class, 'approvalAuditee'])->name('approval-daftartilik');
 Route::get('/approvalAuditor-daftartilik/{id}', [PertanyaanController::class, 'approvalAuditor'])->name('approval-daftartilik');
 Route::get('/auditor-dokresmi', [AuditorController::class, 'testPDF'])->name('auditor-dokresmi');
+Route::get('/daftartilik-periode_', [DaftarTilikController::class, 'indexpertahunuser'])->name('daftartilik-periode_');
 
 
 //Role Auditee
-Route::get('/auditee-daftarauditee', [AuditeeController::class, 'indexauditee'])->name('auditee-daftarauditee');
+Route::get('/auditee-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditee'])->name('auditee-daftarauditee');
+Route::get('/auditee-daftarauditee-periode', [AuditeeController::class, 'indexauditeepertahun'])->name('auditee-daftarauditee-periode');
+Route::get('/auditee-daftarauditor-periode', [AuditorController::class, 'indexauditorpertahun_'])->name('auditee-daftarauditor-periode');
 Route::get('/auditee-daftarauditor', [AuditorController::class, 'indexauditor_'])->name('auditee-daftarauditor');
-Route::get('/auditee-daftartilik', [DaftarTilikController::class, 'indexAuditee'])->name('auditee-daftartilik');
+Route::get('/auditee-daftartilik/{tahunperiode}', [DaftarTilikController::class, 'indexAuditee'])->name('auditee-daftartilik');
 Route::get('/auditee-daftarTilik-areadaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'indexAuditee'])->name('auditee-daftarTilik-areadaftartilik');
 Route::get('/auditee-beritaacara', [BeritaAcaraController::class, 'indexAuditee'])->name('auditee-beritaacara');
 
@@ -139,9 +149,9 @@ Route::get('/tampilAuditor/{id}', [AuditorController::class, 'tampildata'])->nam
 Route::post('/updateAuditor/{id}', [AuditorController::class, 'updatedata'])->name('updateauditor');
 Route::get('/deleteAuditor/{id}', [AuditorController::class, 'deletedata'])->name('deleteauditor');
 
-Route::get('/daftarAuditee', [AuditeeController::class, 'index'])->name('auditee');
+Route::get('/daftarAuditee/{tahunperiode}', [AuditeeController::class, 'index'])->name('auditee');
 
-Route::get('/daftarAuditor', [AuditorController::class, 'index'])->name('auditor');
+Route::get('/daftarAuditor/{tahunperiode}', [AuditorController::class, 'index'])->name('auditor');
 
 Route::get('/ketersediaan-jadwal', [FullCalenderController::class, 'index']);
 

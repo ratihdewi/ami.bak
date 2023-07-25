@@ -17,16 +17,23 @@ use Illuminate\Support\Facades\Validator;
 
 class DaftarTilikController extends Controller
 {
-    public function index() {
-        $data_ = Auditee::all();
+    public function index($tahunperiode) {
+        $data_ = Auditee::where('tahunperiode', $tahunperiode)->get();
         // dd($data_);
         return view('spm/daftarTilik', compact('data_'));
     }
 
-    public function tambahDT()
+    public function indexpertahun() {
+        $data_ = Auditee::all();
+
+        // dd($data_);
+        return view('spm/daftarTilik-tahun', compact('data_'));
+    }
+
+    public function tambahDT($tahunperiode)
     {   
-        $listAuditee = Auditee::all();
-        $listAuditor = Auditor::all();
+        $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
+        $listAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         
         return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor'));
     }
@@ -36,18 +43,21 @@ class DaftarTilikController extends Controller
         $isAlreadyExist = DaftarTilik::where('auditee_id', $request->auditee_id)->where('area', $request->area)->exists();
         $auditee_ = Auditee::where('id', $request->auditee_id)->first();
         $auditor_ = Auditor::all();
+        $tahunperiode = $request->tgl_pelasksanaan;
+        $years = new Carbon($tahunperiode);
+        $years->year;
 
         if ($isAlreadyExist) {
-            return redirect()->route('daftartilik')->with('error', 'Data sudah tersedia!');
+            return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('error', 'Data sudah tersedia!');
         } else {
             foreach ($auditor_ as $key => $auditor) {
                 // dd($auditee_->ketua_auditor);
                 if ($request->auditor_id == $auditor->id) {
                    if ($auditor->nama == $auditee_->ketua_auditor || $auditor->nama == $auditee_->anggota_auditor) {
                     DaftarTilik::create($request->all());
-                    return redirect()->route('daftartilik')->with('success', 'Data berhasil ditambah!');
+                    return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('success', 'Data berhasil ditambah!');
                    } else {
-                    return redirect()->route('daftartilik')->with('error', 'Data Auditor tidak terdaftar sebagai Ketua maupun Anggota Auditor!');
+                    return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('error', 'Data Auditor tidak terdaftar sebagai Ketua maupun Anggota Auditor!');
                    }
                 }
             }
@@ -57,8 +67,11 @@ class DaftarTilikController extends Controller
     public function insertdaftartilik(Request $request)
     {
         //dd($request->all());
+        $tahunperiode = $request->tgl_pelasksanaan;
+        $years = new Carbon($tahunperiode);
+        $years->year;
         DaftarTilik::create($request->all());
-        return redirect()->route('daftartilik');
+        return redirect()->route('daftartilik', ['tahunperiode' => $years]);
     }
 
     public function autocomplete(Request $request)
@@ -105,8 +118,13 @@ class DaftarTilikController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
         $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
         // dd($jadwal_);
-
-        return view('spm/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
+        if (Auth::user()->role == 'SPM') {
+            return view('spm/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
+        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
+            return view('auditor/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
+        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
+            return view('auditee/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
+        }
     }
 
     public function exportexcel($id, $auditee_id)
@@ -120,9 +138,9 @@ class DaftarTilikController extends Controller
     }
 
     // Role AUDITOR
-    public function indexAuditor() {
+    public function indexAuditor($tahunperiode) {
         $namaUser = Auth::user()->name;
-        $dataAuditor_ = Auditor::where('nama', $namaUser)->get();
+        $dataAuditor_ = Auditor::where('nama', $namaUser)->where('tahunperiode', $tahunperiode)->get();
         // $data_ = DaftarTilik::where('auditor_id', $dataAuditor_->id)->get();
         // $dataAuditee_ = Auditee::all();
         //dd($dataAuditor_);
@@ -130,10 +148,21 @@ class DaftarTilikController extends Controller
         return view('auditor/daftarTilik', compact('dataAuditor_'));
     }
 
+    public function indexpertahunuser()
+    {
+        $data_ = Auditee::all();
+
+        if (count(Auth::user()->auditor()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditor()->get('user_id')) != 0)) {
+            return view('auditor/daftarTilik-tahun', compact('data_'));
+        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
+            return view('auditee/daftarTilik-tahun', compact('data_'));
+        }
+    }
+
     //Role AUDITEE
-    public function indexAuditee() {
+    public function indexAuditee($tahunperiode) {
         $unitkerja = Auth::User()->unit_kerja;
-        $data_ = Auditee::where('unit_kerja', $unitkerja)->get();
+        $data_ = Auditee::where('unit_kerja', $unitkerja)->where('tahunperiode', $tahunperiode)->get();
         
         //dd($datas);
         return view('auditee/daftarTilik', compact('data_'));

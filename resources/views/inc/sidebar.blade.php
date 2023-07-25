@@ -6,8 +6,8 @@
         </a>
         <div class="nav_list">
             <a
-                href="/daftarAuditor"
-                class="nav_link {{ Request::routeIs('auditor') ? 'active' : '' || Request::routeIs('tambahauditor') ? 'active' : '' || Request::routeIs('tampilauditor') ? 'active' : '' }}"
+                href="/daftarAuditor-periode"
+                class="nav_link {{ Request::routeIs('auditor') ? 'active' : '' || Request::routeIs('tambahauditor') ? 'active' : '' || Request::routeIs('tampilauditor') ? 'active' : '' || Request::routeIs('auditor-periode') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -18,8 +18,8 @@
                 <span class="nav_name"> Daftar Auditor </span>
             </a>
             <a
-                href="/daftarAuditee"
-                class="nav_link {{ Request::routeIs('auditee') ? 'active' : '' || Request::routeIs('tambahauditee') ? 'active' : '' || Request::routeIs('tampilauditee') ? 'active' : '' }}"
+                href="/daftarAuditee-periode"
+                class="nav_link {{ Request::routeIs('auditee') ? 'active' : '' || Request::routeIs('tambahauditee') ? 'active' : '' || Request::routeIs('tampilauditee') ? 'active' : '' || Request::routeIs('auditee-periode') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -30,8 +30,8 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href="/daftartilik"
-                class="nav_link {{ Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' }}"
+                href="/daftartilik-periode"
+                class="nav_link {{ Request::routeIs('daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Auditee;
+use App\Models\Auditor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -47,12 +50,18 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         $user->assignRole($user->role);
-        if ($user->hasRole('auditor')) {
-            return redirect()->route('auditor-daftarauditor');
-        } elseif ($user->hasRole('auditee')) {
-            return redirect()->route('auditee-daftarauditor');
+        $userAuditor = Auditor::where('user_id', $user->id)->get();
+        $userAuditee = Auditee::where('user_id', $user->id)->get();
+        // dd($user);
+        if ($user->hasRole('spm')) {
+            return redirect()->route('auditor-periode');
         }
-
-        return redirect()->route('auditor');
+        elseif ($user->hasRole('user')) {
+            if (count(Auth::user()->auditor()->get('user_id')) != 0) {
+                return redirect()->route('auditor-daftarauditor-periode');
+            } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
+                return redirect()->route('auditee-daftarauditor-periode');
+            }
+        } 
     }
 }

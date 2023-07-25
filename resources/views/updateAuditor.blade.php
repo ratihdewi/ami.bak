@@ -11,6 +11,12 @@
                         <form action="/updateAuditor/{{ $data->id }}" method="POST">
                             @csrf
                             <div class="row mb-3">
+                                <div class="col" hidden>
+                                    <label for="user_id" class="form-label">ID User</label>
+                                    <input type="text" name="user_id" class="form-control" id="user_id" placeholder="ID User" aria-label="ID User" value="{{ $data->user_id }}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <div class="col">
                                     <label for="nipAuditor" class="form-label">NIP</label>
                                     <input type="text" name="nip" class="form-control" id="nipAuditor" placeholder="NIP Auditor" aria-label="NIP" value="{{ $data->nip }}">
@@ -46,8 +52,8 @@
                                     <input type="number" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}">
                                 </div>
                                 <div class="col">
-                                    <label for="esignAuditor" class="form-label">eSign</label>
-                                    <input class="form-control" type="file" id="esignAuditor">
+                                    <label for="tahunperiode" class="form-label">Tahun Periode</label>
+                                    <input type="text" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Periode" aria-label="Tahun Periode" value="{{ $data->tahunperiode }}">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary float-end" onclick="return confirm('Mengubah data Auditor akan mempengaruhi data User. Apakah Anda yakin ingin mengubah data?')">Submit</button>

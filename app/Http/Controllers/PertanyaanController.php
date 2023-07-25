@@ -108,9 +108,9 @@ class PertanyaanController extends Controller
         
         if ($role_ == "SPM") {
             return view('spm/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
-        } elseif ($role_ == "Auditor") {
+        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
             return view('auditor/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
-        } elseif ($role_ == "Auditee") {
+        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
             return view('auditee/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
         }
     }

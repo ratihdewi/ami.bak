@@ -38,13 +38,12 @@
                                     <option selected>
                                         {{ $data->role }}
                                     </option>
-                                    <option value="Satuan Penjaminan Mutu">
+                                    <option value="SPM">
                                         Satuan Penjaminan Mutu
                                     </option>
-                                    <option value="Auditor">
-                                        Auditor
+                                    <option value="User">
+                                        User
                                     </option>
-                                    <option value="Auditee">Auditee</option>
                                 </select>
                             </div>
                         </div>

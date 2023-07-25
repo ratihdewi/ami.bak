@@ -54,4 +54,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(DaftarHadir::class);
     }
+
+    public function auditor()
+    {
+        return $this->hasMany(Auditor::class);
+    }
+
+    public function auditee()
+    {
+        return $this->hasMany(Auditee::class);
+    }
 }

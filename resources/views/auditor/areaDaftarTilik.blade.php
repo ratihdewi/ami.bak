@@ -4,7 +4,7 @@
     <div class="container-fluid float-end my-4">
         {{-- @foreach ($data_ as $item)  --}}
                 <a
-                    href="DaftarTilik-adddaftartilik"
+                    href="/daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
                     class="text-white"
                     style="font-weight: 600; text-decoration: none;"
                     ><button

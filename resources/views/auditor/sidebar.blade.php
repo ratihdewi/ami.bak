@@ -6,8 +6,8 @@
         </a>
         <div class="nav_list">
             <a
-                href="/auditor-daftarauditor"
-                class="nav_link {{ Request::routeIs('auditor-daftarauditor') ? 'active' : '' }}"
+                href="/auditor-daftarauditor-periode"
+                class="nav_link {{ Request::routeIs('auditor-daftarauditor') ? 'active' : '' || Request::routeIs('auditor-daftarauditor-periode') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -18,8 +18,8 @@
                 <span class="nav_name"> Daftar Auditor </span>
             </a>
             <a
-                href="/auditor-daftarauditee"
-                class="nav_link {{ Request::routeIs('auditor-daftarauditee') ? 'active' : '' }}"
+                href="/auditor-daftarauditee-periode"
+                class="nav_link {{ Request::routeIs('auditor-daftarauditee') ? 'active' : '' || Request::routeIs('auditor-daftarauditee-periode') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -30,8 +30,8 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href="/auditor-daftartilik"
-                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' }}"
+                href="/daftartilik-periode_"
+                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-periode_') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -42,8 +42,8 @@
                 <span class="nav_name"> DaftarTilik </span>
             </a>
             <a
-                href=""
-                class="nav_link {{ Request::routeIs('') ? 'active' : '' }}"
+                href="{{ route('jadwalaudit') }}"
+                class="nav_link {{ Request::routeIs('jadwalaudit') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/auditor-beritaacara"
-                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

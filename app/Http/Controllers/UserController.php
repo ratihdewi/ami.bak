@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Auditee;
 use App\Models\Auditor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -57,6 +58,17 @@ class UserController extends Controller
         $data = User::find($id);
         $data->delete();
         return redirect()->route('daftaruser')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function changerole($id)
+    {
+        if (Auditee::where('user_id', $id)->exists()) {
+            return redirect()->route('auditee-daftarauditor-periode');
+        } elseif (Auditor::where('user_id', $id)->exists()) {
+            return redirect()->route('auditor-daftarauditor-periode');
+        } else {
+            return redirect()->route('auditor-periode');
+        }
     }
 
     //add auditor

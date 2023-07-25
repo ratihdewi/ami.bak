@@ -15,11 +15,16 @@ class CreateAuditeesTable extends Migration
     {
         Schema::create('auditees', function (Blueprint $table) {
             $table->id();
-            $table->String('unit_kerja')->unique();
-            $table->String('ketua_auditee')->unique();
+            $table->unsignedBigInteger('user_id');
+            $table->String('nip');
+            $table->String('unit_kerja');
+            $table->String('ketua_auditee');
+            $table->integer('tahunperiode')->nullable();
             $table->String('jabatan_ketua_auditee');
             $table->String('ketua_auditor');
             $table->String('anggota_auditor');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

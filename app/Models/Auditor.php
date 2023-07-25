@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Auditor extends Model
 {
@@ -11,12 +11,14 @@ class Auditor extends Model
 
     protected $fillable = [
         'nama',
+        'user_id',
         'nip',
         'program_studi',
         'fakultas',
         'noTelepon',
         'tgl_mulai',
         'tgl_berakhir',
+        'tahunperiode',
     ];
     // protected $guarded = [];
 
@@ -38,5 +40,10 @@ class Auditor extends Model
     public function daftarhadir()
     {
         return $this->hasMany(DaftarHadir::class);
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

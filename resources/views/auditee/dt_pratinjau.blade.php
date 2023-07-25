@@ -1,4 +1,4 @@
-@extends('layout.main') 
+@extends('auditee.main_') 
 @section('title') AMI - Temuan Berita Acara @endsection
 @section('container')
   <div class="container mb-4">

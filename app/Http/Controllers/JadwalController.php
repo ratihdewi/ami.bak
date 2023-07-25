@@ -8,6 +8,7 @@ use App\Models\Jadwal;
 use App\Models\Auditee;
 use App\Models\Auditor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalController extends Controller
 {
@@ -21,7 +22,13 @@ class JadwalController extends Controller
         $auditee_ = Auditee::all();
         
         //dd($auditee_);
-        return view('spm/jadwalAudit', compact('auditee_'));
+        if (Auth::user()->role == "SPM") {
+            return view('spm/jadwalAudit', compact('auditee_'));
+        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
+            return view('auditor/jadwalAudit', compact('auditee_'));
+        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
+            return view('auditee/jadwalAudit', compact('auditee_'));
+        }
     }
 
     public function filter(Request $request)

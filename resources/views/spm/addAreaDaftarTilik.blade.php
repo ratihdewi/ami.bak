@@ -14,7 +14,7 @@
                     required
                 >
                     <option selected disabled>Auditee</option>
-                    @foreach ($listAuditee as $item)
+                    @foreach ($listAuditee->unique('unit_kerja') as $item)
                     <option value="{{ $item->id }}" name="auditee_id">
                         {{ $item->unit_kerja }}
                     </option>
