@@ -31,7 +31,7 @@
             </a>
             <a
                 href="/daftartilik-periode"
-                class="nav_link {{ Request::routeIs('daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('spm-dokumensahih') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -43,7 +43,7 @@
             </a>
             <a
                 href="/jadwalaudit"
-                class="nav_link {{ Request::routeIs('jadwalaudit') ? 'active' : '' || Request::routeIs('tambahjadwal') ? 'active' : '' || Request::routeIs('tambahjadwalaudit') ? 'active' : '' }} }}  "
+                class="nav_link {{ Request::routeIs('jadwalaudit') ? 'active' : '' || Request::routeIs('tambahjadwal') ? 'active' : '' || Request::routeIs('tambahjadwalaudit') ? 'active' : '' || Request::routeIs('tampiljadwalaudit') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/beritaacara"
-                class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' || Request::routeIs('BA-ubahdataDokumenBAAMI') ? 'active' : '' || Request::routeIs('BA-daftarhadir') ? 'active' : '' || Request::routeIs('BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('BA-dokumenpendukung') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' || Request::routeIs('BA-ubahdataDokumenBAAMI') ? 'active' : '' || Request::routeIs('BA-daftarhadir') ? 'active' : '' || Request::routeIs('BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('BAAMI-pratinjauBA') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -121,21 +121,4 @@
             </a>
         </div>
     </div>
-    <a
-        href="{{ route('logout') }}"
-        class="nav_link"
-        onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();"
-    >
-        <i class="bx bx-log-out nav_icon"></i>
-        <span class="nav_name"> SignOut </span>
-    </a>
-    <form
-        id="logout-form"
-        action="{{ route('logout') }}"
-        method="POST"
-        class="d-none"
-    >
-        @csrf
-    </form>
 </nav>

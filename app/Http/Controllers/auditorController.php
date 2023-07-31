@@ -31,19 +31,38 @@ class AuditorController extends Controller
         return response()->json($users_);
     }
 
-    public function tambahauditor(Request $request)
+    public function tambahauditor($tahunperiode)
     {
-        $users_ = User::all();
+        $tahunAuditor = Auditor::where('tahunperiode', $tahunperiode);
+
+        $auditees = Auditee::where('tahunperiode', $tahunperiode)->pluck('user_id');
+        $auditors = Auditor::where('tahunperiode', $tahunperiode)->pluck('user_id');
+
+        $users_ = User::whereNotIn('id', $auditees)
+                    ->whereNotIn('id', $auditors)->where('nip', 'LIKE', '%'.request('q').'%')
+                    ->get();
         
-        return view('addAuditor', compact('users_'));
+        return view('addAuditor', compact('users_', 'tahunAuditor', 'auditees', 'auditors'));
+    }
+
+    public function getnipuser($tahunperiode)
+    {
+        $auditees = Auditee::where('tahunperiode', $tahunperiode)->pluck('user_id');
+        $auditors = Auditor::where('tahunperiode', $tahunperiode)->pluck('user_id');
+
+        $data = User::whereNotIn('id', $auditees)
+                    ->whereNotIn('id', $auditors)->where('nip', 'LIKE', '%'.request('q').'%')
+                    ->get();
+        
+        return response()->json($data);
     }
 
     public function insertdata(Request $request)
     {
-        // dd($request->all());
-        $isAlreadyExist = Auditor::where('nip', $request->nip)->where('tahunperiode', $request->tahunperiode)->exists();
-        //dd($isAlreadyExist);
-        if ($isAlreadyExist) {
+        $isAuditorExist = Auditor::where('nip', $request->nip)->where('tahunperiode', $request->tahunperiode)->exists();
+        $isAuditeeExist = Auditee::where('nip', $request->nip)->where('tahunperiode', $request->tahunperiode)->exists();
+        
+        if ($isAuditorExist && $isAuditeeExist) {
             return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data sudah tersedia!');
         } else {
             Auditor::create($request->all());
@@ -54,13 +73,12 @@ class AuditorController extends Controller
 
     public function tampildata($id){
         $data = Auditor::find($id);
-        //dd($data);
+        
         return view('updateAuditor', compact('data'));
     }
 
     public function updatedata(Request $request, $id)
     {
-        // dd($request->all());
         $data = Auditor::find($id);
         $dataAuditorUsers = User::where('nip', $data->nip)->get();
         
@@ -79,11 +97,12 @@ class AuditorController extends Controller
         return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');
     }
 
-    public function deletedata($id)
+    public function deletedata($id, $tahunperiode)
     {
         $data = Auditor::find($id);
         $data->delete();
-        return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil dihapus');
+
+        return redirect()->route('auditor', ['tahunperiode' => $tahunperiode])->with('success', 'Data berhasil dihapus');
     }
     //role spm end
 
@@ -91,7 +110,7 @@ class AuditorController extends Controller
     public function indexauditor($tahunperiode)
     {
         $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
-        // dd($data);
+        
         return view('auditor/daftarAuditor', compact('dataAuditor'));
     }
 
@@ -119,9 +138,9 @@ class AuditorController extends Controller
     //role auditor end
 
     //role auditee start
-    public function indexauditor_()
+    public function indexauditor_($tahunperiode)
     {
-        $dataAuditor = Auditor::all();
+        $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         // dd($data);
         return view('auditee/daftarAuditor', compact('dataAuditor'));
     }

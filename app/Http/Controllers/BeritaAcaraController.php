@@ -23,33 +23,48 @@ class BeritaAcaraController extends Controller
 
         foreach ($auditee_ as $key => $auditee) {
             
-            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee->id)->get();
-            $notExist = BeritaAcara::where('auditee_id', $auditee->id)->doesntExist();
+            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee->id)->where('tahunperiode', $auditee->tahunperiode)->get();
+            $notExist = BeritaAcara::where('auditee_id', $auditee->id)->where('tahunperiode', $auditee->tahunperiode)->doesntExist();
             
             if ($notExist) {
                 BeritaAcara::create([
                     'auditee_id' => $auditee->id,
+                    'tahunperiode' =>$auditee->tahunperiode,
                 ]);
             }
         }
+        // dd($auditee_->beritaacara()->get());
         return view('spm/beritaAcara', compact('auditee_', 'daftartilik_'));
     }
 
-    public function tampiltemuanBA($auditee_id)
+    public function tampiltemuanBA($auditee_id, $tahunperiode)
     {
         $auditee_ = Auditee::all();
         $role_ = Auth::user()->role;
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
-        //dd($pertanyaan_);
-        if ($role_ == "SPM") {
-            return view('spm/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
-        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
-            return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
-        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
-            return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
-        }
+        return view('spm/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
+    }
+
+    public function auditor_tampiltemuanBA($auditee_id, $tahunperiode)
+    {
+        $auditee_ = Auditee::all();
+        $role_ = Auth::user()->role;
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+
+        return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
+    }
+
+    public function auditee_tampiltemuanBA($auditee_id, $tahunperiode)
+    {
+        $auditee_ = Auditee::all();
+        $role_ = Auth::user()->role;
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+
+        return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
     }
 
     // DOkumen BA AMI

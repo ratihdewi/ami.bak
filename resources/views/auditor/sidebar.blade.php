@@ -30,8 +30,8 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href="/daftartilik-periode_"
-                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-periode_') ? 'active' : '' }}"
+                href="/auditor-daftartilik-periode"
+                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-periode') ? 'active' : '' || Request::routeIs('auditor-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditor-dokumensahih') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -42,8 +42,8 @@
                 <span class="nav_name"> DaftarTilik </span>
             </a>
             <a
-                href="{{ route('jadwalaudit') }}"
-                class="nav_link {{ Request::routeIs('jadwalaudit') ? 'active' : '' }}"
+                href="/auditor-jadwalaudit"
+                class="nav_link {{ Request::routeIs('auditor-jadwalaudit') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/auditor-beritaacara"
-                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('auditor-auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -115,21 +115,4 @@
             </a>
         </div>
     </div>
-    <a
-        href="{{ route('logout') }}"
-        class="nav_link"
-        onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();"
-    >
-        <i class="bx bx-log-out nav_icon"></i>
-        <span class="nav_name"> SignOut </span>
-    </a>
-    <form
-        id="logout-form"
-        action="{{ route('logout') }}"
-        method="POST"
-        class="d-none"
-    >
-        @csrf
-    </form>
 </nav>

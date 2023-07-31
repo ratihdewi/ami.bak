@@ -1,4 +1,4 @@
-@extends('layout.main') 
+@extends('auditee.main_') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
@@ -69,7 +69,6 @@
             </tbody>
         </table>
     </div>
-
     <div id="infoBA" class="infoBA my-3 mx-4 py-2">
         <table class="table table-borderless px-5">
             <tbody>
@@ -192,7 +191,6 @@
                 </tbody>
             </table>
         </div>
-
         <p>3. Auditee menyetujui hasil evaluasi efektivitas tinjad lanjut AMI 
             @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
                 @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))

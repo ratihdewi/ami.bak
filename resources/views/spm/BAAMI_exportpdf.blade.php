@@ -13,11 +13,10 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <td class="d-flex justify-content-center px-4 py-5">
-                            {{-- <img src="/asset/Logo-Up.png" alt="logo-uper" width="120"> --}}
+                        <td class="d-flex justify-content-center py-4 text-center">
                             <img src="{{ public_path('asset/Logo-Up.png') }}" alt="logo-uper" width="120">
                         </td>
-                        <td colspan="4" class="infouper px-4 py-3">
+                        <td colspan="4" class="infouper px-4 py-2">
                             <h4 class="my-3"><b>UNIVERSITAS PERTAMINA</b></h4>
                             <p class="my-3">
                                 Jalan Teuku Nyak Arief, Simprug, <br>
@@ -26,68 +25,58 @@
                             </p>
                         </td>
                     </tr>
-                    @foreach ($ba_ami->get() as $ba)
-                    <tr class="fw-bold">
-                        <td rowspan="2" class="text-center align-middle">FORMULIR</td>
-                        <td>KODE</td>
-                        <td>{{ $ba->kodeDokumen }}</td>
-                        <td>TGL. BERLAKU</td>
-                        <td>{{ $ba->tgl_berlaku }}</td>
-                    </tr>
-                    <tr class="fw-bold">
-                        <td>REVISI KE-</td>
-                        <td>{{ $ba->revisiKe }}</td>
-                        <td>TGL. REVISI</td>
-                        <td>{{ $ba->tgl_revisi }}</td>
-                    </tr>
-                    <tr class="fw-bold">
-                        <td colspan="5" class="text-center">{{ $ba->judulDokumen }}</td>
-                    </tr>
-                    @endforeach
+                    @if (count($ba_ami->get()) > 0)
+                        @foreach ($ba_ami->get() as $ba)
+                        <tr class="fw-bold">
+                            <td rowspan="2" class="text-center align-middle">FORMULIR</td>
+                            <td>KODE</td>
+                            <td>{{ $ba->kodeDokumen }}</td>
+                            <td>TGL. BERLAKU</td>
+                            @if ($ba->tgl_berlaku != null)
+                                <td>{{ $ba->tgl_berlaku->isoFormat('D MMMM YYYY') }}</td>
+                            @else
+                                <td>{{ $ba->tgl_berlaku }}</td>
+                            @endif
+                            
+                        </tr>
+                        <tr class="fw-bold">
+                            <td>REVISI KE-</td>
+                            <td>{{ $ba->revisiKe }}</td>
+                            <td>TGL. REVISI</td>
+                            @if ($ba->tgl_revisi != null)
+                                <td>{{ $ba->tgl_revisi->isoFormat('D MMMM YYYY') }}</td>
+                            @else
+                                <td>{{ $ba->tgl_revisi }}</td>
+                            @endif
+                        </tr>
+                        <tr class="fw-bold">
+                            <td colspan="5" class="text-center">{{ $ba->judulDokumen }}</td>
+                        </tr>
+                        @endforeach
+                    @else
+                        <tr class="fw-bold">
+                            <td rowspan="2" class="text-center align-middle col-2">FORMULIR</td>
+                            <td class="col-md-2">KODE</td>
+                            <td class="col-md-2"></td>
+                            <td class="col-md-2">TGL. BERLAKU</td>
+                            <td class="col-md-2"></td>
+                        </tr>
+                        <tr class="fw-bold">
+                            <td>REVISI KE-</td>
+                            <td></td>
+                            <td>TGL. REVISI</td>
+                            <td></td>
+                        </tr>
+                        <tr class="fw-bold">
+                            <td colspan="5" class="text-center opacity-50">(Judul Dokumen)</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
-            {{-- <div class="row">
-                <div class="col-2 d-flex justify-content-center px-4 py-5 border border-dark">
-                    <img src="/asset/Logo-UP.png" alt="logo-uper" width="120">
-                </div>
-                <div class="col-10 px-4 py-3 border border-dark border-start-0">
-                    <div class="infouper my-4">
-                        <h4><b>UNIVERSITAS PERTAMINA</b></h4>
-                        <p>
-                            Jalan Teuku Nyak Arief, Simprug, <br>
-                            Kebayoran Lama, Jakarta Selatan, 12220 <br>
-                            Telp. (021) 29044308
-                        </p>
-                    </div>
-                </div>
-            </div>
-            @foreach ($ba_ami->get() as $ba)
-            <div class="row fw-bold">
-                <div class="col-2 border border-dark border-top-0 text-center py-3 ">
-                    <h4 class="my-2"><b>FORMULIR</b></h4>
-                </div>
-                <div class="col-10">
-                    <div class="row">
-                        <div class="col-2 py-2 border-dark border-bottom">KODE</div>
-                        <div class="col-4 py-2 border border-dark border-top-0">{{ $ba->kodeDokumen }}</div>
-                        <div class="col-2 py-2 border border-dark border-top-0 border-start-0">TGL. BERLAKU</div>
-                        <div class="col-4 py-2 border border-dark border-top-0 border-start-0">{{ $ba->tgl_berlaku }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2 py-2 border-dark border-bottom">REVISI KE-</div>
-                        <div class="col-4 py-2 border border-dark border-top-0">{{ $ba->revisiKe }}</div>
-                        <div class="col-2 py-2 border border-dark border-top-0 border-start-0">TGL. REVISI</div>
-                        <div class="col-4 py-2 border border-dark border-top-0 border-start-0">{{ $ba->tgl_revisi }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row fw-bold">
-                <div class="col py-2 border border-dark border-top-0 text-center">{{ $ba->judulDokumen }}</div>
-            </div>
-            @endforeach --}}
         </div>
-        <div id="infoBA" class="infoBA my-3 mx-4 py-2">
-            <table class="table table-borderless px-5">
+
+        <div id="infoBA" class="infoBA mx-4">
+            <table class="table table-borderless px-5" style="border-color: white;">
                 <tbody>
                     <tr>
                         <td rowspan="3" class="w-50">Fungsi : 
@@ -97,14 +86,14 @@
                         </td>
                         <td class="w-50">Hari/Tanggal : 
                             @foreach ($jadwalAudit_ as $jadwal)
-                            {{ $jadwal->hari_tgl->isoFormat('dddd/ d MMMM Y') }}, 
+                            {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}, 
                             @endforeach
                         </td>
                     </tr>
                     <tr>
                         <td class="w-50">Waktu : 
                             @foreach ($jadwalAudit_ as $jadwal)
-                            {{ $jadwal->waktu->isoFormat('HH:mm') }}, 
+                            {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB, 
                             @endforeach
                         </td>
                     </tr>
@@ -117,35 +106,8 @@
                     </tr>
                 </tbody>
             </table>
-            {{-- <div class="row d-flex justify-content-between mb-2">
-                <div class="col-5">Fungsi: 
-                    @foreach ($jadwalAudit_->unique('auditee_id') as $jadwal)
-                    {{ $jadwal->auditee->unit_kerja }}
-                    @endforeach
-                </div>
-                <div class="col-5">Hari/Tanggal :
-                    @foreach ($jadwalAudit_ as $jadwal)
-                    {{ $jadwal->hari_tgl->isoFormat('dddd/ d MMMM Y') }}, 
-                    @endforeach
-                </div>
-            </div>
-            <div class="row d-flex justify-content-between mb-2">
-                <div class="col-5"></div>
-                <div class="col-5">Waktu :
-                    @foreach ($jadwalAudit_ as $jadwal)
-                    {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB, 
-                    @endforeach
-                </div>
-            </div>
-            <div class="row d-flex justify-content-between mb-2">
-                <div class="col-5"></div>
-                <div class="col-5">Media :
-                    @foreach ($jadwalAudit_ as $jadwal)
-                    {{ $jadwal->tempat }}, 
-                    @endforeach
-                </div>
-            </div> --}}
         </div>
+
         <div id="bodydoc" class="bodydoc my-3 mx-4 py-2">
             <p>1. Pada hari ini telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
                 @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
@@ -174,21 +136,21 @@
                         </tr>
                         @endif
                         @endforeach
+                        @foreach ($daftarhadir_ as $daftarhadir)
+                        @if ($daftarhadir->posisi == 'Auditee')
                         <tr>
                             <td rowspan>Auditee</td>
-                            @foreach ($daftarhadir_ as $daftarhadir)
-                            @if ($daftarhadir->posisi == 'Auditee')
                             <td>{{ $daftarhadir->namapeserta }}</td>
                             <td>{{ $daftarhadir->eSign }}</td>
-                            @endif
-                            @endforeach
                         </tr>
+                        @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <p>2. Temuan dan Ketidaksesuaian:</p>
             <div class="tabletemuan mb-4">
-                <p><b>A. Temuan Audit</b></p>
+                <p class="ms-3"><b>A. Temuan Audit</b></p>
                 <table class="table table-bordered">
                     <thead class="text-center">
                         <tr>
@@ -212,7 +174,7 @@
                 </table>
             </div>
             <div class="tablekesesuaian mb-5">
-                <p><b>B. Peluang Peningkatan</b></p>
+                <p class="ms-3"><b>B. Peluang Peningkatan</b></p>
                 <table class="table table-bordered">
                     <thead class="text-center">
                         <tr>
@@ -235,7 +197,7 @@
                     </tbody>
                 </table>
             </div>
-            <p>3. Auditee menyetujui hasil evaluasi efektivitas tinjad lanjut AMI 
+            <p>3. Auditee menyetujui hasil evaluasi efektivitas tindak lanjut AMI 
                 @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
                     @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
                     {{ $jadwal->th_ajaran1 }}
@@ -248,11 +210,13 @@
                 .
             </p>
         </div>
+
         <div id="ttdpersetujuan" class="ttdpersetujuan my-3 mx-4 py-2">
-            <table class="table table-borderless" style="border: none">
+            <table class="table table-borderless" style="border-color: white;">
                 <tbody>
                     <tr>
-                        <td colspan="2" class="text-center border-0">Menyetujui,</td>
+                        <td class="text-center border-0">Menyetujui,</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="w-50 text-center">Auditee,</td>

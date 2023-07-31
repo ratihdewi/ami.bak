@@ -23,6 +23,8 @@ class CreateAuditeesTable extends Migration
             $table->String('jabatan_ketua_auditee');
             $table->String('ketua_auditor');
             $table->String('anggota_auditor');
+            $table->String('anggota_auditor2')->nullable();
+            $table->String('anggota_auditor3')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
             ->onDelete('cascade');
             $table->timestamps();

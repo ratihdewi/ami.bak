@@ -1,40 +1,33 @@
 @extends('auditee.main_') 
-@section('title') AMI - Daftar Tilik @endsection
+@section('title') AMI - Daftar Tilik - Pertanyaan @endsection
 
 @section('container')
       {{-- Form setiap auditee --}}
+      <div class="row mt-4 mx-4">
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @elseif (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+      </div>
       @foreach ($_daftartiliks as $_daftartilik)
       @foreach ($_daftartilik->auditee()->get() as $auditee)
-      {{-- @foreach ($item->auditor()->get() as $da)
-        {{ $da }}
-      @endforeach --}}
-      {{-- <form action="/insertareaDT" method="POST">
-          @csrf --}}
-          <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
+          <div id="infoDT" class="card mt-4 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">
                       <label for="auditee_id" class="visually-hidden">Auditee</label>
-                      <select
-                          id="auditee_id"
-                          class="form-select"
-                          name="auditee_id"
-                          disabled
-                      >
-                          <option selected disabled>{{ $auditee->unit_kerja }}</option>
-                          @foreach ($listAuditee as $liAuditee)
-                          <option value="{{ $liAuditee->id }}" name="auditee_id">
-                              {{ $liAuditee->unit_kerja }}
-                          </option>
-                          @endforeach
+                      <select id="auditee_id" class="form-select" name="auditee_id" disabled>
+                        <option selected disabled>{{ $auditee->unit_kerja }}</option>
                       </select>
                   </div>
                   <div class="col">
                       <label for="auditor_id" class="visually-hidden">Auditor</label>
                       <select id="auditor_id" class="form-select" name="auditor_id" disabled>
-                          <option selected disabled>{{ $_daftartilik->auditor->nama }}</option>
-                          @foreach ($listAuditor as $liAuditor)
-                          <option>{{ $liAuditor->nama }}</option>
-                          @endforeach
+                        <option selected disabled>{{ $_daftartilik->auditor->nama }}</option>
                       </select>
                   </div>
               </div>
@@ -189,26 +182,11 @@
           <label for="responAuditeeGroup" class="mb-4 mx-4">Respon Auditee</label>
           <div id="responAuditeeGroup" class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <div class="row">
-                <div class="col mx-4 mb-4">
-                  <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
-                  <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]"
-                    @if (($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor") || $datas->approvalAuditor == 'Disetujui Auditor' || $datas->approvalAuditee == 'Disetujui Auditee')
-                        {{ "disabled" }}
-                    @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
-                        {{ "required" }}
-                    @endif
-                  >
-                </div>
-                <div class="col mx-4 mb-4">
-                  <label for="listDokSahih" class="form-label">Daftar dokumen sahih yang sudah diunggah</label>
-                  <select id="listDokSahih" class="form-select" name="dok_sahihs[]">
-                      <option selected>Daftar dokumen sahih yang sudah diunggah</option>
-                      @foreach ($dokSahih as $file)
-                      <option><a href="/view-doksahih">{{ $file->namaFile }}</a></option>
-                      @endforeach
-                  </select>
-                </div>
+              <div class="row mx-2 mb-4 px-1">
+                <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
+                <a href="/auditee-editdokumensahih/{{ $datas->id }}">
+                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Dokumen Bukti Sahih</b></button>
+                </a>
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"
@@ -267,9 +245,12 @@
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]">
+              <a href="/auditee-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}">
+                <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+              </a>
+              {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]"> --}}
             </div>
-            <div class="col">
+            {{-- <div class="col">
               <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
               <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
                   <option selected>Daftar foto kegiatan yang sudah diunggah</option>
@@ -277,7 +258,7 @@
                   <option>{{ $foto->namaFile }}</option>
                   @endforeach
               </select>
-            </div>
+            </div> --}}
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
@@ -296,11 +277,7 @@
           <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
-          <button class="btn btn-success me-md-2" type="button"
-            @if (Auth::user()->role != "Auditor")
-                {{ "disabled" }}
-            @endif
-          >
+          <button class="btn btn-secondary me-md-2" type="button" disabled>
           @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
                 {{ "Menunggu pengajuan persetujuan Auditor" }}
           @else
@@ -308,10 +285,12 @@
           @endif
           </button>
           <a href="/approvalAuditee-daftartilik/{{ $datas->id }}">
-            <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui Audit Lapangan ini?')"
-              @if (Auth::user()->role != "Auditee" || ($datas->approvalAuditor == 'Disetujui Auditor' || $datas->approvalAuditor == 'Belum disetujui Auditor'))
-                  {{ "disabled" }}
-              @endif
+            <button type="button" class="btn btn-success me-md-2" onclick="return confirm('Apakah Anda yakin akan menyetujui Audit Lapangan ini?')"
+            @foreach ($auditee_ as $auditee)
+              @if (Auth::user()->name != $auditee->ketua_auditee || $datas->approvalAuditor == 'Disetujui Auditor' || $datas->approvalAuditor == 'Belum disetujui Auditor'|| $datas->approvalAuditee == 'Disetujui Auditee')
+                {{ "disabled" }}
+            @endif
+            @endforeach
             >
             @if ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee')
                 {{ "Setujui AL" }}

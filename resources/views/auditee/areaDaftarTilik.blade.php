@@ -4,7 +4,7 @@
     <div class="container-fluid float-end my-4">
         {{-- @foreach ($data_ as $item)  --}}
                 <a
-                    href="/daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
+                    href="/auditee-daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
                     class="text-white"
                     style="font-weight: 600; text-decoration: none;"
                     ><button
@@ -17,11 +17,6 @@
                 >
         {{-- @endforeach --}}
     </div>
-
-    {{-- test muncul gambar --}}
-    {{-- @foreach ($data_ as $file)
-        <img src="{{ asset($file->fotoKegiatan) }}" width= '50' height='50' class="img img-responsive" />
-    @endforeach --}}
     
     <div class="tableDaftarTilik mx-3">
         <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px;border-bottom: none">
@@ -39,27 +34,22 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($data_ as $d_pertanyaan)
-                {{-- @foreach ($data as $item) --}}
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        {{-- @foreach ($item->auditee()->get() as $dt) --}}
                         <td class="col-2 px-0 text-center">{{ $data->auditee->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center">{{ $data->area }}</td>
                         
-                            <td class="col-2 px-0 text-center">{{ $d_pertanyaan->butirStandar }}</td>
-                            <td class="col-1 px-0 text-center">{{ $d_pertanyaan->nomorButir }}</td>
-                            <td class="col-3 px-0">
-                                {{ $d_pertanyaan->pertanyaan }}
-                            </td>
-                            <td class="col-1 px-0 text-center">
-                                <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></a>
-                            </td>
-                            
-                        {{-- @endforeach --}}
+                        <td class="col-2 px-0 text-center">{{ $d_pertanyaan->butirStandar }}</td>
+                        <td class="col-1 px-0 text-center">{{ $d_pertanyaan->nomorButir }}</td>
+                        <td class="col-3 px-0">
+                            {{ $d_pertanyaan->pertanyaan }}
+                        </td>
+                        <td class="col-1 px-0 text-center">
+                            <a href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
+                                ><i class="bi bi-pencil-square"></i
+                            ></a>
+                        </td>
                     </tr>
-                {{-- @endforeach --}}
                 @endforeach
             </tbody>
         </table>

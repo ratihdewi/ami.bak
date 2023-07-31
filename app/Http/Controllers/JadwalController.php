@@ -20,15 +20,19 @@ class JadwalController extends Controller
     public function index()
     {
         $auditee_ = Auditee::all();
-        
-        //dd($auditee_);
-        if (Auth::user()->role == "SPM") {
-            return view('spm/jadwalAudit', compact('auditee_'));
-        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
-            return view('auditor/jadwalAudit', compact('auditee_'));
-        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
-            return view('auditee/jadwalAudit', compact('auditee_'));
-        }
+        return view('spm/jadwalAudit', compact('auditee_'));
+    }
+
+    public function auditor_index()
+    {
+        $auditee_ = Auditee::all();
+        return view('auditor/jadwalAudit', compact('auditee_'));
+    }
+
+    public function auditee_index()
+    {
+        $auditee_ = Auditee::all();
+        return view('auditee/jadwalAudit', compact('auditee_'));
     }
 
     public function filter(Request $request)

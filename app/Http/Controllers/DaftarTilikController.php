@@ -89,11 +89,12 @@ class DaftarTilikController extends Controller
         return response()->json($dataModified);
     }
 
-    public function tampildata($id){
+    public function tampildata($tahunperiode, $id){
         $data = DaftarTilik::find($id);
-        $listAuditee = Auditee::all();
-        $listAuditor = Auditor::all();
+        $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
+        $listAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         //dd($data->auditee->unit_kerja);
+        
         return view('spm/updateAreaDaftarTilik', compact('data','listAuditee','listAuditor'));
     }
 
@@ -101,14 +102,14 @@ class DaftarTilikController extends Controller
     {
         $data = DaftarTilik::find($id);
         $data->update($request->all());
-        return redirect()->route('daftartilik')->with('success', 'Data berhasil diupdate');
+        return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
 
     public function deletedata($id)
     {
         $data = DaftarTilik::find($id);
         $data->delete();
-        return redirect()->route('daftartilik')->with('success', 'Data berhasil dihapus');
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 
     public function pratinjaudt($auditee_id, $area)
@@ -118,13 +119,30 @@ class DaftarTilikController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
         $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
         // dd($jadwal_);
-        if (Auth::user()->role == 'SPM') {
-            return view('spm/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
-        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
-            return view('auditor/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
-        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
-            return view('auditee/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
-        }
+
+        return view('spm/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
+    }
+
+    public function auditor_pratinjaudt($auditee_id, $area)
+    {
+        $daftartilik = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->first();
+        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
+        $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
+        // dd($jadwal_);
+
+        return view('auditor/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
+    }
+
+    public function auditee_pratinjaudt($auditee_id, $area)
+    {
+        $daftartilik = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->first();
+        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
+        $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
+        // dd($jadwal_);
+        
+        return view('auditee/dt_pratinjau', compact('daftartilik_', 'pertanyaan_', 'jadwal_'));
     }
 
     public function exportexcel($id, $auditee_id)
@@ -148,14 +166,12 @@ class DaftarTilikController extends Controller
         return view('auditor/daftarTilik', compact('dataAuditor_'));
     }
 
-    public function indexpertahunuser()
+    public function indexpertahunauditor()
     {
         $data_ = Auditee::all();
 
         if (count(Auth::user()->auditor()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditor()->get('user_id')) != 0)) {
             return view('auditor/daftarTilik-tahun', compact('data_'));
-        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
-            return view('auditee/daftarTilik-tahun', compact('data_'));
         }
     }
 
@@ -166,5 +182,14 @@ class DaftarTilikController extends Controller
         
         //dd($datas);
         return view('auditee/daftarTilik', compact('data_'));
+    }
+
+    public function indexpertahunauditee()
+    {
+        $data_ = Auditee::all();
+
+        if (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
+            return view('auditee/daftarTilik-tahun', compact('data_'));
+        }
     }
 }

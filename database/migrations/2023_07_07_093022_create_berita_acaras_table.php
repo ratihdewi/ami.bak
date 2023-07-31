@@ -16,6 +16,7 @@ class CreateBeritaAcarasTable extends Migration
         Schema::create('berita_acaras', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('auditee_id');
+            $table->integer('tahunperiode');
             $table->foreign('auditee_id')->references('id')->on('auditees')->onUpdate('cascade')
             ->onDelete('cascade');
             $table->timestamps();

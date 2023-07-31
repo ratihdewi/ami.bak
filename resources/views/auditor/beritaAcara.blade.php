@@ -31,8 +31,8 @@
                         @foreach ($auditor_ as $auditor)
                         @foreach ($auditor->daftartilik()->get() as $item)
                             <td class="col-1 text-center">{{ $no++ }}</td>
-                            <td class="col-7 auditee"><a href="/auditeeBA/{{ $item->auditee_id }}" class="text-decoration-none text-black" >{{ $item->auditee->unit_kerja }}</a></td>
-                            <td class="col-4 text-center">{{ $item->tgl_pelaksanaan->translatedFormat('Y') }}</td>
+                            <td class="col-7 auditee"><a href="/auditor-auditeeBA/{{ $item->auditee->id }}/{{ $item->auditee->tahunperiode }}" class="text-decoration-none text-black" >{{ $item->auditee->unit_kerja }}</a></td>
+                            <td class="col-4 text-center">{{ $item->auditee->tahunperiode }}</td>
                         @endforeach
                         @endforeach    
                 </tr>

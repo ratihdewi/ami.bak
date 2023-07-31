@@ -5,29 +5,56 @@ namespace App\Http\Controllers;
 use Session;
 use Redirect;
 use App\Models\User;
+use App\Models\Auditee;
+use App\Models\Auditor;
 use App\Models\BeritaAcara;
 use App\Models\DaftarHadir;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DaftarHadirController extends Controller
 {
 
     public function editdaftarhadir($auditee_id)
     {
-        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
-        $users = User::where('role', 'Auditor')->orWhere('role', 'Auditee')->get();
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+
+        foreach ($auditee_ as $key => $auditee) {
+            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $auditee->tahunperiode)->first();
+        }
+
+        $users = User::all();
         $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $auditor = Auditor::where('user_id', Auth::user()->id);
+        $auditee = Auditee::where('user_id', Auth::user()->id);
+        $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
 
         if (count($daftarhadir_) == 0) {
-            return view('spm/BAAMI_formDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_'));
+            return view('spm/BAAMI_formDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
         } else {
-            return view('spm/BAAMI_editDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_'));   
+            return view('spm/BAAMI_editDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
         }
+    }
+
+    public function getAuditee()
+    {
+        $users = User::all();
+
+        return response()->json($users);
+    }
+
+    public function getAuditor()
+    {
+        $auditor_ = Auditor::all();
+
+        return response()->json($auditor_);
     }
 
     public function storedaftarhadir(Request $request, $auditee_id)
     {
-        $users_ = User::where('role', 'Auditor')->orWhere('role', 'Auditee')->get();
+        // dd($request->addmore);
+
+        $users_ = User::all();
 
         $request->validate([
             'addmore.*.beritaacara_id' => 'required',
@@ -38,11 +65,15 @@ class DaftarHadirController extends Controller
         // ddd($request->addmore);
         foreach ($users_ as $key => $user) {
             foreach ($request->addmore as $key => $value) {
-                
-                $notExist = DaftarHadir::where('namapeserta', $value['namapeserta'])->doesntExist();
-                $daftarhadir_ = DaftarHadir::all();
+                $user_ = User::where('name', $value['namapeserta'])->first();
+                $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+                $notExist = DaftarHadir::where('namapeserta', $value['namapeserta'])->where('beritaacara_id', $beritaacara_->id)->doesntExist();
+                $existAuditor_ = Auditor::where('user_id', $user_->id);
+                $existAuditee_ = Auditee::where('user_id', $user_->id);
+                // $auditor = $existAuditor_->daftartilik()->get();
 
-                if ($value['namapeserta'] == $user->name && $value['posisi'] == $user->role && $notExist) {
+                // dd($auditee);
+                if ($notExist) {
                     // DaftarHadir::create($value);
                     $daftarhadir = new DaftarHadir;
                     $daftarhadir->beritaacara_id = $value['beritaacara_id'];

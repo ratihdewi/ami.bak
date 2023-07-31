@@ -15,6 +15,7 @@ class Auditee extends Model
         'jabatan_ketua_auditee',
         'ketua_auditor',
         'anggota_auditor',
+        'anggota_auditor2',
         'tahunperiode',
     ];
     // protected $guarded = [];

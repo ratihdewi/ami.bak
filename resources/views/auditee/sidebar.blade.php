@@ -30,8 +30,8 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href="/daftartilik-periode_"
-                class="nav_link {{ Request::routeIs('auditee-daftartilik') ? 'active' : '' || Request::routeIs('auditee-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-periode_') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' }}"
+                href="/auditee-daftartilik-periode"
+                class="nav_link {{ Request::routeIs('auditee-daftartilik') ? 'active' : '' || Request::routeIs('auditee-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-dokumensahih') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -42,8 +42,8 @@
                 <span class="nav_name"> DaftarTilik </span>
             </a>
             <a
-                href="{{ route('jadwalaudit') }}"
-                class="nav_link {{ Request::routeIs('jadwalaudit') ? 'active' : '' || Request::routeIs('tambahjadwal') ? 'active' : '' || Request::routeIs('tambahjadwalaudit') ? 'active' : '' }} }}  "
+                href="/auditee-jadwalaudit"
+                class="nav_link {{ Request::routeIs('auditee-jadwalaudit') ? 'active' : '' || Request::routeIs('tambahjadwal') ? 'active' : '' || Request::routeIs('tambahjadwalaudit') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/auditee-beritaacara"
-                class="nav_link {{ Request::routeIs('auditee-beritaacara') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditee-beritaacara') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('auditee-auditeeBA') ? 'active' : '' || Request::routeIs('auditee-BA-AMI') ? 'active' : '' || Request::routeIs('auditee-BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('auditee-BAAMI-pratinjauBA') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -115,21 +115,4 @@
             </a>
         </div>
     </div>
-    <a
-        href="{{ route('logout') }}"
-        class="nav_link"
-        onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();"
-    >
-        <i class="bx bx-log-out nav_icon"></i>
-        <span class="nav_name"> SignOut </span>
-    </a>
-    <form
-        id="logout-form"
-        action="{{ route('logout') }}"
-        method="POST"
-        class="d-none"
-    >
-        @csrf
-    </form>
 </nav>

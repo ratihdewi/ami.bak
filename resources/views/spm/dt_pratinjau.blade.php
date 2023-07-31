@@ -55,13 +55,13 @@
           </div>
       </div>
       <div class="table-container" style="overflow-x:auto">
-        <table class="table table-bordered" style="width: 200%; ">
+        <table class="table table-bordered" style="width: 150%; ">
             <thead class="table-secondary">
                 <tr>
                     <th rowspan="2" class="text-center">No</th>
                     <th rowspan="2" class="text-center">Butir Standar</th>
-                    <th rowspan="2" class="text-center">Pertanyaan</th>
-                    <th rowspan="2" class="text-center">Indikator Mutu</th>
+                    <th rowspan="2" class="text-center" style="width: 20%;">Pertanyaan</th>
+                    <th rowspan="2" class="text-center" style="width: 20%;">Indikator Mutu</th>
                     <th rowspan="2" class="text-center">Target Standar</th>
                     <th rowspan="2" class="text-center">Referensi</th>
                     <th rowspan="2" class="text-center">Inisial Auditor</th>
@@ -69,8 +69,8 @@
                     <th rowspan="2" class="text-center">Skor Auditor</th>
                 </tr>
                 <tr>
-                    <th class="text-center">Auditee</th>
-                    <th class="text-center">Auditor</th>
+                    <th class="text-center" style="width: 10%;">Auditee</th>
+                    <th class="text-center" style="width: 10%;">Auditor</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,13 +79,13 @@
                 <tr>
                     <td class="text-center">{{ $no++ }}</td>
                     <td class="text-center">{{ $pertanyaan->butirStandar }}</td>
-                    <td class="text-start">{{ $pertanyaan->pertanyaan }}</td>
-                    <td class="text-center">{{ $pertanyaan->indikatormutu }}</td>
+                    <td class="text-start" style="width: 20%;">{{ $pertanyaan->pertanyaan }}</td>
+                    <td class="text-start" style="width: 20%;">{{ $pertanyaan->indikatormutu }}</td>
                     <td class="text-center">{{ $pertanyaan->targetStandar }}</td>
                     <td class="text-center">{{ $pertanyaan->referensi }}</td>
                     <td class="text-center">{{ $pertanyaan->inisialAuditor }}</td>
-                    <td class="text-start">{{ $pertanyaan->responAuditee }}</td>
-                    <td class="text-start">{{ $pertanyaan->responAuditor }}</td>
+                    <td class="text-start" style="width: 10%;">{{ $pertanyaan->responAuditee }}</td>
+                    <td class="text-start" style="width: 10%;">{{ $pertanyaan->responAuditor }}</td>
                     <td class="text-center">{{ $pertanyaan->skorAuditor }}</td>
                 </tr>
                 @endforeach

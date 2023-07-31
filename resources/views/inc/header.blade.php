@@ -13,22 +13,35 @@
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu">
-            <li class="ms-3">{{ Auth::user()->role }} - 
-                @if (count(Auth::user()->auditor()->get('user_id')) != 0)
-                    {{ 'Auditor' }}
-                @elseif (count(Auth::user()->auditee()->get('user_id')) != 0)
-                    {{ 'Auditee' }}
-                @else
-                    {{ 'SPM' }}
+            <li class="ms-3">{{ Auth::user()->role }}</li>
+            <li 
+                @if (count(Auth::user()->auditor()->get('user_id')) == 0 )
+                    {{ "hidden" }}
                 @endif
+            >
+                <a class="dropdown-item" href="/changeroleauditor/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Auditor)</a>
+            </li>
+            <li
+                @if (count(Auth::user()->auditee()->get('user_id')) == 0 )
+                    {{ "hidden" }}
+                @endif
+            >
+                <a class="dropdown-item" href="/changeroleauditee/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Auditee)</a>
+            </li>
+            <li
+                @if (Auth::user()->role != "SPM")
+                    {{ "hidden" }}
+                @endif
+            >
+                <a class="dropdown-item" href="/changerolespm/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (SPM)</a>
             </li>
             <li>
-                <a class="dropdown-item" href="/changerole/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Ubah Role</a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="/auditor-detailauditor"
-                    >Profil</a
-                >
+                <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    SignOut
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </li>
         </ul>
     </div>

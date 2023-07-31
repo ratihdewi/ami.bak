@@ -31,13 +31,39 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        if (Auth::user()->role == 'Auditor') {
-            return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-        } elseif (Auth::user()->role == 'Auditee') {
-            return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-        } elseif (Auth::user()->role == 'SPM') {
-            return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-        }
+        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+    }
+
+    public function auditor_tampilBA_AMI($auditee_id)
+    {
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
+        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
+        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+
+        return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+    }
+
+    public function auditee_tampilBA_AMI($auditee_id)
+    {
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
+        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
+        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+
+        return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
     }
 
     public function ubahdataDokumenBA($auditee_id)
@@ -164,20 +190,11 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        if (Auth::user()->role == 'Auditor') {
-            return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-        } elseif (Auth::user()->role == 'Auditee') {
-            return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-        } elseif (Auth::user()->role == 'SPM') {
-            return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-        }
+        return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
     }
 
-    public function downloadba($id)
+    public function auditor_pratinjauba($auditee_id)
     {
-        $ba_auditee = DokBA_AMI::where('id', $id)->first();
-        $auditees = Auditee::where('id', $ba_auditee->auditee_id)->first();
-        $auditee_id = $auditees->id;
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -189,8 +206,61 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        $baami = DokBA_AMI::where('id', $id)->first();
-        $auditee = Auditee::where('id', $baami->auditee_id)->first();
+        return view('auditor/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+    }
+
+    public function auditee_pratinjauba($auditee_id)
+    {
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
+        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
+        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+
+        return view('auditee/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+    }
+
+    public function downloadba(Request $request, $auditee_id)
+    {
+        // dd($id);
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
+        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
+        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+        
+        // $beritaacara_ = BeritaAcara::where('id', $id)->get();
+        // dd($beritaacara_);
+        // $ba_auditee = DokBA_AMI::where('beritaacara_id', $beritaacara_->id)->first();
+        // $auditees = Auditee::where('id', $beritaacara_->auditee_id)->first();
+        // $auditee_id = $auditees->id;
+        // $auditee_ = Auditee::where('id', $auditee_id)->get();
+        // $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        // $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        // $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
+        // $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        // $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        // $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        // $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
+        // $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+
+        
+        if (count($ba_ami->get()) == 0) {
+            return redirect()->back()->with('warning', 'Harap lengkapi data terlebih pada BA AMI');
+        } else {
+            $baami = DokBA_AMI::where('auditee_id', $auditee_id)->first();
+            $auditee = Auditee::where('id', $baami->auditee_id)->first();
+        }
 
         $data = [
             'daftartilik_' => $daftartilik_,
@@ -205,9 +275,9 @@ class DokBAAMIController extends Controller
             'dokumenpendukung__' => $dokumenpendukung__,
         ];
 
-        // dd($data['ba_ami']->get());
-
         $pdf = PDF::loadView('spm/BAAMI_exportpdf', $data);
+        $pdf->setPaper('A4', 'portrait');
+        
         $namaFile = $auditee->unit_kerja.'-'.$baami->judulDokumen.'.pdf';
      
         return $pdf->download($namaFile);

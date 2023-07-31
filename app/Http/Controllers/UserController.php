@@ -28,7 +28,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $user->assignRole($input('role'));
+        $user->assignRole($input['role']);
         return redirect()->route('daftaruser')->with('success', 'Data berhasil ditambahkan');
     }
 
@@ -60,14 +60,35 @@ class UserController extends Controller
         return redirect()->route('daftaruser')->with('success', 'Data berhasil dihapus');
     }
 
-    public function changerole($id)
+    public function changeroleauditor($id)
     {
-        if (Auditee::where('user_id', $id)->exists()) {
-            return redirect()->route('auditee-daftarauditor-periode');
-        } elseif (Auditor::where('user_id', $id)->exists()) {
-            return redirect()->route('auditor-daftarauditor-periode');
+        $auditor_ = Auditor::where('user_id', $id)->exists();
+
+        if ($auditor_) {
+            return redirect()->route('auditor-daftarauditor-periode')->with('success', 'Selamat datang di halaman Auditor!');
         } else {
-            return redirect()->route('auditor-periode');
+            return redirect()->back();
+        }
+    }
+
+    public function changeroleauditee($id)
+    {
+        $auditee_ = Auditee::where('user_id', $id)->exists();
+
+        if ($auditee_) {
+            return redirect()->route('auditee-daftarauditor-periode')->with('success', 'Selamat datang di halaman Auditee!');
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function changerolespm($id)
+    {
+        $user_ = User::where('id', $id)->where('role', 'SPM')->exists();
+        if ($user_) {
+            return redirect()->route('auditor-periode')->with('success', 'Selamat datang di halaman SPM!');
+        } else {
+            return redirect()->back();
         }
     }
 

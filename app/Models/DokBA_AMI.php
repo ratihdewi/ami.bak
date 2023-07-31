@@ -19,6 +19,8 @@ class DokBA_AMI extends Model
         'revisiKe',
     ];
 
+    protected $dates = ['tgl_revisi', 'tgl_berlaku'];
+
     public function beritaacara()
     {
         return $this->belongsTo(BeritaAcara::class);

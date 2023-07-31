@@ -5,29 +5,21 @@
 
 @section('container')
 <div class="container my-4"  style="font-size: 15px">
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+    @elseif ($message = Session::get('error'))
+        <div class="alert alert-danger" role="alert">
+            {{ $message }}
+        </div>
+    @endif
     <div class="row">
-        <a
-            href="/addAuditor"
-            class="text-white"
-            style="font-weight: 600; text-decoration: none"
-            ><button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
-                Tambah
-            </button></a
-        > 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success" role="alert">
-                {{ $message }}
-            </div>
-        @elseif ($message = Session::get('error'))
-            <div class="alert alert-danger" role="alert">
-                {{ $message }}
-            </div>
-        @endif
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>
                 <tr>
                     <th class="col-2 text-center">  No  </th>
-                    <th class="col-8 text-center">  Tahun  </th>
+                    <th class="col-8 text-center">  Tahun Periode  </th>
                     <th class="col-2 text-center">  Aksi  </th>
                 </tr>
             </thead>

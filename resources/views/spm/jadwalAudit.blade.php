@@ -78,7 +78,7 @@
                           <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
                           <td class="text-center">{{ $item->tempat }}</td>
                           <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                          <td class="text-center">{{ $item->waktu }}</td>
+                          <td class="text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB</td>
                           <td class="text-center">{{ $item->kegiatan }}</td>
                           <td class="text-center">
                             <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
@@ -87,22 +87,6 @@
                       </tr>
                       @endforeach
                       @endforeach
-                    
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                        <td class="text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach --}}
                 </tbody>
             </table>
         </div>

@@ -28,21 +28,13 @@
                           name="auditee_id"
                           disabled
                       >
-                          <option selected disabled>{{ $auditee->unit_kerja }}</option>
-                          @foreach ($listAuditee as $liAuditee)
-                          <option value="{{ $liAuditee->id }}" name="auditee_id">
-                              {{ $liAuditee->unit_kerja }}
-                          </option>
-                          @endforeach
+                        <option selected disabled>{{ $auditee->unit_kerja }}</option>
                       </select>
                   </div>
                   <div class="col">
                       <label for="auditor_id" class="visually-hidden">Auditor</label>
                       <select id="auditor_id" class="form-select" name="auditor_id" disabled>
                           <option selected disabled>{{ $_daftartilik->auditor->nama }}</option>
-                          @foreach ($listAuditor as $liAuditor)
-                          <option>{{ $liAuditor->nama }}</option>
-                          @endforeach
                       </select>
                   </div>
               </div>
@@ -78,10 +70,6 @@
                   <label for="area" class="visually-hidden">Area Audit</label>
                   <select id="area" class="form-select" name="area" disabled>
                       <option selected disabled>{{ $_daftartilik->area }}</option>
-                      <option>Pendidikan</option>
-                      <option>Penelitian</option>
-                      <option>PkM</option>
-                      <option>Tambahan</option>
                   </select>
               </div>
               <div class="row g-3 mb-5 mx-4">
@@ -197,28 +185,11 @@
           <label for="#" class="mb-4 mx-4">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <div class="row">
-                <div class="col mx-4 mb-4">
-                  <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
-                  <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]"
-                    @if ($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor")
-                        {{ "readonly" }}
-                    @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
-                        {{ "required" }}
-                    @endif
-                    disabled
-                  >
-                </div>
-                <div class="col mx-4 mb-4">
-                  <label for="listDokSahih" class="form-label">Daftar dokumen sahih yang sudah diunggah</label>
-                  <select id="listDokSahih" class="form-select" name="dok_sahihs[]" readonly>
-                      <option selected>Daftar dokumen sahih yang sudah diunggah</option>
-                      @foreach ($dokSahih as $file)
-                      <option><a href="/view-doksahih">{{ $file->namaFile }}</a></option>
-                      @endforeach
-                      
-                  </select>
-                </div>
+              <div class="row mx-2 mb-4 px-1">
+                <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
+                <a href="/auditor-editdokumensahih/{{ $datas->id }}">
+                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Dokumen Bukti Sahih</b></button>
+                </a>
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee" readonly>{{ $datas->responAuditee }}</textarea>
@@ -227,7 +198,11 @@
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor">{{ $datas->responAuditor }}</textarea>
+            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor" 
+              @if ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')
+                  {{ "readonly" }}
+              @endif
+            >{{ $datas->responAuditor }}</textarea>
             <label for="responAuditor">Tuliskan respon Auditor disini<b>**)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
@@ -238,7 +213,7 @@
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "KTS"){{ "checked" }}@endif
-                    @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "disabled" }}@endif
+                    @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriKTS">KTS</label>
@@ -247,7 +222,7 @@
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriOB" value="OB" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "OB"){{ "checked" }}@endif
-                    @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "disabled" }}@endif
+                    @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriOB">OB</label>
@@ -256,7 +231,7 @@
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriSesuai" value="Sesuai" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "Sesuai"){{ "checked" }}@endif
-                    @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "disabled" }}@endif
+                    @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriSesuai">Sesuai</label>
@@ -265,9 +240,12 @@
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}">
+              <a href="/auditor-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}">
+                <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+              </a>
+              {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}"> --}}
             </div>
-            <div class="col">
+            {{-- <div class="col">
               <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
               <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
                   <option selected>Daftar foto kegiatan yang sudah diunggah</option>
@@ -275,20 +253,20 @@
                   <option>{{ $foto->namaFile }}</option>
                   @endforeach
               </select>
-            </div>
+            </div> --}}
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
               <label for="inisialAuditor" class="form-label">Inisial Auditor</label>
               <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}"
-              @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif
+              @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "readonly" }}@endif
               >
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label">Skor Auditor</label>
               <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}"
-              @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif
+              @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "readonly" }}@endif
               >
             </div>
           </div>
@@ -298,31 +276,29 @@
           <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
         <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
-          {{-- {{ $datas->daftartilik }} --}}
           <a href="/approvalAuditor-daftartilik/{{ $datas->id }}">
             <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
-            @foreach ($_daftartiliks as $daftartilik)
-            @if ((Auth::user()->role != 'Auditor') || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee'))
-                {{ "disabled" }}
-            @endif
-            @endforeach
+                @if ( (Auth::user()->name != $datas->daftartilik->auditor->nama) || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee') || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee'))
+                    {{ "disabled" }}
+                @endif
             >
-            {{-- {{ $datas->approvalAuditee }} --}}
-            @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
-                {{ "Ajukan persetujuan AL" }}
-            @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee')
-                {{ "Menunggu persetujuan Auditee" }}
-            @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Disetujui Auditee')
-                {{ "Setujui AL" }}
-            @else
-                {{ $datas->approvalAuditor }}
-            @endif
+              @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
+                  {{ "Ajukan persetujuan AL" }}
+              @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee')
+                  {{ "Menunggu persetujuan Auditee" }}
+              @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Disetujui Auditee')
+                  {{ "Setujui AL" }}
+              @else
+                  {{ $datas->approvalAuditor }}
+              @endif
             </button>
           </a>
           <button class="btn btn-success me-md-2" type="button"
-            @if (Auth::user()->role != "Auditee")
+          @foreach ($auditee_ as $auditee)
+            @if (Auth::user()->name != $auditee->ketua_auditee)
                 {{ "disabled" }}
             @endif
+          @endforeach
           >{{ $datas->approvalAuditee }}</button>
           <button class="btn btn-success" type="submit" style="background: #00D215; border: 1px solid #008F0E;">Simpan</button>
         </div>
@@ -334,7 +310,7 @@
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
+  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == "Disetujui Auditor" && $datas->approvalAuditee == "Disetujui Auditee")){{ "readonly" }}@endif>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
 
   if(document.getElementById('kategoriKTS').checked) {
       document.getElementById("narasiPLOR").innerHTML
@@ -348,7 +324,7 @@
             = ''; 
   }
   function display() {
-      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" @if (Auth::user()->name != $_daftartilik->auditor->nama){{ "readonly" }}@endif>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
+      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == "Disetujui Auditor" && $datas->approvalAuditee == "Disetujui Auditee")){{ "readonly" }}@endif>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
 
       if(document.getElementById('kategoriKTS').checked) {
           document.getElementById("narasiPLOR").innerHTML

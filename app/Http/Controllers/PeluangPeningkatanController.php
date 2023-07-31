@@ -14,10 +14,6 @@ class PeluangPeningkatanController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $peningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
 
-        if (Auth::user()->role == 'Auditee') {
-            return redirect()->route('BA-AMI', ['auditee_id' => $auditee_id])->with('error', 'Maaf, Peluang Peningkatan hanya dapat diuabh oleh Auditor atau SPM!');
-        }
-
         return view('spm/BA_ubahPeluangPeningkatan', compact('beritaacara_', 'peningkatan_'));
     }
 

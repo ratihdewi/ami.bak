@@ -10,6 +10,7 @@ use App\Models\Pertanyaan;
 use App\Models\DaftarTilik;
 use App\Models\FotoKegiatan;
 use Illuminate\Http\Request;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
 
 class PertanyaanController extends Controller
@@ -36,7 +37,7 @@ class PertanyaanController extends Controller
 
     public function insertpertanyaan(Request $request)
     {
-        //dd($request->targetStandar);
+        dd($request->all());
         $auditee_id = $request->get('auditee_id');
         $daftartilik_id = $request->get('daftartilik_id');
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('id', $daftartilik_id)->first();
@@ -95,24 +96,35 @@ class PertanyaanController extends Controller
         return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil ditambah!');
     }
 
-    public function tampildata($id){
+    public function tampildata(Request $request, $id){
         $datas = Pertanyaan::find($id);
         $daftartilik_id = $datas->daftartilik_id;
         $_daftartiliks = DaftarTilik::where('id', $daftartilik_id)->get();
-        //dd($datas->pertanyaan);
         $listAuditee = Auditee::all();
         $listAuditor = Auditor::all();
         $role_ = Auth::user()->role;
-        $fotoKegiatan = FotoKegiatan::where('pertanyaan_id', $id)->get();
-        $dokSahih = DokSahih::where('pertanyaan_id', $id)->get();
+
+        return view('spm/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor'));
+    }
+
+    public function auditee_tampildata(Request $request, $id){
+        $datas = Pertanyaan::find($id);
+        $_daftartiliks = DaftarTilik::where('id', $datas->daftartilik_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $datas->auditee_id)->get();
+        $auditor_ = Auditor::where('id', $datas->auditor_id)->get();
+        $auditee_ = Auditee::where('id', $datas->auditee_id)->get();
+
+        return view('auditee/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks'));
+    }
+
+    public function auditor_tampildata(Request $request, $id){
+        $datas = Pertanyaan::find($id);
+        $daftartilik_ = DaftarTilik::where('auditee_id', $datas->auditee_id)->get();
+        $auditor_ = Auditor::where('id', $datas->auditor_id)->get();
+        $auditee_ = Auditee::where('id', $datas->auditee_id)->get();
+        $_daftartiliks = DaftarTilik::where('id', $datas->daftartilik_id)->get();
         
-        if ($role_ == "SPM") {
-            return view('spm/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
-        } elseif (count(Auth::user()->auditor()->get('user_id')) != 0) {
-            return view('auditor/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
-        } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
-            return view('auditee/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'fotoKegiatan', 'dokSahih'));
-        }
+        return view('auditor/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks'));
     }
 
     public function updatedata(Request $request, $id)
@@ -121,7 +133,7 @@ class PertanyaanController extends Controller
         $auditee_id = $data->auditee_id;
         $_area = DaftarTilik::all()->where('id', $data->daftartilik_id)->where('auditee_id', $auditee_id)->first();
         $role_ = Auth::user()->role;
-        
+
         if ($request->Kategori == "Sesuai") {
             $request->narasiPLOR = NULL;
         }
@@ -145,41 +157,7 @@ class PertanyaanController extends Controller
             "narasiPLOR"=> $request->narasiPLOR,
         ]);
 
-        if ($request->hasFile('foto_kegiatans')) {
-            $photos = $request->file('foto_kegiatans');
-            foreach ($photos as $key => $photo) {
-                $fileFoto = time().$photo->getClientOriginalName();
-                $pathFoto = $photo->storeAs('DokumenFoto', $fileFoto, 'public');
-                $request["pertanyaan_id"] = $data->id;
-                $request["foto"] = '/storage/'.$pathFoto;
-                $request["namaFile"] = $fileFoto;
-                FotoKegiatan::create($request->all());
-            }
-        }
-
-        if ($request->hasFile('dok_sahihs')) {
-
-            //upload new image
-            $files = $request->file('dok_sahihs');
-            foreach ($files as $key => $file) {
-                $fileName = time().$file->getClientOriginalName();
-                $pathFile = $file->storeAs('dokumenSahih', $fileName, 'public');
-                $request["pertanyaan_id"] = $data->id;
-                $request["dokSahih"] = '/storage/'.$pathFile;
-                $request["namaFile"] = $fileName;
-                DokSahih::create($request->all());
-            }
-        } 
-
-        //dd($data);
-        if ($role_ == "SPM") {
-            return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate');
-        } elseif ($role_ == "Auditor") {
-            return redirect()->route('auditor-daftarTilik-areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate');
-        } elseif ($role_ == "Auditee") {
-            return redirect()->route('auditee-daftarTilik-areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate');
-        }
-        
+        return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
 
     public function testPDF()
@@ -228,14 +206,20 @@ class PertanyaanController extends Controller
     public function approvalAuditee(Request $request, $id)
     {
         $approve_ = Pertanyaan::find($id);
+        $doksahihs = DokSahih::where('pertanyaan_id', $approve_->id)->get();
         $auditee_ = Auditee::where('id', $approve_->auditee_id)->first();
 
-        $approve_->approvalAuditee = 'Disetujui Auditee';
+        if (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee') {
+            $approve_->approvalAuditee = 'Disetujui Auditee';
 
-        $request->session()->flash('success', 'Audit Lapangan sudah berhasil disetujui oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
- 
-        $approve_->save();
-
+            $request->session()->flash('success', 'Audit Lapangan sudah berhasil disetujui oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
+    
+            $approve_->save();
+        } elseif ($approve_->responAuditee == null || count($doksahihs) == 0) {
+            $request->session()->flash('error', 'Mohon isikan respon Auditee beserta Dokumen Bukti Sahih terlebih dahulu!');
+        } elseif ($approve_->approvalAuditee == 'Disetujui Auditee') {
+            $request->session()->flash('success', 'Anda sudah menyetujui Audit Lapangan!');
+        }
         // dd($approve_);
         return redirect()->back();
     }
@@ -244,17 +228,21 @@ class PertanyaanController extends Controller
     {
         $approve_ = Pertanyaan::find($id);
         $auditor_ = Auditor::where('id', $approve_->auditor_id)->first();
-
-        if (Auth::user()->name == $auditor_->nama) {
-            if ($approve_->approvalAuditor == 'Belum disetujui Auditor') {
+        
+        if (Auth::user()->name == $approve_->daftartilik->auditor->nama) {
+            if ($approve_->approvalAuditor == 'Belum disetujui Auditor' && ($approve_->Kategori != null && $approve_->inisialAuditor != null)) {
 
                 $approve_->approvalAuditor = 'Menunggu persetujuan Auditee';
                 $request->session()->flash('success', 'Persetujuan Audit Lapangan berhasil berhasil diajukan oleh '.$auditor_->nama.' kepada Auditee');
     
-            } elseif ($approve_->approvalAuditor == 'Menunggu persetujuan Auditee') {
+            } elseif ($approve_->approvalAuditor == 'Menunggu persetujuan Auditee' && ($approve_->Kategori != null && $approve_->inisialAuditor != null)) {
     
                 $approve_->approvalAuditor = 'Disetujui Auditor';
                 $request->session()->flash('success', 'Audit Lapangan berhasil disetujui oleh Auditor '.$auditor_->nama);
+            } elseif ($approve_->Kategori == null || $approve_->inisialAuditor == null) {
+                $request->session()->flash('error', 'Mohon mengisi kategori temuan dan inisial Auditor terlebih dahulu');
+            } elseif ($approve_->approvalAuditor == 'Disetujui Auditor' && $approve_->approvalAuditee == 'Disetujui Auditee') {
+                $request->session()->flash('success', 'Anda sudah menyetujui Audit Lapangan!');
             }
         } else {
             $request->session()->flash('error', 'Audit Lapangan ini harus disetujui oleh Auditor yang terdaftar pada rencana daftar tilik! ('.$auditor_->nama.')');

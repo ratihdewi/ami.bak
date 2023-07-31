@@ -26,11 +26,11 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($auditee_ as $auditee)
-                @foreach ($auditee->daftartilik()->get()->unique('auditee_id') as $item)
+                @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="row ListAuditee">
                     <td class="col text-center">{{ $no++ }}</td>
-                    <td class="col auditee"><a href="/auditeeBA/{{ $item->auditee_id }}" class="text-decoration-none text-black" >{{ $auditee->unit_kerja }}</a></td>
-                    <td class="col text-center">{{ $item->tgl_pelaksanaan->translatedFormat('Y') }}</td>
+                    <td class="col auditee"><a href="/auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" >{{ $item->auditee->unit_kerja }}</a></td>
+                    <td class="col text-center">{{ $item->tahunperiode }}</td>
                 </tr>
                 @endforeach
                 @endforeach   

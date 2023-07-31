@@ -57,8 +57,7 @@
                         <th class="col-1 text-center">Tempat</th>
                         <th class="col-2 text-center">Hari/Tanggal</th>
                         <th class="col-1 text-center">Waktu</th>
-                        <th class="col-1 text-center">Kegiatan</th>
-                        <th class="col-1 text-center">Aksi</th>
+                        <th class="col-2 text-center">Kegiatan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,29 +75,9 @@
                           <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
                           <td class="text-center">{{ $item->waktu }}</td>
                           <td class="text-center">{{ $item->kegiatan }}</td>
-                          <td class="text-center">
-                            <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
-                          </td>
                       </tr>
                       @endforeach
                       @endforeach
-                    
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                        <td class="text-center">
-                          <a href="#" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -131,15 +110,14 @@
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-panel fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
             <table class="table table-hover">
                 <thead>
                     <tr class="">
                         <th class="col-1 text-center">No</th>
-                        <th class="col-3 text-center">Kegiatan</th>
+                        <th class="col-5 text-center">Kegiatan</th>
                         <th class="col-3 text-center">Waktu</th>
-                        <th class="col-2 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -148,95 +126,7 @@
                         <th scope="row" class="text-center" value='{{ $no++ }}' >{{ $no_++ }}</th>
                         <td class="">Persiapan</td>
                         <td class="text-center">3 Oktober 2023</td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="deleteJadwalKeseluruhan" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
                     </tr>
-                    <tr>
-                        <th scope="row" class="text-center" value='2'>2</th>
-                        <td class="">Pelatihan Auditor</td>
-                        <td class="text-center">11 Oktober 2023</td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="deleteJadwalKeseluruhan" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    {{-- <tr>
-                        <th scope="row" class="text-center"></th>
-                        <td class="" id="kegiatan"></td>
-                        <td class="text-center" id="waktu"></td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="btn btn-warning">Edit</a>
-                          <a href="deleteJadwalKeseluruhan" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr> --}}
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                    </tr>
-                    @endforeach --}}
-                </tbody>
-            </table>
-        </div>
-      </div>
-      <div class="tab-panel fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="row">
-          <table class="table table-hover mt-2">
-                <thead>
-                    <tr class="">
-                        <th class="col-1 text-center">No</th>
-                        <th class="col-2 text-center">Kegiatan</th>
-                        <th class="col-2 text-center">Waktu</th>
-                        <th class="col-2 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $no = 1; @endphp
-                    <tr>
-                        <th scope="row" class="text-center" value='{{ $no++ }}' >{{ $no++ }}</th>
-                        <td class="">Persiapan</td>
-                        <td class="text-center">3 Oktober 2023</td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="deleteJadwalKeseluruhan" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center" value='{{ $no++ }}'>{{ $no++ }}</th>
-                        <td class="">Pelatihan Auditor</td>
-                        <td class="text-center">11 Oktober 2023</td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="btn btn-warning">Edit</a>
-                          <a href="deleteJadwalKeseluruhan" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center"></th>
-                        <td class="" id="kegiatan"></td>
-                        <td class="text-center" id="waktu"></td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="btn btn-warning">Edit</a>
-                          <a href="deleteJadwalKeseluruhan" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                    </tr>
-                    @endforeach --}}
                 </tbody>
             </table>
         </div>

@@ -43,7 +43,11 @@
                             <td>{{ $item->ketua_auditee }}</td>
                             <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
                             <td>{{ $item->ketua_auditor }}</td>
-                            <td>{{ $item->anggota_auditor }}</td>
+                            @if ($item->anggota_auditor2 != null)
+                                <td>{{ $item->anggota_auditor }}, {{ $item->anggota_auditor2 }}</td>
+                            @else
+                                <td>{{ $item->anggota_auditor }}</td>
+                            @endif
                             <td class="text-center">
                                 <a href="/tampilAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
                                 <a href="/deleteAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>

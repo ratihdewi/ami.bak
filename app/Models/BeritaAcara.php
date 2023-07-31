@@ -9,7 +9,7 @@ class BeritaAcara extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'auditee_id' ];
+    protected $fillable = [ 'auditee_id', 'tahunperiode' ];
 
     // public function pertanyaan()
     // {

@@ -76,10 +76,16 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
                 $auditor_ = Auditor::where('id', $daftartilik_->auditor_id)->first();
                 // $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
                 $jadwal_ = Jadwal::where('auditee_id', $this->auditee_id)->where('auditor_id', $daftartilik_->auditor_id)->get();
-                foreach ($jadwal_ as $key => $jadwal) {
-                    $waktu[] = $jadwal->waktu->isoFormat("HH:mm").' WIB';
+                
+                if (count($jadwal_) != 0) {
+                    foreach ($jadwal_ as $key => $jadwal) {
+                        $waktu[] = $jadwal->waktu->isoFormat("HH:mm").' WIB';
+                    }
+                } else {
+                    $waktu[] = "";
                 }
-
+                // dd($waktu);
+                
                 $event->sheet->setCellValue('A2', 'Auditee: ');
                 $event->sheet->setCellValue('A3', 'Auditor: ');
                 $event->sheet->setCellValue('A4', 'Hari/Tanggal: ');

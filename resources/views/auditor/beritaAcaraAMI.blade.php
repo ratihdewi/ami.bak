@@ -2,13 +2,20 @@
 @section('container')
   <div class="container">
       <div class="d-flex my-4 justify-content-between">
-        <div class="btn-left">
-          <a href="/auditeeBA"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
-          {{-- <a href="/ubahdataBA"><button class="btn btn-primary btn-sm" type="button">Ubah data</button></a> --}}
-        </div>
+        @foreach ($auditee_ as $auditee)
+          <a href="/auditor-auditeeBA/{{ $auditee->id }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
+          @endforeach
         <div class="btn-right">
-          <button class="btn btn-primary btn-sm" type="button">Pratinjau</button>
-          <button class="btn btn-primary btn-sm" type="button">Cetak</button>
+          @foreach ($auditee_ as $auditee)
+          <a href="/auditor-BAAMI-pratinjauBA/{{ $auditee->id }}">
+          @endforeach
+            <button class="btn btn-primary btn-sm" type="button">Pratinjau</button>
+          </a>
+          @foreach ($auditee_ as $auditee)
+          <a href="/BAAMI-downloadBA/{{ $auditee->id }}">
+          @endforeach
+            <button class="btn btn-primary btn-sm" type="button">Cetak</button>
+          </a>
         </div>
       </div>
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
@@ -22,6 +29,7 @@
           </div>
           @endif
       </div>
+      
       <div class="dataDokumenAMI mb-4">
         <div class="dataDokBA mt-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -35,12 +43,9 @@
                 <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
               </a>
             </li>
-            
           </ul>
-          
         </div>
         <div class="container text-center dataDokumenBA my-3 px-3">
-          
           <div class="row">
             <div class="col-3 label border py-2 fw-semibold text-start">Judul Dokumen</div>
             <div class="col-9 border py-2 text-start">
@@ -66,19 +71,22 @@
           <div class="row">
             <div class="col label border py-2 fw-semibold text-start">Tanggal Revisi</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami->get() as $ba)
-              {{ $ba->tgl_revisi }}
-              @endforeach
+              @if ($ba->tgl_revisi != null)
+                  {{ $ba->tgl_revisi->isoFormat('D MMMM YYYY') }}
+              @else
+                  {{ $ba->tgl_revisi }}
+              @endif
             </div>
             <div class="col label border py-2 fw-semibold text-start">Tanggal Berlaku</div>
             <div class="col border py-2 text-start">
-              @foreach ($ba_ami->get() as $ba)
-              {{ $ba->tgl_berlaku }}
-              @endforeach
+              @if ($ba->tgl_berlaku != null)
+                  {{ $ba->tgl_berlaku->isoFormat('D MMMM YYYY') }}
+              @else
+                  {{ $ba->tgl_berlaku }}
+              @endif
             </div>
           </div>
         </div>
-        
       </div>
       
       <div class="BA_AMI mb-4">
@@ -179,6 +187,7 @@
             </table>
         </div>
       </div>
+
       <div class="temuanAudit mb-4">
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -211,6 +220,7 @@
             </table>
         </div>
       </div>
+
       <div class="peluangPeningkatan mb-4">
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -255,6 +265,7 @@
             </table>
         </div>
       </div>
+
       <div class="dokumenPendukung mb-4">
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -263,34 +274,35 @@
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
-              <a href="/BA-dokumenpendukung/{{ $auditee->id }}">
+              <a href="/auditor-BA-dokumenpendukung/{{ $auditee->id }}">
               @endforeach
               <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
               </a>
             </li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3 mx-3">
-          <div class="row mt-4">
-            <div class="col-1 logoDokumen bg-warning bg-opacity-10 border border-info rounded-start py-3"><i class="bi bi-file-earmark-text-fill h2"></i></div>
-            <div class="col-3 infoDokumen bg-warning bg-opacity-10 border border-info rounded-end text-start py-3">
-              @if ($dokumenpendukung__->doesntExist())
-                  <h3 class="fs-6 mb-0">
-                    Tidak ada Dokumen Pendukung
-                  </h3>
-                <p class="fs-6 mb-0"></p>
-              @else
-              @foreach ($dokumenpendukung_ as $dokpendukung)
-                <h3 class="fs-6 mb-0">
-                  @foreach ($auditee_ as $auditee)
-                  <a href="/BA-lihatdokumenpendukung/{{ $auditee->id }}">
+        <div class="container text-center dataDokumenBA my-3 px-3">
+          <table class="table table-hover">
+              <thead>
+                  <tr class="">
+                      <th class="col-1 text-center">No</th>
+                      <th class="col-2 text-center">Nama Dokumen</th>
+                      <th class="col-3 text-center">Kode Dokumen</th>
+                      <th class="col-2 text-center">Aksi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @php $no = 1; @endphp
+                  @foreach ($dokumenpendukung_ as $dokpendukung)
+                  <tr>
+                    <td scope="row" class="text-center">{{ $no++ }}</td>
+                    <td class="col-2">{{ $dokpendukung->namaDokumen }}</td>
+                    <td class="col-3">{{ $dokpendukung->kodeDokumen }}</td>
+                    <td class="col-2 text-center"><a href="/BA-lihatdokumenpendukung/{{ $dokpendukung->id }}" target="_blank"><i class="bi bi-eye"></i></a></td>
+                  </tr>
                   @endforeach
-                  {{ $dokpendukung->namaDokumen }}</a></h3>
-                <p class="fs-6 mb-3">{{ $dokpendukung->kodeDokumen }}</p>
-              @endforeach
-              @endif
-            </div>
-          </div>
+              </tbody>
+          </table>
         </div>
       </div>
       <div class="persetujuan mb-4">

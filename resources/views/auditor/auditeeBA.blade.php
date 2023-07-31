@@ -12,7 +12,7 @@
             />
         </div>
         @foreach ($pertanyaan_ as $beritaacara)
-        <a href="/BA-AMI/{{ $beritaacara->auditee_id }}">
+        <a href="/auditor-BA-AMI/{{ $beritaacara->auditee_id }}">
         @endforeach
             <button
                 type="button"
@@ -74,7 +74,7 @@
                         @else
                             <a
                                 href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
-                                class="btn btn-outline-success"
+                                class="btn btn-outline-success disabled"
                                 ><i class="bi bi-pen"></i
                             ></a>
                         @endif
@@ -84,7 +84,7 @@
                             <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
                         @else
                             <a
-                                href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
+                                href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
                                 class="btn btn-outline-success"
                                 ><i class="bi bi-pen"></i
                             ></a>

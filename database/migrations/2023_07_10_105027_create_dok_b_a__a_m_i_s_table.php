@@ -19,8 +19,8 @@ class CreateDokBAAMISTable extends Migration
             $table->unsignedBigInteger('auditee_id');
             $table->String('judulDokumen')->default("Data judul dokumen belum ada");
             $table->String('kodeDokumen')->default("Data kode dokumen belum ada");
-            $table->String('tgl_revisi')->default("Data tanggal revisi belum ada");
-            $table->String('tgl_berlaku')->default("Data tanggal berlaku belum ada");
+            $table->String('tgl_revisi')->nullable();
+            $table->String('tgl_berlaku')->nullable();
             $table->Integer('revisiKe')->default('0');
             $table->String('eSignAuditee')->default('Belum Disetujui');
             $table->String('eSignAuditor')->default('Belum Disetujui');

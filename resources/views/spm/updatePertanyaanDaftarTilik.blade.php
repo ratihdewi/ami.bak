@@ -195,20 +195,11 @@
           <label for="#" class="mb-4 mx-4">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
-              <div class="row">
-                <div class="col mx-4 mb-4">
-                  <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
-                  <input id="inputDokSahih" type="file" class="form-control py-2" placeholder="Masukkan Dokumen Sahih" aria-label="Masukkan Dokumen Sahih" name="dok_sahihs[]">
-                </div>
-                <div class="col mx-4 mb-4">
-                  <label for="listDokSahih" class="form-label">Daftar dokumen sahih yang sudah diunggah</label>
-                  <select id="listDokSahih" class="form-select" name="dok_sahihs[]">
-                      <option selected>Daftar dokumen sahih yang sudah diunggah</option>
-                      @foreach ($dokSahih as $file)
-                      <option><a href="/view-doksahih">{{ $file->namaFile }}</a></option>
-                      @endforeach
-                  </select>
-                </div>
+              <div class="row mx-2 mb-4 px-1">
+                <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
+                <a href="/editdokumensahih/{{ $datas->id }}">
+                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Dokumen Bukti Sahih</b></button>
+                </a>
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee">{{ $datas->responAuditee }}</textarea>
@@ -258,9 +249,12 @@
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]">
+              <a href="/spm-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}">
+                <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+              </a>
+              {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]"> --}}
             </div>
-            <div class="col">
+            {{-- <div class="col">
               <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
               <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
                   <option selected>Daftar foto kegiatan yang sudah diunggah</option>
@@ -268,7 +262,7 @@
                   <option>{{ $foto->namaFoto }}</option>
                   @endforeach
               </select>
-            </div>
+            </div> --}}
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
@@ -291,7 +285,7 @@
         </div>
         <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="btn btn-success me-md-2" type="button"
-            @if ((Auth::user()->name != $_daftartilik->auditor->nama) || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee'))
+            @if ((Auth::user()->role == "SPM") || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee'))
                 {{ "disabled" }}
             @endif
           >
@@ -306,7 +300,7 @@
           @endif
           </button>
           <button class="btn btn-success me-md-2" type="button"
-            @if (Auth::user()->role != "Auditee")
+            @if (Auth::user()->role == "SPM")
                 {{ "disabled" }}
             @endif
           >{{ $datas->approvalAuditee }}</button>

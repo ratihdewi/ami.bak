@@ -92,7 +92,7 @@
                         @endif
                     </td>
                     <td  class="text-center">
-                        <a href="/DaftarTilik-adddaftartilik"
+                        <a href="/auditee-editfotokegiatan/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
                             ><i class="bi bi-folder-fill h3"></i
                         ></a>
                     </td>

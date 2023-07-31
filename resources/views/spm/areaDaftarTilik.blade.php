@@ -57,28 +57,23 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($data_ as $d_pertanyaan)
-                {{-- @foreach ($data as $item) --}}
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        {{-- @foreach ($item->auditee()->get() as $dt) --}}
-                            <td class="col-2 px-0 text-center">{{ $data->auditee->unit_kerja }}</td>
-                            <td class="col-2 px-0 text-center">{{ $data->area }}</td>
-                            
-                                <td class="col-2 px-0 text-center">{{ $d_pertanyaan->butirStandar }}</td>
-                                <td class="col-1 px-0 text-center">{{ $d_pertanyaan->nomorButir }}</td>
-                                <td class="col-3 px-0">
-                                    {{ $d_pertanyaan->pertanyaan }}
-                                </td>
-                                <td class="col-1 px-0 text-center">
-                                    <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
-                                        ><i class="bi bi-pencil-square"></i
-                                    ></a>
-                                    <a href="/daftartilik-deletedatapertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
-                                </td>
-                            
-                        {{-- @endforeach --}}
+                        <td class="col-2 px-0 text-center">{{ $data->auditee->unit_kerja }}</td>
+                        <td class="col-2 px-0 text-center">{{ $data->area }}</td>
+                        
+                        <td class="col-2 px-0 text-center">{{ $d_pertanyaan->butirStandar }}</td>
+                        <td class="col-1 px-0 text-center">{{ $d_pertanyaan->nomorButir }}</td>
+                        <td class="col-3 px-0">
+                            {{ $d_pertanyaan->pertanyaan }}
+                        </td>
+                        <td class="col-1 px-0 text-center">
+                            <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
+                                ><i class="bi bi-pencil-square"></i
+                            ></a>
+                            <a href="/daftartilik-deletedatapertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                        </td>
                     </tr>
-                {{-- @endforeach --}}
                 @endforeach
             </tbody>
         </table>

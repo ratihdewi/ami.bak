@@ -1,7 +1,7 @@
 @extends('layout.main') @section('title') AMI - Daftar User @endsection
 @section('container')
 
-<div class="row">
+<div class="row my-4">
     <a
         href="addUser"
         class="text-white"
@@ -18,7 +18,7 @@
         {{ $message }}
     </div>
     @endif
-    <table class="table table-hover" id="tableUser">
+    <table class="table table-hover my-2" id="tableUser">
         <thead>
             <tr class="">
                 <th class="col-1 text-center">No</th>

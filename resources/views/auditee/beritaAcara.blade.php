@@ -29,10 +29,10 @@
                     
                         {{-- {{ $auditor_ }} --}}
                         @foreach ($auditee_ as $auditee)
-                        @foreach ($auditee->daftartilik()->get()->unique('auditee_id') as $item)
+                        @foreach ($auditee->beritaacara()->get() as $item)
                             <td class="col-1 text-center">{{ $no++ }}</td>
-                            <td class="col-7 auditee"><a href="/auditeeBA/{{ $item->auditee_id }}" class="text-decoration-none text-black">{{ $item->auditee->unit_kerja }}</a></td>
-                            <td class="col-4 text-center">{{ $item->tgl_pelaksanaan->translatedFormat('Y') }}</td>
+                            <td class="col-7 auditee"><a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode }}" class="text-decoration-none text-black">{{ $item->auditee->unit_kerja }}</a></td>
+                            <td class="col-4 text-center">{{ $item->tahunperiode }}</td>
                         @endforeach
                         @endforeach    
                 </tr>

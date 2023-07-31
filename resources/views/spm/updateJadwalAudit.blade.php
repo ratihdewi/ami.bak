@@ -18,7 +18,7 @@
                                     name="auditee"
                                     required
                                 >
-                                    <option selected>{{ $data->auditee }}</option>
+                                    <option selected>{{ $data->auditee->unit_kerja }}</option>
                                     <option value="Program Studi Ilmu Komputer">
                                         Program Studi Ilmu Komputer
                                     </option>
@@ -40,7 +40,7 @@
                                     id="auditor"
                                     placeholder="Auditor"
                                     name="auditor"
-                                    value="{{ $data->auditor }}"
+                                    value="{{ $data->auditor->nama }}"
                                     required
                                 />
                             </div>
@@ -128,7 +128,7 @@
                                             id="waktu"
                                             placeholder="Tempat Pelaksanaan"
                                             name="waktu"
-                                            value="{{ $data->waktu }}"
+                                            value="{{ $data->waktu->isoFormat('HH:mm') }}"
                                             required
                                         />
                                     </div>
