@@ -10,12 +10,13 @@
             <thead>
                 <tr class="row header_areadaftartilik mt-3">
                     <th class="col-1 px-0 text-center">No</th>
-                    <th class="col-4 px-0 text-center">Auditee</th>
+                    <th class="col-3 px-0 text-center">Auditee</th>
                     <th class="col-2 px-0 text-center">Area</th>
                     <th class="col-2 px-3 text-center">
                         Batas Pengisian Respon Auditee
                     </th>
                     <th class="col-3 px-0 text-center">Auditor</th>
+                    <th class="col-1 px-0 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,12 +25,13 @@
                     @foreach ($item->daftartilik()->get() as $dt)
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-4 px-0 text-center">{{ $item->unit_kerja }}</td>
-                        <td class="col-2 px-0 text-center"><a href="/auditee-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}">{{ $dt->area }}</a></td>
+                        <td class="col-3 px-0 text-center">{{ $item->unit_kerja }}</td>
+                        <td class="col-2 px-0 text-center">{{ $dt->area }}</td>
                         <td class="col-2 px-0 text-center">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
                         @foreach ($dt->auditor()->get() as $dt_)
                             <td class="col-3 px-0 text-center">{{ $dt_->nama }}</td>
                         @endforeach
+                        <td class="col-1 px-0 text-center"><a href="/auditee-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"><button class="border-0 rounded bg-primary"><i class="bi bi-eye-fill text-white"></i></button></a></td>
                     </tr>
                     @endforeach
                 @endforeach

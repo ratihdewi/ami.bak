@@ -14,13 +14,14 @@
         @endif
     </div>
 
-    <div class="tableBA mx-3 mt-3 mb-5">
-        <table class="table table-hover listAuditee" id="beritaacara">
-            <thead class="mt-3">
+    <div class="tableBA mx-3 mt-3 mb-4">
+        <table class="table table-hover my-5 listAuditee" id="beritaacara">
+            <thead class="mt-5">
                 <tr class="row ListAuditeeHeader">
-                    <th class="col text-center">No</th>
+                    <th class="col-1 text-center">No</th>
                     <th class="col text-center">Auditee</th>
-                    <th class="col text-center">Tahun Pelaksanaan</th>
+                    <th class="col-2 text-center">Tahun Pelaksanaan</th>
+                    <th class="col-1 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,9 +29,12 @@
                 @foreach ($auditee_ as $auditee)
                 @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="row ListAuditee">
-                    <td class="col text-center">{{ $no++ }}</td>
-                    <td class="col auditee"><a href="/auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" >{{ $item->auditee->unit_kerja }}</a></td>
-                    <td class="col text-center">{{ $item->tahunperiode }}</td>
+                    <td class="col-2 text-center">{{ $no++ }}</td>
+                    <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
+                    <td class="col-2 text-center">{{ $item->tahunperiode }}</td>
+                    <td class="col-1 pe-3 text-center">
+                        <a href="/auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-primary"><i class="bi bi-eye-fill text-white"></i></button></a>
+                    </td>
                 </tr>
                 @endforeach
                 @endforeach   

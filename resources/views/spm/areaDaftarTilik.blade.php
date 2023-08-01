@@ -73,6 +73,7 @@
                             ></a>
                             <a href="/daftartilik-deletedatapertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
                         </td>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

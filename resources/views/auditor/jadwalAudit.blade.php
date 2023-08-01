@@ -74,7 +74,7 @@
                           <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
                           <td class="text-center">{{ $item->tempat }}</td>
                           <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                          <td class="text-center">{{ $item->waktu }}</td>
+                          <td class="text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB </td>
                           <td class="text-center">{{ $item->kegiatan }}</td>
                       </tr>
                       @endforeach
@@ -113,23 +113,27 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
-            <table class="table table-hover">
-                <thead>
-                    <tr class="">
-                        <th class="col-1 text-center">No</th>
-                        <th class="col-5 text-center">Kegiatan</th>
-                        <th class="col-3 text-center">Waktu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $no_ = 1; @endphp
-                    <tr>
-                        <th scope="row" class="text-center" value='{{ $no++ }}' >{{ $no_++ }}</th>
-                        <td class="">Persiapan</td>
-                        <td class="text-center">3 Oktober 2023</td>
-                    </tr>
-                </tbody>
-            </table>
+          <table class="table table-hover">
+            <thead>
+                <tr class="">
+                    <th class="col-1 text-center">No</th>
+                    <th class="col-3 text-center">Kegiatan</th>
+                    <th class="col-3 text-center">Sub Kegiatan</th>
+                    <th class="col-3 text-center">Waktu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $no_ = 1; @endphp
+                @foreach ($jadwalami as $jdami)
+                <tr>
+                  <th scope="row" class="text-center">{{ $no_++ }}</th>
+                  <td class="">{{ $jdami->kegiatan }}</td>
+                  <td class="text-center">{{ $jdami->subkegiatan }}</td>
+                  <td class="col-3 text-center">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

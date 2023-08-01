@@ -1,6 +1,16 @@
 <?php
 
+use App\Models\User;
+use App\Models\Jadwal;
+use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\DokBA_AMI;
+use App\Models\Pertanyaan;
+use App\Models\BeritaAcara;
+use App\Models\DaftarHadir;
+use App\Models\DaftarTilik;
+use App\Models\DokLampiran;
+use App\Models\PeluangPeningkatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -10,6 +20,7 @@ use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\DokBAAMIController;
 use App\Http\Controllers\DokSahihController;
+use App\Http\Controllers\JadwalAMIController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\BeritaAcaraController;
@@ -33,6 +44,67 @@ use App\Http\Controllers\PeluangPeningkatanController;
 */
 Route::get('/', function(){
     return redirect()->route('login');
+});
+
+Route::get('/auditee-esignhadir/{user_id}', function($user_id){
+    $user = User::where('id', $user_id)->first();
+    $peserta = DaftarHadir::where('namapeserta', $user->name)->first();
+    $esigned = Auth::user()->name;
+
+    return view('auditor/daftarhadir_qrcode', compact('peserta', 'user', 'esigned'));
+});
+
+Route::get('/auditor-esignhadir/{daftarhadir_id}/{namapeserta}', function($daftarhadir_id, $namapeserta){
+    // $beritaacaras = BeritaAcara::find($beritaacara_id);
+    $peserta = DaftarHadir::where('id', $daftarhadir_id)->where('namapeserta', $namapeserta)->first();
+    $user = User::where('name', $peserta->namapeserta)->first();
+    // dd($peserta);
+
+    return view('auditee/daftarhadir_qrcode', compact('peserta', 'user'));
+});
+
+// Route::get('/auditor-esignhadir/{beritaacara_id}', function($beritaacara_id){
+//     $beritaacaras = BeritaAcara::find($beritaacara_id);
+//     $auditee = Auditee::where('id', $beritaacaras->auditee_id)->first();
+    
+//     // Dapatkan semua peserta berdasarkan beritaacara_id
+//     $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacara_id)->get();
+
+//     // Siapkan array untuk menyimpan data peserta dan QR code
+//     $pesertaData = [];
+
+//     foreach ($daftarhadirs as $peserta) {
+//         $user = User::where('name', $peserta->namapeserta)->first();
+
+//         // Generate URL untuk QR code
+//         $url = url('/auditor-esignhadir/'.$beritaacaras->id);
+
+//         // Generate QR code
+//         $qrCode = QrCode::generate($url);
+
+//         // Simpan data peserta dan QR code ke dalam array
+//         $pesertaData[] = [
+//             'peserta' => $peserta,
+//             'user' => $user,
+//             'qrCode' => $qrCode,
+//         ];
+//     }
+
+//     return view('auditee/daftarhadir_qrcode', compact('beritaacaras', 'pesertaData', 'auditee'));
+// });
+
+Route::get('/auditee-esign/{auditee_id}', function($auditee_id){
+    $auditee = Auditee::find($auditee_id);
+    $user = User::where('id', $auditee->user_id)->first();
+
+    return view('auditor/BA_qrcode', compact('auditee', 'user'));
+});
+
+Route::get('/auditor-esign/{auditee_id}', function($auditee_id){
+    $auditee = Auditee::find($auditee_id);
+    $user = User::where('id', $auditee->user_id)->first();
+
+    return view('auditee/BA_qrcode', compact('auditee', 'user'));
 });
 
 Auth::routes();
@@ -72,7 +144,7 @@ Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });
 Route::get('/daftartilik/{tahunperiode}', [DaftarTilikController::class, 'index'])->name('daftartilik');
-Route::get('/daftartilik-searchAuditeeAuditor', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
+Route::get('/daftartilik-searchAuditeeAuditor/{auditee_id}', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
 Route::get('/daftarTilik-addareadaftartilik/{tahunperiode}', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
 Route::get('/daftartilik-tampildaftartilik/{tahunperiode}/{id}', [DaftarTilikController::class, 'tampildata'])->name('daftartilik-tampildaftartilik');
 Route::post('/daftartilik-updatedataareadaftartilik/{id}', [DaftarTilikController::class, 'updatedata'])->name('daftartilik-updatedataareadaftartilik');
@@ -88,7 +160,7 @@ Route::get('/daftartilik-deletedatapertanyaandaftartilik/{id}', [PertanyaanContr
 Route::post('/insertareaDT', [DaftarTilikController::class, 'insertdataArea'])->name('insertareaDT');
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA/{auditee_id}/{tahunperiode}', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
-Route::get('/BA-AMI/{auditee_id}', [DokBAAMIController::class, 'tampilBA_AMI'])->name('BA-AMI');
+Route::get('/BA-AMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'tampilBA_AMI'])->name('BA-AMI');
 Route::get('/BA-ubahdataDokumenBAAMI/{auditee_id}', [DokBAAMIController::class, 'ubahdataDokumenBA'])->name('BA-ubahdataDokumenBAAMI');
 Route::get('/BA-ubahdataberitaacaraAMI/{auditee_id}', [DokBAAMIController::class, 'ubahdataBAAMI'])->name('BA-ubahdataberitaacaraAMI');
 Route::post('/BA-AMI-insertdatadokumen/{auditee_id}', [DokBAAMIController::class, 'insertdataDokumenBA'])->name('BA-AMI-insertdatasokumen');
@@ -126,6 +198,11 @@ Route::get('/spm-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanCon
 Route::post('/storefotokegiatan', [FotoKegiatanController::class, 'storefotokegiatan'])->name('storefotokegiatan');
 Route::get('/deletefotokegiatan/{id}', [FotoKegiatanController::class, 'deletefotokegiatan'])->name('deletefotokegiatan');
 Route::get('/lihatfotokegiatan/{id}', [FotoKegiatanController::class, 'lihatfotokegiatan'])->name('lihatfotokegiatan');
+Route::post('/storejadwalami', [JadwalAMIController::class, 'storejadwalami'])->name('storejadwalami-keseluruhan');
+Route::get('/editjadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'editjadwalami'])->name('editjadwalami-keseluruhan');
+Route::post('/updatejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'updatejadwalami'])->name('updatejadwalami-keseluruhan');
+Route::get('/deletejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
+// Route::get('/generateqrcode/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
@@ -149,8 +226,11 @@ Route::get('/auditor-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [Daf
 Route::get('/auditor-jadwalaudit', [JadwalController::class, 'auditor_index'])->name('auditor-jadwalaudit');
 Route::get('/auditor-editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'auditor_index'])->name('auditor-dokumensahih');
 Route::get('/auditor-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditor_index'])->name('auditor-fotokegiatan');
+Route::get('/auditor-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditor_editdaftarhadir'])->name('auditor-BA-daftarhadir');
+Route::get('/auditor-BA-peluangpeningkatan/{auditee_id}', [PeluangPeningkatanController::class, 'auditor_ubahpeluangpeningkatan'])->name('auditor-BA-peluangpeningkatan');
+Route::get('/auditor-BA-editpeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'auditor_editpeluangpeningkatan'])->name('auditor-BA-editpeluangpeningkatan');
 
-//Role Auditor
+//Role Auditee
 Route::get('/auditee-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditee'])->name('auditee-daftarauditee');
 Route::get('/auditee-daftarauditee-periode', [AuditeeController::class, 'indexauditeepertahun'])->name('auditee-daftarauditee-periode');
 Route::get('/auditee-daftarauditor-periode', [AuditorController::class, 'indexauditorpertahun_'])->name('auditee-daftarauditor-periode');
@@ -168,6 +248,7 @@ Route::get('/auditee-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [Daf
 Route::get('/auditee-jadwalaudit', [JadwalController::class, 'auditee_index'])->name('auditee-jadwalaudit');
 Route::get('/auditee-editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'auditee_index'])->name('auditee-dokumensahih');
 Route::get('/auditee-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditee_index'])->name('auditee-fotokegiatan');
+Route::get('/auditee-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditee_editdaftarhadir'])->name('auditee-BA-daftarhadir');
 
 
 Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');

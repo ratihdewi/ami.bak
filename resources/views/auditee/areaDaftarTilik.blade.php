@@ -18,7 +18,7 @@
         {{-- @endforeach --}}
     </div>
     
-    <div class="tableDaftarTilik mx-3">
+    <div class="tableDaftarTilik mx-3 mb-4">
         <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px;border-bottom: none">
             <thead>
                 <tr class="row header_pertanyaandaftartilik">
@@ -45,9 +45,9 @@
                             {{ $d_pertanyaan->pertanyaan }}
                         </td>
                         <td class="col-1 px-0 text-center">
-                            <a href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
-                                ><i class="bi bi-pencil-square"></i
-                            ></a>
+                            <a href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2">
+                                <button class="border-0 rounded-1 bg-primary"><i class="bi bi-pencil-square text-white"></i></i></button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

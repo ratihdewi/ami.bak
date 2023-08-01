@@ -24,7 +24,7 @@
                             </div>         
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
+                            {{-- <div class="col">
                                 <label for="tahunperiode" class="form-label"
                                     >Tahun Periode</label
                                 >
@@ -38,45 +38,40 @@
                                     min="2016" max="3000"
                                     required
                                 />
-                            </div>
-                            {{-- <div class="col">
+                            </div> --}}
+                            <div class="col">
                                 <div class="row">
-                                    <div class="col-sm-5">
-                                        <label for="tahunperiode" class="form-label"
+                                    <label for="tahunperiode" class="form-label"
                                             >Tahun Periode</label
                                         >
+                                    <div class="col-sm-5">
                                         <input
                                             type="number"
-                                            name="tahunperiode"
                                             class="form-control"
-                                            id="tahunperiode"
-                                            placeholder="Tahun Periode"
-                                            aria-label="Tahun Periode"
+                                            placeholder="Tahun Awal"
+                                            aria-label="Tahun Awal"
                                             min="2016" max="3000"
                                             required
                                         />
                                     </div>
-                                    <div class="col-sm-2 text-center py-3">
-                                        <h3 class="my-3">/</h3>
+                                    <div class="col-sm-2 text-center">
+                                        <h3 class="">/</h3>
                                     </div>
                                     <div class="col-sm-5">
-                                        <label for="tahunperiode" class="form-label"
-                                            >Tahun Periode</label
-                                        >
                                         <input
                                             type="number"
                                             name="tahunperiode"
                                             class="form-control"
                                             id="tahunperiode"
-                                            placeholder="Tahun Periode"
-                                            aria-label="Tahun Periode"
+                                            placeholder="Tahun Akhir"
+                                            aria-label="Tahun Akhir"
                                             min="2016" max="3000"
                                             required
                                         />
                                     </div>
                                 </div>
                                 
-                            </div>  --}}
+                            </div> 
                             <div class="col">
                                 <label for="nipAuditor" class="form-label"
                                     >NIP</label

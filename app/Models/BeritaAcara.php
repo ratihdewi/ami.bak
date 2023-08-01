@@ -21,7 +21,7 @@ class BeritaAcara extends Model
         return $this->belongsTo(Auditee::class);
     }
 
-    public function daftarhadir()
+    public function daftarhadirs()
     {
         return $this->hasMany(DaftarHadir::class);
     }

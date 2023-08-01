@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/auditor-beritaacara"
-                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('auditor-auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('auditor-auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('auditor-BA-AMI') ? 'active' : '' || Request::routeIs('auditor-BA-daftarhadir') ? 'active' : '' || Request::routeIs('auditor-BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('auditor-BA-editpeluangpeningkatan') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

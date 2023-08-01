@@ -19,23 +19,26 @@
             <thead>
                 <tr class="row ListAuditeeHeader">
                     <th class="col-1 text-center">No</th>
-                    <th class="col-7 text-center">Auditee</th>
-                    <th class="col-4 text-center">Tahun Pelaksanaan</th>
+                    <th class="col text-center">Auditee</th>
+                    <th class="col-2 text-center">Tahun Pelaksanaan</th>
+                    <th class="col-1 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1; @endphp
+                {{-- {{ $auditor_ }} --}}
+                @foreach ($auditor_ as $auditor)
+                @foreach ($auditor->daftartilik()->get() as $item)
                     <tr class="row ListAuditee">
-                    
-                        {{-- {{ $auditor_ }} --}}
-                        @foreach ($auditor_ as $auditor)
-                        @foreach ($auditor->daftartilik()->get() as $item)
-                            <td class="col-1 text-center">{{ $no++ }}</td>
-                            <td class="col-7 auditee"><a href="/auditor-auditeeBA/{{ $item->auditee->id }}/{{ $item->auditee->tahunperiode }}" class="text-decoration-none text-black" >{{ $item->auditee->unit_kerja }}</a></td>
-                            <td class="col-4 text-center">{{ $item->auditee->tahunperiode }}</td>
-                        @endforeach
-                        @endforeach    
+                        <td class="col-2 text-center">{{ $no++ }}</td>
+                        <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
+                        <td class="col-2 text-center">{{ $item->tahunperiode }}</td>
+                        <td class="col-1 pe-3 text-center">
+                            <a href="/auditor-auditeeBA/{{ $item->auditee->id }}/{{ $item->auditee->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-primary"><i class="bi bi-eye-fill text-white"></i></button></a>
+                        </td>   
                 </tr>
+                @endforeach
+                @endforeach 
             </tbody>
         </table>
     </div>
@@ -54,6 +57,16 @@
       });
     });
   });
+</script>
+<!-- jQuery library file -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- Datatable plugin JS library file -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#beritaacara').DataTable({ });
+    });
 </script>
     
 @endpush

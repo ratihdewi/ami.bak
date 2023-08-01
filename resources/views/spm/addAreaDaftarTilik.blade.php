@@ -15,7 +15,7 @@
                 >
                     <option selected disabled>Auditee</option>
                     @foreach ($listAuditee->unique('unit_kerja') as $item)
-                    <option value="{{ $item->id }}" name="auditee_id">
+                    <option value="{{ $item->id }}">
                         {{ $item->unit_kerja }}
                     </option>
                     @endforeach
@@ -94,26 +94,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-{{-- <script type="text/javascript">
-    var path = "{{ route('tambahDT-searchAuditee') }}";
-    $(function () {
-        $.ajaxSetup({
-            headers: {
-                "C-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-    });
-
-    $("#auditee").typeahead({
-        minlength: 1,
-        source: function (query, process) {
-            return $.get(path, { query: query }, function (data) {
-                return process(data);
-            });
-        },
-    });
-</script> --}}
 <script>
     function display() {
         var plor =
@@ -144,6 +126,55 @@
             }
         });
     });
+
+    $('#auditee_id').change(function() {
+        var auditee_id = $('#auditee_id').val();
+        var url = "{{url('/daftartilik-searchAuditeeAuditor')}}/"+auditee_id;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: { q: '' },
+            success: function(data) {
+                $('#auditor').empty();
+                $('#auditor').append('<option value="" selected disabled>Pilih Auditor</option>');
+                if (Array.isArray(data)) {
+                    var mappedData = data.map(function(item) {
+                        return {
+                            id: item.ketua_auditor,
+                            text: item.ketua_auditor,
+                        };
+                    });
+
+                    data.forEach(function(item) {
+                        mappedData.push({
+                            id: item.anggota_auditor,
+                            text: item.anggota_auditor,
+                        });
+                    });
+
+                    data.forEach(function(item) {
+                        mappedData.push({
+                            id: item.anggota_auditor2,
+                            text: item.anggota_auditor2,
+                        });
+                    });
+
+                    $('#auditor').select2({
+                        data: mappedData,
+                    });
+                } else {
+                    console.error('Data yang diterima dari server bukan array yang valid.');
+                }
+            },
+            error: function() {
+            console.error('Terjadi kesalahan saat memuat data users.');
+            }
+        });
+
+    });
+
 </script>
 
 @endpush

@@ -146,7 +146,7 @@
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
-              <a href="/BA-daftarhadir/{{ $auditee->id }}"><button class="btn btn-primary btn-sm" type="button">
+              <a href="/auditor-BA-daftarhadir/{{ $auditee->id }}"><button class="btn btn-primary btn-sm" type="button">
               @endforeach
               Ubah data</button>
               </a>
@@ -229,7 +229,7 @@
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
-              <a href="/BA-peluangpeningkatan/{{ $auditee->id }}">
+              <a href="/auditor-BA-peluangpeningkatan/{{ $auditee->id }}">
               @endforeach
               <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
               </a>
@@ -256,7 +256,7 @@
                       <td class="col-3 text-start">{{ $peningkatan->kelebihan }}</td>
                       <td class="col-2 text-start">{{ $peningkatan->peningkatan }}</td>
                       <td class="col-2 text-center">
-                        <a href="/BA-editpeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
+                        <a href="/auditor-BA-editpeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
                         <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-trash" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></a>
                       </td>
                     </tr>
@@ -305,6 +305,7 @@
           </table>
         </div>
       </div>
+
       <div class="persetujuan mb-4">
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">

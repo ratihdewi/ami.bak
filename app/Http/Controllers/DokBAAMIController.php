@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use QrCode;
 use App\Models\Jadwal;
 use App\Models\Auditee;
-use PDF;
 // use Barryvdh\DomPDF\PDF;
 use App\Models\DokBA_AMI;
 use App\Models\Pertanyaan;
@@ -14,12 +15,26 @@ use App\Models\DaftarTilik;
 use App\Models\DokLampiran;
 use Illuminate\Http\Request;
 use App\Models\PeluangPeningkatan;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 
 class DokBAAMIController extends Controller
 {
-    public function tampilBA_AMI($auditee_id)
-    {
+    public function tampilBA_AMI($auditee_id, $tahunperiode)
+    {   
+        $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+
+        $eSign = [];
+
+        foreach ($daftarhadirs as $key => $daftarhadir) {
+            $url = url('/auditor-esignhadir/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+            $esignKehadiran = QrCode::generate($url);
+
+            array_push($eSign, QrCode::generate($url));
+        } 
+         
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -31,7 +46,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign'));
     }
 
     public function auditor_tampilBA_AMI($auditee_id)
@@ -123,9 +138,9 @@ class DokBAAMIController extends Controller
     {
         $dataDokumen_ = DokBA_AMI::find($auditee_id);
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->get()->first();
-        //dd($beritaacara_->id);
+        dd($dataDokumen_->exists());
 
-        if ($dataDokumen_ != null) {
+        if ($dataDokumen_->exists()) {
 
             $dataDokumen_->update([
                 'beritaacara_id' => $beritaacara_->id,

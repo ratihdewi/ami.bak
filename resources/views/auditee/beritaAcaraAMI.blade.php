@@ -36,6 +36,7 @@
           </div>
           @endif
       </div>
+
       <div class="dataDokumenAMI mb-4">
         <div class="dataDokBA mt-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -156,7 +157,7 @@
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
-              <a href="/BA-daftarhadir/{{ $auditee->id }}"><button class="btn btn-primary btn-sm" type="button">
+              <a href="/auditee-BA-daftarhadir/{{ $auditee->id }}"><button class="btn btn-primary btn-sm" type="button">
               @endforeach
               Ubah data</button>
               </a>

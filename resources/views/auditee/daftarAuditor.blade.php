@@ -4,25 +4,18 @@
 
 @section('container')
 
-<div class="container mt-5 mb-4" style="font-size: 15px">
-    <div class="row">
-        {{--
+<div class="container mt-4 mb-3" style="font-size: 15px">
+    <div class="row mb-4">
+        @foreach ($dataAuditor->unique('tahunperiode') as $item)
         <a
-            href="addAuditor"
-            class="text-white"
-            style="font-weight: 600; text-decoration: none"
-            ><button
-                type="button"
-                class="btn btn-primary btn-sm float-end my-3 px-3"
-            >
-                Tambah
-            </button></a
+            class="text-end fw-medium"
+            href="{{ route('auditee-daftarauditor-periode') }}"
+            style="text-decoration: none"
+            >{{ $item->tahunperiode }}</a
         >
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
-        </div>
-        @endif --}}
+        @endforeach
+    </div>
+    <div class="row">
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>
                 <tr class="">
@@ -35,7 +28,8 @@
                 </tr>
             </thead>
             <tbody>
-                @php $no = 1; @endphp @foreach ($dataAuditor as $item)
+                @php $no = 1; @endphp 
+                @foreach ($dataAuditor as $item)
                 <tr>
                     <td scope="row" class="text-center">{{ $no++ }}</td>
                     <td>{{ $item->nama }}</td>

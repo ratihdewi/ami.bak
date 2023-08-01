@@ -38,14 +38,14 @@
                     <th class="align-middle" rowspan="2">Deskripsi/Uraian Temuan</th>
                     <th class="border border-0" colspan="2">Kategori Temuan</th>
                     <th class="align-middle" rowspan="2">Nomor Butir Mutu</th>
-                    <th class="border border-0" colspan="2">eSign</th>
+                    <th class="border border-0" colspan="3">eSign</th>
                     <th class="align-middle" rowspan="2">Dokumentasi</th>
-                    <th class="align-middle" rowspan="2">Aksi</th>
                 </tr>
                 <tr class="text-center">
                     <th>OB</th>
                     <th>KTS</th>
                     <th>Auditee</th>
+                    <th></th>
                     <th>Auditor</th>
                 </tr>
             </thead>
@@ -70,7 +70,7 @@
                     <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
                     <td  class="text-center">
                         @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
-                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                        {{ $qrCodeAuditee }}
                         @else
                             <a
                                 href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
@@ -79,9 +79,10 @@
                             ></a>
                         @endif
                     </td>
+                    <td></td>
                     <td  class="text-center">
                         @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
-                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                        {{ $qrCodeAuditor }}
                         @else
                             <a
                                 href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
@@ -91,13 +92,8 @@
                         @endif
                     </td>
                     <td  class="text-center">
-                        <a href="/DaftarTilik-adddaftartilik"
-                            ><i class="bi bi-folder-fill h3"></i
-                        ></a>
-                    </td>
-                    <td class="text-center align-middle">
-                        <a href="#" class="mx-2"
-                            ><i class="bi bi-pencil-square h5"></i
+                        <a href="/auditor-editfotokegiatan/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
+                            ><i class="bi bi-folder-fill text-warning h3"></i
                         ></a>
                     </td>
                 </tr>

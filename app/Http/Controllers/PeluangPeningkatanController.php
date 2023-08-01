@@ -17,6 +17,14 @@ class PeluangPeningkatanController extends Controller
         return view('spm/BA_ubahPeluangPeningkatan', compact('beritaacara_', 'peningkatan_'));
     }
 
+    public function auditor_ubahpeluangpeningkatan($auditee_id)
+    {
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+        $peningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+
+        return view('auditor/BA_ubahPeluangPeningkatan', compact('beritaacara_', 'peningkatan_'));
+    }
+
     public function storePeluangPeningkatan(Request $request, $auditee_id)
     {
         foreach ($request->addmore as $key => $value) {
@@ -33,6 +41,15 @@ class PeluangPeningkatanController extends Controller
         $peningkatan_ = PeluangPeningkatan::find($id);
         
         return view('spm/BA_editPeluangPeningkatan', compact('beritaacara_', 'peningkatan_'));
+    }
+
+    public function auditor_editpeluangpeningkatan($id)
+    {
+        $beritaacara_ = BeritaAcara::where('id', $id)->first();
+        // dd($beritaacara_->id);
+        $peningkatan_ = PeluangPeningkatan::find($id);
+        
+        return view('auditor/BA_editPeluangPeningkatan', compact('beritaacara_', 'peningkatan_'));
     }
 
     public function updatepeluangpeningkatan(Request $request, $id)

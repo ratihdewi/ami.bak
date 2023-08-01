@@ -14,28 +14,30 @@
         @endif
     </div>
 
-    <div class="tableBA mx-3">
-        <table class="table table-hover listAuditee">
-            <thead>
+    <div class="tableBA mx-3 mt-3 mb-4">
+        <table class="table table-hover my-5 listAuditee" id="beritaacara">
+            <thead class="mt-5">
                 <tr class="row ListAuditeeHeader">
                     <th class="col-1 text-center">No</th>
-                    <th class="col-7 text-center">Auditee</th>
-                    <th class="col-4 text-center">Tahun Pelaksanaan</th>
+                    <th class="col text-center">Auditee</th>
+                    <th class="col-2 text-center">Tahun Pelaksanaan</th>
+                    <th class="col-1 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                    <tr class="row ListAuditee">
-                    
-                        {{-- {{ $auditor_ }} --}}
-                        @foreach ($auditee_ as $auditee)
-                        @foreach ($auditee->beritaacara()->get() as $item)
-                            <td class="col-1 text-center">{{ $no++ }}</td>
-                            <td class="col-7 auditee"><a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode }}" class="text-decoration-none text-black">{{ $item->auditee->unit_kerja }}</a></td>
-                            <td class="col-4 text-center">{{ $item->tahunperiode }}</td>
-                        @endforeach
-                        @endforeach    
+                @foreach ($auditee_ as $auditee)
+                @foreach ($auditee->beritaacara()->get() as $item)
+                <tr class="row ListAuditee">
+                    <td class="col-2 text-center">{{ $no++ }}</td>
+                    <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
+                    <td class="col-2 text-center">{{ $item->tahunperiode }}</td>
+                    <td class="col-1 pe-3 text-center">
+                        <a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-primary"><i class="bi bi-eye-fill text-white"></i></button></a>
+                    </td>
                 </tr>
+                @endforeach
+                @endforeach   
             </tbody>
         </table>
     </div>
@@ -54,6 +56,16 @@
       });
     });
   });
+</script>
+<!-- jQuery library file -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- Datatable plugin JS library file -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#beritaacara').DataTable({ });
+    });
 </script>
     
 @endpush

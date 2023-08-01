@@ -5,7 +5,7 @@
         <div class="col-8">
             <div class="card mb-5">
                 <div class="card-body p-4">
-                    <form action="/storejadwalami" method="POST">
+                    <form action="/updatejadwalami-keseluruhan/{{ $jadwalami->id }}" method="POST">
                         @csrf
                         <div class="row mb-3 px-5 py-3">
                             <label
@@ -19,7 +19,7 @@
                                     class="form-control"
                                     id="kegiatan"
                                     name="kegiatan"
-                                    required
+                                    value="{{ $jadwalami->kegiatan }}"
                                 />
                             </div>
                         </div>
@@ -37,6 +37,7 @@
                                             class="form-control"
                                             id="subKegiatan"
                                             name="subkegiatan"
+                                            value="{{ $jadwalami->subkegiatan }}"
                                         />
                                     </div>
                                 </div>
@@ -48,11 +49,13 @@
                                     >
                                     <div class="col-sm-9">
                                         <input
-                                            type="date"
+                                            type="text"
                                             class="form-control"
+                                            onfocus="(this.type='date')"
+                                            onblur="(this.type='text')"
                                             id="tgl_mulai"
                                             name="tgl_mulai"
-                                            required
+                                            value="{{ $jadwalami->tgl_mulai->translatedFormat('Y-m-d') }}"
                                         />
                                     </div>
                                 </div>
@@ -64,11 +67,13 @@
                                     >
                                     <div class="col-sm-9">
                                         <input
-                                            type="date"
-                                            class="form-control"
+                                        type="text"
+                                        class="form-control"
+                                        onfocus="(this.type='date')"
+                                        onblur="(this.type='text')"
                                             id="tgl_berakhir"
                                             name="tgl_berakhir"
-                                            required
+                                            value="{{ $jadwalami->tgl_mulai->translatedFormat('Y-m-d') }}"
                                         />
                                     </div>
                                 </div>

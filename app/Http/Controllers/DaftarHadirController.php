@@ -36,6 +36,48 @@ class DaftarHadirController extends Controller
         }
     }
 
+    public function auditor_editdaftarhadir($auditee_id)
+    {
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+
+        foreach ($auditee_ as $key => $auditee) {
+            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $auditee->tahunperiode)->first();
+        }
+
+        $users = User::all();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $auditor = Auditor::where('user_id', Auth::user()->id);
+        $auditee = Auditee::where('user_id', Auth::user()->id);
+        $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
+
+        if (count($daftarhadir_) == 0) {
+            return view('auditor/BAAMI_formDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
+        } else {
+            return view('auditor/BAAMI_editDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
+        }
+    }
+
+    public function auditee_editdaftarhadir($auditee_id)
+    {
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+
+        foreach ($auditee_ as $key => $auditee) {
+            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $auditee->tahunperiode)->first();
+        }
+
+        $users = User::all();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $auditor = Auditor::where('user_id', Auth::user()->id);
+        $auditee = Auditee::where('user_id', Auth::user()->id);
+        $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
+
+        if (count($daftarhadir_) == 0) {
+            return view('auditee/BAAMI_formDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
+        } else {
+            return view('auditee/BAAMI_editDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
+        }
+    }
+
     public function getAuditee()
     {
         $users = User::all();
@@ -45,15 +87,16 @@ class DaftarHadirController extends Controller
 
     public function getAuditor()
     {
-        $auditor_ = Auditor::all();
+        // $auditor_ = Auditor::all();
 
-        return response()->json($auditor_);
+        // return response()->json($auditor_);
+        $data = Auditee::select('id', 'ketua_auditor', 'anggota_auditor', 'anggota_auditor2')->get();
+
+        return response()->json($data);
     }
 
     public function storedaftarhadir(Request $request, $auditee_id)
     {
-        // dd($request->addmore);
-
         $users_ = User::all();
 
         $request->validate([
@@ -70,25 +113,22 @@ class DaftarHadirController extends Controller
                 $notExist = DaftarHadir::where('namapeserta', $value['namapeserta'])->where('beritaacara_id', $beritaacara_->id)->doesntExist();
                 $existAuditor_ = Auditor::where('user_id', $user_->id);
                 $existAuditee_ = Auditee::where('user_id', $user_->id);
-                // $auditor = $existAuditor_->daftartilik()->get();
 
                 // dd($auditee);
                 if ($notExist) {
-                    // DaftarHadir::create($value);
                     $daftarhadir = new DaftarHadir;
                     $daftarhadir->beritaacara_id = $value['beritaacara_id'];
                     $daftarhadir->posisi = $value['posisi'];
                     $daftarhadir->namapeserta = $value['namapeserta'];
                     $daftarhadir->save();
-                    $return = redirect()->route('BA-AMI', ['auditee_id' => $auditee_id])->with('success', 'Data peserta berhasil ditambah!');
+                    $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
                 } elseif (!$notExist) {
-                    $return = redirect()->route('BA-AMI', ['auditee_id' => $auditee_id])->with('error', 'Data peserta sudah tersedia!');
+                    $return = redirect()->back()->with('error', 'Data peserta sudah tersedia!');
                 } elseif ($value['namapeserta'] != $user->name && $value['posisi'] != $user->role) {
-                    $return = redirect()->route('BA-AMI', ['auditee_id' => $auditee_id])->with('error', 'Data peserta tidak terdaftar!');
+                    $return = redirect()->back()->with('error', 'Data peserta tidak terdaftar!');
                 }
             }
         }
-        //die;
         return $return;
     }
 
@@ -98,7 +138,7 @@ class DaftarHadirController extends Controller
         $auditee_ = BeritaAcara::where('id', $daftarhadir_->beritaacara_id)->first();
         
         $daftarhadir_->delete();
-        return redirect()->route('BA-AMI', ['auditee_id' => $auditee_->auditee_id])->with('success', 'Data peserta berhasil dihapus!');
+        return redirect()->back()->with('success', 'Data peserta berhasil dihapus!');
     }
 
     public function esignpeserta($id)

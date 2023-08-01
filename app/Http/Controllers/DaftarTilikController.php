@@ -74,21 +74,6 @@ class DaftarTilikController extends Controller
         return redirect()->route('daftartilik', ['tahunperiode' => $years]);
     }
 
-    public function autocomplete(Request $request)
-    {
-        $datas = User::select("name")->where('role','LIKE','%'.'Auditee'.'%')
-                ->where("name","LIKE","%{$request->input('query')}%")
-                ->get();
-        
-        $dataModified = array();
-        foreach ($datas as $data)
-        {
-        $dataModified[] = $data->name;
-        }
-        //dd($datas);
-        return response()->json($dataModified);
-    }
-
     public function tampildata($tahunperiode, $id){
         $data = DaftarTilik::find($id);
         $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
@@ -191,5 +176,46 @@ class DaftarTilikController extends Controller
         if (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
             return view('auditee/daftarTilik-tahun', compact('data_'));
         }
+    }
+
+    public function getAuditor($auditee_id)
+    {
+        $data = Auditee::select('ketua_auditor', 'anggota_auditor', 'anggota_auditor2')->where('id', $auditee_id)->get();
+
+        return response()->json($data);
+    }
+    
+    public function autocomplete(Request $request)
+    {
+        $datas = User::select("name")->where('role','LIKE','%'.'Auditee'.'%')
+                ->where("name","LIKE","%{$request->input('query')}%")
+                ->get();
+        
+        $dataModified = array();
+        foreach ($datas as $data)
+        {
+        $dataModified[] = $data->name;
+        }
+        //dd($datas);
+        return response()->json($dataModified);
+    }
+
+    public function generateqrcode($id)
+    {
+        $pertanyaan = Pertanyaan::find($id);
+
+        $htmlData = '<h1>Ini adalah judul</h1><p>Ini adalah paragraf</p>';
+
+        // Gabungkan data HTML dengan data dari database
+        $combinedData = $htmlData . '<p>Data dari database:</p>' . $formattedDataFromDatabase;
+
+        // Konversi data gabungan HTML dan dari database ke teks
+        $textData = strip_tags($combinedData);
+
+        // Generate QR Code dari teks yang telah diubah
+        $qrCode = QrCode::generate($textData);
+
+        // Kembalikan view dengan QR Code
+        return view('qrcode', compact('qrCode'));
     }
 }

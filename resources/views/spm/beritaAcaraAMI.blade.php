@@ -147,7 +147,6 @@
             </div>
         </div>
       </div>
-        
       <div class="daftarHadir mb-4">
         <div class="dataDokBA mt-5 mx-3 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -175,7 +174,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php $no = 1; @endphp
+                    @php $no = 1; $i = 0; @endphp
                     @foreach ($daftarhadir_ as $daftarhadir)
                     <tr>
                       <td scope="row" class="text-center">{{ $no++ }}</td>
@@ -183,15 +182,14 @@
                       <td class="col-3 text-center">{{ $daftarhadir->namapeserta }}</td>
                       <td class="col-2 text-center">
                         @if ($daftarhadir->eSign == 'Hadir')
-                          <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 2, 2)}}" alt="barcode" />
-                        @else
-                          <a href="/BA-esignpeserta/{{ $daftarhadir->id }}"><i class="bi bi-pen" type="button"></i></a>
+                          {{ $eSign[$i] }}
                         @endif
                       </td>
                       <td class="col-2 text-center">
                         <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><i class="bi bi-trash"></i></a>
                       </td>
                     </tr>
+                    <?php $i++; ?>
                     @endforeach
                 </tbody>
             </table>

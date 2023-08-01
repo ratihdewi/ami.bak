@@ -8,7 +8,7 @@
                 id="myInput"
                 type="text"
                 style="font-size: 15px"
-                placeholder="Cari berdasarkan Auditee"
+                placeholder="Cari"
             />
         </div>
         @foreach ($daftartilik_->unique('auditee_id') as $daftartilik)
@@ -38,14 +38,14 @@
                     <th class="align-middle" rowspan="2">Deskripsi/Uraian Temuan</th>
                     <th class="border border-0" colspan="2">Kategori Temuan</th>
                     <th class="align-middle" rowspan="2">Nomor Butir Mutu</th>
-                    <th class="border border-0" colspan="2">eSign</th>
+                    <th class="border border-0" colspan="3">eSign</th>
                     <th class="align-middle" rowspan="2">Dokumentasi</th>
-                    <th class="align-middle" rowspan="2">Aksi</th>
                 </tr>
                 <tr class="text-center">
                     <th>OB</th>
                     <th>KTS</th>
                     <th>Auditee</th>
+                    <th></th>
                     <th>Auditor</th>
                 </tr>
             </thead>
@@ -71,7 +71,7 @@
                     <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
                     <td  class="text-center">
                         @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
-                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                            {{ $qrCodeAuditee }}
                         @else
                             <a
                                 href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
@@ -80,9 +80,10 @@
                             ></a>
                         @endif
                     </td>
+                    <td></td>
                     <td  class="text-center">
                         @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
-                            <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE')}}" alt="barcode" />
+                        {{ $qrCodeAuditor }}
                         @else
                             <a
                                 href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
@@ -92,13 +93,8 @@
                         @endif
                     </td>
                     <td  class="text-center">
-                        <a href="/DaftarTilik-adddaftartilik"
-                            ><i class="bi bi-folder-fill h3"></i
-                        ></a>
-                    </td>
-                    <td class="text-center align-middle">
-                        <a href="#" class="mx-2"
-                            ><i class="bi bi-pencil-square h5"></i
+                        <a href="/auditee-editfotokegiatan/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
+                            ><i class="bi bi-folder-fill text-warning h3"></i
                         ></a>
                     </td>
                 </tr>
@@ -117,17 +113,17 @@
     {{-- Datatable plugin JS library file --}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script>
-        // $(document).ready(function () {
-        //     $("#myInput").on("keyup", function () {
-        //         var value = $(this).val().toLowerCase();
-        //         $(".listTemuanBA").filter(function () {
-        //             // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        //             $(this).toggle(
-        //                 $(this).text().toLowerCase().indexOf(value) > -1
-        //             );
-        //         });
-        //     });
-        // });
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $(".listTemuanBA").filter(function () {
+                    // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    $(this).toggle(
+                        $(this).text().toLowerCase().indexOf(value) > -1
+                    );
+                });
+            });
+        });
 
         $(document).ready(function() {
             $('#tableTemuanBA').DataTable({ });

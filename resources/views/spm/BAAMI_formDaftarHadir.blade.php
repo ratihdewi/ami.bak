@@ -61,6 +61,9 @@
 @endsection
 
 @push('script')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
     var i = 1;
     var max_fields = 50;
@@ -70,28 +73,77 @@
 
     $('#inputPosisi1').change(function(){
       var posisi = $(this).val();
+      var auditee_id = "{{ $beritaacara_->auditee_id }}"
       var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
       var urlAuditee = '{{ route("BA-daftarhadir-searchAuditee") }}';
       
       if(posisi == "Auditor"){
         $.ajax({
-          url: urlAuditor,
-          type: 'get',
-          dataType: 'json',
-          success: function(response){
-              $("#inputAbsenNama1").empty();
-              if(response != null){
-                  response.forEach(respon => {
-                      $('#inputAbsenNama1').append($('<option>', { 
-                          value: respon.nama,
-                          text : respon.nama, 
-                      }));
-                      
-                  });
-                  
-              }
-          }
+            url: urlAuditor,
+            type: 'GET',
+            dataType: 'json',
+            data: { q: '' },
+            success: function(data) {
+                $('#inputAbsenNama1').empty();
+                $('#inputAbsenNama1').append('<option value="" selected disabled>Pilih Auditor</option>');
+                if (Array.isArray(data)) {
+                  console.log(data);
+                    var mappedData = data.map(function(item) {
+                      if (item.id == auditee_id) {
+                        return {
+                            id: item.ketua_auditor,
+                            text: item.ketua_auditor,
+                        };
+                      }
+                    });
+
+                    data.forEach(function(item) {
+                      if (item.id == auditee_id) {
+                        mappedData.push({
+                            id: item.anggota_auditor,
+                            text: item.anggota_auditor,
+                        });
+                      }
+                    });
+
+                    data.forEach(function(item) {
+                      if (item.id == auditee_id) {
+                        mappedData.push({
+                            id: item.anggota_auditor2,
+                            text: item.anggota_auditor2,
+                        });
+                      }
+                    });
+
+                    $('#inputAbsenNama1').select2({
+                        data: mappedData,
+                    });
+                } else {
+                    console.error('Data yang diterima dari server bukan array yang valid.');
+                }
+            },
+            error: function() {
+            console.error('Terjadi kesalahan saat memuat data users.');
+            }
         });
+        // $.ajax({
+        //   url: urlAuditor,
+        //   type: 'get',
+        //   dataType: 'json',
+        //   success: function(response){
+        //       $("#inputAbsenNama1").empty();
+        //       if(response != null){
+        //           response.forEach(respon => {
+        //               $('#inputAbsenNama1').append($('<option>', { 
+        //                   value: respon.nama,
+        //                   text : respon.nama, 
+        //               }));
+                      
+        //           });
+                  
+        //       }
+        //   }
+        // });
       } 
       else {
         $.ajax({
@@ -130,27 +182,58 @@
       console.log("berhasil", i);
       $('#inputPosisi'+i).change(function(){
             var posisi = $(this).val();
+            var auditee_id = "{{ $beritaacara_->auditee_id }}"
             var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
             var urlAuditee = '{{ route("BA-daftarhadir-searchAuditee") }}';
             
             if(posisi == "Auditor"){
               $.ajax({
-                url: urlAuditor,
-                type: 'get',
-                dataType: 'json',
-                success: function(response){
-                    $("#inputAbsenNama"+i).empty();
-                    if(response != null){
-                        response.forEach(respon => {
-                            $('#inputAbsenNama'+i).append($('<option>', { 
-                                value: respon.nama,
-                                text : respon.nama, 
-                            }));
-                            
-                        });
-                        
-                    }
-                }
+                  url: urlAuditor,
+                  type: 'GET',
+                  dataType: 'json',
+                  data: { q: '' },
+                  success: function(data) {
+                      $('#inputAbsenNama'+i).empty();
+                      $('#inputAbsenNama'+i).append('<option value="" selected disabled>Pilih Auditor</option>');
+                      if (Array.isArray(data)) {
+                        console.log(data);
+                          var mappedData = data.map(function(item) {
+                            if (item.id == auditee_id) {
+                              return {
+                                  id: item.ketua_auditor,
+                                  text: item.ketua_auditor,
+                              };
+                            }
+                          });
+
+                          data.forEach(function(item) {
+                            if (item.id == auditee_id) {
+                              mappedData.push({
+                                  id: item.anggota_auditor,
+                                  text: item.anggota_auditor,
+                              });
+                            }
+                          });
+
+                          data.forEach(function(item) {
+                            if (item.id == auditee_id) {
+                              mappedData.push({
+                                  id: item.anggota_auditor2,
+                                  text: item.anggota_auditor2,
+                              });
+                            }
+                          });
+
+                          $('#inputAbsenNama'+i).select2({
+                              data: mappedData,
+                          });
+                      } else {
+                          console.error('Data yang diterima dari server bukan array yang valid.');
+                      }
+                  },
+                  error: function() {
+                  console.error('Terjadi kesalahan saat memuat data users.');
+                  }
               });
             } 
             else {
@@ -163,8 +246,8 @@
                     if(response != null){
                         response.forEach(respon => {
                             $('#inputAbsenNama'+i).append($('<option>', { 
-                                value: respon.ketua_auditee,
-                                text : respon.ketua_auditee, 
+                                value: respon.name,
+                                text : respon.name, 
                             }));
                             
                         });

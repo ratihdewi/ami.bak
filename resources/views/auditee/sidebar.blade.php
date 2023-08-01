@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/auditee-beritaacara"
-                class="nav_link {{ Request::routeIs('auditee-beritaacara') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('auditee-auditeeBA') ? 'active' : '' || Request::routeIs('auditee-BA-AMI') ? 'active' : '' || Request::routeIs('auditee-BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('auditee-BAAMI-pratinjauBA') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditee-beritaacara') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditee-auditeeBA') ? 'active' : '' || Request::routeIs('auditee-BA-AMI') ? 'active' : '' || Request::routeIs('auditee-BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('auditee-BAAMI-pratinjauBA') ? 'active' : '' || Request::routeIs('auditee-BA-daftarhadir') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

@@ -8,19 +8,36 @@
                     @csrf
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="tahunperiode" class="form-label"
-                                >Tahun Periode</label
-                            >
-                            <input
-                                type="number"
-                                name="tahunperiode"
-                                class="form-control"
-                                id="tahunperiode"
-                                placeholder="Tahun Periode"
-                                aria-label="Tahun Periode"
-                                min="2016" max="3000"
-                                required
-                            />
+                            <div class="row">
+                                <label for="tahunperiode" class="form-label"
+                                        >Tahun Periode</label
+                                    >
+                                <div class="col-sm-5">
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        placeholder="Tahun Awal"
+                                        aria-label="Tahun Awal"
+                                        min="2016" max="3000"
+                                        required
+                                    />
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <h3 class="">/</h3>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input
+                                        type="number"
+                                        name="tahunperiode"
+                                        class="form-control"
+                                        id="tahunperiode"
+                                        placeholder="Tahun Akhir"
+                                        aria-label="Tahun Akhir"
+                                        min="2016" max="3000"
+                                        required
+                                    />
+                                </div>
+                            </div>
                         </div> 
                         <div class="col">
                             <label for="nipAuditee" class="form-label">NIP</label> <br>
@@ -218,7 +235,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#ketuaAuditor').empty();
-                    $('#ketuaAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                    $('#ketuaAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             return {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use QrCode;
 use App\Models\Auditee;
 use App\Models\Auditor;
 use App\Models\Pertanyaan;
@@ -40,31 +41,49 @@ class BeritaAcaraController extends Controller
     public function tampiltemuanBA($auditee_id, $tahunperiode)
     {
         $auditee_ = Auditee::all();
-        $role_ = Auth::user()->role;
-        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $auditee = Auditee::find($auditee_id);
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee->id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
 
-        return view('spm/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee); 
+
+        return view('spm/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     public function auditor_tampiltemuanBA($auditee_id, $tahunperiode)
     {
         $auditee_ = Auditee::all();
-        $role_ = Auth::user()->role;
+        $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
-        return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee); 
+
+        return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     public function auditee_tampiltemuanBA($auditee_id, $tahunperiode)
     {
         $auditee_ = Auditee::all();
-        $role_ = Auth::user()->role;
+        $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
-        return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_'));
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee); 
+
+        return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     // DOkumen BA AMI
@@ -90,5 +109,10 @@ class BeritaAcaraController extends Controller
         $daftartilik_ = DaftarTilik::all();
 
         return view('auditee/beritaAcara', compact('auditee_', 'daftartilik_'));
+    }
+
+    public function generateqrcode()
+    {
+        return view('spm/BA_qrcode');
     }
 }

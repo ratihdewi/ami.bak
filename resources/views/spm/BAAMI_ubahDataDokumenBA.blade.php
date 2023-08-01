@@ -5,7 +5,7 @@
 
     <div class="container my-5">
         @foreach ($beritaacara_ as $ba)
-        <form action="/BA-AMI-insertdatadokumen/{{ $ba->auditee_id }}" method="post">
+        <form action="/BA-AMI-updatedataBAAMI/{{ $ba->auditee_id }}" method="post">
         @endforeach
             @csrf
         {{-- Data DOkumen AMI --}}

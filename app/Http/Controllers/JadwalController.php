@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Jadwal;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\JadwalAMI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,20 +20,32 @@ class JadwalController extends Controller
      */
     public function index()
     {
+        $currentYear = Carbon::now()->format('Y');
+
         $auditee_ = Auditee::all();
-        return view('spm/jadwalAudit', compact('auditee_'));
+        $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+
+        return view('spm/jadwalAudit', compact('auditee_', 'jadwalami'));
     }
 
     public function auditor_index()
     {
+        $currentYear = Carbon::now()->format('Y');
+
         $auditee_ = Auditee::all();
-        return view('auditor/jadwalAudit', compact('auditee_'));
+        $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+
+        return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami'));
     }
 
     public function auditee_index()
     {
-        $auditee_ = Auditee::all();
-        return view('auditee/jadwalAudit', compact('auditee_'));
+        $currentYear = Carbon::now()->format('Y');
+
+        $auditee_ = Auditee::where('unit_kerja', Auth::user()->unit_kerja)->get();
+        $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+
+        return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami'));
     }
 
     public function filter(Request $request)
