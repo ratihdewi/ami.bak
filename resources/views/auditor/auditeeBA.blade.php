@@ -12,7 +12,7 @@
             />
         </div>
         @foreach ($pertanyaan_ as $beritaacara)
-        <a href="/auditor-BA-AMI/{{ $beritaacara->auditee_id }}">
+        <a href="/auditor-BA-AMI/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}">
         @endforeach
             <button
                 type="button"

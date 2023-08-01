@@ -45,7 +45,7 @@
             </li>
             <li>
               @foreach ($auditee_ as $ba)
-              <a href="/BA-ubahdataDokumenBAAMI/{{ $ba->id }}">
+              <a href="/BA-ubahdataDokumenBAAMI/{{ $ba->id }}/{{$auditee->tahunperiode}}">
               @endforeach
                 <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
               </a>

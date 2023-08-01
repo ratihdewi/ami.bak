@@ -17,8 +17,8 @@
                 <tr>
                     <td class="text-white text-start">Perihal</td>
                     <td class="text-white text-end">
-                        Berita Acara - {{ $user->unit_kerja }}
-                        {{-- Berita Acara - {{ $user->unit_kerja }} ({{ $user->auditor->tahunperiode }}) --}}
+                        {{-- Berita Acara - {{ $user->unit_kerja }} --}}
+                        Berita Acara - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode }})
                     </td>
                 </tr>
                 <tr>

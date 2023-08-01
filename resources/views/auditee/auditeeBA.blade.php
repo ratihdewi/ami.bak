@@ -12,7 +12,7 @@
             />
         </div>
         @foreach ($daftartilik_->unique('auditee_id') as $daftartilik)
-        <a href="/auditee-BA-AMI/{{ $daftartilik->auditee_id }}">
+        <a href="/auditee-BA-AMI/{{ $daftartilik->auditee_id }}/{{ $daftartilik->auditee->tahunperiode }}">
         @endforeach
             <button
                 type="button"

@@ -2,7 +2,17 @@
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
-
+    <div class="topSection d-flex justify-content-around mx-2 mt-4">
+      @if ($message = Session::get('success'))
+      <div class="alert alert-success" role="alert">
+          {{ $message }}
+      </div>
+      @elseif ($message = Session::get('error'))
+      <div class="alert alert-danger" role="alert">
+          {{ $message }}
+      </div>
+      @endif
+    </div>
     <div class="container my-5">
         <form action="/BA-savedaftarhadir/{{ $beritaacara_->auditee_id }}" method="post">
             @csrf
@@ -35,15 +45,8 @@
                     <label for="inputPosisi1" class="form-label fw-semibold">Auditor/Auditee:</label>
                     <select id="inputPosisi1" class="form-select mb-4" value="{{ $daftarhadir->posisi }}">
                         <option selected disabled>{{ $daftarhadir->posisi }}</option>
-                        <option value="Auditor" 
-                        @if ($auditee->exists() && Auth::user()->role != "SPM")
-                            {{ "disabled" }}
-                        @endif>Auditor</option>
-                        <option value="Auditee"
-                        @if ($auditor->exists() && Auth::user()->role != "SPM")
-                            {{ "disabled" }}
-                        @endif
-                        >Auditee</option>
+                        <option value="Auditor">Auditor</option>
+                        <option value="Auditee">Auditee</option>
                     </select>
                     @endforeach
                   </div>

@@ -9,7 +9,7 @@
           @endif
       </div>
 
-      <form action="/BA-addpeluangpeningkatan/{{ $beritaacara_->auditee_id }}" method="post">
+      <form action="/auditor-BA-addpeluangpeningkatan/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" method="post">
         @csrf
         {{-- Peluang Peningkatan --}}
         <div class="row sectionName mx-0 m-5">
@@ -24,18 +24,18 @@
                 <div class="col-12 mb-4">
                     
                     <label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang</label>
-                    <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]">
+                    <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]" required>
                     
                 </div>
                 <div class="col-12 form-floating mb-4">
                     
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]"></textarea>
+                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]" required></textarea>
                     <label for="inputKelebihan" class="ms-3">Kelebihan</label>
                    
                 </div>
                 <div class="col-12 form-floating mb-4">
                     
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]"></textarea>
+                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]" required></textarea>
                     <label for="inputPeluang" class="ms-3">Peluang untuk Peningkatan</label>
                    
                 </div>

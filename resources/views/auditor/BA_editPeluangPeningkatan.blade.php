@@ -9,7 +9,7 @@
           @endif
       </div>
 
-      <form action="/BA-updatepeluangpeningkatan/{{ $peningkatan_->id}}" method="POST">
+      <form action="/auditor-BA-updatepeluangpeningkatan/{{ $peningkatan_->id}}" method="POST">
         @csrf
         {{-- Peluang Peningkatan --}}
         <div class="row sectionName mx-0 m-5">

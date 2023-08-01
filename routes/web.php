@@ -54,50 +54,13 @@ Route::get('/auditee-esignhadir/{user_id}', function($user_id){
     return view('auditor/daftarhadir_qrcode', compact('peserta', 'user', 'esigned'));
 });
 
-Route::get('/auditor-esignhadir/{daftarhadir_id}/{namapeserta}', function($daftarhadir_id, $namapeserta){
-    // $beritaacaras = BeritaAcara::find($beritaacara_id);
+Route::get('/auditor-esignhadir/{auditee_id}/{daftarhadir_id}/{namapeserta}', function($auditee_id, $daftarhadir_id, $namapeserta){
+    $auditees = Auditee::find($auditee_id);
     $peserta = DaftarHadir::where('id', $daftarhadir_id)->where('namapeserta', $namapeserta)->first();
     $user = User::where('name', $peserta->namapeserta)->first();
     // dd($peserta);
 
-    return view('auditee/daftarhadir_qrcode', compact('peserta', 'user'));
-});
-
-// Route::get('/auditor-esignhadir/{beritaacara_id}', function($beritaacara_id){
-//     $beritaacaras = BeritaAcara::find($beritaacara_id);
-//     $auditee = Auditee::where('id', $beritaacaras->auditee_id)->first();
-    
-//     // Dapatkan semua peserta berdasarkan beritaacara_id
-//     $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacara_id)->get();
-
-//     // Siapkan array untuk menyimpan data peserta dan QR code
-//     $pesertaData = [];
-
-//     foreach ($daftarhadirs as $peserta) {
-//         $user = User::where('name', $peserta->namapeserta)->first();
-
-//         // Generate URL untuk QR code
-//         $url = url('/auditor-esignhadir/'.$beritaacaras->id);
-
-//         // Generate QR code
-//         $qrCode = QrCode::generate($url);
-
-//         // Simpan data peserta dan QR code ke dalam array
-//         $pesertaData[] = [
-//             'peserta' => $peserta,
-//             'user' => $user,
-//             'qrCode' => $qrCode,
-//         ];
-//     }
-
-//     return view('auditee/daftarhadir_qrcode', compact('beritaacaras', 'pesertaData', 'auditee'));
-// });
-
-Route::get('/auditee-esign/{auditee_id}', function($auditee_id){
-    $auditee = Auditee::find($auditee_id);
-    $user = User::where('id', $auditee->user_id)->first();
-
-    return view('auditor/BA_qrcode', compact('auditee', 'user'));
+    return view('auditee/daftarhadir_qrcode', compact('peserta', 'user', 'auditees'));
 });
 
 Route::get('/auditor-esign/{auditee_id}', function($auditee_id){
@@ -161,7 +124,7 @@ Route::post('/insertareaDT', [DaftarTilikController::class, 'insertdataArea'])->
 Route::get('/beritaacara', [BeritaAcaraController::class, 'index'])->name('beritaacara');
 Route::get('/auditeeBA/{auditee_id}/{tahunperiode}', [BeritaAcaraController::class, 'tampiltemuanBA'])->name('auditeeBA');
 Route::get('/BA-AMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'tampilBA_AMI'])->name('BA-AMI');
-Route::get('/BA-ubahdataDokumenBAAMI/{auditee_id}', [DokBAAMIController::class, 'ubahdataDokumenBA'])->name('BA-ubahdataDokumenBAAMI');
+Route::get('/BA-ubahdataDokumenBAAMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'ubahdataDokumenBA'])->name('BA-ubahdataDokumenBAAMI');
 Route::get('/BA-ubahdataberitaacaraAMI/{auditee_id}', [DokBAAMIController::class, 'ubahdataBAAMI'])->name('BA-ubahdataberitaacaraAMI');
 Route::post('/BA-AMI-insertdatadokumen/{auditee_id}', [DokBAAMIController::class, 'insertdataDokumenBA'])->name('BA-AMI-insertdatasokumen');
 Route::post('/BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('BA-AMI-updatedataBAAMI');
@@ -176,8 +139,8 @@ Route::get('/BA-deletedaftarhadir/{id}', [DaftarHadirController::class, 'deleted
 Route::get('/BA-esignpeserta/{id}', [DaftarHadirController::class, 'esignpeserta'])->name('BA-esignpeserta');
 Route::get('/BA-daftarhadir-searchAuditor', [DaftarHadirController::class, 'getAuditor'])->name('BA-daftarhadir-searchAuditor');
 Route::get('/BA-daftarhadir-searchAuditee', [DaftarHadirController::class, 'getAuditee'])->name('BA-daftarhadir-searchAuditee');
-Route::get('/BA-peluangpeningkatan/{auditee_id}', [PeluangPeningkatanController::class, 'ubahpeluangpeningkatan'])->name('BA-peluangpeningkatan');
-Route::post('/BA-addpeluangpeningkatan/{auditee_id}', [PeluangPeningkatanController::class, 'storePeluangPeningkatan'])->name('BA-addpeluangpeningkatan');
+Route::get('/BA-peluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'ubahpeluangpeningkatan'])->name('BA-peluangpeningkatan');
+Route::post('/BA-addpeluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'storePeluangPeningkatan'])->name('BA-addpeluangpeningkatan');
 Route::post('/BA-updatepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'updatepeluangpeningkatan'])->name('BA-updatepeluangpeningkatan');
 Route::get('/BA-editpeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'editpeluangpeningkatan'])->name('BA-editpeluangpeningkatan');
 Route::get('/BA-deletepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'deletepeluangpeningkatan'])->name('BA-deletepeluangpeningkatan');
@@ -219,7 +182,7 @@ Route::get('/auditor-dokresmi', [AuditorController::class, 'testPDF'])->name('au
 Route::get('/auditor-daftartilik-periode', [DaftarTilikController::class, 'indexpertahunauditor'])->name('auditor-daftartilik-periode');
 Route::get('/auditor-daftartilik-tampilpertanyaandaftartilik/{id}', [PertanyaanController::class, 'auditor_tampildata'])->name('auditor-daftartilik-tampilpertanyaandaftartilik');
 Route::get('/auditor-auditeeBA/{auditee_id}/{tahunperiode}', [BeritaAcaraController::class, 'auditor_tampiltemuanBA'])->name('auditor-auditeeBA');
-Route::get('/auditor-BA-AMI/{auditee_id}', [DokBAAMIController::class, 'auditor_tampilBA_AMI'])->name('auditor-BA-AMI');
+Route::get('/auditor-BA-AMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditor_tampilBA_AMI'])->name('auditor-BA-AMI');
 Route::get('/auditor-BAAMI-pratinjauBA/{auditee_id}', [DokBAAMIController::class, 'auditor_pratinjauba'])->name('auditor-BAAMI-pratinjauBA');
 Route::get('/auditor-BA-dokumenpendukung/{auditee_id}', [DokLampiranController::class, 'auditor_adddokumenpendukung'])->name('auditor-BA-dokumenpendukung');
 Route::get('/auditor-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'auditor_pratinjaudt'])->name('auditor-daftartilik-pratinjaudaftartilik');
@@ -227,8 +190,12 @@ Route::get('/auditor-jadwalaudit', [JadwalController::class, 'auditor_index'])->
 Route::get('/auditor-editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'auditor_index'])->name('auditor-dokumensahih');
 Route::get('/auditor-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditor_index'])->name('auditor-fotokegiatan');
 Route::get('/auditor-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditor_editdaftarhadir'])->name('auditor-BA-daftarhadir');
-Route::get('/auditor-BA-peluangpeningkatan/{auditee_id}', [PeluangPeningkatanController::class, 'auditor_ubahpeluangpeningkatan'])->name('auditor-BA-peluangpeningkatan');
+Route::get('/auditor-BA-peluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'auditor_ubahpeluangpeningkatan'])->name('auditor-BA-peluangpeningkatan');
 Route::get('/auditor-BA-editpeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'auditor_editpeluangpeningkatan'])->name('auditor-BA-editpeluangpeningkatan');
+Route::post('/auditor-BA-addpeluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'auditor_storePeluangPeningkatan'])->name('auditor-BA-addpeluangpeningkatan');
+Route::post('/auditor-BA-updatepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'auditor_updatepeluangpeningkatan'])->name('auditor-BA-updatepeluangpeningkatan');
+Route::get('/auditor-BA-ubahdataDokumenBAAMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditor_ubahdataDokumenBA'])->name('auditor-BA-ubahdataDokumenBAAMI');
+Route::post('/auditor-BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('auditor-BA-AMI-updatedataBAAMI');
 
 //Role Auditee
 Route::get('/auditee-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditee'])->name('auditee-daftarauditee');
@@ -241,7 +208,7 @@ Route::get('/auditee-daftarTilik-areadaftartilik/{auditee_id}/{area}', [Pertanya
 Route::get('/auditee-beritaacara', [BeritaAcaraController::class, 'indexAuditee'])->name('auditee-beritaacara');
 Route::get('/auditee-daftartilik-tampilpertanyaandaftartilik/{id}', [PertanyaanController::class, 'auditee_tampildata'])->name('auditee-daftartilik-tampilpertanyaandaftartilik');
 Route::get('/auditee-auditeeBA/{auditee_id}/{tahunperiode}', [BeritaAcaraController::class, 'auditee_tampiltemuanBA'])->name('auditee-auditeeBA');
-Route::get('/auditee-BA-AMI/{auditee_id}', [DokBAAMIController::class, 'auditee_tampilBA_AMI'])->name('auditee-BA-AMI');
+Route::get('/auditee-BA-AMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditee_tampilBA_AMI'])->name('auditee-BA-AMI');
 Route::get('/auditee-BAAMI-pratinjauBA/{auditee_id}', [DokBAAMIController::class, 'auditee_pratinjauba'])->name('auditee-BAAMI-pratinjauBA');
 Route::get('/auditee-BA-dokumenpendukung/{auditee_id}', [DokLampiranController::class, 'auditee_adddokumenpendukung'])->name('auditee-BA-dokumenpendukung');
 Route::get('/auditee-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'auditee_pratinjaudt'])->name('auditee-daftartilik-pratinjaudaftartilik');

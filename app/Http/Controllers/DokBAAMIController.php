@@ -28,13 +28,13 @@ class DokBAAMIController extends Controller
         $eSign = [];
 
         foreach ($daftarhadirs as $key => $daftarhadir) {
-            $url = url('/auditor-esignhadir/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+            $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
             $esignKehadiran = QrCode::generate($url);
 
             array_push($eSign, QrCode::generate($url));
         } 
-         
+        
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -49,52 +49,85 @@ class DokBAAMIController extends Controller
         return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign'));
     }
 
-    public function auditor_tampilBA_AMI($auditee_id)
+    public function auditor_tampilBA_AMI($auditee_id, $tahunperiode)
     {
-        $auditee_ = Auditee::where('id', $auditee_id)->get();
-        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
-        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
-        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
-        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
-        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
-        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
-        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
-
-        return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-    }
-
-    public function auditee_tampilBA_AMI($auditee_id)
-    {
-        $auditee_ = Auditee::where('id', $auditee_id)->get();
-        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
-        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
-        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
-        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
-        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
-        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
-        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
-
-        return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
-    }
-
-    public function ubahdataDokumenBA($auditee_id)
-    {
-        $ba_ = BeritaAcara::all()->unique('auditee_id');
-        $dokBA_ = DokBA_AMI::where('auditee_id', $auditee_id)->get();
-        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->get();
+        $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
         
-        return view('spm/BAAMI_ubahDataDokumenBA', compact('ba_','dokBA_', 'beritaacara_'));
+        $eSign = [];
+
+        foreach ($daftarhadirs as $key => $daftarhadir) {
+            $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+            $esignKehadiran = QrCode::generate($url);
+
+            array_push($eSign, QrCode::generate($url));
+        } 
+
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
+        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
+        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+
+        return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign'));
+    }
+
+    public function auditee_tampilBA_AMI($auditee_id, $tahunperiode)
+    {
+        $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+        
+        $eSign = [];
+
+        foreach ($daftarhadirs as $key => $daftarhadir) {
+            $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+            $esignKehadiran = QrCode::generate($url);
+
+            array_push($eSign, QrCode::generate($url));
+        } 
+
+        $auditee_ = Auditee::where('id', $auditee_id)->get();
+        $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+        $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
+        $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
+        $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
+        $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+
+        return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign'));
+    }
+
+    public function ubahdataDokumenBA($auditee_id, $tahunperiode)
+    {
+        $ba_ = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $dokBA_ = DokBA_AMI::where('beritaacara_id', $ba_->id)->where('auditee_id', $auditee_id)->first();
+        
+        return view('spm/BAAMI_ubahDataDokumenBA', compact('ba_','dokBA_'));
+    }
+
+    public function auditor_ubahdataDokumenBA($auditee_id, $tahunperiode)
+    {
+        $ba_ = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $dokBA_ = DokBA_AMI::where('beritaacara_id', $ba_->id)->where('auditee_id', $auditee_id)->first();
+        
+        return view('auditor/BAAMI_ubahDataDokumenBA', compact('ba_','dokBA_'));
     }
 
     public function insertdataDokumenBA(Request $request, $auditee_id)
     {
         $dataDokumen_ = DokBA_AMI::find($auditee_id);
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->get()->first();
-        //dd($beritaacara_->id);
+        dd($dataDokumen==null);
 
         if ($dataDokumen_ != null) {
 
@@ -134,17 +167,17 @@ class DokBAAMIController extends Controller
         return view('spm/BAAMI_ubahBAAMI', compact('ba_','dokBA_', 'beritaacara_'));
     }
 
-    public function updatedataBAAMI(Request $request, $auditee_id)
+    public function updatedataBAAMI(Request $request, $id)
     {
-        $dataDokumen_ = DokBA_AMI::find($auditee_id);
-        $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->get()->first();
-        dd($dataDokumen_->exists());
+        $dataDokumen_ = DokBA_AMI::find($id);
+        // $beritaacara_ = BeritaAcara::where('auditee_id', $dataDokumen_->auditee_id)->get()->first();
+        
 
         if ($dataDokumen_->exists()) {
 
             $dataDokumen_->update([
-                'beritaacara_id' => $beritaacara_->id,
-                'beritaacara_id' => $beritaacara_->id,
+                'beritaacara_id' => $dataDokumen_->beritaacara_id,
+                'auditee_id' => $dataDokumen_->auditee_id,
                 'judulDokumen' => $request->judulDokumen,
                 'kodeDokumen' => $request->kodeDokumen,
                 'revisiKe' => $request->revisiKe,
@@ -155,8 +188,8 @@ class DokBAAMIController extends Controller
 
         } else {
             $dataDokumen = new DokBA_AMI;
-            $dataDokumen->beritaacara_id = $beritaacara_->id;
-            $dataDokumen->auditee_id = $auditee_id;
+            $dataDokumen->beritaacara_id = $dataDokumen_->beritaacara_id;
+            $dataDokumen->auditee_id = $dataDokumen_->auditee_id;
             $dataDokumen->judulDokumen = $request->judulDokumen;
             $dataDokumen->kodeDokumen = $request->kodeDokumen;
             $dataDokumen->revisiKe = $request->revisiKe;
@@ -165,7 +198,7 @@ class DokBAAMIController extends Controller
             $dataDokumen->save();
         };
 
-        return redirect()->route('BA-AMI', ['auditee_id' => $auditee_id])->with(compact('beritaacara_'));
+        return redirect()->back()->with('success', 'Data Dokumen AMI berhasil diupdate!');
     }
 
     public function approvalAuditee($id)

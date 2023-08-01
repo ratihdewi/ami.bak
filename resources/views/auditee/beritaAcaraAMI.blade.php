@@ -176,24 +176,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php $no = 1; @endphp
-                    @foreach ($daftarhadir_ as $daftarhadir)
-                    <tr>
-                      <td scope="row" class="text-center">{{ $no++ }}</td>
-                      <td class="col-2 text-center">{{ $daftarhadir->posisi }}</td>
-                      <td class="col-3 text-center">{{ $daftarhadir->namapeserta }}</td>
-                      <td class="col-2 text-center">
-                        @if ($daftarhadir->eSign == 'Hadir')
-                          <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 2, 2)}}" alt="barcode" />
-                        @else
-                          <a href="/BA-esignpeserta/{{ $daftarhadir->id }}"><i class="bi bi-pen" type="button"></i></a>
-                        @endif
-                      </td>
-                      <td class="col-2 text-center">
-                        <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><i class="bi bi-trash"></i></a>
-                      </td>
-                    </tr>
-                    @endforeach
+                  @php $no = 1; $i = 0; @endphp
+                  @foreach ($daftarhadir_ as $daftarhadir)
+                  <tr>
+                    <td scope="row" class="text-center">{{ $no++ }}</td>
+                    <td class="col-2 text-center">{{ $daftarhadir->posisi }}</td>
+                    <td class="col-3 text-center">{{ $daftarhadir->namapeserta }}</td>
+                    <td class="col-2 text-center">
+                      @if ($daftarhadir->eSign == 'Hadir')
+                        {{ $eSign[$i] }}
+                      @endif
+                    </td>
+                    <td class="col-2 text-center">
+                      <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                  <?php $i++; ?>
+                  @endforeach
                 </tbody>
             </table>
         </div>
@@ -240,7 +239,7 @@
             </li>
             <li hidden>
               @foreach ($auditee_ as $auditee)
-              <a href="/BA-peluangpeningkatan/{{ $auditee->id }}">
+              <a href="/BA-peluangpeningkatan/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
               @endforeach
               <button class="btn btn-primary btn-sm" type="button">Ubah data</button>
               </a>

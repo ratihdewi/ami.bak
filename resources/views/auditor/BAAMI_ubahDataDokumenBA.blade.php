@@ -1,4 +1,4 @@
-@extends('layout.main') 
+@extends('auditor.main_') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
+                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan Hari/Tanggal Pelaksanaan" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku</label>

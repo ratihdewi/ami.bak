@@ -2,7 +2,17 @@
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
-
+    <div class="topSection d-flex justify-content-around mx-2 mt-4">
+      @if ($message = Session::get('success'))
+      <div class="alert alert-success" role="alert">
+          {{ $message }}
+      </div>
+      @elseif ($message = Session::get('error'))
+      <div class="alert alert-danger" role="alert">
+          {{ $message }}
+      </div>
+      @endif
+    </div>
     <div class="container my-5">
         <form action="/BA-savedaftarhadir/{{ $beritaacara_->auditee_id }}" method="post">
             @csrf
