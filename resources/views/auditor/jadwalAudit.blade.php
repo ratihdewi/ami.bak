@@ -45,41 +45,41 @@
         {{ $message }}
       </div>
     @endif
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content my-3" id="myTabContent">
       <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
-            <table class="table table-hover">
-                <thead>
-                    <tr class="">
-                        <th class="col-1 text-center">No</th>
-                        <th class="col-2 text-center">Auditee</th>
-                        <th class="col-2 text-center">Auditor</th>
-                        <th class="col-1 text-center">Tahun Ajaran</th>
-                        <th class="col-1 text-center">Tempat</th>
-                        <th class="col-2 text-center">Hari/Tanggal</th>
-                        <th class="col-1 text-center">Waktu</th>
-                        <th class="col-2 text-center">Kegiatan</th>
+            <table class="table table-hover mb-3 mt-3" id="jadwalaudit">
+              <thead>
+                  <tr>
+                      <th class="col-1 text-center">No</th>
+                      <th class="col-2 text-center">Auditee</th>
+                      <th class="col-2 text-center">Auditor</th>
+                      <th class="col-1 text-center">Tahun Ajaran</th>
+                      <th class="col-1 text-center">Tempat</th>
+                      <th class="col-2 text-center">Hari/Tanggal</th>
+                      <th class="col-1 text-center">Waktu</th>
+                      <th class="col-2 text-center">Kegiatan</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @php $no = 1; @endphp
+                  @foreach ($auditee_ as $auditee)
+                  @foreach ($auditee->jadwalaudit()->get() as $item)
+                    <tr>
+                      <th scope="row" class="text-center">{{ $no++ }}</th>
+                      <td class="text-center">
+                        {{ $auditee->unit_kerja }}
+                      </td>
+                        <td class="text-center">{{ $item->auditor->nama }}</td>
+                        <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
+                        <td class="text-center">{{ $item->tempat }}</td>
+                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
+                        <td class="text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB </td>
+                        <td class="text-center">{{ $item->kegiatan }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @php $no = 1; @endphp
-                    @foreach ($auditee_ as $auditee)
-                    @foreach ($auditee->jadwalaudit()->get() as $item)
-                      <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">
-                          {{ $auditee->unit_kerja }}
-                        </td>
-                          <td class="text-center">{{ $item->auditor->nama }}</td>
-                          <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
-                          <td class="text-center">{{ $item->tempat }}</td>
-                          <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                          <td class="text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB </td>
-                          <td class="text-center">{{ $item->kegiatan }}</td>
-                      </tr>
-                      @endforeach
-                      @endforeach
-                </tbody>
+                    @endforeach
+                    @endforeach
+              </tbody>
             </table>
         </div>
       </div>
@@ -270,6 +270,14 @@
     });
 
 });
+</script>
+
+{{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#jadwalaudit').DataTable({ });
+  });
 </script>
     
 @endpush

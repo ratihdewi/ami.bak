@@ -31,7 +31,7 @@
         </div>
         @endif
     </div>
-    <div class="temuanBA mx-4">
+    <div class="temuanBA mx-4 mb-3">
         <table class="table table-hover listAuditee display mb-4" id="tableTemuanBA" style="width: 100%">
             <thead>
                 <tr class="text-center">

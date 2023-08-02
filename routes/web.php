@@ -149,7 +149,7 @@ Route::get('/BA-daftarhadir-searchAuditee', [DaftarHadirController::class, 'getA
 Route::get('/BA-peluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'ubahpeluangpeningkatan'])->name('BA-peluangpeningkatan');
 Route::post('/BA-addpeluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'storePeluangPeningkatan'])->name('BA-addpeluangpeningkatan');
 Route::post('/BA-updatepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'updatepeluangpeningkatan'])->name('BA-updatepeluangpeningkatan');
-Route::get('/BA-editpeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'editpeluangpeningkatan'])->name('BA-editpeluangpeningkatan');
+Route::get('/BA-editpeluangpeningkatan/{id}/{tahunperiode}', [PeluangPeningkatanController::class, 'editpeluangpeningkatan'])->name('BA-editpeluangpeningkatan');
 Route::get('/BA-deletepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'deletepeluangpeningkatan'])->name('BA-deletepeluangpeningkatan');
 Route::get('/BA-dokumenpendukung/{auditee_id}', [DokLampiranController::class, 'adddokumenpendukung'])->name('BA-dokumenpendukung');
 Route::post('/BA-storedokumenpendukung/{auditee_id}', [DokLampiranController::class, 'storedokumenpendukung'])->name('BA-storedokumenpendukung');

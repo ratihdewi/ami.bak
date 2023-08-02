@@ -31,43 +31,40 @@
 
     <div class="tableAreaDaftarTilik mx-3">
         <table
-            class="table table-hover mb-3"
+            class="table table-hover my-3 mx-0"
             id="tableAreaDaftarTilik"
             style="font-size: 13px;border-bottom: none"
         >
             <thead>
-                <tr class="row header_areadaftartilik">
-                    <th class="col-1 px-0 text-center">No</th>
-                    <th class="col-2 px-0 text-center">Auditee</th>
-                    <th class="col-2 px-0 text-center">Area</th>
-                    <th class="col-2 px-3 text-center">
+                <tr class="row header_areadaftartilik d-flex justify-content-center mt-4">
+                    <th class="col px-2 text-center">No</th>
+                    <th class="col px-2 text-center">Auditee</th>
+                    <th class="col px-2 text-center">Area</th>
+                    <th class="col px-2 text-center">
                         Batas Pengisian Respon Auditee
                     </th>
-                    <th class="col-2 px-0 text-center">Auditor</th>
-                    <th class="col-1 px-0 text-center">Aksi</th>
+                    <th class="col px-2 text-center">Auditor</th>
+                    <th class="col px-2 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($data_ as $item)
-                    
                     @foreach ($item->daftartilik()->get() as $dt)
-                    <tr class="row">
-                        <td class="col-1 text-center">{{ $no++ }}</td>
-                        <td class="col-3">{{ $item->unit_kerja }}</td>
-                        <td class="col-2 px-0 text-center">{{ $dt->area }}</td>
-                        <td class="col-2 px-0 text-center">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
+                    <tr class="row header_areadaftartilik d-flex justify-content-center">
+                        <td class="col px-0 text-center">{{ $no++ }}</td>
+                        <td class="col px-1">{{ $item->unit_kerja }}</td>
+                        <td class="col px-2">{{ $dt->area }}</td>
+                        <td class="col px-3">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
                         @foreach ($dt->auditor()->get() as $dt_)
-                            <td class="col-3 text-center">{{ $dt_->nama }}</td>
+                            <td class="col px-2">{{ $dt_->nama }}</td>
                         @endforeach
-                        <td class="col-1 px-0 text-center">
+                        <td class="col px-0 text-center">
                             <a href="/daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}" class="mx-2"
-                                ><i class="bi bi-eye-fill"></i
-                            ></a>
+                                ><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a>
                             <a href="/daftartilik-tampildaftartilik/{{ $item->tahunperiode }}/{{ $dt->id }}" class="mx-2"
-                                ><i class="bi bi-pencil-square"></i
-                            ></a>
-                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                                ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
+                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}" class="mx-2"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                         </td>
                     </tr>
                     

@@ -2,14 +2,11 @@
 @section('title') AMI - Daftar Tilik @endsection
 
 @section('container')
-      {{-- Form setiap auditee --}}
+      @foreach ($data as $item)
+      <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
+      @endforeach
       @foreach ($data as $item)
       @foreach ($item->auditee()->get() as $dt)
-      {{-- @foreach ($item->auditor()->get() as $da)
-        {{ $da }}
-      @endforeach --}}
-      {{-- <form action="/insertareaDT" method="POST">
-          @csrf --}}
           <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">

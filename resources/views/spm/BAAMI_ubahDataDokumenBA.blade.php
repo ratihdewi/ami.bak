@@ -2,7 +2,11 @@
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
-    <div class="container my-5">
+    <div class="row my-3 mx-4">
+        <a href="/BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}"><button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
+    </div>
+        
+    <div class="container mt-3 mb-5">
         @if ($message = Session::get('success'))
         <div class="alert alert-success mt-3 mx-4" role="alert">
             {{ $message }}

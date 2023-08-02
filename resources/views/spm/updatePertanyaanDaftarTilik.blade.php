@@ -2,6 +2,11 @@
 @section('title') AMI - Daftar Tilik @endsection
 
 @section('container')
+      <div class="row mx-3 mt-3">
+        @foreach ($_daftartiliks as $item)
+        <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
+        @endforeach
+      </div>
       <div class="row">
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
@@ -16,7 +21,7 @@
       {{-- Form setiap auditee --}}
       @foreach ($_daftartiliks as $_daftartilik)
       @foreach ($_daftartilik->auditee()->get() as $auditee)
-          <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
+          <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">
                       <label for="auditee_id" class="visually-hidden">Auditee</label>

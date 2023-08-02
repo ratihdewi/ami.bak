@@ -45,9 +45,9 @@ class PeluangPeningkatanController extends Controller
         return redirect()->route('auditor-BA-AMI', ['auditee_id' => $auditee_id, 'tahunperiode' => $tahunperiode])->with('success', 'Data peluang peningkatan berhasil ditambah!');
     }
 
-    public function editpeluangpeningkatan($id)
+    public function editpeluangpeningkatan($id, $tahunperiode)
     {
-        $beritaacara_ = BeritaAcara::where('id', $id)->first();
+        $beritaacara_ = BeritaAcara::where('id', $id)->where('tahunperiode', $tahunperiode)->first();
         // dd($beritaacara_->id);
         $peningkatan_ = PeluangPeningkatan::find($id);
         

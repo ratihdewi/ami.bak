@@ -2,12 +2,17 @@
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
-
-    <div class="container my-5">
+    <div class="row my-3 mx-1">
+      @foreach ($auditee_ as $auditee)
+      <a href="/auditee-BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
+      @endforeach
+      <button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
+    </div>
+    <div class="container mb-3 mb-5">
         <form action="/BA-savedaftarhadir/{{ $beritaacara_->auditee_id }}" method="post">
             @csrf
             {{-- Berita Acara AMI - Daftar Hadir --}}
-            <div class="row sectionName mx-0 mb-5 mt-5">
+            <div class="row sectionName mx-0 mb-5 mt-2">
                 <div class="col border rounded-top text-center py-2 fw-semibold">Berita Acara AMI - Daftar Hadir</div>  
             </div>
             <div class="row" hidden>

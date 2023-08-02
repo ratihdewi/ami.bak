@@ -49,8 +49,8 @@
                         <td>{{ $item->fakultas }}</td>
                         <td class="text-center">{{ $item->noTelepon }}</td>
                         <td class="text-center">
-                            <a href="/tampilAuditor/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                            <a href="/deleteAuditor/{{ $item->id }}/{{ $item->tahunperiode }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                            <a href="/tampilAuditor/{{ $item->id }}"><button class="bg-primary border-0 rounded-1 me-3"><i class="bi bi-pencil-square text-white"></i></button></a>
+                            <a href="/deleteAuditor/{{ $item->id }}/{{ $item->tahunperiode }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                         </td>
                     </tr>
                 @endforeach

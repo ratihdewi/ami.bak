@@ -1,6 +1,10 @@
 @extends('auditee.main_') @section('title') AMI - BA AMI - Dokumen Pendukung @endsection
 @section('container')
   <div class="container mb-4">
+      <div class="row mt-4 mb-3">
+        <a href="/auditee-BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}">
+        <button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
+      </div>
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -13,7 +17,7 @@
       <form action="/BA-storedokumenpendukung/{{ $beritaacara_->auditee_id }}" method="POST" enctype="multipart/form-data">
         @csrf
         {{-- Dokumen Pendukung --}}
-        <div class="row sectionName mx-0 m-5">
+        <div class="row sectionName mx-0 my-2">
           <div class="col border rounded-top text-center py-2 fw-semibold">Dokumen Pendukung</div>  
         </div>
         <div class="row inputDokPendukung my-4 mx-5">

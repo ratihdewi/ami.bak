@@ -41,7 +41,7 @@
         <img src="{{ asset($file->fotoKegiatan) }}" width= '50' height='50' class="img img-responsive" />
     @endforeach --}}
     
-    <div class="tableDaftarTilik mx-3">
+    <div class="tableDaftarTilik mx-3 mb-3">
         <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px;border-bottom: none">
             <thead>
                 <tr class="row header_pertanyaandaftartilik">
@@ -69,9 +69,8 @@
                         </td>
                         <td class="col-1 px-0 text-center">
                             <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
-                                ><i class="bi bi-pencil-square"></i
-                            ></a>
-                            <a href="/daftartilik-deletedatapertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                                ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
+                            <a href="/daftartilik-deletedatapertanyaandaftartilik/{{ $d_pertanyaan->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                         </td>
                         </td>
                     </tr>

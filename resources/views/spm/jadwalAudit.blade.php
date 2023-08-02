@@ -47,14 +47,14 @@
       
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-pane fade show active w-100 my-3" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
-            <table class="table table-hover">
+            <table class="table table-hover" id="tablejadwalaudit">
                 <thead>
                     <tr class="">
                         <th class="col-1 text-center">No</th>
                         <th class="col-2 text-center">Auditee</th>
-                        <th class="col-2 text-center">Auditor</th>
+                        <th class="col-1 text-center">Auditor</th>
                         <th class="col-1 text-center">Tahun Ajaran</th>
                         <th class="col-1 text-center">Tempat</th>
                         <th class="col-2 text-center">Hari/Tanggal</th>
@@ -68,19 +68,19 @@
                     @foreach ($auditee_ as $auditee)
                     @foreach ($auditee->jadwalaudit()->get() as $item)
                       <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">
+                        <th scope="row" class="col-1 text-center">{{ $no++ }}</th>
+                        <td class="col-2">
                           {{ $auditee->unit_kerja }}
                         </td>
-                          <td class="text-center">{{ $item->auditor->nama }}</td>
-                          <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
-                          <td class="text-center">{{ $item->tempat }}</td>
-                          <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                          <td class="text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB</td>
-                          <td class="text-center">{{ $item->kegiatan }}</td>
-                          <td class="text-center">
-                            <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                          <td class="col-1">{{ $item->auditor->nama }}</td>
+                          <td class="col-1 text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
+                          <td class="col-1">{{ $item->tempat }}</td>
+                          <td class="col-2">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
+                          <td class="col-1 text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB</td>
+                          <td class="col-1">{{ $item->kegiatan }}</td>
+                          <td class="col-1 text-center">
+                            <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
+                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                           </td>
                       </tr>
                       @endforeach
@@ -124,7 +124,7 @@
         <div class="row">
             <table class="table table-hover">
                 <thead>
-                    <tr class="">
+                    <tr class="mt-3">
                         <th class="col-1 text-center">No</th>
                         <th class="col-3 text-center">Kegiatan</th>
                         <th class="col-3 text-center">Sub Kegiatan</th>
@@ -141,8 +141,8 @@
                       <td class="text-center">{{ $jdami->subkegiatan }}</td>
                       <td class="col-3 text-center">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
                       <td class="text-center">
-                        <a href="/editjadwalami-keseluruhan/{{ $jdami->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                        <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
+                        <a href="/editjadwalami-keseluruhan/{{ $jdami->id }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
+                        <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                       </td>
                     </tr>
                     @endforeach
@@ -150,7 +150,7 @@
             </table>
         </div>
       </div>
-      <div class="tab-panel fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      {{-- <div class="tab-panel fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="row">
           <table class="table table-hover mt-2">
                 <thead>
@@ -190,21 +190,10 @@
                           <a href="deleteJadwalKeseluruhan" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                    </tr>
-                    @endforeach --}}
                 </tbody>
             </table>
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
     
@@ -219,10 +208,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-{{-- <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
-<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
-<script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
-<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script> --}}
+
+<!-- Datatable plugin JS library file -->
+<script
+    type="text/javascript"
+    src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"
+></script>
+<script>
+    $(document).ready(function () {
+        $("#tablejadwalaudit").DataTable({});
+    });
+</script>
 <script>
   $(document).ready(function () {
 

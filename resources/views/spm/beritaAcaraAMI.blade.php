@@ -4,7 +4,7 @@
       <div class="d-flex my-4 justify-content-between">
         <div class="btn-left">
           @foreach ($auditee_ as $auditee)
-          <a href="/auditeeBA/{{ $auditee->id }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
+          <a href="/auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
           @endforeach
         </div>
         <div class="btn-right">
@@ -147,6 +147,7 @@
             </div>
         </div>
       </div>
+
       <div class="daftarHadir mb-4">
         <div class="dataDokBA mt-5 mx-3 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -186,7 +187,7 @@
                       @endif
                     </td>
                     <td class="col-2 text-center">
-                      <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><i class="bi bi-trash"></i></a>
+                      <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                     </td>
                   </tr>
                   <?php $i++; ?>
@@ -237,7 +238,7 @@
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
-              <a href="/BA-peluangpeningkatan/{{ $auditee->id }}">
+              <a href="/BA-peluangpeningkatan/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
               @endforeach
               <button class="btn btn-primary btn-sm" type="button"
               >Ubah data</button>
@@ -265,8 +266,8 @@
                       <td class="col-3 text-start">{{ $peningkatan->kelebihan }}</td>
                       <td class="col-2 text-start">{{ $peningkatan->peningkatan }}</td>
                       <td class="col-2 text-center">
-                        <a href="/BA-editpeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                        <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-trash" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></a>
+                        <a href="/BA-editpeluangpeningkatan/{{ $peningkatan->id }}/{{ $peningkatan->beritaacara->tahunperiode }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
+                        <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></button></a>
                       </td>
                     </tr>
                     @endforeach
@@ -307,7 +308,7 @@
                     <td scope="row" class="text-center">{{ $no++ }}</td>
                     <td class="col-2">{{ $dokpendukung->namaDokumen }}</td>
                     <td class="col-3">{{ $dokpendukung->kodeDokumen }}</td>
-                    <td class="col-2 text-center"><a href="/BA-lihatdokumenpendukung/{{ $dokpendukung->id }}" target="_blank"><i class="bi bi-eye"></i></a></td>
+                    <td class="col-2 text-center"><a href="/BA-lihatdokumenpendukung/{{ $dokpendukung->id }}" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></td>
                   </tr>
                   @endforeach
               </tbody>
@@ -342,7 +343,7 @@
                       <td class="col-3 text-start">{{ $auditee->ketua_auditor }}</td>
                       <td id="signed" class="col-2 text-center">
                         @if ($ba_ami->doesntExist())
-                          <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+                          <button class="border-0 bi bi-pen text-success" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
                           @if ((Auth::user()->name != $auditee->ketua_auditor))
                               {{ "disabled" }}
                           @endif
@@ -355,7 +356,7 @@
                               @foreach ($ba_ami->get() as $ba)
                               <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}" disabled>
                               @endforeach
-                                <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+                                <button class="border-0 bi bi-pen text-success" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
                                 @if ((Auth::user()->name != $auditee->ketua_auditor))
                                     {{ "disabled" }}
                                 @endif
@@ -374,7 +375,7 @@
                         <td class="col-3 text-start">{{ $auditee->ketua_auditee }}</td>
                         <td id="signed" class="col-2 text-center">
                           @if ($ba_ami->doesntExist())
-                            <button class="bi bi-pen border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                            <button class="bi bi-pen bg-success border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
                             @if (Auth::user()->name != $auditee->ketua_auditee)
                               {{ "disabled" }}
                             @endif style="background: none"></button>
@@ -386,7 +387,7 @@
                               @foreach ($ba_ami->get() as $ba)
                               <a href="/BAAMI-approvalKetuaAuditee/{{ $ba->id }}">
                               @endforeach
-                              <button class="bi bi-pen border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                              <button class="bi bi-pen bg-success border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
                               @if (Auth::user()->name != $auditee->ketua_auditee)
                                 {{ "disabled" }}
                               @endif style="background: none"></button>

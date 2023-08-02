@@ -83,6 +83,7 @@
                         <button type="submit" class="btn btn-success float-end">
                             Simpan
                         </button>
+                        <a href="/jadwalaudit"><button class="btn btn-secondary btn-sm" type="button">Kembali</button></a>
                     </form>
                 </div>
             </div>

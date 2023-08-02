@@ -1,6 +1,10 @@
 @extends('layout.main') @section('title') AMI - Temuan Berita Acara @endsection
 @section('container')
   <div class="container mb-4">
+      <div class="row mt-4 mb-3">
+        <a href="/BA-AMI/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}">
+        <button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
+      </div>
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -12,7 +16,7 @@
       <form action="/BA-updatepeluangpeningkatan/{{ $peningkatan_->id}}" method="POST">
         @csrf
         {{-- Peluang Peningkatan --}}
-        <div class="row sectionName mx-0 m-5">
+        <div class="row sectionName mx-0 my-2">
           <div class="col border rounded-top text-center py-2 fw-semibold">Peluang Peningkatan</div>  
         </div>
         <div class="pelpeningkatan">

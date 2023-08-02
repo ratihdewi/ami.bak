@@ -2,7 +2,13 @@
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
-    <div class="topSection d-flex justify-content-around mx-2 mt-4">
+    <div class="row my-3 mx-2">
+      @foreach ($auditee_ as $auditee)
+      <a href="/BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
+      @endforeach
+      <button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
+    </div>
+    <div class="topSection d-flex justify-content-around mx-2 mt-2">
       @if ($message = Session::get('success'))
       <div class="alert alert-success" role="alert">
           {{ $message }}
@@ -13,11 +19,11 @@
       </div>
       @endif
     </div>
-    <div class="container my-5">
+    <div class="container my-2">
         <form action="/BA-savedaftarhadir/{{ $beritaacara_->auditee_id }}" method="post">
             @csrf
             {{-- Berita Acara AMI - Daftar Hadir --}}
-            <div class="row sectionName mx-0 mb-5 mt-5">
+            <div class="row sectionName mx-0 mb-5 mt-2">
                 <div class="col border rounded-top text-center py-2 fw-semibold">Berita Acara AMI - Daftar Hadir</div>  
             </div>
             <div class="row" hidden>

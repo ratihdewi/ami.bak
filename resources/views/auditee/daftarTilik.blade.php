@@ -31,7 +31,7 @@
                         @foreach ($dt->auditor()->get() as $dt_)
                             <td class="col-3 px-0 text-center">{{ $dt_->nama }}</td>
                         @endforeach
-                        <td class="col-1 px-0 text-center"><a href="/auditee-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"><button class="border-0 rounded bg-primary"><i class="bi bi-eye-fill text-white"></i></button></a></td>
+                        <td class="col-1 px-0 text-center"><a href="/auditee-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></td>
                     </tr>
                     @endforeach
                 @endforeach

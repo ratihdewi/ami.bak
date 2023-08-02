@@ -30,9 +30,9 @@ class DaftarHadirController extends Controller
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
 
         if (count($daftarhadir_) == 0) {
-            return view('spm/BAAMI_formDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
+            return view('spm/BAAMI_formDaftarHadir', compact('auditee_', 'beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
         } else {
-            return view('spm/BAAMI_editDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
+            return view('spm/BAAMI_editDaftarHadir', compact('auditee_', 'beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
         }
     }
 
@@ -51,9 +51,9 @@ class DaftarHadirController extends Controller
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
 
         if (count($daftarhadir_) == 0) {
-            return view('auditor/BAAMI_formDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
+            return view('auditor/BAAMI_formDaftarHadir', compact('auditee_', 'beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
         } else {
-            return view('auditor/BAAMI_editDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
+            return view('auditor/BAAMI_editDaftarHadir', compact('auditee_', 'beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
         }
     }
 
@@ -72,9 +72,9 @@ class DaftarHadirController extends Controller
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
 
         if (count($daftarhadir_) == 0) {
-            return view('auditee/BAAMI_formDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
+            return view('auditee/BAAMI_formDaftarHadir', compact('auditee_', 'beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));
         } else {
-            return view('auditee/BAAMI_editDaftarHadir', compact('beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
+            return view('auditee/BAAMI_editDaftarHadir', compact('auditee_', 'beritaacara_', 'users', 'daftarhadir_', 'auditor', 'auditee', 'unit_kerja'));   
         }
     }
 

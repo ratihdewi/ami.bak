@@ -16,7 +16,7 @@
         >
     </div>
     
-    <div class="tableDaftarTilik mx-3">
+    <div class="tableDaftarTilik mx-3 mb-3">
         <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px;border-bottom: none">
             <thead>
                 <tr class="row header_pertanyaandaftartilik">
@@ -44,7 +44,7 @@
                         </td>
                         <td class="col-1 px-0 text-center">
                             <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
-                                ><i class="bi bi-pencil-square"></i
+                                ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></i
                             ></a>
                         </td>
                     </tr>

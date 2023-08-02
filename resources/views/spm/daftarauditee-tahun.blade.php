@@ -39,7 +39,7 @@
                     <tr>
                         <th scope="row" class=" col-2 text-center">{{ $no++ }}</th>
                         <th class="col-8">Periode {{ $item->tahunperiode }}</th>
-                        <th class="col-2 text-center"><a href="/daftarAuditee/{{ $item->tahunperiode }}" style="text-decoration-line: none; color: black"><i class="bi bi-eye-fill"></i></a></th>
+                        <th class="col-2 text-center"><a href="/daftarAuditee/{{ $item->tahunperiode }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></i></a></th>
                     </tr>
                 @endforeach
             </tbody>

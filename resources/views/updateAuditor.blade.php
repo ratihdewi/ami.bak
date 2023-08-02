@@ -60,6 +60,11 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary float-end" onclick="return confirm('Mengubah data Auditor akan mempengaruhi data User. Apakah Anda yakin ingin mengubah data?')">Submit</button>
+                            <a href="{{ route('auditor', ['tahunperiode' => $data->tahunperiode]) }}">
+                                <button type="button" class="btn btn-secondary me-3 float-start">
+                                    Kembali
+                                </button>
+                            </a>
                         </form>
                     </div>
                 </div>

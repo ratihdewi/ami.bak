@@ -33,7 +33,7 @@
                     <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
                     <td class="col-2 text-center">{{ $item->tahunperiode }}</td>
                     <td class="col-1 pe-3 text-center">
-                        <a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-primary"><i class="bi bi-eye-fill text-white"></i></button></a>
+                        <a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a>
                     </td>
                 </tr>
                 @endforeach
