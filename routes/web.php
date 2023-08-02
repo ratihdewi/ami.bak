@@ -57,8 +57,8 @@ Route::get('/auditee-esignhadir/{user_id}', function($user_id){
 Route::get('/auditor-esignhadir/{auditee_id}/{daftarhadir_id}/{namapeserta}', function($auditee_id, $daftarhadir_id, $namapeserta){
     $auditees = Auditee::find($auditee_id);
     $peserta = DaftarHadir::where('id', $daftarhadir_id)->where('namapeserta', $namapeserta)->first();
-    $user = User::where('name', $peserta->namapeserta)->first();
-    // dd($peserta);
+    $user = User::where('name', $namapeserta)->first();
+    // dd($user);
 
     return view('auditee/daftarhadir_qrcode', compact('peserta', 'user', 'auditees'));
 });
@@ -68,6 +68,13 @@ Route::get('/auditor-esign/{auditee_id}', function($auditee_id){
     $user = User::where('id', $auditee->user_id)->first();
 
     return view('auditee/BA_qrcode', compact('auditee', 'user'));
+});
+
+Route::get('/auditee-esign/{auditee_id}', function($auditee_id){
+    $auditee = Auditee::find($auditee_id);
+    $user = User::where('id', $auditee->user_id)->first();
+
+    return view('auditor/BA_qrcode', compact('auditee', 'user'));
 });
 
 Auth::routes();
@@ -130,8 +137,8 @@ Route::post('/BA-AMI-insertdatadokumen/{auditee_id}', [DokBAAMIController::class
 Route::post('/BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('BA-AMI-updatedataBAAMI');
 Route::get('/BAAMI-approvalKetuaAuditor/{id}', [DokBAAMIController::class, 'approvalAuditor'])->name('BAAMI-approvalKetuaAuditor');
 Route::get('/BAAMI-approvalKetuaAuditee/{id}', [DokBAAMIController::class, 'approvalAuditee'])->name('aBAAMI-approvalKetuaAuditee');
-Route::get('/BAAMI-pratinjauBA/{auditee_id}', [DokBAAMIController::class, 'pratinjauba'])->name('BAAMI-pratinjauBA');
-Route::get('/BAAMI-downloadBA/{id}', [DokBAAMIController::class, 'downloadba'])->name('BAAMI-downloadBA');
+Route::get('/BAAMI-pratinjauBA/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'pratinjauba'])->name('BAAMI-pratinjauBA');
+Route::get('/BAAMI-downloadBA/{id}/{tahunperiode}', [DokBAAMIController::class, 'downloadba'])->name('BAAMI-downloadBA');
 Route::get('/view-doksahih', [PertanyaanController::class, 'testPDF'])->name('auditor-doksahih');
 Route::get('/BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'editdaftarhadir'])->name('BA-daftarhadir');
 Route::post('/BA-savedaftarhadir/{auditee_id}', [DaftarHadirController::class, 'storedaftarhadir'])->name('BA-savedaftarhadir');
@@ -183,7 +190,7 @@ Route::get('/auditor-daftartilik-periode', [DaftarTilikController::class, 'index
 Route::get('/auditor-daftartilik-tampilpertanyaandaftartilik/{id}', [PertanyaanController::class, 'auditor_tampildata'])->name('auditor-daftartilik-tampilpertanyaandaftartilik');
 Route::get('/auditor-auditeeBA/{auditee_id}/{tahunperiode}', [BeritaAcaraController::class, 'auditor_tampiltemuanBA'])->name('auditor-auditeeBA');
 Route::get('/auditor-BA-AMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditor_tampilBA_AMI'])->name('auditor-BA-AMI');
-Route::get('/auditor-BAAMI-pratinjauBA/{auditee_id}', [DokBAAMIController::class, 'auditor_pratinjauba'])->name('auditor-BAAMI-pratinjauBA');
+Route::get('/auditor-BAAMI-pratinjauBA/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditor_pratinjauba'])->name('auditor-BAAMI-pratinjauBA');
 Route::get('/auditor-BA-dokumenpendukung/{auditee_id}', [DokLampiranController::class, 'auditor_adddokumenpendukung'])->name('auditor-BA-dokumenpendukung');
 Route::get('/auditor-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'auditor_pratinjaudt'])->name('auditor-daftartilik-pratinjaudaftartilik');
 Route::get('/auditor-jadwalaudit', [JadwalController::class, 'auditor_index'])->name('auditor-jadwalaudit');
@@ -209,7 +216,7 @@ Route::get('/auditee-beritaacara', [BeritaAcaraController::class, 'indexAuditee'
 Route::get('/auditee-daftartilik-tampilpertanyaandaftartilik/{id}', [PertanyaanController::class, 'auditee_tampildata'])->name('auditee-daftartilik-tampilpertanyaandaftartilik');
 Route::get('/auditee-auditeeBA/{auditee_id}/{tahunperiode}', [BeritaAcaraController::class, 'auditee_tampiltemuanBA'])->name('auditee-auditeeBA');
 Route::get('/auditee-BA-AMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditee_tampilBA_AMI'])->name('auditee-BA-AMI');
-Route::get('/auditee-BAAMI-pratinjauBA/{auditee_id}', [DokBAAMIController::class, 'auditee_pratinjauba'])->name('auditee-BAAMI-pratinjauBA');
+Route::get('/auditee-BAAMI-pratinjauBA/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditee_pratinjauba'])->name('auditee-BAAMI-pratinjauBA');
 Route::get('/auditee-BA-dokumenpendukung/{auditee_id}', [DokLampiranController::class, 'auditee_adddokumenpendukung'])->name('auditee-BA-dokumenpendukung');
 Route::get('/auditee-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'auditee_pratinjaudt'])->name('auditee-daftartilik-pratinjaudaftartilik');
 Route::get('/auditee-jadwalaudit', [JadwalController::class, 'auditee_index'])->name('auditee-jadwalaudit');

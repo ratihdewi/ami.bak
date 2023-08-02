@@ -18,7 +18,7 @@
                     <td class="text-white text-start">Perihal</td>
                     <td class="text-white text-end">
                         {{-- Berita Acara - {{ $user->unit_kerja }} --}}
-                        Berita Acara - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode }})
+                        Daftar Hadir Berita Acara - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode }})
                     </td>
                 </tr>
                 <tr>
@@ -27,6 +27,10 @@
                 </tr>
                 <tr>
                     <td class="text-white text-start">Ditandatangani oleh:</td>
+                    <td class="text-white text-end">{{ $peserta->namapenginput }} ({{ $peserta->posisi }})</td>
+                </tr>
+                <tr>
+                    <td class="text-white text-start">Ditandatangani pada:</td>
                     <td class="text-white text-end">{{ $peserta->updated_at }}</td>
                 </tr>
             </tbody>

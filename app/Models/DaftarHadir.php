@@ -16,9 +16,9 @@ class DaftarHadir extends Model
         'eSign',
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function beritaacara()

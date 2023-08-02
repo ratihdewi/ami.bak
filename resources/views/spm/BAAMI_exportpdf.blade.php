@@ -126,25 +126,31 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i=0; ?>
                         @foreach ($daftarhadir_ as $daftarhadir)
                         @if ($daftarhadir->posisi == 'Auditor')
                         <tr>
                             <td rowspan>Auditor</td>
                             <td>{{ $daftarhadir->namapeserta }}</td>
-                            <td>{{ $daftarhadir->eSign }}</td>
+                            <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                             
                         </tr>
                         @endif
+                        <?php $i++; ?>
                         @endforeach
-                        @foreach ($daftarhadir_ as $daftarhadir)
-                        @if ($daftarhadir->posisi == 'Auditee')
-                        <tr>
-                            <td rowspan>Auditee</td>
-                            <td>{{ $daftarhadir->namapeserta }}</td>
-                            <td>{{ $daftarhadir->eSign }}</td>
-                        </tr>
+                        <?php $j=0; ?>
+                        @if ($j <= count($eSignAuditee))
+                            @foreach ($daftarhadir_ as $daftarhadir)
+                            @if ($daftarhadir->posisi == 'Auditee')
+                            <tr>
+                                <td rowspan>Auditee</td>
+                                <td>{{ $daftarhadir->namapeserta }}</td>
+                                <td class="text-center">{{ $eSignAuditee[$j] }}</td>
+                            </tr>
+                            @endif
+                            @endforeach
                         @endif
-                        @endforeach
+                        <?php $j++; ?>
                     </tbody>
                 </table>
             </div>
@@ -197,7 +203,7 @@
                     </tbody>
                 </table>
             </div>
-            <p>3. Auditee menyetujui hasil evaluasi efektivitas tindak lanjut AMI 
+            <p class="lh-base">3. Auditee menyetujui hasil evaluasi efektivitas tindak lanjut AMI 
                 @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
                     @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
                     {{ $jadwal->th_ajaran1 }}
@@ -224,13 +230,17 @@
                     </tr>
                     <tr>
                         <td class="w-50 text-center">
-                        @foreach ($ba_ami->get() as $ba)
-                        {{ $ba->eSignAuditee }}
-                        @endforeach
+                            @foreach ($ba_ami->get() as $ba)
+                            @if ($ba->eSignAuditee == "Disetujui")
+                            {{ $qrCodeAuditee }}
+                            @endif
+                            @endforeach
                         </td>
                         <td class="w-50 text-center">
                             @foreach ($ba_ami->get() as $ba)
-                            {{ $ba->eSignAuditee }}
+                            @if ($ba->eSignAuditor == "Disetujui")
+                            {{ $qrCodeAuditor }}
+                            @endif
                             @endforeach
                         </td>
                     </tr>

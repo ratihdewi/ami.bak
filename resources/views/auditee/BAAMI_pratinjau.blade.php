@@ -112,7 +112,8 @@
             oleh:
         </p>
         <div class="tabledaftarhadir mb-5 px-3">
-            <table class="table table-bordered">
+            {{-- {{ count($eSignAuditee) }} --}}
+            <table class="table table-bordered w-75">
                 <thead>
                     <tr class="text-center">
                         <th colspan="2">Nama</th>
@@ -120,25 +121,31 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $i=0; ?>
                     @foreach ($daftarhadir_ as $daftarhadir)
                     @if ($daftarhadir->posisi == 'Auditor')
                     <tr>
                         <td rowspan>Auditor</td>
                         <td>{{ $daftarhadir->namapeserta }}</td>
-                        <td>{{ $daftarhadir->eSign }}</td>
+                        <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                         
                     </tr>
                     @endif
+                    <?php $i++; ?>
                     @endforeach
-                    @foreach ($daftarhadir_ as $daftarhadir)
-                    @if ($daftarhadir->posisi == 'Auditee')
-                    <tr>
-                        <td rowspan>Auditee</td>
-                        <td>{{ $daftarhadir->namapeserta }}</td>
-                        <td>{{ $daftarhadir->eSign }}</td>
-                    </tr>
+                    <?php $j=0; ?>
+                    @if ($j <= count($eSignAuditee))
+                        @foreach ($daftarhadir_ as $daftarhadir)
+                        @if ($daftarhadir->posisi == 'Auditee')
+                        <tr>
+                            <td rowspan>Auditee</td>
+                            <td>{{ $daftarhadir->namapeserta }}</td>
+                            <td class="text-center">{{ $eSignAuditee[$j] }}</td>
+                        </tr>
+                        @endif
+                        @endforeach
                     @endif
-                    @endforeach
+                    <?php $j++; ?>
                 </tbody>
             </table>
         </div>
@@ -204,6 +211,7 @@
             .
         </p>
     </div>
+    
     <div id="ttdpersetujuan" class="ttdpersetujuan my-3 mx-4 py-2">
         <table class="table table-borderless">
             <tbody>
@@ -215,8 +223,20 @@
                     <td class="w-50 text-center">Auditor,</td>
                 </tr>
                 <tr>
-                    <td class="w-50 text-center">eSignAuditee</td>
-                    <td class="w-50 text-center">eSignAuditor</td>
+                    <td class="w-50 text-center">
+                        @foreach ($ba_ami->get() as $ba)
+                        @if ($ba->eSignAuditee == "Disetujui")
+                        {{ $qrCodeAuditee }}
+                        @endif
+                        @endforeach
+                    </td>
+                    <td class="w-50 text-center">
+                        @foreach ($ba_ami->get() as $ba)
+                        @if ($ba->eSignAuditor == "Disetujui")
+                        {{ $qrCodeAuditor }}
+                        @endif
+                        @endforeach
+                    </td>
                 </tr>
                 <tr>
                     <td class="w-50 text-center"> 

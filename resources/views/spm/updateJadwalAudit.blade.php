@@ -93,7 +93,7 @@
                                             onblur="(this.type='text')"
                                             id="hari_tgl"
                                             name="hari_tgl"
-                                            value="{{ $data->hari_tgl->translatedFormat('d-m-y') }}"
+                                            value="{{ $data->hari_tgl->translatedFormat('Y-m-d') }}"
                                         />
                                     </div>
                                 </div>

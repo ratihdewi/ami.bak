@@ -340,7 +340,7 @@
                         @else
                             @foreach ($ba_ami->get() as $ba)
                             @if ($ba->eSignAuditor == "Disetujui")
-                              <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                            {{ $qrCodeAuditor }}
                             @else
                               @foreach ($ba_ami->get() as $ba)
                               <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}" disabled>
@@ -371,7 +371,7 @@
                           @else
                             @foreach ($ba_ami->get() as $ba)
                             @if ($ba->eSignAuditee == "Disetujui")
-                              <img src="data:image/png;base64,{{DNS2D::getBarcodePNG('https://www.google.com/', 'QRCODE', 3, 3)}}" alt="barcode" />
+                            {{ $qrCodeAuditee }}
                             @else
                               @foreach ($ba_ami->get() as $ba)
                               <a href="/BAAMI-approvalKetuaAuditee/{{ $ba->id }}">

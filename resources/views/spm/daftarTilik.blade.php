@@ -53,12 +53,12 @@
                     
                     @foreach ($item->daftartilik()->get() as $dt)
                     <tr class="row">
-                        <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-3 px-0 text-center">{{ $item->unit_kerja }}</td>
+                        <td class="col-1 text-center">{{ $no++ }}</td>
+                        <td class="col-3">{{ $item->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center">{{ $dt->area }}</td>
                         <td class="col-2 px-0 text-center">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
                         @foreach ($dt->auditor()->get() as $dt_)
-                            <td class="col-3 px-0 text-center">{{ $dt_->nama }}</td>
+                            <td class="col-3 text-center">{{ $dt_->nama }}</td>
                         @endforeach
                         <td class="col-1 px-0 text-center">
                             <a href="/daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}" class="mx-2"

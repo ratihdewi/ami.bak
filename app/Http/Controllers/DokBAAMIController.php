@@ -33,7 +33,15 @@ class DokBAAMIController extends Controller
             $esignKehadiran = QrCode::generate($url);
 
             array_push($eSign, QrCode::generate($url));
-        } 
+        }
+
+        $auditee = Auditee::find($auditee_id);
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee);
         
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
@@ -46,7 +54,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign'));
+        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     public function auditor_tampilBA_AMI($auditee_id, $tahunperiode)
@@ -64,6 +72,14 @@ class DokBAAMIController extends Controller
             array_push($eSign, QrCode::generate($url));
         } 
 
+        $auditee = Auditee::find($auditee_id);
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee);
+
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -75,7 +91,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign'));
+        return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     public function auditee_tampilBA_AMI($auditee_id, $tahunperiode)
@@ -93,6 +109,14 @@ class DokBAAMIController extends Controller
             array_push($eSign, QrCode::generate($url));
         } 
 
+        $auditee = Auditee::find($auditee_id);
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee);
+
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -104,7 +128,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign'));
+        return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     public function ubahdataDokumenBA($auditee_id, $tahunperiode)
@@ -225,8 +249,39 @@ class DokBAAMIController extends Controller
         return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditor');
     }
 
-    public function pratinjauba($auditee_id)
+    public function pratinjauba($auditee_id, $tahunperiode)
     {
+        $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+
+        $eSignAuditor = [];
+        $eSignAuditee = [];
+
+        foreach ($daftarhadirs as $key => $daftarhadir) {
+            if ($daftarhadir->posisi == "Auditor") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditor, QrCode::generate($url));
+            } elseif ($daftarhadir->posisi == "Auditee") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditee, QrCode::generate($url));
+            }
+            
+        } 
+
+        $auditee = Auditee::find($auditee_id);
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee);
+
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -238,11 +293,42 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+        return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
-    public function auditor_pratinjauba($auditee_id)
+    public function auditor_pratinjauba($auditee_id, $tahunperiode)
     {
+        $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+
+        $eSignAuditor = [];
+        $eSignAuditee = [];
+
+        foreach ($daftarhadirs as $key => $daftarhadir) {
+            if ($daftarhadir->posisi == "Auditor") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditor, QrCode::generate($url));
+            } elseif ($daftarhadir->posisi == "Auditee") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditee, QrCode::generate($url));
+            }
+            
+        } 
+
+        $auditee = Auditee::find($auditee_id);
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee);
+
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -254,11 +340,42 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('auditor/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+        return view('auditor/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
-    public function auditee_pratinjauba($auditee_id)
+    public function auditee_pratinjauba($auditee_id, $tahunperiode)
     {
+        $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+
+        $eSignAuditor = [];
+        $eSignAuditee = [];
+
+        foreach ($daftarhadirs as $key => $daftarhadir) {
+            if ($daftarhadir->posisi == "Auditor") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditor, QrCode::generate($url));
+            } elseif ($daftarhadir->posisi == "Auditee") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditee, QrCode::generate($url));
+            }
+            
+        } 
+
+        $auditee = Auditee::find($auditee_id);
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee);
+
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
@@ -270,11 +387,42 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('auditee/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__'));
+        return view('auditee/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
-    public function downloadba(Request $request, $auditee_id)
+    public function downloadba(Request $request, $auditee_id, $tahunperiode)
     {
+        $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+
+        $eSignAuditor = [];
+        $eSignAuditee = [];
+
+        foreach ($daftarhadirs as $key => $daftarhadir) {
+            if ($daftarhadir->posisi == "Auditor") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditor, QrCode::generate($url));
+            } elseif ($daftarhadir->posisi == "Auditee") {
+                $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
+
+                $esignKehadiran = QrCode::generate($url);
+
+                array_push($eSignAuditee, QrCode::generate($url));
+            }
+            
+        } 
+
+        $auditee = Auditee::find($auditee_id);
+        
+        $urlAuditee = url('/auditee-esign/'.$auditee->id);
+        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+
+        $qrCodeAuditor = QrCode::generate($urlAuditor);
+        $qrCodeAuditee = QrCode::generate($urlAuditee);
+
         // dd($id);
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
@@ -321,6 +469,10 @@ class DokBAAMIController extends Controller
             'pelpeningkatan_' => $pelpeningkatan_,
             'dokumenpendukung_' => $dokumenpendukung_,
             'dokumenpendukung__' => $dokumenpendukung__,
+            'eSignAuditor' => $eSignAuditor,
+            'eSignAuditee' => $eSignAuditee,
+            'qrCodeAuditor' => $qrCodeAuditor,
+            'qrCodeAuditee' => $qrCodeAuditee,
         ];
 
         $pdf = PDF::loadView('spm/BAAMI_exportpdf', $data);
