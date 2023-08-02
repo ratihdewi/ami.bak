@@ -9,13 +9,24 @@
         @include('inc.header')
         <div class="l-navbar" id="nav-bar">@include('inc.sidebar')</div>
         <!--Container Main start-->
-        <div
-            id="main-container"
-            class="container border rounded mb-5"
-            style="min-height: 100"
-        >
-            @yield('container')
+        <div class="container">
+            <div
+                id="main-container"
+                class="container border rounded mb-5"
+                style="min-height: 100"
+            >   
+                <div class="row mb-2 mt-3 me-2" style="font-size: 14px">
+                    <div class="col d-flex justify-content-end">
+                        <a href="" style="text-decoration: none;">
+                            <i class="bi bi-person-square me-2 h87"></i><span><b>SPM</b></span>
+                        </a>/
+                        @yield('linking')
+                    </div>
+                </div>
+                @yield('container')
+            </div>
         </div>
+        
         <!--Container Main end-->
         @stack('script')
     </body>

@@ -1,4 +1,20 @@
 @extends('layout.main') @section('title') AMI - Daftar Tilik @endsection
+
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($data_->unique('tahunperiode') as $auditee)
+    <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach    
+    @foreach ($data_->unique('tahunperiode') as $auditee)
+    {{ $auditee->tahunperiode }}
+    @endforeach  
+    </a>/
+
+@endsection
+
 @section('container')
 <div class="container pb-3">
     <div class="container-fluid float-end my-3">

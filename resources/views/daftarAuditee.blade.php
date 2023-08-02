@@ -2,17 +2,35 @@
 
 @section('title') AMI - Daftar Auditee @endsection
 
+@section('linking')
+    <a href="/daftarAuditee-periode" class="mx-1">
+        Periode Auditee
+    </a>/
+
+    @foreach ($data->unique('tahunperiode') as $auditee)
+    <a href="/daftarAuditee/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($data->unique('tahunperiode') as $auditee)
+    {{ $auditee->tahunperiode }}
+    @endforeach
+    </a>/
+
+@endsection
+
 @section('container')
     <div class="row justify-content-center" style="font-size: 15px">
         <div class="row">
+            @foreach ($data->unique('tahunperiode') as $item)
             <a
-                href="/addAuditee"
+                href="/addAuditee/{{ $item->tahunperiode }}"
                 class="text-white"
                 style="font-weight: 600; text-decoration: none"
-                ><button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
+            >
+            @endforeach
+            <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
                     Tambah
                 </button></a
-            >
+            > 
             @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">
                     {{ $message }}
@@ -41,7 +59,7 @@
                         <tr>
                             <th scope="row" class="text-center">{{ $no++ }}</th>
                             <td>{{ $item->ketua_auditee }}</td>
-                            <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
+                            <td>{{ $item->jabatan_ketua_auditee }}</td>
                             <td>{{ $item->ketua_auditor }}</td>
                             @if ($item->anggota_auditor2 != null)
                                 <td>{{ $item->anggota_auditor }}, {{ $item->anggota_auditor2 }}</td>

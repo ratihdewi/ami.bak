@@ -1,4 +1,11 @@
 @extends('layout.main') @section('title') AMI - Berita Acara @endsection
+
+@section('linking')
+    <a href="/beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+@endsection
+
 @section('container')
 <div class="container" style="font-size: 15px">
     {{-- <div class="container-fluid d-flex justify-content-between mt-4">

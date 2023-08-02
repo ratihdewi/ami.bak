@@ -6,7 +6,7 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-8">
-                <div class="card">
+                <div class="card mb-5">
                     <div class="card-body p-4">
                         <form action="/updateUser/{{ $data->id }}" method="POST">
                             @csrf
@@ -88,7 +88,13 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        
                         </form>
+                        <a href="/usercontrol">
+                            <button type="button" class="btn btn-secondary me-3 float-start">
+                                Kembali
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

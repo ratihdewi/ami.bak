@@ -3,6 +3,12 @@
 
 @section('title') AMI - Daftar Auditor @endsection
 
+@section('linking')
+    <a href="/auditee-daftarauditor-periode" class="mx-1">
+        Periode Auditor
+    </a>/
+@endsection
+
 @section('container')
 <div class="container my-4"  style="font-size: 15px">
     <div class="row">

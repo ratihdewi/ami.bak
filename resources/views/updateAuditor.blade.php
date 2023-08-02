@@ -2,6 +2,21 @@
 
 @section('title') AMI - Update Auditor @endsection
 
+@section('linking')
+<a href="/daftarAuditor-periode" class="mx-1">
+    Periode Auditor
+</a>/
+
+<a href="/daftarAuditor/{{ $data->tahunperiode }}" class="mx-1">
+{{ $data->tahunperiode }}
+</a>/
+
+<a href="/tampilAuditor/{{ $data->id }}" class="mx-1">
+    Edit Auditor
+</a>/
+
+@endsection
+
 @section('container')
     <div class="container my-5">
         <div class="row justify-content-center">

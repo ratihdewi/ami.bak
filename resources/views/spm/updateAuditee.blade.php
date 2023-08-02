@@ -1,4 +1,20 @@
 @extends('layout.main') @section('title') AMI - Tambah Auditee @endsection
+
+@section('linking')
+    <a href="/daftarAuditee-periode" class="mx-1">
+        Periode Auditee
+    </a>/
+
+    <a href="/daftarAuditee/{{ $data->tahunperiode }}" class="mx-1">
+    {{ $data->tahunperiode }}
+    </a>/
+
+    <a href="/tampilAuditee/{{ $data->id }}" class="mx-1">
+        Edit Auditee
+    </a>/
+
+@endsection
+
 @section('container')
 <div class="row justify-content-center mb-5">
     <div class="col-8">

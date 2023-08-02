@@ -2,6 +2,21 @@
 
 @section('title') AMI - Daftar Tilik - Foto Kegiatan @endsection
 
+@section('linking')
+    <a href="/beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
+    {{ $auditees->unit_kerja }}({{ $auditees->tahunperiode }})
+    </a>/
+
+    <a href="/spm-editfotokegiatan/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
+    Foto Kegiatan
+    </a>/
+    
+@endsection
+
 @section('container')
   <div class="container mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">

@@ -1,7 +1,12 @@
-
 @extends('auditee.main_') 
 
 @section('title') AMI - Daftar Auditee @endsection
+
+@section('linking')
+    <a href="/auditee-daftarauditee-periode" class="mx-1">
+        Periode Auditee
+    </a>/
+@endsection
 
 @section('container')
 <div class="container my-4"  style="font-size: 15px">

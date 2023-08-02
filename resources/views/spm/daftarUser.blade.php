@@ -39,11 +39,9 @@
                 <td>{{ $item->unit_kerja }}</td>
                 <td class="text-center">
                     <a href="tampilUser/{{ $item->id }}" class="mx-2"
-                        ><i class="bi bi-pencil-square"></i
-                    ></a>
-                    <a href="deleteUser/{{ $item->id }}" class="mx-2"
-                        ><i class="bi bi-trash"></i
-                    ></a>
+                        ><button class="bg-primary border-0 rounded-1 me-2"><i class="bi bi-pencil-square text-white"></i></button></a>
+                    <a href="deleteUser/{{ $item->id }}"
+                        ><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                 </td>
             </tr>
             @endforeach

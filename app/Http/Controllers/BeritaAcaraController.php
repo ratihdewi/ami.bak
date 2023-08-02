@@ -51,7 +51,7 @@ class BeritaAcaraController extends Controller
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee); 
 
-        return view('spm/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('spm/auditeeBA', compact('auditee', 'auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     public function auditor_tampiltemuanBA($auditee_id, $tahunperiode)

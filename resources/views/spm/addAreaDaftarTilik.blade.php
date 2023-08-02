@@ -1,4 +1,28 @@
 @extends('layout.main') @section('title') AMI - Daftar Tilik @endsection
+
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($listAuditee->unique('tahunperiode') as $auditee)
+    <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach    
+    @foreach ($listAuditee->unique('tahunperiode') as $auditee)
+    {{ $auditee->tahunperiode }}
+    @endforeach  
+    </a>/
+
+    @foreach ($listAuditee->unique('tahunperiode') as $auditee)
+    <a href="/daftarTilik-addareadaftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach    
+    @foreach ($listAuditee->unique('tahunperiode') as $auditee)
+    Tambah Area Daftar Tilik
+    @endforeach  
+    </a>/
+
+@endsection
+
 @section('container')
 {{-- Form setiap auditee --}}
 <form action="/insertareaDT" method="POST">
@@ -79,7 +103,12 @@
             />
         </div>
     </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+    <div class="d-grid gap-2 d-md-flex justify-content-between mx-4 mb-4">
+        @foreach ($listAuditee->unique('tahunperiode') as $auditee)
+        <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
+        @endforeach  
+            <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
+        </a>
         <button
             class="btn btn-success"
             type="submit"

@@ -54,7 +54,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('spm/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('spm/beritaAcaraAMI', compact('auditee', 'daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
 
     public function auditor_tampilBA_AMI($auditee_id, $tahunperiode)
@@ -293,7 +293,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee', 'auditee'));
     }
 
     public function auditor_pratinjauba($auditee_id, $tahunperiode)

@@ -2,19 +2,23 @@
 
 @section('title') AMI - Daftar Auditor @endsection
 
+@section('linking')
+    <a href="/auditee-daftarauditor-periode" class="mx-1">
+        Periode Auditor
+    </a>/
+
+    @foreach ($dataAuditor->unique('tahunperiode') as $item)
+    <a href="/auditee-daftarauditor/{{ $item->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($dataAuditor->unique('tahunperiode') as $item)
+    {{ $item->tahunperiode }}
+    @endforeach
+    </a>/
+@endsection
+
 @section('container')
 
 <div class="container mt-4 mb-3" style="font-size: 15px">
-    <div class="row mb-4">
-        @foreach ($dataAuditor->unique('tahunperiode') as $item)
-        <a
-            class="text-end fw-medium"
-            href="{{ route('auditee-daftarauditor-periode') }}"
-            style="text-decoration: none"
-            >{{ $item->tahunperiode }}</a
-        >
-        @endforeach
-    </div>
     <div class="row">
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>

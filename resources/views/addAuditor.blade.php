@@ -1,4 +1,25 @@
 @extends('layout.main') @section('title') AMI - Daftar Auditor @endsection
+
+@section('linking')
+    <a href="/daftarAuditor-periode" class="mx-1">
+        Periode Auditor
+    </a>/
+
+    @foreach ($tahunAuditor->get()->unique('tahunperiode') as $auditor)
+    <a href="/daftarAuditor/{{ $auditor->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($tahunAuditor->get()->unique('tahunperiode') as $auditor)
+    {{ $auditor->tahunperiode }}
+    @endforeach
+    </a>/
+
+    @foreach ($tahunAuditor->get()->unique('tahunperiode') as $auditor)
+    <a href="/addAuditor/{{ $auditor->tahunperiode }}" class="mx-1">
+    @endforeach
+        Tambah Auditor
+    </a>/
+@endsection
+
 @section('container')
 
 <div class="container mt-5">

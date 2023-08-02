@@ -1,4 +1,24 @@
 @extends('layout.main') @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditeeBA/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    {{ $beritaacara_->unit_kerja }}({{ $beritaacara_->tahunperiode }})
+    </a>/
+
+    <a href="/BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/BA-peluangpeningkatan/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    Peluang Peningkatan
+    </a>/
+    
+@endsection
+
 @section('container')
   <div class="container mb-4">
       <div class="row mt-4 mb-3">

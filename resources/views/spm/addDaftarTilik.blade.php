@@ -1,9 +1,38 @@
 @extends('layout.main') 
 @section('title') AMI - Daftar Tilik @endsection
 
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($data as $item)
+    <a href="/daftartilik/{{ $item->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($data as $item)
+    {{ $item->auditee->tahunperiode }}
+    </a>/
+    @endforeach
+    
+    @foreach ($data as $item)
+    <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}" class="mx-1">
+    @endforeach
+    @foreach ($data as $item)
+    {{ $item->area }}
+    </a>/
+    @endforeach
+
+    @foreach ($data as $item)
+    <a href="/daftartilik-adddaftartilik/{{ $item->auditee_id }}/{{ $item->area }}" class="mx-1">
+    @endforeach
+    Tambah Pertanyaan
+    </a>/  
+
+@endsection
+
 @section('container')
       @foreach ($data as $item)
-      <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
+      <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-primary btn-sm mx-4" type="button">Kembali</button></a>
       @endforeach
       @foreach ($data as $item)
       @foreach ($item->auditee()->get() as $dt)

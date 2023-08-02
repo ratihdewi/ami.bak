@@ -3,6 +3,19 @@
 
 @section('title') AMI - Daftar Auditor @endsection
 
+@section('linking')
+    <a href="/daftarAuditor-periode" class="mx-1">
+        Periode Auditor
+    </a>/
+    @foreach ($dataAuditor->unique('tahunperiode') as $auditor)
+    <a href="/daftarAuditor/{{ $auditor->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($dataAuditor->unique('tahunperiode') as $auditor)
+    {{ $auditor->tahunperiode }}
+    @endforeach
+    </a>/
+@endsection
+
 @section('container')
 
 

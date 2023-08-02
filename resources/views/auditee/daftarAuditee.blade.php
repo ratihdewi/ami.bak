@@ -2,6 +2,20 @@
 
 @section('title') AMI - Daftar Auditee @endsection
 
+@section('linking')
+    <a href="/auditee-daftarauditee-periode" class="mx-1">
+        Periode Auditee
+    </a>/
+
+    @foreach ($data->unique('tahunperiode') as $item)
+    <a href="/auditee-daftarauditee/{{ $item->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($data->unique('tahunperiode') as $item)
+    {{ $item->tahunperiode }}
+    @endforeach
+    </a>/
+@endsection
+
 @section('container')
     <div class="container justify-content-center mb-4 mt-5" style="font-size: 15px">
         <div class="row">

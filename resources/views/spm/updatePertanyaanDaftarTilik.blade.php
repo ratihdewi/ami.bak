@@ -1,6 +1,35 @@
 @extends('layout.main') 
 @section('title') AMI - Daftar Tilik @endsection
 
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($_daftartiliks as $item)
+    <a href="/daftartilik/{{ $item->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($_daftartiliks as $item)
+    {{ $item->auditee->tahunperiode }}
+    </a>/
+    @endforeach
+    
+    @foreach ($_daftartiliks as $item)
+    <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}" class="mx-1">
+    @endforeach
+    @foreach ($_daftartiliks as $item)
+    {{ $item->area }}
+    </a>/
+    @endforeach
+
+    @foreach ($_daftartiliks as $item)
+    <a href="/daftartilik-adddaftartilik/{{ $item->auditee_id }}/{{ $item->area }}" class="mx-1">
+    @endforeach
+    Pertanyaan
+    </a>/  
+
+@endsection
+
 @section('container')
       <div class="row mx-3 mt-3">
         @foreach ($_daftartiliks as $item)

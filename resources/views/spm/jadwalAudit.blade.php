@@ -2,6 +2,12 @@
 
 @section('title') AMI - Jadwal Audit @endsection
 
+@section('linking')
+  <a href="/jadwalaudit" class="mx-1">
+    Jadwal Audit
+  </a>/
+@endsection
+
 @section('container')
 
 <div class="container mt-4" style="font-size: 13px">
@@ -111,7 +117,7 @@
   
   {{-- Jadwal keseluruhan --}}
   <div class="jadwalKeseluruhan" style="margin-top: 100px">
-    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist" style="border: none;">
+    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jadwal Audit Mutu Internal</button>
       </li>
@@ -120,9 +126,9 @@
       </a>
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-pane fade show active w-100 my-3" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
-            <table class="table table-hover">
+            <table class="table table-hover" id="tablejadwalkeseluruhanami">
                 <thead>
                     <tr class="mt-3">
                         <th class="col-1 text-center">No</th>
@@ -137,9 +143,9 @@
                     @foreach ($jadwalami as $jdami)
                     <tr>
                       <th scope="row" class="text-center">{{ $no_++ }}</th>
-                      <td class="">{{ $jdami->kegiatan }}</td>
-                      <td class="text-center">{{ $jdami->subkegiatan }}</td>
-                      <td class="col-3 text-center">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
+                      <td>{{ $jdami->kegiatan }}</td>
+                      <td>{{ $jdami->subkegiatan }}</td>
+                      <td class="col-3">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
                       <td class="text-center">
                         <a href="/editjadwalami-keseluruhan/{{ $jdami->id }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
                         <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
@@ -150,50 +156,6 @@
             </table>
         </div>
       </div>
-      {{-- <div class="tab-panel fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="row">
-          <table class="table table-hover mt-2">
-                <thead>
-                    <tr class="">
-                        <th class="col-1 text-center">No</th>
-                        <th class="col-2 text-center">Kegiatan</th>
-                        <th class="col-2 text-center">Waktu</th>
-                        <th class="col-2 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $no = 1; @endphp
-                    <tr>
-                        <th scope="row" class="text-center" value='{{ $no++ }}' >{{ $no++ }}</th>
-                        <td class="">Persiapan</td>
-                        <td class="text-center">3 Oktober 2023</td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                          <a href="deleteJadwalKeseluruhan" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center" value='{{ $no++ }}'>{{ $no++ }}</th>
-                        <td class="">Pelatihan Auditor</td>
-                        <td class="text-center">11 Oktober 2023</td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="btn btn-warning">Edit</a>
-                          <a href="deleteJadwalKeseluruhan" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center"></th>
-                        <td class="" id="kegiatan"></td>
-                        <td class="text-center" id="waktu"></td>
-                        <td class="text-center">
-                          <a href="updateJadwalKeseluruhan" class="btn btn-warning">Edit</a>
-                          <a href="deleteJadwalKeseluruhan" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div> --}}
     </div>
   </div>
     
@@ -217,6 +179,7 @@
 <script>
     $(document).ready(function () {
         $("#tablejadwalaudit").DataTable({});
+        $("#tablejadwalkeseluruhanami").DataTable({});
     });
 </script>
 <script>

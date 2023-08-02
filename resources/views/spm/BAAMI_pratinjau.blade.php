@@ -1,6 +1,25 @@
 @extends('layout.main') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
+@section('linking')
+    <a href="/beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    {{ $auditee->unit_kerja }}({{ $auditee->tahunperiode }})
+    </a>/
+
+    <a href="/BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/BAAMI-pratinjauBA/{{ $auditee->id }}" class="mx-1">
+    Pratinjau
+    </a>/
+    
+@endsection
+
 @section('container')
 <div class="container-pratinjau mx-4 my-5">
     <div id="dokheader" class="dokheader my-3 mx-4 py-2">

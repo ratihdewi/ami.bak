@@ -3,6 +3,12 @@
 
 @section('title') AMI - Daftar Tilik @endsection
 
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+@endsection
+
 @section('container')
 <div class="container my-4"  style="font-size: 15px">
     <div class="row">

@@ -1,6 +1,33 @@
 @extends('layout.main') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
+@section('linking')
+    <a href="/beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($auditee_ as $auditee)
+    {{ $auditee->unit_kerja }}({{ $auditee->tahunperiode }})
+    @endforeach
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    BA - AMI
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/BA-daftarhadir/{{ $auditee->id }}" class="mx-1">
+    @endforeach
+    Daftar Hadir
+    </a>/
+    
+@endsection
+
 @section('container')
     <div class="row my-3 mx-2">
       @foreach ($auditee_ as $auditee)

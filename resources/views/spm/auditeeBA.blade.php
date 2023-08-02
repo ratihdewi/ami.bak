@@ -1,4 +1,18 @@
 @extends('layout.main') @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    @foreach ($pertanyaan_ as $beritaacara)
+    <a href="/auditeeBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    {{ $auditee->unit_kerja }}({{ $auditee->tahunperiode }})
+    </a>/
+    
+@endsection
+
 @section('container')
 <div class="container" style="font-size: 15px;">
     <div class="container-fluid d-flex mt-4">

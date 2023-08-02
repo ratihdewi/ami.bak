@@ -1,5 +1,35 @@
 @extends('layout.main') 
 @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($daftartilik_ as $daftartilik)
+    <a href="/daftartilik/{{ $daftartilik->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($daftartilik_ as $daftartilik)
+    {{ $daftartilik->auditee->tahunperiode }}
+    </a>/
+    @endforeach
+    
+    @foreach ($daftartilik_ as $daftartilik)
+    <a href="/daftarTilik-areadaftartilik/{{ $daftartilik->auditee_id }}/{{ $daftartilik->area }}" class="mx-1">
+    @endforeach
+    @foreach ($daftartilik_ as $daftartilik)
+    {{ $daftartilik->area }}
+    </a>/
+    @endforeach
+
+    @foreach ($daftartilik_ as $daftartilik)
+    <a href="/daftartilik-pratinjaudaftartilik/{{ $daftartilik->auditee_id }}/{{ $daftartilik->area }}" class="mx-1">
+    @endforeach
+    Pratinjau
+    </a>/  
+
+@endsection
+
 @section('container')
   <div class="container mb-4">
       <div id="headerPratinjau" class="headerpratinjau my-4 mx-2">

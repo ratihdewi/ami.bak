@@ -3,17 +3,15 @@
 
 @section('title') AMI - Daftar Auditee @endsection
 
+@section('linking')
+    <a href="/daftarAuditee-periode" class="mx-1">
+        Periode Auditee
+    </a>/
+@endsection
+
 @section('container')
 <div class="container my-4"  style="font-size: 15px">
     <div class="row">
-        <a
-            href="/addAuditee"
-            class="text-white"
-            style="font-weight: 600; text-decoration: none"
-            ><button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
-                Tambah
-            </button></a
-        > 
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}

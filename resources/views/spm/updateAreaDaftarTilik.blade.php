@@ -1,4 +1,20 @@
 @extends('layout.main') @section('title') AMI - Daftar Tilik @endsection
+
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    <a href="/daftartilik/{{ $data->auditee->tahunperiode }}" class="mx-1">
+    {{ $data->auditee->tahunperiode }}
+    </a>/
+
+    <a href="/daftartilik-tampildaftartilik/{{ $data->auditee_id }}/{{ $data->area }}" class="mx-1">
+    Edit Area
+    </a>/  
+
+@endsection
+
 @section('container')
 {{-- Form update setiap auditee --}}
 <form action="/daftartilik-updatedataareadaftartilik/{{ $data->id }}" method="POST">
@@ -86,7 +102,10 @@
             />
         </div>
     </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+    <div class="d-grid gap-2 d-md-flex justify-content-between mx-4 mb-4">
+        <a href="/daftarTilik-areadaftartilik/{{ $data->auditee_id }}/{{ $data->area }}">
+            <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
+        </a>
         <button
             class="btn btn-success"
             type="submit"

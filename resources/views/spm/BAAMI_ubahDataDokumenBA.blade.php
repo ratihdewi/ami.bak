@@ -1,6 +1,25 @@
 @extends('layout.main') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
+@section('linking')
+    <a href="/beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditeeBA/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
+    {{ $ba_->unit_kerja }}({{ $ba_->tahunperiode }})
+    </a>/
+
+    <a href="/BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/BA-ubahdataDokumenBAAMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
+    Data Dokumen AMI
+    </a>/
+    
+@endsection
+
 @section('container')
     <div class="row my-3 mx-4">
         <a href="/BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}"><button class="btn btn-primary btn-sm" type="button">Kembali</button></a>

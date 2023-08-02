@@ -1,4 +1,20 @@
 @extends('layout.main') @section('title') AMI - Daftar Tilik @endsection
+
+@section('linking')
+    <a href="/daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    <a href="/daftartilik/{{ $data->auditee->tahunperiode }}" class="mx-1">
+    {{ $data->auditee->tahunperiode }}
+    </a>/
+
+    <a href="/daftartilik/{{ $data->auditee_id }}/{{ $data->area }}" class="mx-1">
+    {{ $data->area }}
+    </a>/
+
+@endsection
+
 @section('container')
 <div class="container">
     <div class="container-fluid float-end my-4">
@@ -35,11 +51,6 @@
         </div>
         @endif
     </div>
-
-    {{-- test muncul gambar --}}
-    {{-- @foreach ($data_ as $file)
-        <img src="{{ asset($file->fotoKegiatan) }}" width= '50' height='50' class="img img-responsive" />
-    @endforeach --}}
     
     <div class="tableDaftarTilik mx-3 mb-3">
         <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px;border-bottom: none">

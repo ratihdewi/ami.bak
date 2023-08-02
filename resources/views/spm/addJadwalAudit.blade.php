@@ -1,4 +1,15 @@
 @extends('layout.main') @section('title') AMI - Jadwal Audit @endsection
+
+@section('linking')
+  <a href="/jadwalaudit" class="mx-1">
+    Jadwal Audit
+  </a>/
+
+  <a href="/jadwalaudit-tambah" class="mx-1">
+    Tambah Jadwal
+  </a>/
+@endsection
+
 @section('container')
 <div class="container mt-5">
     <div class="row justify-content-center">
