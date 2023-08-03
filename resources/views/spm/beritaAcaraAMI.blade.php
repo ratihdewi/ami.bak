@@ -6,7 +6,7 @@
     </a>/
 
     <a href="/auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
-    {{ $auditee->unit_kerja }}({{ $auditee->tahunperiode }})
+    {{ $auditee->unit_kerja }}
     </a>/
 
     <a href="/BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
@@ -114,7 +114,6 @@
         </div>
         
       </div>
-      
       <div class="BA_AMI mb-4">
         <div class="dataDokBA mt-5">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -391,7 +390,7 @@
                         <td class="col-3 text-start">{{ $auditee->ketua_auditee }}</td>
                         <td id="signed" class="col-2 text-center">
                           @if ($ba_ami->doesntExist())
-                            <button class="bi bi-pen bg-success border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                            <button class="bi bi-pen text-success border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
                             @if (Auth::user()->name != $auditee->ketua_auditee)
                               {{ "disabled" }}
                             @endif style="background: none"></button>
@@ -403,7 +402,7 @@
                               @foreach ($ba_ami->get() as $ba)
                               <a href="/BAAMI-approvalKetuaAuditee/{{ $ba->id }}">
                               @endforeach
-                              <button class="bi bi-pen bg-success border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
+                              <button class="bi bi-pen text-success border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
                               @if (Auth::user()->name != $auditee->ketua_auditee)
                                 {{ "disabled" }}
                               @endif style="background: none"></button>

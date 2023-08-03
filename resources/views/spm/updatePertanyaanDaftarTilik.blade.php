@@ -10,7 +10,7 @@
     <a href="/daftartilik/{{ $item->auditee->tahunperiode }}" class="mx-1">
     @endforeach
     @foreach ($_daftartiliks as $item)
-    {{ $item->auditee->tahunperiode }}
+    {{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}
     </a>/
     @endforeach
     
@@ -31,11 +31,6 @@
 @endsection
 
 @section('container')
-      <div class="row mx-3 mt-3">
-        @foreach ($_daftartiliks as $item)
-        <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
-        @endforeach
-      </div>
       <div class="row">
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
@@ -288,15 +283,6 @@
               </a>
               {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]"> --}}
             </div>
-            {{-- <div class="col">
-              <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
-              <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
-                  <option selected>Daftar foto kegiatan yang sudah diunggah</option>
-                  @foreach ($fotoKegiatan as $foto)
-                  <option>{{ $foto->namaFoto }}</option>
-                  @endforeach
-              </select>
-            </div> --}}
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
@@ -314,11 +300,15 @@
           <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media Line dan mengunggah dokumen bukti sahih yang baru</p>
           <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+        {{-- <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="moreItems_add btn btn-primary float-end" type="button">Tambah Pertanyaan</button>
-        </div>
+        </div> --}}
         <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
-          <button class="btn btn-success me-md-2" type="button"
+          @foreach ($_daftartiliks as $item)
+          <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-outline-secondary me-md-1" type="button">Kembali</button></a>
+          @endforeach
+
+          <button class="btn btn-success me-md-1" type="button"
             @if ((Auth::user()->role == "SPM") || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee'))
                 {{ "disabled" }}
             @endif
@@ -333,7 +323,7 @@
               {{ $datas->approvalAuditor }}
           @endif
           </button>
-          <button class="btn btn-success me-md-2" type="button"
+          <button class="btn btn-success me-md-1" type="button"
             @if (Auth::user()->role == "SPM")
                 {{ "disabled" }}
             @endif

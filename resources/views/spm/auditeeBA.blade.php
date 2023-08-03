@@ -5,10 +5,10 @@
         Berita Acara
     </a>/
 
-    @foreach ($pertanyaan_ as $beritaacara)
+    @foreach ($pertanyaan_->unique('auditee_id') as $beritaacara)
     <a href="/auditeeBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}" class="mx-1">
     @endforeach
-    {{ $auditee->unit_kerja }}({{ $auditee->tahunperiode }})
+    {{ $auditee->unit_kerja }}
     </a>/
     
 @endsection

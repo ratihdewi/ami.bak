@@ -6,7 +6,7 @@
     </a>/
 
     <a href="/auditeeBA/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
-    {{ $beritaacara_->unit_kerja }}({{ $beritaacara_->tahunperiode }})
+    {{ $beritaacara_->auditee->unit_kerja }}
     </a>/
 
     <a href="/BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
@@ -21,10 +21,6 @@
 
 @section('container')
   <div class="container mb-4">
-      <div class="row mt-4 mb-3">
-        <a href="/BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}">
-        <button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
-      </div>
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -65,8 +61,10 @@
                 </div>
             </div>
             <div class="row inputPeluangPeningkatan my-4 mx-5">
-                <div class="col-12 mb-4">
-                    <button class="moreItems_add btn btn-primary float-end" type="button">Tambah Peluang Peningkatan</button>
+                <div class="col mb-4 d-flex justify-content-end">
+                  <a href="/BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}">
+                  <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
+                  <button class="moreItems_add btn btn-primary" type="button">Tambah Peluang Peningkatan</button>
                 </div>
             </div>
         </div>

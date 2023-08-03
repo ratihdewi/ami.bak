@@ -6,7 +6,7 @@
     </a>/
 
     <a href="/daftartilik/{{ $data->auditee->tahunperiode }}" class="mx-1">
-    {{ $data->auditee->tahunperiode }}
+    {{ $data->auditee->tahunperiode0 }}/{{ $data->auditee->tahunperiode }}
     </a>/
 
     <a href="/daftartilik/{{ $data->auditee_id }}/{{ $data->area }}" class="mx-1">

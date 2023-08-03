@@ -10,9 +10,9 @@
 
 @section('container')
 
-<div class="container mt-4" style="font-size: 13px">
+<div class="container vh-100 mt-4" style="font-size: 13px">
   {{-- Search Jadwal --}}
-  <div class="search my-5 p-5 mx-5 text-white rounded">
+  {{-- <div class="search my-5 p-5 mx-5 text-white rounded">
     <form action="" method="get">
       @csrf
       <div class="input-group">
@@ -31,12 +31,16 @@
         <button class="btn btn-primary mx-2 border rounded" type="button">Cari</button>
       </div>
     </form>
-  </div>
+  </div> --}}
   {{-- Search Jadwal End --}}
   @if ($message = Session::get('success'))
     <div class="alert alert-success" role="alert">
       {{ $message }}
     </div>
+  @elseif ($message = Session::get('error'))
+  <div class="alert alert-danger" role="alert">
+    {{ $message }}
+  </div>
   @endif
   {{-- JadwalAudit --}}
   <div class="jadwalAudit mb-5">
@@ -81,12 +85,12 @@
                           <td class="col-1">{{ $item->auditor->nama }}</td>
                           <td class="col-1 text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
                           <td class="col-1">{{ $item->tempat }}</td>
-                          <td class="col-2">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
+                          <td class="col-1">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
                           <td class="col-1 text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB</td>
                           <td class="col-1">{{ $item->kegiatan }}</td>
                           <td class="col-1 text-center">
-                            <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
-                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                            <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white h7"></i></button></a>
+                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white h7"></i></button></a>
                           </td>
                       </tr>
                       @endforeach
@@ -125,6 +129,15 @@
         <button type="button" class="btn btn-primary btn-sm my-2">Tambah Jadwal</button>
       </a>
     </ul>
+    @if ($message = Session::get('addsuccess'))
+      <div class="alert alert-success" role="alert">
+        {{ $message }}
+      </div>
+    @elseif ($message = Session::get('error'))
+    <div class="alert alert-danger" role="alert">
+      {{ $message }}
+    </div>
+    @endif
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active w-100 my-3" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">

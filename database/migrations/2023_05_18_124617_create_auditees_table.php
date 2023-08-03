@@ -19,6 +19,7 @@ class CreateAuditeesTable extends Migration
             $table->String('nip');
             $table->String('unit_kerja');
             $table->String('ketua_auditee');
+            $table->integer('tahunperiode0')->nullable();
             $table->integer('tahunperiode')->nullable();
             $table->String('jabatan_ketua_auditee');
             $table->String('ketua_auditor');

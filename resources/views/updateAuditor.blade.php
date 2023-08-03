@@ -8,7 +8,7 @@
 </a>/
 
 <a href="/daftarAuditor/{{ $data->tahunperiode }}" class="mx-1">
-{{ $data->tahunperiode }}
+    {{ $data->tahunperiode0 }}/{{ $data->tahunperiode }}
 </a>/
 
 <a href="/tampilAuditor/{{ $data->id }}" class="mx-1">
@@ -18,71 +18,128 @@
 @endsection
 
 @section('container')
-    <div class="container my-5">
+    <div class="container mt-3 mb-3 vh-100">
         <div class="row justify-content-center">
             <div class="col-8">
-                <div class="card">
-                    <div class="card-body p-4">
-                        <form action="/updateAuditor/{{ $data->id }}" method="POST">
-                            @csrf
-                            <div class="row mb-3">
-                                <div class="col" hidden>
-                                    <label for="user_id" class="form-label">ID User</label>
-                                    <input type="text" name="user_id" class="form-control" id="user_id" placeholder="ID User" aria-label="ID User" value="{{ $data->user_id }}">
+                <h5 class="text-center mb-3">Ubah Data Auditor</h5>
+                <form action="/updateAuditor/{{ $data->id }}" method="POST">
+                    @csrf
+                    <div class="card mb-3">
+                        <div class="card-body p-4">
+                            <div class="addauditor">
+                                <div class="row mb-3">
+                                    <div class="col" hidden>
+                                        <label for="user_id" class="form-label">ID User</label>
+                                        <input type="text" name="user_id" class="form-control" id="user_id" placeholder="ID User" aria-label="ID User" value="{{ $data->user_id }}"/>
+                                    </div>         
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="row">
+                                            <label for="tahunperiode" class="form-label">Tahun Periode</label>
+                                            <div class="col-sm-5">
+                                                <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" max="3000" aria-label="Tahun Akhir" value="{{ $data->tahunperiode0 }}" required/>
+                                            </div>
+                                            <div class="col-sm-2 text-center">
+                                                <h3 class="">/</h3>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="number" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Akhir" aria-label="Tahun Akhir" min="2016" max="3000" value="{{ $data->tahunperiode }}" required/>
+                                            </div>
+                                        </div>
+                                        
+                                    </div> 
+                                    <div class="col">
+                                        <label for="nipAuditor" class="form-label">NIP</label>
+                                        <select id="nipAuditor" class="form-select" aria-label="Default select example" name="nip" required>
+                                            <option selected>{{ $data->nip }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="namaAuditor" class="form-label">Nama</label>
+                                        <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor" value="{{ $data->nama }}"/>
+                                    </div>
+                                    <div class="col">
+                                        <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
+                                        <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}"/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="fakultas" class="form-label"
+                                            >Fakultas</label
+                                        >
+                                        <input
+                                            type="text"
+                                            name="fakultas"
+                                            class="form-control"
+                                            id="fakultas"
+                                            placeholder="Fakultas"
+                                            aria-label="Fakultas"
+                                            value="{{ $data->fakultas }}"
+                                        />
+                                    </div>
+                                    <div class="col">
+                                        <label for="programstudi" class="form-label"
+                                            >Program Studi</label
+                                        >
+                                        <input
+                                            type="text"
+                                            name="program_studi"
+                                            class="form-control"
+                                            id="programstudi"
+                                            placeholder="Program Studi"
+                                            aria-label="Program Studi"
+                                            value="{{ $data->program_studi }}"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="tanggalmulai" class="form-label"
+                                            >Tanggal Mulai</label
+                                        >
+                                        <input
+                                            type="date"
+                                            name="tgl_mulai"
+                                            class="form-control"
+                                            id="tanggalmulai"
+                                            placeholder="Tanggal Mulai Tugas"
+                                            aria-label="Tanggal Mulai Tugas"
+                                            value="{{ $data->tgl_mulai }}"
+                                        />
+                                    </div>
+                                    <div class="col">
+                                        <label for="tanggalberakhir" class="form-label"
+                                            >Tanggal Berakhir</label
+                                        >
+                                        <input
+                                            type="date"
+                                            name="tgl_berakhir"
+                                            class="form-control"
+                                            id="tanggalberakhir"
+                                            placeholder="Tanggal Berakhir Tugas"
+                                            aria-label="Tanggal Berakhir Tugas"
+                                            value="{{ $data->tgl_berakhir }}"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="tahunperiode" class="form-label">Tahun Periode</label>
-                                    <input type="text" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Periode" aria-label="Tahun Periode" value="{{ $data->tahunperiode }}">
-                                </div>
-                                <div class="col">
-                                    <label for="nipAuditor" class="form-label">NIP</label>
-                                    <select id="nipAuditor" class="form-select" name="nip" aria-label="Default select example" placeholder="Pilih NIP Ketua Auditee" required>
-                                        <option value="{{ $data->nip }}" selected>{{ $data->nip }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="namaAuditor" class="form-label">Nama</label>
-                                    <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor" value="{{ $data->nama }}">
-                                </div>
-                                <div class="col">
-                                    <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
-                                    <input type="number" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}">
-                                </div>
-                                
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="fakultas" class="form-label">Fakultas</label>
-                                    <input type="text" name="fakultas" class="form-control" id="fakultas" placeholder="Fakultas" aria-label="Fakultas" value="{{ $data->fakultas }}">
-                                </div>
-                                <div class="col">
-                                    <label for="programstudi" class="form-label">Program Studi</label>
-                                    <input type="text" name="program_studi" class="form-control" id="programstudi" placeholder="Program Studi" aria-label="Program Studi" value="{{ $data->program_studi }}">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="tanggalmulai" class="form-label">Tanggal Mulai</label>
-                                    <input type="date" name="tgl_mulai" class="form-control" id="tanggalmulai" placeholder="Tanggal Mulai Tugas" aria-label="Tanggal Mulai Tugas" value="{{ $data->tgl_mulai }}" required>
-                                </div>
-                                <div class="col">
-                                    <label for="tanggalberakhir" class="form-label">Tanggal Berakhir</label>
-                                    <input type="date" name="tgl_berakhir" class="form-control" id="tanggalberakhir" placeholder="Tanggal Berakhir Tugas" aria-label="Tanggal Berakhir Tugas" value="{{ $data->tgl_berakhir }}" required>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary float-end" onclick="return confirm('Mengubah data Auditor akan mempengaruhi data User. Apakah Anda yakin ingin mengubah data?')">Submit</button>
-                            <a href="{{ route('auditor', ['tahunperiode' => $data->tahunperiode]) }}">
-                                <button type="button" class="btn btn-secondary me-3 float-start">
-                                    Kembali
-                                </button>
-                            </a>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <div class="button">
+                        <button type="submit" class="btn btn-primary float-end">
+                            Simpan
+                        </button>
+                        <a href="{{ route('auditor', ['tahunperiode' => $data->tahunperiode]) }}">
+                            <button type="button" class="btn btn-secondary me-3 float-end">
+                                Kembali
+                            </button>
+                        </a>
+                    </div> 
+                </form>
             </div>
             
         </div>

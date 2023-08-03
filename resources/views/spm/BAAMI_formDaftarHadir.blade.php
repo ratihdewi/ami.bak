@@ -29,8 +29,18 @@
                       <input type="text" class="form-control" id="beritaacara_id" placeholder="Masukkan id berita acara" name="addmore[0][beritaacara_id]" value="{{ $beritaacara_->id }}">
                   </div>
                 </div>
+                <div class="row inputabsen my-4 mx-5">
+                  <div class="col">
+                      <label for="namapenginput1" class="form-label fw-semibold">Penginput</label>
+                      <input type="text" class="form-control" id="namapenginput1" placeholder="Masukkan nama penginput" name="addmore[0][namapenginput]" value="{{ Auth::user()->name }}">
+                  </div>
+                </div>
                 
                 <div class="row inputabsen my-4 mx-5">
+                  <div class="col" hidden>
+                    <label for="namapenginput" class="form-label fw-semibold">Penginput</label>
+                    <input type="text" class="form-control" id="namapenginput" placeholder="Masukkan nama penginput" name="addmore[0][namapenginput]" value="{{ Auth::user()->name }}">
+                  </div>
                   <div class="col-4 mb-4">
                     <label for="inputPosisi1" class="form-label fw-semibold">Auditor/Auditee:</label>
                     <select id="inputPosisi1" class="form-select mb-4" name="addmore[0][posisi]">
@@ -55,7 +65,11 @@
             </div>
             
             {{-- Simpan Perubahan --}}
-            <div class="simpanBA d-grid gap-2 mt-5">
+            <div class="simpanBA d-flex justify-content-end mx-5">
+              @foreach ($auditee_ as $auditee)
+              <a href="/BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
+              @endforeach
+              <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
                 <button class="btn btn-success" type="submit">Simpan Perubahan</button>
             </div>
         </form>
@@ -177,7 +191,7 @@
       if (i < max_fields) {
         console.log('#inputPosisi'+i);
         i++;
-        $(wrapper).append('<div class="inputAbsen add-new mx-4"><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="beritaacara_id'+i+'" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="beritaacara_id'+i+'" placeholder="Masukkan id berita acara" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div></div><div class="row inputabsen my-4 mx-5"><div class="col-4 mb-4"><label for="inputPosisi'+i+'" class="form-label fw-semibold">Auditor/Auditee:</label><select id="inputPosisi'+i+'" class="form-select mb-4" name="addmore['+i+'][posisi]"><option selected disabled>Posisi (Auditor/Auditee)</option><option value="Auditor" @if ($auditee->exists() && Auth::user()->role != "SPM") disabled @endif>Auditor</option><option value="Auditee" @if ($auditor->exists() && Auth::user()->role != "SPM")disabled @endif>Auditee</option></select></div><div class="col-7 mb-4"><label for="inputAbsenNama'+i+'" class="form-label fw-semibold">Nama</label><select id="inputAbsenNama'+i+'" class="form-select" name="addmore['+i+'][namapeserta]" required><option></option></select></div><div class="col-1 my-4"><button id="remove-tr" class="btn btn-danger float-end my-1 remove-tr" type="button"><i class="bi bi-x p-0" style="color: #ffff"></i></button></div></div></div>')
+        $(wrapper).append('<div class="inputAbsen add-new mx-4"><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="beritaacara_id'+i+'" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="beritaacara_id'+i+'" placeholder="Masukkan id berita acara" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div></div><div class="row inputabsen my-4 mx-5"><div class="col"><label for="namapenginput'+i+'" class="form-label fw-semibold">Penginput</label><input type="text" class="form-control" id="namapenginput'+i+'" placeholder="Masukkan nama penginput" name="addmore['+i+'][namapenginput]" value="{{ Auth::user()->name }}"></div></div><div class="row inputabsen my-4 mx-5"><div class="col-4 mb-4"><label for="inputPosisi'+i+'" class="form-label fw-semibold">Auditor/Auditee:</label><select id="inputPosisi'+i+'" class="form-select mb-4" name="addmore['+i+'][posisi]"><option selected disabled>Posisi (Auditor/Auditee)</option><option value="Auditor" @if ($auditee->exists() && Auth::user()->role != "SPM") disabled @endif>Auditor</option><option value="Auditee" @if ($auditor->exists() && Auth::user()->role != "SPM")disabled @endif>Auditee</option></select></div><div class="col-7 mb-4"><label for="inputAbsenNama'+i+'" class="form-label fw-semibold">Nama</label><select id="inputAbsenNama'+i+'" class="form-select" name="addmore['+i+'][namapeserta]" required><option></option></select></div><div class="col-1 my-4"><button id="remove-tr" class="btn btn-danger float-end my-1 remove-tr" type="button"><i class="bi bi-x p-0" style="color: #ffff"></i></button></div></div></div>')
       }
     });
     
@@ -262,7 +276,7 @@
             
           });
     });
-
+    
     $(document).on('click', '#remove-tr', function(){  
       $(this).parents('.add-new').remove();
     });

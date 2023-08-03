@@ -9,7 +9,7 @@
     <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
     @endforeach    
     @foreach ($listAuditee->unique('tahunperiode') as $auditee)
-    {{ $auditee->tahunperiode }}
+    {{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}
     @endforeach  
     </a>/
 
@@ -25,101 +25,105 @@
 
 @section('container')
 {{-- Form setiap auditee --}}
-<form action="/insertareaDT" method="POST">
-    @csrf
-    <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
-        <div class="row g-3 my-4 mx-3">
-            <div class="col">
-                <label for="auditee_id" class="visually-hidden">Auditee</label>
-                <select
-                    id="auditee_id"
-                    class="form-select"
-                    name="auditee_id"
-                    required
+<div class="container vh-100 pt-4">
+    <h5 class="text-center">Tambah Area Daftar Tilik</h5>
+    <form action="/insertareaDT" method="POST">
+        @csrf
+        <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
+            <div class="row g-3 my-4 mx-3">
+                <div class="col">
+                    <label for="auditee_id" class="visually-hidden">Auditee</label>
+                    <select
+                        id="auditee_id"
+                        class="form-select"
+                        name="auditee_id"
+                        required
+                    >
+                        <option selected disabled>Auditee</option>
+                        @foreach ($listAuditee->unique('unit_kerja') as $item)
+                        <option value="{{ $item->id }}">
+                            {{ $item->unit_kerja }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="auditor" class="visually-hidden">Auditor</label>
+                    <select id="auditor" class="form-select" name="auditor_id">
+                        <option selected disabled>Pilih Auditor</option>
+                        @foreach ($listAuditor as $item)
+                        <option value="{{ $item->id }}" name="auditor_id">{{ $item->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row g-3 mb-4 mx-3">
+                <div class="col">
+                    <input
+                        type="date"
+                        id="tgl-pelaksanaan"
+                        class="form-control"
+                        placeholder="Masukkan Hari/Tanggal Pelaksanaan"
+                        aria-label="Masukkan Hari/Tanggal Pelaksanaan"
+                        name="tgl_pelaksanaan"
+                    />
+                </div>
+                <div class="col">
+                    <input
+                        type="text"
+                        id="tempat"
+                        class="form-control"
+                        placeholder="Masukkan tempat pelaksanaan"
+                        aria-label="Masukkan tempat pelaksanaan"
+                        name="tempat"
+                    />
+                </div>
+            </div>
+            <div class="row g-3 mb-4 mx-4">
+                <label for="area" class="visually-hidden">Area Audit</label>
+                <select id="area" class="form-select" name="area">
+                    <option selected disabled>Pilih area yang akan diaudit</option>
+                    <option>Pendidikan</option>
+                    <option>Penelitian</option>
+                    <option>PkM</option>
+                    <option>Tambahan</option>
+                </select>
+            </div>
+            <div class="row g-3 mb-5 mx-4">
+                <label for="bataspengisianRespon" class="visually-hidden"
+                    >Batas Pengisian Respon</label
                 >
-                    <option selected disabled>Auditee</option>
-                    @foreach ($listAuditee->unique('unit_kerja') as $item)
-                    <option value="{{ $item->id }}">
-                        {{ $item->unit_kerja }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col">
-                <label for="auditor" class="visually-hidden">Auditor</label>
-                <select id="auditor" class="form-select" name="auditor_id">
-                    <option selected disabled>Pilih Auditor</option>
-                    @foreach ($listAuditor as $item)
-                    <option value="{{ $item->id }}" name="auditor_id">{{ $item->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="row g-3 mb-4 mx-3">
-            <div class="col">
                 <input
-                    type="date"
-                    id="tgl-pelaksanaan"
-                    class="form-control"
-                    placeholder="Masukkan Hari/Tanggal Pelaksanaan"
-                    aria-label="Masukkan Hari/Tanggal Pelaksanaan"
-                    name="tgl_pelaksanaan"
-                />
-            </div>
-            <div class="col">
-                <input
+                    id="bataspengisianRespon"
                     type="text"
-                    id="tempat"
                     class="form-control"
-                    placeholder="Masukkan tempat pelaksanaan"
-                    aria-label="Masukkan tempat pelaksanaan"
-                    name="tempat"
+                    placeholder="Berika Batas Pengisian Respon Auditee"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')"
+                    aria-label="Berika Batas Pengisian Respon Auditee"
+                    name="bataspengisianRespon"
                 />
             </div>
         </div>
-        <div class="row g-3 mb-4 mx-4">
-            <label for="area" class="visually-hidden">Area Audit</label>
-            <select id="area" class="form-select" name="area">
-                <option selected disabled>Pilih area yang akan diaudit</option>
-                <option>Pendidikan</option>
-                <option>Penelitian</option>
-                <option>PkM</option>
-                <option>Tambahan</option>
-            </select>
-        </div>
-        <div class="row g-3 mb-5 mx-4">
-            <label for="bataspengisianRespon" class="visually-hidden"
-                >Batas Pengisian Respon</label
+        <div class="d-grid gap-2 d-md-flex justify-content-end mx-4 mb-4">
+            @foreach ($listAuditee->unique('tahunperiode') as $auditee)
+            <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
+            @endforeach  
+                <button type="button" class="btn btn-secondary me-1">Kembali</button>
+            </a>
+            <button
+                class="btn btn-success"
+                type="submit"
+                style="background: #00d215; border: 1px solid #008f0e"
             >
-            <input
-                id="bataspengisianRespon"
-                type="text"
-                class="form-control"
-                placeholder="Berika Batas Pengisian Respon Auditee"
-                onfocus="(this.type='date')"
-                onblur="(this.type='text')"
-                aria-label="Berika Batas Pengisian Respon Auditee"
-                name="bataspengisianRespon"
-            />
+                Simpan
+            </button>
         </div>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-between mx-4 mb-4">
-        @foreach ($listAuditee->unique('tahunperiode') as $auditee)
-        <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
-        @endforeach  
-            <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
-        </a>
-        <button
-            class="btn btn-success"
-            type="submit"
-            style="background: #00d215; border: 1px solid #008f0e"
-        >
-            Simpan
-        </button>
-    </div>
-</form>
+    </form>
+</div>
+@endsection 
 
-@endsection @push('script')
+@push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>

@@ -1,23 +1,32 @@
 @extends('layout.main') @section('title') AMI - Daftar User @endsection
+
+@section('linking')
+    <a href="/usercontrol" class="mx-1">
+        Daftar User
+    </a>/
+@endsection
+
 @section('container')
 
-<div class="row my-4">
+<div class="container my-4">
+    <div class="row mx-1">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+        @endif
+    </div>
     <a
         href="addUser"
         class="text-white"
         style="font-weight: 600; text-decoration: none"
         ><button
             type="button"
-            class="btn btn-primary btn-sm float-end my-3 px-3"
+            class="btn btn-primary btn-sm float-end mb-3 mt-2 px-3"
         >
             Tambah
         </button></a
     >
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success" role="alert">
-        {{ $message }}
-    </div>
-    @endif
     <table class="table table-hover my-2" id="tableUser">
         <thead>
             <tr class="">

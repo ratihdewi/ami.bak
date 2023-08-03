@@ -23,6 +23,7 @@ class CreateAuditorsTable extends Migration
             $table->String('noTelepon')->nullable();
             $table->Date('tgl_mulai');
             $table->Date('tgl_berakhir');
+            $table->integer('tahunperiode0')->nullable();
             $table->integer('tahunperiode')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')
             ->onDelete('cascade');

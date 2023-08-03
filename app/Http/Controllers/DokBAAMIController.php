@@ -267,7 +267,7 @@ class DokBAAMIController extends Controller
             } elseif ($daftarhadir->posisi == "Auditee") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
-                $esignKehadiran = QrCode::generate($url);
+                $esignKehadirane = QrCode::generate($url);
 
                 array_push($eSignAuditee, QrCode::generate($url));
             }

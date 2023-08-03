@@ -5,11 +5,11 @@
         Periode Auditee
     </a>/
 
-    <a href="/daftarAuditee/{{ $tahunperiod }}" class="mx-1">
-    {{ $tahunperiod }}
+    <a href="/daftarAuditee/{{ $tahunperiode->tahunperiode }}" class="mx-1">
+        {{ $tahunperiode->tahunperiode0 }}/{{ $tahunperiode->tahunperiode }}
     </a>/
 
-    <a href="/addAuditee/{{ $tahunperiod }}" class="mx-1">
+    <a href="/addAuditee/{{ $tahunperiode->tahunperiode }}" class="mx-1">
         Tambah Auditee
     </a>/
 
@@ -17,11 +17,12 @@
 
 @section('container')
 <div class="row justify-content-center mb-5">
-    <div class="col-8">
-        <div class="card mt-5">
-            <div class="card-body p-4">
-                <form action="/insertAuditee" method="POST">
-                    @csrf
+    <div class="col-8 mt-3">
+        <h5 class="text-center">Tambah Auditee Peride {{ $tahunperiode->tahunperiode0 }}/{{ $tahunperiode->tahunperiode }}</h5>
+        <form action="/insertAuditee" method="POST">
+            @csrf
+            <div class="card mt-3">
+                <div class="card-body p-4">
                     <div class="row mb-3">
                         <div class="col">
                             <div class="row">
@@ -30,7 +31,9 @@
                                     >
                                 <div class="col-sm-5">
                                     <input
+                                        id="tahunperiode0"
                                         type="number"
+                                        name="tahunperiode0"
                                         class="form-control"
                                         placeholder="Tahun Awal"
                                         aria-label="Tahun Awal"
@@ -157,15 +160,17 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary float-end">
-                        Simpan
-                    </button>
-                    <a href="{{ route('auditee-periode') }}">
-                        <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
-                    </a>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="button mt-3">
+                <button type="submit" class="btn btn-primary float-end">
+                    Simpan
+                </button>
+                <a href="{{ route('auditee-periode') }}">
+                    <button type="button" class="btn btn-secondary me-3 float-end">Kembali</button>
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
@@ -251,7 +256,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#ketuaAuditor').empty();
-                    $('#ketuaAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
+                    $('#ketuaAuditor').append('<option value="" selected disabled>Pilih Ketua Auditor</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             return {
@@ -287,7 +292,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#anggotaAuditor').empty();
-                    $('#anggotaAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                    $('#anggotaAuditor').append('<option value="" selected disabled>Pilih Anggota Auditor</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             if (item.nama != ketuaAuditor ) {
@@ -326,7 +331,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#anggotaAuditor2').empty();
-                    $('#anggotaAuditor2').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                    $('#anggotaAuditor2').append('<option value="" selected disabled>Pilih Anggota Auditor</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             if (item.nama != anggotaAuditor && item.nama != ketuaAuditor ) {

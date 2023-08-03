@@ -10,7 +10,7 @@
     <a href="/daftartilik/{{ $daftartilik->auditee->tahunperiode }}" class="mx-1">
     @endforeach
     @foreach ($daftartilik_ as $daftartilik)
-    {{ $daftartilik->auditee->tahunperiode }}
+    {{ $daftartilik->auditee->tahunperiode0 }}/{{ $daftartilik->auditee->tahunperiode }}
     </a>/
     @endforeach
     
@@ -31,7 +31,7 @@
 @endsection
 
 @section('container')
-  <div class="container mb-4">
+  <div class="container vh-100 mb-4">
       <div id="headerPratinjau" class="headerpratinjau my-4 mx-2">
         <div class="row">
             <div class="col-3 label py-2 fw-semibold text-start">Auditee</div>
@@ -84,7 +84,7 @@
             </a>
           </div>
       </div>
-      <div class="table-container" style="overflow-x:auto">
+      <div class="table-container mb-3" style="overflow-x:auto">
         <table class="table table-bordered" style="width: 150%; ">
             <thead class="table-secondary">
                 <tr>
@@ -121,6 +121,13 @@
                 @endforeach
             </tbody>
         </table>
+      </div>
+      <div class="button d-flex justify-content-end">
+        @foreach ($daftartilik_ as $daftartilik)
+        <a href="/daftarTilik-areadaftartilik/{{ $daftartilik->auditee_id }}/{{ $daftartilik->area }}" class="mx-1">
+        @endforeach
+        <button type="button" class="btn btn-outline-secondary">Kembali</button>
+        </a>
       </div>
   </div>
 @endsection

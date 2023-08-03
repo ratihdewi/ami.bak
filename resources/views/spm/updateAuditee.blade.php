@@ -6,7 +6,7 @@
     </a>/
 
     <a href="/daftarAuditee/{{ $data->tahunperiode }}" class="mx-1">
-    {{ $data->tahunperiode }}
+        {{ $data->tahunperiode0 }}/{{ $data->tahunperiode }}
     </a>/
 
     <a href="/tampilAuditee/{{ $data->id }}" class="mx-1">
@@ -17,74 +17,164 @@
 
 @section('container')
 <div class="row justify-content-center mb-5">
-    <div class="col-8">
-        <div class="card mt-5">
-            <div class="card-body p-4">
-                <form action="/updateAuditee/{{ $data->id }}" method="POST">
-                    @csrf
+    <div class="col-8 mt-3">
+        <h5 class="text-center">Ubah Data Auditee</h5>
+        <form action="/updateAuditee/{{ $data->id }}" method="POST">
+            @csrf
+            <div class="card mt-3">
+                <div class="card-body p-4">
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="tahunperiode" class="form-label">Tahun Periode</label>
-                            <input type="number" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Periode" aria-label="Tahun Periode" min="2016" max="3000" value="{{ $data->tahunperiode }}"/>
+                            <div class="row">
+                                <label for="tahunperiode" class="form-label"
+                                        >Tahun Periode</label
+                                    >
+                                <div class="col-sm-5">
+                                    <input
+                                        id="tahunperiode0"
+                                        type="number"
+                                        name="tahunperiode0"
+                                        class="form-control"
+                                        placeholder="Tahun Awal"
+                                        aria-label="Tahun Awal"
+                                        min="2016" max="3000"
+                                        value="{{ $data->tahunperiode0 }}"
+                                        required
+                                    />
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <h3 class="">/</h3>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input
+                                        type="number"
+                                        name="tahunperiode"
+                                        class="form-control"
+                                        id="tahunperiode"
+                                        placeholder="Tahun Akhir"
+                                        aria-label="Tahun Akhir"
+                                        min="2016" max="3000"
+                                        value="{{ $data->tahunperiode }}"
+                                        required
+                                    />
+                                </div>
+                            </div>
                         </div> 
                         <div class="col">
                             <label for="nipAuditee" class="form-label">NIP</label> <br>
                             <select id="nipAuditee" class="form-select" name="nip" aria-label="Default select example" placeholder="Pilih NIP Ketua Auditee" required>
-                                <option value="{{ $data->nip }}" selected>{{ $data->nip }}</option>
+                                <option selected>{{ $data->nip }}</option>
                             </select>
                         </div>           
                     </div>
                     <div class="row mb-3" hidden>
                         <div class="col">
-                            <label for="user_id" class="form-label">ID User</label>
-                            <input type="text" name="user_id" class="form-control" id="user_id" placeholder="ID User" aria-label="ID User" value="{{ $data->user_id }}"/>
+                            <label for="user_id" class="form-label"
+                                >ID User</label
+                            >
+                            <input
+                                type="text"
+                                name="user_id"
+                                class="form-control"
+                                id="user_id"
+                                placeholder="ID User"
+                                aria-label="ID User"
+                                value="{{ $data->user_id }}"
+                            />
                         </div>         
                     </div>
                     <div class="mb-3">
-                        <label for="selectUnitKerja" class="form-label">Unit Kerja</label>
-                        <select id="selectUnitKerja" class="form-select" name="unit_kerja" required>
-                            <option selected value="{{ $data->unit_kerja }}">{{ $data->unit_kerja }}</option>
+                        <label for="selectUnitKerja" class="form-label"
+                            >Unit Kerja</label
+                        >
+                        <select
+                            id="selectUnitKerja"
+                            class="form-select"
+                            name="unit_kerja"
+                            required
+                        >
+                            <option selected>{{ $data->unit_kerja }}</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="ketuaAuditee" class="form-label">Ketua Auditee</label>
-                        <input type="text" class="form-control" id="ketuaAuditee" placeholder="Masukkan nama Ketua Auditee" name="ketua_auditee" value="{{ $data->ketua_auditee }}"/>
+                        <label for="ketuaAuditee" class="form-label"
+                            >Ketua Auditee</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="ketuaAuditee"
+                            placeholder="Masukkan nama Ketua Auditee"
+                            name="ketua_auditee"
+                            value="{{ $data->ketua_auditee }}"
+                            required
+                        />
                     </div>
                     <div class="mb-3">
-                        <label for="jabatanKetuaAuditee" class="form-label">Jabatan Ketua Auditee</label>
-                        <input type="text" class="form-control" id="jabatanKetuaAuditee" placeholder="Masukkan jabatan Ketua Auditee" name="jabatan_ketua_auditee" value="{{ $data->jabatan_ketua_auditee }}"/>
+                        <label for="jabatanKetuaAuditee" class="form-label"
+                            >Jabatan Ketua Auditee</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="jabatanKetuaAuditee"
+                            placeholder="Masukkan jabatan Ketua Auditee"
+                            name="jabatan_ketua_auditee"
+                            value="{{ $data->jabatan_ketua_auditee }}"
+                            required
+                        />
                     </div>
                     <div class="mb-3">
                         <label for="ketuaAuditor" class="form-label">Ketua Auditor</label> <br>
-                        <select class="form-select" aria-label="Default select example" id="ketuaAuditor" placeholder="Pilih ketua Auditor yang akan mengaudit" name="ketua_auditor" value="{{ $data->ketua_auditor }}">
-                        <option value="{{ $data->ketua_auditor }}" selected>{{ $data->ketua_auditor }}</option> 
+                        <select
+                            class="form-select" aria-label="Default select example"
+                            id="ketuaAuditor"
+                            placeholder="Pilih ketua Auditor yang akan mengaudit"
+                            name="ketua_auditor"
+                            value="{{ $data->ketua_auditor }}"
+                            required
+                        >
+                        <option selected>{{ $data->ketua_auditor }}</option> 
                         </select>
                     </div>
                     <div id="anggotaauditor" class="row mb-3">
                         <div class="col">
                             <label for="anggotaAuditor" class="form-label">Anggota Auditor 1</label> <br>
-                            <select class="form-select" aria-label="Default select example" id="anggotaAuditor" placeholder="Masukkan nama Anggota Auditor" name="anggota_auditor" value="{{ $data->anggota_auditor }}">
-                                <option value="{{ $data->anggota_auditor }}" selected>{{ $data->anggota_auditor }}</option> 
+                            <select
+                                class="form-select" aria-label="Default select example"
+                                id="anggotaAuditor"
+                                placeholder="Masukkan nama Anggota Auditor"
+                                name="anggota_auditor"
+                                required
+                            >
+                            <option value="{{ $data->anggota_auditor }}" selected>{{ $data->anggota_auditor }}</option>
                             </select>
                         </div>
                     </div>
                     <div id="anggotaauditor2" class="row mb-3">
                         <div class="col">
                             <label for="anggotaAuditor2" class="form-label">Anggota Auditor 2 (Opsional)</label> <br>
-                            <select class="form-select" aria-label="Default select example" id="anggotaAuditor2" placeholder="Masukkan nama Anggota Auditor" name="anggota_auditor2" value="{{ $data->anggota_auditor2 }}">
-                                <option value="{{ $data->anggota_auditor2 }}" selected>{{ $data->anggota_auditor2 }}</option> 
+                            <select
+                                class="form-select" aria-label="Default select example"
+                                id="anggotaAuditor2"
+                                placeholder="Masukkan nama Anggota Auditor"
+                                name="anggota_auditor2"
+                            >
+                            <option value="{{ $data->anggota_auditor2 }}" selected>{{ $data->anggota_auditor2 }}</option>
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary float-end">
-                        Simpan
-                    </button>
-                    <a href="{{ route('auditee', ['tahunperiode' => $data->tahunperiode]) }}">
-                        <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
-                    </a>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="button mt-3">
+                <button type="submit" class="btn btn-primary float-end">
+                    Simpan
+                </button>
+                <a href="{{ route('auditee-periode') }}">
+                    <button type="button" class="btn btn-secondary me-3 float-end">Kembali</button>
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

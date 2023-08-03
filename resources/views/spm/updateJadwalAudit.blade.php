@@ -11,9 +11,10 @@
 @endsection
 
 @section('container')
-<div class="container mt-5">
+<div class="container mt-5 vh-100">
     <div class="row justify-content-center">
         <div class="col-8">
+            <h5 class="text-center mb-3">Ubah Jadwal Audit</h5>
             <div class="card mb-5">
                 <div class="card-body p-4">
                     <form action="/jadwalaudit-updatejadwalaudit/{{ $data->id }}" method="POST">
@@ -170,10 +171,10 @@
                                 </button>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success btn-sm float-end">
+                        <button type="submit" class="btn btn-success float-end">
                             Simpan
                         </button>
-                        <a href="/jadwalaudit"><button class="btn btn-secondary btn-sm" type="button">Kembali</button></a>
+                        <a href="/jadwalaudit"><button class="btn btn-secondary float-end me-md-2" type="button">Kembali</button></a>
                     </form>
                 </div>
             </div>

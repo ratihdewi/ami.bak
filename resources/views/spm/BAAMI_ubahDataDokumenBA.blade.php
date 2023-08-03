@@ -7,7 +7,7 @@
     </a>/
 
     <a href="/auditeeBA/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
-    {{ $ba_->unit_kerja }}({{ $ba_->tahunperiode }})
+    {{ $ba_->auditee->unit_kerja }}
     </a>/
 
     <a href="/BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
@@ -21,9 +21,6 @@
 @endsection
 
 @section('container')
-    <div class="row my-3 mx-4">
-        <a href="/BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}"><button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
-    </div>
         
     <div class="container mt-3 mb-5">
         @if ($message = Session::get('success'))
@@ -58,17 +55,27 @@
                     <label for="inputInfoRevisi" class="form-label fw-semibold">Revisi Ke-</label>
                     <input type="text" class="form-control" id="inputInfoRevisi" placeholder="Masukkan revisi ke berapa" name="revisiKe" value="{{ $dokBA_->revisiKe }}">
                 </div>
-                <div class="col-6 mb-4">
-                    <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
-                </div>
+                @if ($dokBA_->tgl_revisi != null)
+                    <div class="col-6 mb-4">
+                        <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
+                        <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
+                    </div>
+                @else
+                    <div class="col-6 mb-4">
+                        <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
+                        <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi">
+                    </div>
+                @endif
+                
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku</label>
                     <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('Y-m-d') }}">
                 </div>
             </div>
             {{-- Simpan Perubahan --}}
-            <div class="simpanBA d-grid gap-2">
+            <div class="simpanBA d-flex justify-content-end mx-5">
+                <a href="/BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}"><button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
+                
                 <button class="btn btn-success" type="submit">Simpan Perubahan</button>
             </div>
         </form>

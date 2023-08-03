@@ -25,11 +25,11 @@ class AuditeeController extends Controller
 
     public function tambahauditee($tahunperiode)
     {
-        $tahunperiod = $tahunperiode; 
+        $tahunperiode = Auditee::where('tahunperiode', $tahunperiode)->first(); 
         $users_ = User::all();
-        $auditor_ = Auditor::all();
+        $auditor_ = Auditor::all(); 
 
-        return view('addAuditee', compact('users_', 'auditor_', 'tahunperiod'));
+        return view('addAuditee', compact('users_', 'auditor_', 'tahunperiode'));
     }
 
     public function getAuditee($nip)

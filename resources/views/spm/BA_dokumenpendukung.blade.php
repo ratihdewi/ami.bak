@@ -6,7 +6,7 @@
     </a>/
 
     <a href="/auditeeBA/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
-    {{ $beritaacara_->unit_kerja }}({{ $beritaacara_->tahunperiode }})
+    {{ $beritaacara_->auditee->unit_kerja }}
     </a>/
 
     <a href="/BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
@@ -21,10 +21,6 @@
 
 @section('container')
   <div class="container mb-4">
-      <div class="row mt-4 mb-3">
-        <a href="/BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}">
-        <button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
-      </div>
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -37,7 +33,7 @@
       <form action="/BA-storedokumenpendukung/{{ $beritaacara_->auditee_id }}" method="POST" enctype="multipart/form-data">
         @csrf
         {{-- Dokumen Pendukung --}}
-        <div class="row sectionName mx-0 my-2">
+        <div class="row sectionName mx-4 mb-2 mt-5">
           <div class="col border rounded-top text-center py-2 fw-semibold">Dokumen Pendukung</div>  
         </div>
         <div class="row inputDokPendukung my-4 mx-5">
@@ -60,13 +56,15 @@
         </div>
 
         {{-- Simpan Perubahan --}}
-        <div class="simpanBA d-grid gap-2">
+        <div class="simpanBA d-flex justify-content-end mx-4">
+            <a href="/BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}">
+            <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
       <div class="listDokPendukung px-3 my-5">
         <table class="table table-hover">
-          <thead>
+          <thead style="background-color: #bfe9df; border: 2px solid #75c8be;">
               <tr class="">
                   <th class="col-1 text-center">No</th>
                   <th class="col-2 text-center">Kode Dokumen</th>
@@ -82,7 +80,7 @@
                 <td class="col-2 text-center">{{ $dokumenpendukung->kodeDokumen }}</td>
                 <td class="col-3 text-center">{{ $dokumenpendukung->namaDokumen }}</td>
                 <td class="col-2 text-center">
-                  <a href="/BA-deletedokumenpendukung/{{ $dokumenpendukung->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $dokumenpendukung->namaDokumen }} ?')"><i class="bi bi-trash"></i></a>
+                  <a href="/BA-deletedokumenpendukung/{{ $dokumenpendukung->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $dokumenpendukung->namaDokumen }} ?')"><button class="btn btn-danger btn-sm"><i class="bi bi-trash text-white h7"></i></button></a>
                 </td>
               </tr>
               @endforeach

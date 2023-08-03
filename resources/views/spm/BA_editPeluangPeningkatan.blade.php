@@ -6,7 +6,7 @@
     </a>/
 
     <a href="/auditeeBA/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}" class="mx-1">
-    {{ $peningkatan_->beritaacara->unit_kerja }}({{ $peningkatan_->beritaacara->tahunperiode }})
+    {{ $peningkatan_->beritaacara->unit_kerja }}
     </a>/
 
     <a href="/BA-AMI/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}" class="mx-1">
@@ -21,10 +21,6 @@
 
 @section('container')
   <div class="container mb-4">
-      <div class="row mt-4 mb-3">
-        <a href="/BA-AMI/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}">
-        <button class="btn btn-primary btn-sm" type="button">Kembali</button></a>
-      </div>
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -36,7 +32,7 @@
       <form action="/BA-updatepeluangpeningkatan/{{ $peningkatan_->id}}" method="POST">
         @csrf
         {{-- Peluang Peningkatan --}}
-        <div class="row sectionName mx-0 my-2">
+        <div class="row sectionName mx-4 mb-2 mt-5">
           <div class="col border rounded-top text-center py-2 fw-semibold">Peluang Peningkatan</div>  
         </div>
         <div class="pelpeningkatan">
@@ -67,7 +63,9 @@
         </div>
 
         {{-- Simpan Perubahan --}}
-        <div class="simpanBA d-grid gap-2">
+        <div class="simpanBA d-flex justify-content-end mx-5">
+          <a href="/BA-AMI/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}">
+            <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>

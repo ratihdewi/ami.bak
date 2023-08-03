@@ -25,10 +25,10 @@
         <table class="table table-hover my-5 listAuditee" id="beritaacara">
             <thead class="mt-5">
                 <tr class="row ListAuditeeHeader">
-                    <th class="col-1 text-center">No</th>
-                    <th class="col text-center">Auditee</th>
-                    <th class="col-2 text-center">Tahun Pelaksanaan</th>
-                    <th class="col-1 text-center">Aksi</th>
+                    <th class="col-1 px-2 text-center">No</th>
+                    <th class="col px-3 text-center">Auditee</th>
+                    <th class="col-2 px-2  text-center">Periode</th>
+                    <th class="col-1 px-2  text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,9 +36,9 @@
                 @foreach ($auditee_ as $auditee)
                 @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="row ListAuditee">
-                    <td class="col-2 text-center">{{ $no++ }}</td>
+                    <td class="col-1 text-center">{{ $no++ }}</td>
                     <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
-                    <td class="col-2 text-center">{{ $item->tahunperiode }}</td>
+                    <td class="col-2 px-0 text-center">{{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}</td>
                     <td class="col-1 pe-3 text-center">
                         <a href="/auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a>
                     </td>

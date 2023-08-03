@@ -9,7 +9,7 @@
     <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
     @endforeach    
     @foreach ($data_->unique('tahunperiode') as $auditee)
-    {{ $auditee->tahunperiode }}
+    {{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}
     @endforeach  
     </a>/
 

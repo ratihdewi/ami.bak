@@ -75,8 +75,23 @@ class JadwalController extends Controller
     public function insertdata(Request $request)
     {
         //dd($request->all());
-        Jadwal::create($request->all());
-        return redirect()->route('jadwalaudit')->with('success', 'Data berhasil ditambah');
+        $auditorname = Auditor::find($request->auditor_id);
+        $year = Carbon::parse($request->hari_tgl)->year;
+        // dd($auditorname);
+
+        $isExistAuditee = Auditee::where('id', $request->auditee_id)->where('tahunperiode', $request->th_ajaran2)->where(function ($query) use ($auditorname) {
+            $query->where('ketua_auditor', $auditorname->nama)->orwhere('anggota_auditor', $auditorname->nama)->orwhere('anggota_auditor2', $auditorname->nama);
+        })->exists();
+
+        if ($isExistAuditee && ($request->th_ajaran1 == $year || $request->th_ajaran2 == $year)) {
+            Jadwal::create($request->all());
+            $return = redirect()->route('jadwalaudit')->with('success', 'Jadwal audit berhasil ditambah');
+        } elseif (!$isExistAuditee) {
+            $return = redirect()->route('jadwalaudit')->with('error', 'Maaf, data tidak terdaftar sebagai Auditee. Silahkan input kembali data dengan benar!');
+        } elseif ($request->th_ajaran1 == $year || $request->th_ajaran2 == $year) {
+            $return = redirect()->route('jadwalaudit')->with('error', 'Maaf, tahun ajaran dan tanggal pelaksanaan tidak sesuai. Silahkan input kembali data dengan benar!');
+        }
+        return $return;
     }
 
     public function tampildata($id){

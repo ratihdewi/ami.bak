@@ -8,7 +8,7 @@
     </a>/
 
     <a href="/auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
-    {{ $auditees->unit_kerja }}({{ $auditees->tahunperiode }})
+    {{ $auditees->unit_kerja }}
     </a>/
 
     <a href="/spm-editfotokegiatan/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
@@ -36,7 +36,7 @@
         @csrf
         {{-- Dokumen Pendukung --}}
         <div class="row sectionName mx-0 m-5">
-          <div class="col border rounded-top text-center py-2 fw-semibold">Foto Kegiatan Audit Lapangan - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode }})</div>  
+          <div class="col border rounded-top text-center py-2 fw-semibold">Foto Kegiatan Audit Lapangan - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode0 }}/{{ $auditees->tahunperiode }})</div>  
         </div>
         <div class="row inputDokDokSahih my-4 mx-5">
             {{-- @foreach ($doksahihs as $doksahih) --}}

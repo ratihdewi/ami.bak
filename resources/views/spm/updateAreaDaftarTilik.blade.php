@@ -6,7 +6,7 @@
     </a>/
 
     <a href="/daftartilik/{{ $data->auditee->tahunperiode }}" class="mx-1">
-    {{ $data->auditee->tahunperiode }}
+        {{ $data->auditee->tahunperiode0 }}/{{ $data->auditee->tahunperiode }}
     </a>/
 
     <a href="/daftartilik-tampildaftartilik/{{ $data->auditee_id }}/{{ $data->area }}" class="mx-1">
@@ -17,106 +17,112 @@
 
 @section('container')
 {{-- Form update setiap auditee --}}
-<form action="/daftartilik-updatedataareadaftartilik/{{ $data->id }}" method="POST">
-    @csrf
-    <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
-        <div class="row g-3 my-4 mx-3">
-            <div class="col">
-                <label for="auditee_id" class="visually-hidden"
-                    >Auditee</label
-                >
-                <select
-                    id="auditee_id"
-                    class="form-select"
-                    name="auditee_id"
-                    required
-                >
-                    <option selected disabled>{{ $data->auditee->unit_kerja }}</option>
-                    @foreach ($listAuditee as $item)
-                    <option value="{{ $item->id }}" name="auditee_id">
-                        {{ $item->unit_kerja }}
-                    </option>
-                    @endforeach
+<div class="container vh-100 pt-3">
+    <h5 class="text-center">Ubah Area Daftar Tilik</h5>
+    <form action="/daftartilik-updatedataareadaftartilik/{{ $data->id }}" method="POST">
+        @csrf
+        <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
+            <div class="row g-3 my-4 mx-3">
+                <div class="col">
+                    <label for="auditee_id" class="visually-hidden"
+                        >Auditee</label
+                    >
+                    <select
+                        id="auditee_id"
+                        class="form-select"
+                        name="auditee_id"
+                        required
+                    >
+                        <option selected disabled>{{ $data->auditee->unit_kerja }}</option>
+                        @foreach ($listAuditee as $item)
+                        <option value="{{ $item->id }}" name="auditee_id">
+                            {{ $item->unit_kerja }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="auditor" class="visually-hidden">Auditor</label>
+                    <select id="auditor" class="form-select" name="auditor_id">
+                        <option selected disabled>{{ $data->auditor->nama }}</option>
+                        @foreach ($listAuditor as $item)
+                        <option value="{{ $item->id }}" name="auditor_id">{{ $item->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row g-3 mb-4 mx-3">
+                <div class="col">
+                    <input
+                        type="text"
+                        id="tgl-pelaksanaan"
+                        class="form-control"
+                        placeholder="Masukkan Hari/Tanggal Pelaksanaan"
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
+                        aria-label="Masukkan Hari/Tanggal Pelaksanaan"
+                        name="tgl_pelaksanaan"
+                        value="{{ $data->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
+                    />
+                </div>
+                <div class="col">
+                    <input
+                        type="text"
+                        id="tempat"
+                        class="form-control"
+                        placeholder="Masukkan tempat pelaksanaan"
+                        aria-label="Masukkan tempat pelaksanaan"
+                        name="tempat"
+                        value="{{ $data->tempat }}"
+                    />
+                </div>
+            </div>
+            <div class="row g-3 mb-4 mx-4">
+                <label for="area" class="visually-hidden">Area Audit</label>
+                <select id="area" class="form-select" name="area">
+                    <option selected disabled>{{ $data->area }}</option>
+                    <option>Pendidikan</option>
+                    <option>Penelitian</option>
+                    <option>PkM</option>
+                    <option>Tambahan</option>
                 </select>
             </div>
-            <div class="col">
-                <label for="auditor" class="visually-hidden">Auditor</label>
-                <select id="auditor" class="form-select" name="auditor_id">
-                    <option selected disabled>{{ $data->auditor->nama }}</option>
-                    @foreach ($listAuditor as $item)
-                    <option value="{{ $item->id }}" name="auditor_id">{{ $item->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="row g-3 mb-4 mx-3">
-            <div class="col">
+            <div class="row g-3 mb-5 mx-4">
+                <label for="bataspengisianRespon" class="visually-hidden"
+                    >Batas Pengisian Respon</label
+                >
                 <input
+                    id="bataspengisianRespon"
                     type="text"
-                    id="tgl-pelaksanaan"
                     class="form-control"
-                    placeholder="Masukkan Hari/Tanggal Pelaksanaan"
+                    placeholder="Berikan Batas Pengisian Respon Auditee"
                     onfocus="(this.type='date')"
                     onblur="(this.type='text')"
-                    aria-label="Masukkan Hari/Tanggal Pelaksanaan"
-                    name="tgl_pelaksanaan"
-                    value="{{ $data->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
-                />
-            </div>
-            <div class="col">
-                <input
-                    type="text"
-                    id="tempat"
-                    class="form-control"
-                    placeholder="Masukkan tempat pelaksanaan"
-                    aria-label="Masukkan tempat pelaksanaan"
-                    name="tempat"
-                    value="{{ $data->tempat }}"
+                    aria-label="Berika Batas Pengisian Respon Auditee"
+                    name="bataspengisianRespon"
+                    value="{{ $data->bataspengisianRespon->translatedFormat('d-m-y') }}"
                 />
             </div>
         </div>
-        <div class="row g-3 mb-4 mx-4">
-            <label for="area" class="visually-hidden">Area Audit</label>
-            <select id="area" class="form-select" name="area">
-                <option selected disabled>{{ $data->area }}</option>
-                <option>Pendidikan</option>
-                <option>Penelitian</option>
-                <option>PkM</option>
-                <option>Tambahan</option>
-            </select>
-        </div>
-        <div class="row g-3 mb-5 mx-4">
-            <label for="bataspengisianRespon" class="visually-hidden"
-                >Batas Pengisian Respon</label
+        <div class="d-grid gap-2 d-md-flex justify-content-end mx-4 mb-4">
+            <a href="/daftarTilik-areadaftartilik/{{ $data->auditee_id }}/{{ $data->area }}">
+                <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
+            </a>
+            <button
+                class="btn btn-success"
+                type="submit"
+                style="background: #00d215; border: 1px solid #008f0e"
             >
-            <input
-                id="bataspengisianRespon"
-                type="text"
-                class="form-control"
-                placeholder="Berikan Batas Pengisian Respon Auditee"
-                onfocus="(this.type='date')"
-                onblur="(this.type='text')"
-                aria-label="Berika Batas Pengisian Respon Auditee"
-                name="bataspengisianRespon"
-                value="{{ $data->bataspengisianRespon->translatedFormat('d-m-y') }}"
-            />
+                Simpan
+            </button>
         </div>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-between mx-4 mb-4">
-        <a href="/daftarTilik-areadaftartilik/{{ $data->auditee_id }}/{{ $data->area }}">
-            <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
-        </a>
-        <button
-            class="btn btn-success"
-            type="submit"
-            style="background: #00d215; border: 1px solid #008f0e"
-        >
-            Simpan
-        </button>
-    </div>
-</form>
+    </form>
+</div>
 
-@endsection @push('script')
+
+@endsection 
+
+@push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>

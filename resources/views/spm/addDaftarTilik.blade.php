@@ -10,7 +10,7 @@
     <a href="/daftartilik/{{ $item->auditee->tahunperiode }}" class="mx-1">
     @endforeach
     @foreach ($data as $item)
-    {{ $item->auditee->tahunperiode }}
+    {{ $item->auditee->tahunperiode }}/{{ $item->auditee->tahunperiode }}
     </a>/
     @endforeach
     
@@ -31,12 +31,10 @@
 @endsection
 
 @section('container')
-      @foreach ($data as $item)
-      <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-primary btn-sm mx-4" type="button">Kembali</button></a>
-      @endforeach
+      <h5 class="mx-4 mt-3">Tambah Pertanyaan Daftar Tilik</h5>
       @foreach ($data as $item)
       @foreach ($item->auditee()->get() as $dt)
-          <div id="infoDT" class="card mt-5 mb-4 mx-4 px-3">
+          <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">
                       <label for="auditee_id" class="visually-hidden">Auditee</label>
@@ -281,10 +279,13 @@
           <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media Line dan mengunggah dokumen bukti sahih yang baru</p>
           <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+        {{-- <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="moreItems_add btn btn-primary float-end" type="button">Tambah Pertanyaan</button>
-        </div>
+        </div> --}}
         <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+          @foreach ($data as $item)
+            <a href="/daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-outline-secondary me-md-2" type="button">Kembali</button></a>
+          @endforeach
           <button class="btn btn-success me-md-2" type="button">Persetujuan Auditor</button>
           <button class="btn btn-success me-md-2" type="button">Persetujuan Auditee</button>
           <button class="btn btn-success" type="submit" style="background: #00D215; border: 1px solid #008F0E;">Simpan</button>

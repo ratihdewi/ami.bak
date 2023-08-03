@@ -103,11 +103,12 @@ class DaftarHadirController extends Controller
             'addmore.*.beritaacara_id' => 'required',
             'addmore.*.posisi' => 'required',
             'addmore.*.namapeserta' => 'required',
+            'addmore.*.namapenginput' => 'required',
         ]);
-
-        // ddd($request->addmore);
+        
         foreach ($users_ as $key => $user) {
             foreach ($request->addmore as $key => $value) {
+
                 $user_ = User::where('name', $value['namapeserta'])->first();
                 $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
                 $notExist = DaftarHadir::where('namapeserta', $value['namapeserta'])->where('beritaacara_id', $beritaacara_->id)->doesntExist();
@@ -120,6 +121,7 @@ class DaftarHadirController extends Controller
                     $daftarhadir->beritaacara_id = $value['beritaacara_id'];
                     $daftarhadir->posisi = $value['posisi'];
                     $daftarhadir->namapeserta = $value['namapeserta'];
+                    $daftarhadir->namapenginput = $value['namapenginput'];
                     $daftarhadir->save();
                     $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
                 } elseif (!$notExist) {

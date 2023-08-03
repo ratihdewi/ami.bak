@@ -18,6 +18,7 @@ class Auditor extends Model
         'noTelepon',
         'tgl_mulai',
         'tgl_berakhir',
+        'tahunperiode0',
         'tahunperiode',
     ];
     // protected $guarded = [];
