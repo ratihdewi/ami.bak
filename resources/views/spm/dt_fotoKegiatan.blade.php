@@ -52,18 +52,19 @@
           <div class="col mb-4">
             <label for="foto" class="form-label fw-semibold">Unggah Foto Kegiatan</label>
             <input class="form-control" type="file" id="foto" placeholder="Unggah Foto Kegiatan" multiple name="foto">
-            <p class="fw-light fst-italic">*.jpeg, .png, .jpg</p>
+            <p class="fw-light fst-italic">*.jpeg, .png, .jpg (maks. 2MB)</p>
           </div>
         </div>
 
         {{-- Simpan Perubahan --}}
-        <div class="simpanBA d-grid gap-2">
+        <div class="simpanBA d-flex justify-content-end">
+          <a href="/auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
       <div class="listDokPendukung px-3 my-5">
         <table class="table table-hover">
-          <thead>
+          <thead style="background-color: #bfe9df;">
               <tr class="">
                   <th class="col text-center">No</th>
                   <th class="col text-center">Nama Foto</th>
@@ -79,8 +80,8 @@
                 <td class="col">{{ $fotokegiatan->namaFile }}</td>
                 <td class="col text-center">{{ $fotokegiatan->updated_at }}</td>
                 <td class="col text-center">
-                  <a href="/lihatfotokegiatan/{{ $fotokegiatan->id }}" class="mx-2" target="_blank"><i class="bi bi-eye"></i></a>
-                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><i class="bi bi-trash"></i></a>
+                  <a href="/lihatfotokegiatan/{{ $fotokegiatan->id }}" target="_blank"><button class="bg-warning border-0 rounded-1 me-3"><i class="bi bi-eye-fill"></i></button></i></a>
+                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                 </td>
               </tr>
               @endforeach

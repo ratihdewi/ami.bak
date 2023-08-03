@@ -14,7 +14,7 @@
     BA - AMI
     </a>/
 
-    <a href="/BAAMI-pratinjauBA/{{ $auditee->id }}" class="mx-1">
+    <a href="/BAAMI-pratinjauBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
     Pratinjau
     </a>/
     
@@ -132,7 +132,7 @@
             oleh:
         </p>
         <div class="tabledaftarhadir mb-5 px-3">
-            <table class="table table-bordered">
+            <table class="table table-bordered w-75">
                 <thead>
                     <tr class="text-center">
                         <th colspan="2">Nama</th>
@@ -141,7 +141,6 @@
                 </thead>
                 <tbody>
                     <?php $i=0; $j=0 ?>
-                    {{-- <?php $j=0; ?> --}}
                     @foreach ($daftarhadir_ as $daftarhadir)
                     @if ($daftarhadir->posisi == 'Auditor')
                     <tr>

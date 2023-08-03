@@ -1,4 +1,11 @@
 @extends('auditee.main_') @section('title') AMI - Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditee-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+@endsection
+
 @section('container')
 <div class="container" style="font-size: 15px">
     <div class="container-fluid d-flex justify-content-between mt-4">
@@ -18,10 +25,10 @@
         <table class="table table-hover my-5 listAuditee" id="beritaacara">
             <thead class="mt-5">
                 <tr class="row ListAuditeeHeader">
-                    <th class="col-1 text-center">No</th>
-                    <th class="col text-center">Auditee</th>
-                    <th class="col-2 text-center">Tahun Pelaksanaan</th>
-                    <th class="col-1 text-center">Aksi</th>
+                    <th class="col text-center">No</th>
+                    <th class="col-6 text-center">Auditee</th>
+                    <th class="col text-center">Tahun Pelaksanaan</th>
+                    <th class="col text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,10 +36,10 @@
                 @foreach ($auditee_ as $auditee)
                 @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="row ListAuditee">
-                    <td class="col-2 text-center">{{ $no++ }}</td>
-                    <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
-                    <td class="col-2 text-center">{{ $item->tahunperiode }}</td>
-                    <td class="col-1 pe-3 text-center">
+                    <td class="col text-center">{{ $no++ }}</td>
+                    <td class="col-6">{{ $item->auditee->unit_kerja }}</td>
+                    <td class="col text-center">{{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}</td>
+                    <td class="col text-center">
                         <a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a>
                     </td>
                 </tr>

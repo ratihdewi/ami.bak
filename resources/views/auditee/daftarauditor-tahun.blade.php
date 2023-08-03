@@ -36,7 +36,7 @@
                 @foreach ($dataAuditor->unique('tahunperiode') as $item)
                     <tr>
                         <th scope="row" class=" col-2 text-center">{{ $no++ }}</th>
-                        <th class="col-8">Periode {{ $item->tahunperiode }}</th>
+                        <th class="col-8">Periode {{ $item->tahunperiode0 }}/{{ $item->tahunperiode }}</th>
                         <th class="col-2 text-center"><a href="/auditee-daftarauditor/{{ $item->tahunperiode }}" style="text-decoration-line: none; color: black"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></th>
                     </tr>
                 @endforeach

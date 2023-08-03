@@ -1,4 +1,20 @@
 @extends('auditee.main_') @section('title') AMI - Daftar Tilik @endsection
+
+@section('linking')
+    <a href="/auditee-daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    <a href="/auditee-daftartilik/{{ $data->auditee->tahunperiode }}" class="mx-1">
+    {{ $data->auditee->tahunperiode0 }}/{{ $data->auditee->tahunperiode }}
+    </a>/
+
+    <a href="/auditee-daftarTilik-areadaftartilik/{{ $data->auditee_id }}/{{ $data->area }}" class="mx-1">
+        {{ $data->area}}
+    </a>/
+
+@endsection
+
 @section('container')
 <div class="container">
     <div class="container-fluid float-end my-4">

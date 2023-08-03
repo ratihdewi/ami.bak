@@ -126,7 +126,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=0; ?>
+                        <?php $i=0; $j=0 ?>
                         @foreach ($daftarhadir_ as $daftarhadir)
                         @if ($daftarhadir->posisi == 'Auditor')
                         <tr>
@@ -135,22 +135,16 @@
                             <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                             
                         </tr>
-                        @endif
                         <?php $i++; ?>
-                        @endforeach
-                        <?php $j=0; ?>
-                        @if ($j <= count($eSignAuditee))
-                            @foreach ($daftarhadir_ as $daftarhadir)
-                            @if ($daftarhadir->posisi == 'Auditee')
-                            <tr>
-                                <td rowspan>Auditee</td>
-                                <td>{{ $daftarhadir->namapeserta }}</td>
-                                <td class="text-center">{{ $eSignAuditee[$j] }}</td>
-                            </tr>
-                            @endif
-                            @endforeach
-                        @endif
+                        @elseif ($daftarhadir->posisi == 'Auditee')
+                        <tr>
+                            <td rowspan>Auditee</td>
+                            <td>{{ $daftarhadir->namapeserta }}</td>
+                            <td class="text-center">{{ $eSignAuditee[$j] }}</td>
+                        </tr>
                         <?php $j++; ?>
+                        @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

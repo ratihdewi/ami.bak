@@ -1,6 +1,27 @@
 @extends('auditee.main_') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
+@section('linking')
+    <a href="/auditee-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/auditee-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    {{ $auditee->unit_kerja }}
+    </a>/
+
+    <a href="/auditee-BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/auditee-BAAMI-pratinjauBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    Pratinjau
+    </a>/
+    
+@endsection
+
 @section('container')
 <div class="container-pratinjau mx-4 my-5">
     <div id="dokheader" class="dokheader my-3 mx-4 py-2">
@@ -121,7 +142,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=0; ?>
+                    <?php $i=0; $j=0 ?>
                     @foreach ($daftarhadir_ as $daftarhadir)
                     @if ($daftarhadir->posisi == 'Auditor')
                     <tr>
@@ -130,22 +151,16 @@
                         <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                         
                     </tr>
-                    @endif
                     <?php $i++; ?>
-                    @endforeach
-                    <?php $j=0; ?>
-                    @if ($j <= count($eSignAuditee))
-                        @foreach ($daftarhadir_ as $daftarhadir)
-                        @if ($daftarhadir->posisi == 'Auditee')
-                        <tr>
-                            <td rowspan>Auditee</td>
-                            <td>{{ $daftarhadir->namapeserta }}</td>
-                            <td class="text-center">{{ $eSignAuditee[$j] }}</td>
-                        </tr>
-                        @endif
-                        @endforeach
-                    @endif
+                    @elseif ($daftarhadir->posisi == 'Auditee')
+                    <tr>
+                        <td rowspan>Auditee</td>
+                        <td>{{ $daftarhadir->namapeserta }}</td>
+                        <td class="text-center">{{ $eSignAuditee[$j] }}</td>
+                    </tr>
                     <?php $j++; ?>
+                    @endif
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -2,11 +2,17 @@
 
 @section('title') AMI - Jadwal Audit @endsection
 
+@section('linking')
+  <a href="/auditee-jadwalaudit" class="mx-1">
+    Jadwal Audit
+  </a>/
+@endsection
+
 @section('container')
 
-<div class="container mt-4" style="font-size: 13px">
+<div class="container vh-100 mt-4" style="font-size: 13px">
   {{-- Search Jadwal --}}
-  <div class="search my-5 p-5 mx-5 text-white rounded">
+  {{-- <div class="search my-5 p-5 mx-5 text-white rounded">
     <form action="" method="get">
       @csrf
       <div class="input-group">
@@ -25,11 +31,10 @@
         <button class="btn btn-primary mx-2 border rounded" type="button">Cari</button>
       </div>
     </form>
-  </div>
+  </div> --}}
   {{-- Search Jadwal End --}}
 
   {{-- JadwalAudit --}}
-
   <div class="jadwalAudit mb-5">
     <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -47,7 +52,7 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row my-4">
-            <table class="table table-hover" id="jadwalaudit">
+            <table class="table table-hover my-4" id="jadwalaudit">
                 <thead>
                     <tr class="">
                         <th class="col-1 text-center">No</th>
@@ -65,7 +70,7 @@
                     @foreach ($auditee_ as $auditee)
                     @foreach ($auditee->jadwalaudit()->get() as $item)
                       <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
+                        <td scope="row" class="text-center">{{ $no++ }}</td>
                         <td class="text-center">
                           {{ $auditee->unit_kerja }}
                         </td>
@@ -104,31 +109,31 @@
   
   {{-- Jadwal keseluruhan --}}
   <div class="jadwalKeseluruhan" style="margin-top: 100px">
-    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist" style="border: none;">
+    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jadwal Audit Mutu Internal</button>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-panel fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <div class="row">
-          <table class="table table-hover">
+        <div class="row mt-4">
+          <table class="table table-hover my-3" id="tablejadwalkeseluruhan">
             <thead>
                 <tr class="">
                     <th class="col-1 text-center">No</th>
                     <th class="col-3 text-center">Kegiatan</th>
                     <th class="col-3 text-center">Sub Kegiatan</th>
-                    <th class="col-3 text-center">Waktu</th>
+                    <th class="col-4 text-center">Waktu</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no_ = 1; @endphp
                 @foreach ($jadwalami as $jdami)
                 <tr>
-                  <th scope="row" class="text-center">{{ $no_++ }}</th>
+                  <td scope="row" class="text-center">{{ $no_++ }}</td>
                   <td class="">{{ $jdami->kegiatan }}</td>
                   <td class="text-center">{{ $jdami->subkegiatan }}</td>
-                  <td class="col-3 text-center">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
+                  <td class="col-4 text-center">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -274,7 +279,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script>
   $(document).ready(function() {
-      $('#jadwalaudit').DataTable({ });
+      $('#jadwalaudit').DataTable();
+      $('#tablejadwalkeseluruhan').DataTable();
   });
 </script>
     

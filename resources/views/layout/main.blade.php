@@ -5,7 +5,7 @@
         <title class="title">@yield('title')</title>
     </head>
 
-    <body id="body-pd" class="body-pd">
+    <body id="body-pd">
         @include('inc.header')
         <div class="l-navbar" id="nav-bar">@include('inc.sidebar')</div>
         <!--Container Main start-->

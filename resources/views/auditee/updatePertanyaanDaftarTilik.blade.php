@@ -1,6 +1,35 @@
 @extends('auditee.main_') 
 @section('title') AMI - Daftar Tilik - Pertanyaan @endsection
 
+@section('linking')
+    <a href="/auditee-daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($_daftartiliks as $item)
+    <a href="/auditee-daftartilik/{{ $item->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($_daftartiliks as $item)
+    {{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}
+    </a>/
+    @endforeach
+    
+    @foreach ($_daftartiliks as $item)
+    <a href="/auditee-daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}" class="mx-1">
+    @endforeach
+    @foreach ($_daftartiliks as $item)
+    {{ $item->area }}
+    </a>/
+    @endforeach
+
+    @foreach ($_daftartiliks as $item)
+    <a href="/auditee-daftartilik-adddaftartilik/{{ $item->auditee_id }}/{{ $item->area }}" class="mx-1">
+    @endforeach
+    Pertanyaan
+    </a>/  
+
+@endsection
+
 @section('container')
       {{-- Form setiap auditee --}}
       <div class="row mt-4 mx-4">
@@ -276,7 +305,10 @@
           <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media Line dan mengunggah dokumen bukti sahih yang baru</p>
           <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4 mt-3">
+          @foreach ($_daftartiliks as $item)
+          <a href="/auditee-daftarTilik-areadaftartilik/{{ $item->auditee->id }}/{{ $item->area }}"><button class="btn btn-outline-secondary me-md-1" type="button">Kembali</button></a>
+          @endforeach
           <button class="btn btn-secondary me-md-2" type="button" disabled>
           @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
                 {{ "Menunggu pengajuan persetujuan Auditor" }}

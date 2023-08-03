@@ -1,4 +1,22 @@
 @extends('auditee.main_') @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditee-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/auditee-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    {{ $auditee->unit_kerja }}
+    </a>/
+
+    <a href="/auditee-BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+    
+@endsection
+
 @section('container')
   <div class="container">
       <div class="d-flex my-4 justify-content-between">

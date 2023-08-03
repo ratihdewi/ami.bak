@@ -1,7 +1,37 @@
 @extends('auditee.main_') 
 @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditee-daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($daftartilik_ as $daftartilik)
+    <a href="/auditee-daftartilik/{{ $daftartilik->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($daftartilik_ as $daftartilik)
+    {{ $daftartilik->auditee->tahunperiode0 }}/{{ $daftartilik->auditee->tahunperiode }}
+    </a>/
+    @endforeach
+    
+    @foreach ($daftartilik_ as $daftartilik)
+    <a href="/auditee-daftarTilik-areadaftartilik/{{ $daftartilik->auditee_id }}/{{ $daftartilik->area }}" class="mx-1">
+    @endforeach
+    @foreach ($daftartilik_ as $daftartilik)
+    {{ $daftartilik->area }}
+    </a>/
+    @endforeach
+
+    @foreach ($daftartilik_ as $daftartilik)
+    <a href="/auditee-daftartilik-pratinjaudaftartilik/{{ $daftartilik->auditee_id }}/{{ $daftartilik->area }}" class="mx-1">
+    @endforeach
+    Pratinjau
+    </a>/  
+
+@endsection
+
 @section('container')
-  <div class="container mb-4">
+  <div class="container vh-100 mb-4">
       <div id="headerPratinjau" class="headerpratinjau my-4 mx-2">
         <div class="row">
             <div class="col-3 label py-2 fw-semibold text-start">Auditee</div>
@@ -91,6 +121,13 @@
                 @endforeach
             </tbody>
         </table>
+      </div>
+      <div class="button d-flex justify-content-end">
+        @foreach ($daftartilik_ as $daftartilik)
+        <a href="/auditee-daftarTilik-areadaftartilik/{{ $daftartilik->auditee_id }}/{{ $daftartilik->area }}" class="mx-1">
+        @endforeach
+        <button type="button" class="btn btn-outline-secondary">Kembali</button>
+        </a>
       </div>
   </div>
 @endsection

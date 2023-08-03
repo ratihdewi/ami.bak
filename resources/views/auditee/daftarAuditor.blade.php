@@ -11,7 +11,7 @@
     <a href="/auditee-daftarauditor/{{ $item->tahunperiode }}" class="mx-1">
     @endforeach
     @foreach ($dataAuditor->unique('tahunperiode') as $item)
-    {{ $item->tahunperiode }}
+    {{ $item->tahunperiode0 }}/{{ $item->tahunperiode }}
     @endforeach
     </a>/
 @endsection

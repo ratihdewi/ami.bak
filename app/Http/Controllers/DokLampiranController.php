@@ -41,6 +41,10 @@ class DokLampiranController extends Controller
 
         if ( count($dokumenpendukung_) == 0 || !$isAlreadyExist ) {
 
+            $validated = $request->validate([
+                'dokumen' => 'required|mimes:csv,xlsx,xls,pdf,docx|max:10240',
+            ]);
+
             $dokpendukung_ = new DokLampiran;
             $dokpendukung_->auditee_id = $beritaacara_->auditee_id;
             $dokpendukung_->kodeDokumen = $request->kodeDokumen;
@@ -77,6 +81,6 @@ class DokLampiranController extends Controller
         $dokpendukung_ = DokLampiran::find($id);
         $dokpendukung_->delete();
 
-        return redirect()->route('BA-dokumenpendukung', ['auditee_id' => $dokpendukung_->auditee_id])->with('success', 'Dokumen pendukung berhasil dihapus!');
+        return redirect()->back()->with('success', 'Dokumen pendukung berhasil dihapus!');
     }
 }
