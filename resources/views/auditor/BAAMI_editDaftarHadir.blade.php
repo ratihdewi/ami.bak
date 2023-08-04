@@ -1,6 +1,33 @@
 @extends('auditor.main_') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($auditee_ as $auditee)
+    {{ $auditee->unit_kerja }}
+    @endforeach
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/auditor-BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    BA - AMI
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/auditor-BA-daftarhadir/{{ $auditee->id }}" class="mx-1">
+    @endforeach
+    Daftar Hadir
+    </a>/
+    
+@endsection
+
 @section('container')
     <div class="topSection d-flex justify-content-around mx-2 mt-4">
       @if ($message = Session::get('success'))
@@ -13,65 +40,74 @@
       </div>
       @endif
     </div>
-    <div class="container my-5">
-        <form action="/BA-savedaftarhadir/{{ $beritaacara_->auditee_id }}" method="post">
-            @csrf
-            {{-- Berita Acara AMI - Daftar Hadir --}}
-            <div class="row sectionName mx-0 mb-5 mt-5">
-                <div class="col border rounded-top text-center py-2 fw-semibold">Berita Acara AMI - Daftar Hadir</div>  
-            </div>
-            <div class="row" hidden>
-              <label for="unit_kerja" class="form-label fw-semibold">Unit Kerja</label>
-              <input type="text" class="form-control" id="unit_kerja" placeholder="Masukkan unit kerja" value="{{ $unit_kerja->unit_kerja }}">
-            </div>
-            <div class="luar">
-              <div class="inputAbsen mx-4">
-                <div class="row inputabsen my-4 mx-5" hidden>
-                  <div class="col">
-                    @foreach ($daftarhadir_ as $daftarhadir)
-                    <label for="daftarhadir_id" class="form-label fw-semibold">ID Daftar Hadir</label>
-                    <input type="text" class="form-control" id="daftarhadir_id" placeholder="Masukkan id daftar hadir" value="{{ $daftarhadir->id }}">
-                    @endforeach 
-                  </div>
-                  <div class="col">
-                      <label for="beritaacara_id1" class="form-label fw-semibold">ID Berita Acara</label>
-                      <input type="text" class="form-control" id="beritaacara_id1" placeholder="Masukkan id berita acara" value="{{ $beritaacara_->id }}">
-                  </div>
-                </div>
-                
-                <div class="row inputabsen my-4 mx-5">
-                  <div class="col-4 mb-4">
-                    @foreach ($daftarhadir_ as $daftarhadir)
-                    <label for="inputPosisi1" class="form-label fw-semibold">Auditor/Auditee:</label>
-                    <select id="inputPosisi1" class="form-select mb-4" value="{{ $daftarhadir->posisi }}">
-                        <option selected disabled>{{ $daftarhadir->posisi }}</option>
-                        <option value="Auditor">Auditor</option>
-                        <option value="Auditee" disabled>Auditee</option>
-                    </select>
-                    @endforeach
-                  </div>
-                  <div class="col-7 mb-4">
-                    @foreach ($daftarhadir_ as $daftarhadir)
-                    <label for="inputAbsenNama1" class="form-label fw-semibold">Nama</label>
-                    <select id="inputAbsenNama1" class="form-select mb-4" value="{{ $daftarhadir->namapeserta }}">
-                      <option>{{ $daftarhadir->namapeserta }}</option>
-                    </select>
-                    @endforeach
-                  </div> 
-                  <div class="col-1 mb-4">
-                      <button id="moreItems_add" class="moreItems_add btn btn-primary float-end" type="button"><i class="bi bi-plus h5" style="color: #ffff"></i></button>
-                  </div>
-  
-                </div>
-             
+    <div class="container vh-100 my-2">
+      <form action="/BA-savedaftarhadir/{{ $beritaacara_->auditee_id }}" method="post">
+        @csrf
+        {{-- Berita Acara AMI - Daftar Hadir --}}
+        <div class="row sectionName mx-4 mb-5 mt-5">
+            <div class="col border rounded-top text-center py-2 fw-semibold">Berita Acara AMI - Daftar Hadir</div>  
+        </div>
+        <div class="row" hidden>
+          <label for="unit_kerja" class="form-label fw-semibold">Unit Kerja</label>
+          <input type="text" class="form-control" id="unit_kerja" placeholder="Masukkan unit kerja" value="{{ $unit_kerja->unit_kerja }}">
+        </div>
+        <div class="luar">
+          <div class="inputAbsen mx-4">
+            <div class="row inputabsen my-4 mx-5" hidden>
+              <div class="col">
+                @foreach ($daftarhadir_ as $daftarhadir)
+                <label for="daftarhadir_id" class="form-label fw-semibold">ID Daftar Hadir</label>
+                <input type="text" class="form-control" id="daftarhadir_id" placeholder="Masukkan id daftar hadir" value="{{ $daftarhadir->id }}">
+                @endforeach 
+              </div>
+              <div class="col">
+                @foreach ($daftarhadir_ as $daftarhadir)
+                  <label for="namapenginput1" class="form-label fw-semibold">Penginput</label>
+                  <input type="text" class="form-control" id="namapenginput1" placeholder="Masukkan nama penginput" value="{{ $daftarhadir->namapenginput }}">
+                @endforeach
+              </div>
+              <div class="col">
+                  <label for="beritaacara_id1" class="form-label fw-semibold">ID Berita Acara</label>
+                  <input type="text" class="form-control" id="beritaacara_id1" placeholder="Masukkan id berita acara" value="{{ $beritaacara_->id }}">
               </div>
             </div>
-            
-            {{-- Simpan Perubahan --}}
-            <div class="simpanBA d-grid gap-2 mt-5">
-                <button class="btn btn-success" type="submit">Simpan Perubahan</button>
+
+            <div class="row inputabsen my-4 mx-5">
+              <div class="col-4 mb-4">
+                @foreach ($daftarhadir_ as $daftarhadir)
+                <label for="inputPosisi1" class="form-label fw-semibold">Auditor/Auditee:</label>
+                <select id="inputPosisi1" class="form-select mb-4" value="{{ $daftarhadir->posisi }}">
+                    <option selected disabled>{{ $daftarhadir->posisi }}</option>
+                    <option value="Auditor">Auditor</option>
+                    <option value="Auditee" disabled>Auditee</option>
+                </select>
+                @endforeach
+              </div>
+              <div class="col-7 mb-4">
+                @foreach ($daftarhadir_ as $daftarhadir)
+                <label for="inputAbsenNama1" class="form-label fw-semibold">Nama</label>
+                <select id="inputAbsenNama1" class="form-select mb-4" value="{{ $daftarhadir->namapeserta }}">
+                  <option>{{ $daftarhadir->namapeserta }}</option>
+                </select>
+                @endforeach
+              </div> 
+              <div class="col-1 mb-4">
+                  <button id="moreItems_add" class="moreItems_add btn btn-primary float-end" type="button"><i class="bi bi-plus h5" style="color: #ffff"></i></button>
+              </div>
             </div>
-        </form>
+         
+          </div>
+        </div>
+        
+        {{-- Simpan Perubahan --}}
+        <div class="simpanBA d-flex justify-content-end mx-5">
+          @foreach ($auditee_ as $auditee)
+          <a href="/auditor-BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
+          @endforeach
+          <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
+            <button class="btn btn-success" type="submit">Simpan Perubahan</button>
+        </div>
+    </form>
     </div>
 
 @endsection
@@ -321,7 +357,7 @@
       if (i < max_fields) {
         console.log('#inputPosisi'+i);
         i++;
-        $(wrapper).append('<div class="inputAbsen add-new mx-4"><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="beritaacara_id'+i+'" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="beritaacara_id'+i+'" placeholder="Masukkan id berita acara" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div></div><div class="row inputabsen my-4 mx-5"><div class="col-4 mb-4"><label for="inputPosisi'+i+'" class="form-label fw-semibold">Auditor/Auditee:</label><select id="inputPosisi'+i+'" class="form-select mb-4" name="addmore['+i+'][posisi]"><option selected disabled>Posisi (Auditor/Auditee)</option><option value="Auditor">Auditor</option><option value="Auditee" disabled>Auditee</option></select></div><div class="col-7 mb-4"><label for="inputAbsenNama'+i+'" class="form-label fw-semibold">Nama</label><select id="inputAbsenNama'+i+'" class="form-select" name="addmore['+i+'][namapeserta]" required><option></option></select></div><div class="col-1 my-4"><button id="remove-tr" class="btn btn-danger float-end my-1 remove-tr" type="button"><i class="bi bi-x p-0" style="color: #ffff"></i></button></div></div></div>')
+        $(wrapper).append('<div class="inputAbsen add-new mx-4"><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="beritaacara_id'+i+'" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="beritaacara_id'+i+'" placeholder="Masukkan id berita acara" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div></div><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="namapenginput'+i+'" class="form-label fw-semibold">Penginput</label><input type="text" class="form-control" id="namapenginput'+i+'" placeholder="Masukkan nama penginput" name="addmore['+i+'][namapenginput]" value="{{ Auth::user()->name }}"></div></div><div class="row inputabsen my-4 mx-5"><div class="col-4 mb-4"><label for="inputPosisi'+i+'" class="form-label fw-semibold">Auditor/Auditee:</label><select id="inputPosisi'+i+'" class="form-select mb-4" name="addmore['+i+'][posisi]"><option selected disabled>Posisi (Auditor/Auditee)</option><option value="Auditor">Auditor</option><option value="Auditee" disabled>Auditee</option></select></div><div class="col-7 mb-4"><label for="inputAbsenNama'+i+'" class="form-label fw-semibold">Nama</label><select id="inputAbsenNama'+i+'" class="form-select" name="addmore['+i+'][namapeserta]" required><option></option></select></div><div class="col-1 my-4"><button id="remove-tr" class="btn btn-danger float-end my-1 remove-tr" type="button"><i class="bi bi-x p-0" style="color: #ffff"></i></button></div></div></div>')
       }
     });
     

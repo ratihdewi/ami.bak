@@ -1,6 +1,13 @@
 @extends('auditor.main_') @section('title') AMI - Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+@endsection
+
 @section('container')
-<div class="container" style="font-size: 15px">
+<div class="container vh-100" style="font-size: 15px">
     <div class="container-fluid d-flex justify-content-between mt-4">
         <div class="input-group w-50 h-25 my-3 ms-4">
             <input class="form-control" id="myInput" type="text" style="font-size: 15px" placeholder="Cari berdasarkan Auditee">
@@ -16,29 +23,28 @@
 
     <div class="tableBA mx-3">
         <table class="table table-hover listAuditee">
-            <thead>
+            <thead class="mt-5">
                 <tr class="row ListAuditeeHeader">
-                    <th class="col-1 text-center">No</th>
-                    <th class="col text-center">Auditee</th>
-                    <th class="col-2 text-center">Tahun Pelaksanaan</th>
-                    <th class="col-1 text-center">Aksi</th>
+                    <th class="col text-center">No</th>
+                    <th class="col-6 text-center">Auditee</th>
+                    <th class="col text-center">Tahun Pelaksanaan</th>
+                    <th class="col text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                {{-- {{ $auditor_ }} --}}
                 @foreach ($auditor_ as $auditor)
                 @foreach ($auditor->daftartilik()->get() as $item)
-                    <tr class="row ListAuditee">
-                        <td class="col-2 text-center">{{ $no++ }}</td>
-                        <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
-                        <td class="col-2 text-center">{{ $item->tahunperiode }}</td>
-                        <td class="col-1 pe-3 text-center">
-                            <a href="/auditor-auditeeBA/{{ $item->auditee->id }}/{{ $item->auditee->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-primary"><i class="bi bi-eye-fill text-white"></i></button></a>
-                        </td>   
+                <tr class="row ListAuditee">
+                    <td class="col text-center">{{ $no++ }}</td>
+                    <td class="col-6">{{ $item->auditee->unit_kerja }}</td>
+                    <td class="col text-center">{{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}</td>
+                    <td class="col text-center">
+                        <a href="/auditor-auditeeBA/{{ $item->auditee_id }}/{{ $item->auditee->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a>
+                    </td>
                 </tr>
                 @endforeach
-                @endforeach 
+                @endforeach   
             </tbody>
         </table>
     </div>

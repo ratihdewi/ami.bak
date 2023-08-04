@@ -3,6 +3,12 @@
 
 @section('title') AMI - Daftar Auditee @endsection
 
+@section('linking')
+    <a href="/auditor-daftarauditee-periode" class="mx-1">
+        Periode Auditee
+    </a>/
+@endsection
+
 @section('container')
 <div class="container my-4"  style="font-size: 15px">
     <div class="row">
@@ -21,7 +27,7 @@
                 @foreach ($dataAuditee->unique('tahunperiode') as $item)
                     <tr>
                         <th scope="row" class=" col-2 text-center">{{ $no++ }}</th>
-                        <th class="col-8">Periode {{ $item->tahunperiode }}</th>
+                        <th class="col-8">Periode {{ $item->tahunperiode0 }}/{{ $item->tahunperiode }}</th>
                         <th class="col-2 text-center"><a href="/auditor-daftarauditee/{{ $item->tahunperiode }}" style="text-decoration-line: none; color: black"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></th>
                     </tr>
                 @endforeach

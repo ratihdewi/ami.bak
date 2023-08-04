@@ -1,4 +1,20 @@
 @extends('auditor.main_') @section('title') AMI - Daftar Tilik @endsection
+
+@section('linking')
+    <a href="/auditor-daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    <a href="/auditor-daftartilik/{{ $data->auditee->tahunperiode }}" class="mx-1">
+    {{ $data->auditee->tahunperiode0 }}/{{ $data->auditee->tahunperiode }}
+    </a>/
+
+    <a href="/auditor-daftarTilik-areadaftartilik/{{ $data->auditee_id }}/{{ $data->area }}" class="mx-1">
+        {{ $data->area}}
+    </a>/
+
+@endsection
+
 @section('container')
 <div class="container">
     <div class="container-fluid float-end my-4">
@@ -34,10 +50,10 @@
                 @foreach ($data_ as $d_pertanyaan)
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-2 px-0 text-center">{{ $data->auditee->unit_kerja }}</td>
+                        <td class="col-2 px-0">{{ $data->auditee->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center">{{ $data->area }}</td>
                         
-                        <td class="col-2 px-0 text-center">{{ $d_pertanyaan->butirStandar }}</td>
+                        <td class="col-2 px-0">{{ $d_pertanyaan->butirStandar }}</td>
                         <td class="col-1 px-0 text-center">{{ $d_pertanyaan->nomorButir }}</td>
                         <td class="col-3 px-0">
                             {{ $d_pertanyaan->pertanyaan }}

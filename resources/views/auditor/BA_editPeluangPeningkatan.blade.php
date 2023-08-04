@@ -1,6 +1,26 @@
 @extends('auditor.main_') @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditor-auditeeBA/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}" class="mx-1">
+    {{ $peningkatan_->beritaacara->unit_kerja }}
+    </a>/
+
+    <a href="/auditor-BA-AMI/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/auditor-BA-editpeluangpeningkatan/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}" class="mx-1">
+    Peluang Peningkatan
+    </a>/
+    
+@endsection
+
 @section('container')
-  <div class="container mb-4">
+  <div class="container vh-100 mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -43,7 +63,9 @@
         </div>
 
         {{-- Simpan Perubahan --}}
-        <div class="simpanBA d-grid gap-2">
+        <div class="simpanBA d-flex justify-content-end mx-5">
+          <a href="/auditor-BA-AMI/{{ $peningkatan_->beritaacara->auditee_id }}/{{ $peningkatan_->beritaacara->tahunperiode }}">
+            <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>

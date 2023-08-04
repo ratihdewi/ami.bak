@@ -1,4 +1,22 @@
 @extends('auditor.main_') @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    @foreach ($auditee_ as $auditee)
+    <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    {{ $auditee->unit_kerja }}
+    </a>/
+
+    <a href="/auditor-BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+    
+@endsection
+
 @section('container')
   <div class="container">
       <div class="d-flex my-4 justify-content-between">
@@ -7,7 +25,7 @@
           @endforeach
         <div class="btn-right">
           @foreach ($auditee_ as $auditee)
-          <a href="/auditor-BAAMI-pratinjauBA/{{ $auditee->id }}">
+          <a href="/auditor-BAAMI-pratinjauBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
           @endforeach
             <button class="btn btn-primary btn-sm" type="button">Pratinjau</button>
           </a>
@@ -177,7 +195,7 @@
                       @endif
                     </td>
                     <td class="col-2 text-center">
-                      <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><i class="bi bi-trash"></i></a>
+                      <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                     </td>
                   </tr>
                   <?php $i++; ?>
@@ -255,8 +273,8 @@
                       <td class="col-3 text-start">{{ $peningkatan->kelebihan }}</td>
                       <td class="col-2 text-start">{{ $peningkatan->peningkatan }}</td>
                       <td class="col-2 text-center">
-                        <a href="/auditor-BA-editpeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                        <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><i class="bi bi-trash" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></a>
+                        <a href="/auditor-BA-editpeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
+                        <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></button></a>
                       </td>
                     </tr>
                     @endforeach
@@ -297,7 +315,7 @@
                     <td scope="row" class="text-center">{{ $no++ }}</td>
                     <td class="col-2">{{ $dokpendukung->namaDokumen }}</td>
                     <td class="col-3">{{ $dokpendukung->kodeDokumen }}</td>
-                    <td class="col-2 text-center"><a href="/BA-lihatdokumenpendukung/{{ $dokpendukung->id }}" target="_blank"><i class="bi bi-eye"></i></a></td>
+                    <td class="col-2 text-center"><a href="/BA-lihatdokumenpendukung/{{ $dokpendukung->id }}" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></td>
                   </tr>
                   @endforeach
               </tbody>

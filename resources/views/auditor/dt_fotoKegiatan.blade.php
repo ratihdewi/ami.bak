@@ -2,8 +2,24 @@
 
 @section('title') AMI - Daftar Tilik - Foto Kegiatan @endsection
 
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditor-auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
+    {{ $auditees->unit_kerja }}
+    </a>/
+
+    <a href="/auditor-editfotokegiatan/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
+    Foto Kegiatan
+    </a>/
+    
+@endsection
+
+
 @section('container')
-  <div class="container mb-4">
+  <div class="container vh-100 mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -21,7 +37,7 @@
         @csrf
         {{-- Dokumen Pendukung --}}
         <div class="row sectionName mx-0 m-5">
-          <div class="col border rounded-top text-center py-2 fw-semibold">Foto Kegiatan Audit Lapangan - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode }})</div>  
+          <div class="col border rounded-top text-center py-2 fw-semibold">Foto Kegiatan Audit Lapangan - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode0 }}/{{ $auditees->tahunperiode }})</div>  
         </div>
         <div class="row inputDokDokSahih my-4 mx-5">
             {{-- @foreach ($doksahihs as $doksahih) --}}
@@ -37,18 +53,19 @@
           <div class="col mb-4">
             <label for="foto" class="form-label fw-semibold">Unggah Foto Kegiatan</label>
             <input class="form-control" type="file" id="foto" placeholder="Unggah Foto Kegiatan" multiple name="foto">
-            <p class="fw-light fst-italic">*.jpeg, .png, .jpg</p>
+            <p class="fw-light fst-italic">*.jpeg, .png, .jpg (maks. 2MB)</p>
           </div>
         </div>
 
         {{-- Simpan Perubahan --}}
-        <div class="simpanBA d-grid gap-2">
+        <div class="simpanBA d-flex justify-content-end">
+          <a href="/auditor-auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
       <div class="listDokPendukung px-3 my-5">
         <table class="table table-hover">
-          <thead>
+          <thead style="background-color: #bfe9df;">
               <tr class="">
                   <th class="col text-center">No</th>
                   <th class="col text-center">Nama Foto</th>
@@ -64,8 +81,8 @@
                 <td class="col">{{ $fotokegiatan->namaFile }}</td>
                 <td class="col text-center">{{ $fotokegiatan->updated_at }}</td>
                 <td class="col text-center">
-                  <a href="/lihatfotokegiatan/{{ $fotokegiatan->id }}" class="mx-2" target="_blank"><i class="bi bi-eye"></i></a>
-                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><i class="bi bi-trash"></i></a>
+                  <a href="/lihatfotokegiatan/{{ $fotokegiatan->id }}" class="me-md-2" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a>
+                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                 </td>
               </tr>
               @endforeach

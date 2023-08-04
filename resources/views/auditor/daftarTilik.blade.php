@@ -1,4 +1,18 @@
 @extends('auditor.main_') @section('title') AMI - Daftar Tilik @endsection
+
+@section('linking')
+    <a href="/auditor-daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+    @foreach ($dataAuditor_->unique('tahunperiode') as $auditor)
+    <a href="/auditor-daftartilik/{{ $auditor->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($dataAuditor_->unique('tahunperiode') as $auditor)
+    {{ $auditor->tahunperiode0 }}/{{ $auditor->tahunperiode }}
+    @endforeach
+    </a>/
+@endsection
+
 @section('container')
 <div class="container pb-3 mb-4 mt-5">
     <div class="tableAreaDaftarTilik mx-3">
@@ -26,11 +40,11 @@
                     @foreach ($dt->auditee()->get() as $dt_auditee)
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-3 px-0 text-center">{{ $dt_auditee->unit_kerja }}</td>
-                        <td class="col-2 px-0 text-center">{{ $dt->area }}</td>
-                        <td class="col-2 px-0 text-center">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
+                        <td class="col-3 px-0">{{ $dt_auditee->unit_kerja }}</td>
+                        <td class="col-2 px-0">{{ $dt->area }}</td>
+                        <td class="col-2 px-0">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
                         @foreach ($dt->auditor()->get() as $dt_)
-                            <td class="col-3 px-0 text-center">{{ $dt_->nama }}</td>
+                            <td class="col-3 px-0">{{ $dt_->nama }}</td>
                         @endforeach
                         <td class="col-1 px-0 text-center"><a href="/auditor-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></td>
                     </tr>

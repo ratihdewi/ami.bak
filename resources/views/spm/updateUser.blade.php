@@ -112,3 +112,16 @@
             </div>
         </div>
 @endsection
+
+@push('script')
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#selectUnitKerja').select2();
+    })
+</script>
+
+@endpush

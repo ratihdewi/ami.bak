@@ -2,7 +2,7 @@
 @section('title') AMI - Temuan Berita Acara @endsection
 
 @section('container')
-    <div class="container my-5">
+    <div class="container vh-100 my-5">
         @if ($message = Session::get('success'))
         <div class="alert alert-success mt-3 mx-4" role="alert">
             {{ $message }}
@@ -45,7 +45,8 @@
                 </div>
             </div>
             {{-- Simpan Perubahan --}}
-            <div class="simpanBA d-grid gap-2">
+            <div class="simpanBA d-flex justify-content-end mx-5">
+                <a href="/auditor-BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}"><button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
                 <button class="btn btn-success" type="submit">Simpan Perubahan</button>
             </div>
         </form>

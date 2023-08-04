@@ -2,6 +2,19 @@
 
 @section('title') AMI - Daftar Auditee @endsection
 
+@section('linking')
+    <a href="/auditor-daftarauditee-periode" class="mx-1">
+        Periode Auditee
+    </a>/
+    @foreach ($data->unique('tahunperiode') as $auditor)
+    <a href="/auditor-daftarauditee/{{ $auditor->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($data->unique('tahunperiode') as $auditor)
+    {{ $auditor->tahunperiode0 }}/{{ $auditor->tahunperiode }}
+    @endforeach
+    </a>/
+@endsection
+
 @section('container')
     <div class="container justify-content-center mb-4 mt-5" style="font-size: 15px">
         <div class="row">
@@ -13,7 +26,6 @@
                         <th class="col-3 text-center">Jabatan Ketua Auditee</th>
                         <th class="col-2 text-center">Ketua Auditor</th>
                         <th class="col-2 text-center">Anggota Auditor</th>
-                        {{-- <th class="col-2 text-center">Aksi</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -24,13 +36,9 @@
                         <tr>
                             <th scope="row" class="text-center">{{ $no++ }}</th>
                             <td>{{ $item->ketua_auditee }}</td>
-                            <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
+                            <td>{{ $item->jabatan_ketua_auditee }}</td>
                             <td>{{ $item->ketua_auditor }}</td>
                             <td>{{ $item->anggota_auditor }}</td>
-                            {{-- <td class="text-center">
-                                <a href="tampilAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-pencil-square"></i></a>
-                                <a href="deleteAuditee/{{ $item->id }}" class="mx-2"><i class="bi bi-trash"></i></a>
-                            </td> --}}
                         </tr>
                     @endforeach
                     

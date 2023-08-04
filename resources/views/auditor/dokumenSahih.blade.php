@@ -2,6 +2,29 @@
 
 @section('title') AMI - Daftar Tilik - DOkumen Bukti Sahih @endsection
 
+@section('linking')
+    <a href="/auditor-daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    <a href="/auditor-daftartilik/{{ $pertanyaan->auditee->tahunperiode }}" class="mx-1">
+    {{ $pertanyaan->auditee->tahunperiode0 }}/{{ $pertanyaan->auditee->tahunperiode }}
+    </a>/
+    
+    <a href="/auditor-daftarTilik-areadaftartilik/{{ $pertanyaan->auditee_id }}/{{ $pertanyaan->daftartilik->area }}" class="mx-1">
+    {{ $pertanyaan->daftartilik->area }}
+    </a>/
+
+    <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $pertanyaan->id }}" class="mx-1">
+    Pertanyaan
+    </a>/  
+
+    <a href="/auditor-editdokumensahih/{{ $pertanyaan->id }}" class="mx-1">
+      Bukti Sahih
+      </a>/  
+
+@endsection
+
 @section('container')
   <div class="container mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
@@ -31,12 +54,13 @@
           <div class="col mb-4">
             <label for="dokSahih" class="form-label fw-semibold">Unggah Dokumen Bukti Sahih</label>
             <input class="form-control" type="file" id="dokSahih" placeholder="Unggah Dokumen Bukti Sahih" multiple name="dokSahih">
-            <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx</p>
+            <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)</p>
           </div>
         </div>
 
         {{-- Simpan Perubahan --}}
-        <div class="simpanBA d-grid gap-2">
+        <div class="simpanBA d-flex justify-content-end">
+          <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $pertanyaan->id }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
@@ -58,8 +82,8 @@
                 <td class="col">{{ $doksahih->namaFile }}</td>
                 <td class="col text-center">{{ $doksahih->updated_at }}</td>
                 <td class="col text-center">
-                  <a href="/lihatdokumensahih/{{ $doksahih->id }}" class="mx-2" target="_blank"><i class="bi bi-eye"></i></a>
-                  <a href="/deletedokumensahih/{{ $doksahih->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $doksahih->namaFile }} ?')"><i class="bi bi-trash"></i></a>
+                  <a href="/lihatdokumensahih/{{ $doksahih->id }}" class="me-md-2" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a>
+                  <a href="/deletedokumensahih/{{ $doksahih->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $doksahih->namaFile }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                 </td>
               </tr>
               @endforeach

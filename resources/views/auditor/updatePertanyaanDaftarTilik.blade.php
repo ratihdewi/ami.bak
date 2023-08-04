@@ -1,6 +1,33 @@
 @extends('auditor.main_') 
 @section('title') AMI - Daftar Tilik @endsection
 
+@section('linking')
+    <a href="/auditor-daftartilik-periode" class="mx-1">
+        Periode Daftar Tilik
+    </a>/
+
+    @foreach ($_daftartiliks as $item)
+    <a href="/auditor-daftartilik/{{ $item->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($_daftartiliks as $item)
+    {{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}
+    </a>/
+    @endforeach
+    
+    @foreach ($_daftartiliks as $item)
+    <a href="/auditor-daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}" class="mx-1">
+    @endforeach
+    @foreach ($_daftartiliks as $item)
+    {{ $item->area }}
+    </a>/
+    @endforeach
+
+    <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $datas->id }}" class="mx-1">
+    Pertanyaan
+    </a>/  
+
+@endsection
+
 @section('container')
 
       <div class="row mt-4 mx-4">
@@ -276,6 +303,9 @@
           <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
         <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
+          @foreach ($_daftartiliks as $item)
+          <a href="/auditor-daftarTilik-areadaftartilik/{{ $item->auditee_id }}/{{ $item->area }}"><button class="btn btn-outline-secondary me-md-1" type="button">Kembali</button></a>
+          @endforeach
           <a href="/approvalAuditor-daftartilik/{{ $datas->id }}">
             <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
                 @if ( (Auth::user()->name != $datas->daftartilik->auditor->nama) || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee') || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee'))

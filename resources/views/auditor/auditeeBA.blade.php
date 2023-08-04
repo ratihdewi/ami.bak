@@ -1,4 +1,19 @@
 @extends('auditor.main_') @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    @foreach ($pertanyaan_->unique('auditee_id') as $beritaacara)
+    <a href="/auditeeBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}" class="mx-1">
+    @endforeach
+    @foreach ($pertanyaan_->unique('auditee_id') as $beritaacara)
+    {{ $beritaacara->auditee->unit_kerja }}
+    @endforeach
+    </a>/
+@endsection
+
 @section('container')
 <div class="container" style="font-size: 15px">
     <div class="container-fluid d-flex mt-4">

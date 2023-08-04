@@ -1,6 +1,26 @@
 @extends('auditor.main_') @section('title') AMI - Temuan Berita Acara @endsection
+
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditor-auditeeBA/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    {{ $beritaacara_->auditee->unit_kerja }}
+    </a>/
+
+    <a href="/auditor-BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/auditor-BA-peluangpeningkatan/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    Peluang Peningkatan
+    </a>/
+    
+@endsection
+
 @section('container')
-  <div class="container mb-4">
+  <div class="container vh-100 mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -12,7 +32,7 @@
       <form action="/auditor-BA-addpeluangpeningkatan/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" method="post">
         @csrf
         {{-- Peluang Peningkatan --}}
-        <div class="row sectionName mx-0 m-5">
+        <div class="row sectionName mx-0 my-2">
           <div class="col border rounded-top text-center py-2 fw-semibold">Peluang Peningkatan</div>  
         </div>
         <div class="pelpeningkatan">
@@ -24,25 +44,27 @@
                 <div class="col-12 mb-4">
                     
                     <label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang</label>
-                    <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]" required>
+                    <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]">
                     
                 </div>
                 <div class="col-12 form-floating mb-4">
                     
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]" required></textarea>
+                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]"></textarea>
                     <label for="inputKelebihan" class="ms-3">Kelebihan</label>
                    
                 </div>
                 <div class="col-12 form-floating mb-4">
                     
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]" required></textarea>
+                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]"></textarea>
                     <label for="inputPeluang" class="ms-3">Peluang untuk Peningkatan</label>
                    
                 </div>
             </div>
             <div class="row inputPeluangPeningkatan my-4 mx-5">
-                <div class="col-12 mb-4">
-                    <button class="moreItems_add btn btn-primary float-end" type="button">Tambah Peluang Peningkatan</button>
+                <div class="col mb-4 d-flex justify-content-end">
+                  <a href="/auditor-BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}">
+                  <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
+                  <button class="moreItems_add btn btn-primary" type="button">Tambah Peluang Peningkatan</button>
                 </div>
             </div>
         </div>

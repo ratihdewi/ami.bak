@@ -54,4 +54,7 @@
 <option value="Fakultas Ekonomi dan Bisnis">
     Fakultas Ekonomi dan Bisnis
 </option>
-<option value="Direktorat IT">Direktorat IT</option>
+<option value="Direktorat Penelitian dan Pengabdian kepada Masyarakat">Direktorat Penelitian dan Pengabdian kepada Masyarakat</option>
+<option value="DIrektorat Pendidikan">DIrektorat Pendidikan</option>
+<option value="Direktorat Kemahasiswaan dan Alumni">Direktorat Kemahasiswaan dan Alumni</option>
+<option value="Direktorat Sumber Daya Manusia dan Teknologi Informasi">Direktorat Sumber Daya Manusia dan Teknologi Informasi</option>
