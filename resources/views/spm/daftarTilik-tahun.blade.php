@@ -12,7 +12,7 @@
 @section('container')
 <div class="container my-4"  style="font-size: 15px">
     <div class="row">
-        @foreach ($data_ as $auditee)
+        {{-- @foreach ($data_ as $auditee)
         <a
             href="/daftarTilik-addareadaftartilik/{{ $auditee->tahunperiode }}"
             class="text-white"
@@ -23,7 +23,7 @@
                 Tambah
             </button>
         </a
-        > 
+        >  --}}
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}

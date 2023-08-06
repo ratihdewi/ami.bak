@@ -46,15 +46,24 @@ class DaftarTilikController extends Controller
         $tahunperiode = $request->tgl_pelasksanaan;
         $years = new Carbon($tahunperiode);
         $years->year;
-
+        
         if ($isAlreadyExist) {
             return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('error', 'Data sudah tersedia!');
         } else {
+            
             foreach ($auditor_ as $key => $auditor) {
-                // dd($auditee_->ketua_auditor);
-                if ($request->auditor_id == $auditor->id) {
-                   if ($auditor->nama == $auditee_->ketua_auditor || $auditor->nama == $auditee_->anggota_auditor) {
-                    DaftarTilik::create($request->all());
+                if ($request->auditor_id == $auditor->nama) {
+                   if ($auditor->nama == $auditee_->ketua_auditor || $auditor->nama == $auditee_->anggota_auditor || $auditor->nama == $auditee_->anggota_auditor2) {
+                    
+                    $areadt = new DaftarTilik;
+                    $areadt->auditee_id = $request->auditee_id;
+                    $areadt->auditor_id = $auditor->id;
+                    $areadt->tgl_pelaksanaan = $request->tgl_pelaksanaan;
+                    $areadt->tempat = $request->tempat;
+                    $areadt->area = $request->area;
+                    $areadt->bataspengisianRespon = $request->bataspengisianRespon;
+                    $areadt->save();
+                    
                     return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('success', 'Data berhasil ditambah!');
                    } else {
                     return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('error', 'Data Auditor tidak terdaftar sebagai Ketua maupun Anggota Auditor!');

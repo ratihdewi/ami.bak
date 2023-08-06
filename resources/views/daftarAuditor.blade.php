@@ -22,7 +22,7 @@
 <div class="container"  style="font-size: 15px">
     <div class="row my-4">
         @foreach ($dataAuditor as $auditor)
-        <a href="/addAuditor/{{ $auditor->tahunperiode }}" class="text-white" style="font-weight: 600; text-decoration: none">
+        <a href="/addAuditor" class="text-white" style="font-weight: 600; text-decoration: none">
         @endforeach
             <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
                 Tambah

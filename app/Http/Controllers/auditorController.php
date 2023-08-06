@@ -31,18 +31,24 @@ class AuditorController extends Controller
         return response()->json($users_);
     }
 
-    public function tambahauditor($tahunperiode)
+    // public function add()
+    // {
+    //     return view('addAuditor')
+    // }
+
+    public function tambahauditor()
     {
-        $tahunAuditor = Auditor::where('tahunperiode', $tahunperiode);
+        // $tahunAuditor = Auditor::where('tahunperiode', $tahunperiode);
 
-        $auditees = Auditee::where('tahunperiode', $tahunperiode)->pluck('user_id');
-        $auditors = Auditor::where('tahunperiode', $tahunperiode)->pluck('user_id');
+        // $auditees = Auditee::where('tahunperiode', $tahunperiode)->pluck('user_id');
+        // $auditors = Auditor::where('tahunperiode', $tahunperiode)->pluck('user_id');
 
-        $users_ = User::whereNotIn('id', $auditees)
-                    ->whereNotIn('id', $auditors)->where('nip', 'LIKE', '%'.request('q').'%')
-                    ->get();
+        // $users_ = User::whereNotIn('id', $auditees)
+        //             ->whereNotIn('id', $auditors)->where('nip', 'LIKE', '%'.request('q').'%')
+        //             ->get();
         
-        return view('addAuditor', compact('users_', 'tahunAuditor', 'auditees', 'auditors'));
+        // return view('addAuditor', compact('users_', 'tahunAuditor', 'auditees', 'auditors'));
+        return view('addAuditor');
     }
 
     public function getnipuser($tahunperiode)

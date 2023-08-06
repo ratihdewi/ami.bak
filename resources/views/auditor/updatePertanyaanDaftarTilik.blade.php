@@ -215,7 +215,7 @@
               <div class="row mx-2 mb-4 px-1">
                 <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
                 <a href="/auditor-editdokumensahih/{{ $datas->id }}">
-                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Dokumen Bukti Sahih</b></button>
+                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Dokumen Bukti Sahih</b></button>
                 </a>
               </div>
               <div class="form-floating mb-3 mx-4">
@@ -268,7 +268,7 @@
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
               <a href="/auditor-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}">
-                <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+                <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Foto Kegiatan</b></button>
               </a>
               {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}"> --}}
             </div>
@@ -308,7 +308,7 @@
           @endforeach
           <a href="/approvalAuditor-daftartilik/{{ $datas->id }}">
             <button class="btn btn-success me-md-2" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
-                @if ( (Auth::user()->name != $datas->daftartilik->auditor->nama) || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee') || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee'))
+                @if ( (Auth::user()->name != $datas->auditee->ketua_auditor) || ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee') || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee'))
                     {{ "disabled" }}
                 @endif
             >
@@ -323,13 +323,7 @@
               @endif
             </button>
           </a>
-          <button class="btn btn-success me-md-2" type="button"
-          @foreach ($auditee_ as $auditee)
-            @if (Auth::user()->name != $auditee->ketua_auditee)
-                {{ "disabled" }}
-            @endif
-          @endforeach
-          >{{ $datas->approvalAuditee }}</button>
+          <button class="btn btn-success me-md-2" type="button" disabled>{{ $datas->approvalAuditee }}</button>
           <button class="btn btn-success" type="submit" style="background: #00D215; border: 1px solid #008F0E;">Simpan</button>
         </div>
       </form>

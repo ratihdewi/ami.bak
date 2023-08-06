@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
     {
         $spm = User::create([
             'nip' => '119012',
-            'name' => 'SPM Role',
+            'name' => 'Ayu Jelita',
             'email' => 'spm@role.test',
             'password' => bcrypt('SPM12345'),
             'unit_kerja' => 'Program Studi Ilmu Komputer',
             'username' => 'r.spm',
             'role' => 'SPM',
-            'jabatan' => 'kaprodi',
+            'jabatan' => 'Manager SPM',
             'noTelepon' => '081234567810',
         ]);
          
@@ -30,13 +30,13 @@ class UserSeeder extends Seeder
 
         $auditor = User::create([
             'nip' => '119022',
-            'name' => 'Auditor Role',
+            'name' => 'Arif Putra S',
             'email' => 'auditor@role.test',
             'password' => bcrypt('Auditor123'),
             'unit_kerja' => 'Fakultas Sains dan Ilmu Komputer',
             'username' => 'r.auditor',
             'role' => 'User',
-            'jabatan' => 'dekan',
+            'jabatan' => 'Ketua FSIK',
             'noTelepon' => '082345678901',
         ]);
 
@@ -44,13 +44,13 @@ class UserSeeder extends Seeder
 
         $auditee = User::create([
             'nip' => '119032',
-            'name' => 'Auditee Role',
+            'name' => 'Alif Jauhary',
             'email' => 'auditee@role.test',
             'password' => bcrypt('Auditee123'),
             'unit_kerja' => 'Direktorat IT',
             'username' => 'r.auditee',
             'role' => 'User',
-            'jabatan' => 'dekan',
+            'jabatan' => 'Ketua Prodi',
             'noTelepon' => '089712345634',
         ]);
 

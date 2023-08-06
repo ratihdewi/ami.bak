@@ -21,13 +21,11 @@
     <div class="container vh-100">
         <div class="row justify-content-center" style="font-size: 15px">
             <div class="row">
-                @foreach ($data->unique('tahunperiode') as $item)
                 <a
-                    href="/addAuditee/{{ $item->tahunperiode }}"
+                    href="/addAuditee"
                     class="text-white"
                     style="font-weight: 600; text-decoration: none"
                 >
-                @endforeach
                 <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
                         Tambah
                     </button></a

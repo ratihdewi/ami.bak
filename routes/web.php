@@ -225,11 +225,11 @@ Route::get('/auditee-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiata
 Route::get('/auditee-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditee_editdaftarhadir'])->name('auditee-BA-daftarhadir');
 
 
-Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
-Route::get('/addAuditor', [AuditorController::class, 'tambahauditor_'])->name('tambahauditor_');
+// Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
+Route::get('/addAuditor', [AuditorController::class, 'tambahauditor'])->name('tambahauditor_');
 Route::post('/insertAuditor', [AuditorController::class, 'insertdata'])->name('insertauditor');
 
-Route::get('/addAuditee/{tahunperiode}', [AuditeeController::class, 'tambahauditee'])->name('tambahauditee');
+Route::get('/addAuditee', [AuditeeController::class, 'tambahauditee'])->name('tambahauditee');
 Route::post('/insertAuditee', [AuditeeController::class, 'insertdata'])->name('insertauditee');
 
 Route::get('/tampilAuditee/{id}', [AuditeeController::class, 'tampildata'])->name('tampilauditee');

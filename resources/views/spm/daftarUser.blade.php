@@ -11,9 +11,13 @@
 <div class="container my-4">
     <div class="row mx-1">
         @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
-        </div>
+            <div class="alert alert-success" role="alert">
+                {{ $message }}
+            </div>
+        @elseif ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
         @endif
     </div>
     <a
@@ -43,7 +47,7 @@
             <tr>
                 <th scope="row" class="text-center">{{ $no++ }}</th>
                 <td>{{ $item->name }}</td>
-                <td class="text-center">{{ $item->username }}</td>
+                <td>{{ $item->username }}</td>
                 <td class="text-center">{{ $item->role }}</td>
                 <td>{{ $item->unit_kerja }}</td>
                 <td class="text-center">

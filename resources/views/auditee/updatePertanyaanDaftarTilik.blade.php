@@ -214,7 +214,7 @@
               <div class="row mx-2 mb-4 px-1">
                 <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
                 <a href="/auditee-editdokumensahih/{{ $datas->id }}">
-                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Dokumen Bukti Sahih</b></button>
+                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Dokumen Bukti Sahih</b></button>
                 </a>
               </div>
               <div class="form-floating mb-3 mx-4">
@@ -238,35 +238,35 @@
               <label for="kategoriTemuan" class="form-label">Kategori Temuan<b> *)</b></label>
               <div id="kategoriTemuan" class="border rounded ps-4 py-2">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()" value="{{ $datas->Kategori }}"
+                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" onclick="display()" value="{{ $datas->Kategori }}" 
                   
                     @if ($datas->Kategori == "KTS")
-                        {{ "checked" }}
+                      {{ "checked" }}
+                    @else
+                      {{ "disabled" }}
                     @endif
-
-                    disabled
                   >
                   <label class="form-check-label" for="kategoriKTS">KTS</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriOB" value="OB" onclick="display()" value="{{ $datas->Kategori }}"
+                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriOB" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "OB")
-                        {{ "checked" }}
+                      {{ "checked" }}
+                    @else
+                      {{ "disabled" }}
                     @endif
-
-                    disabled
                   >
                   <label class="form-check-label" for="kategoriOB">OB</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriSesuai" value="Sesuai" onclick="display()" value="{{ $datas->Kategori }}"
+                  <input class="form-check-input" type="radio" name="Kategori" id="kategoriSesuai" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "Sesuai")
-                        {{ "checked" }}
+                      {{ "checked" }}
+                    @else
+                      {{ "disabled" }}
                     @endif
-
-                    disabled
                   >
                   <label class="form-check-label" for="kategoriSesuai">Sesuai</label>
                 </div>
@@ -275,7 +275,7 @@
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
               <a href="/auditee-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}">
-                <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+                <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Foto Kegiatan</b></button>
               </a>
               {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]"> --}}
             </div>

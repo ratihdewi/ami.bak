@@ -37,7 +37,7 @@ class PertanyaanController extends Controller
 
     public function insertpertanyaan(Request $request)
     {
-        dd($request->all());
+        
         $auditee_id = $request->get('auditee_id');
         $daftartilik_id = $request->get('daftartilik_id');
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('id', $daftartilik_id)->first();

@@ -4,12 +4,12 @@
     <a href="/daftarAuditee-periode" class="mx-1">
         Periode Auditee
     </a>/
-
+{{-- 
     <a href="/daftarAuditee/{{ $tahunperiode->tahunperiode }}" class="mx-1">
         {{ $tahunperiode->tahunperiode0 }}/{{ $tahunperiode->tahunperiode }}
-    </a>/
+    </a>/ --}}
 
-    <a href="/addAuditee/{{ $tahunperiode->tahunperiode }}" class="mx-1">
+    <a href="/addAuditee" class="mx-1">
         Tambah Auditee
     </a>/
 
@@ -18,7 +18,7 @@
 @section('container')
 <div class="row justify-content-center mb-5">
     <div class="col-8 mt-3">
-        <h5 class="text-center">Tambah Auditee Peride {{ $tahunperiode->tahunperiode0 }}/{{ $tahunperiode->tahunperiode }}</h5>
+        <h5 class="text-center">Tambah Auditee</h5>
         <form action="/insertAuditee" method="POST">
             @csrf
             <div class="card mt-3">

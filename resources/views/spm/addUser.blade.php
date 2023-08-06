@@ -49,12 +49,15 @@
                                             <option selected>
                                                 Pilih Role
                                             </option>
-                                            <option value="SPM">
+                                            @foreach ($roles as $role)
+                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                            @endforeach
+                                            {{-- <option value="SPM">
                                                 Satuan Penjaminan Mutu
                                             </option>
                                             <option value="User">
                                                 User
-                                            </option>
+                                            </option> --}}
                                         </select>
                                     </div>
                                 </div>

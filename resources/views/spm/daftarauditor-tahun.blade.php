@@ -10,16 +10,26 @@
 @endsection
 
 @section('container')
-<div class="container my-4"  style="font-size: 15px">
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
+<div class="container vh-100 my-4"  style="font-size: 15px">
+    <div class="row">
+        @if ($message = Session::get('succes'))
+            <div class="alert alert-success" role="alert">
+                {{ $message }}
+            </div>
+        @elseif ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+        @endif
+        <div class="d-flex justify-content-end">
+            <a href="/addAuditor" class="text-white" style="font-weight: 600; text-decoration: none">
+                <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
+                    Tambah
+                </button>
+            </a>
         </div>
-    @elseif ($message = Session::get('error'))
-        <div class="alert alert-danger" role="alert">
-            {{ $message }}
-        </div>
-    @endif
+    </div>
+        
     <div class="row">
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>

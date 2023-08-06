@@ -3,21 +3,7 @@
 @section('linking')
     <a href="/daftarAuditor-periode" class="mx-1">
         Periode Auditor
-    </a>/
-
-    @foreach ($tahunAuditor->get()->unique('tahunperiode') as $auditor)
-    <a href="/daftarAuditor/{{ $auditor->tahunperiode }}" class="mx-1">
-    @endforeach
-    @foreach ($tahunAuditor->get()->unique('tahunperiode') as $auditor)
-    {{ $auditor->tahunperiode0 }}/{{ $auditor->tahunperiode }}
-    @endforeach
-    </a>/
-
-    @foreach ($tahunAuditor->get()->unique('tahunperiode') as $auditor)
-    <a href="/addAuditor/{{ $auditor->tahunperiode }}" class="mx-1">
-    @endforeach
-        Tambah Auditor
-    </a>/
+    </a>
 @endsection
 
 @section('container')
@@ -25,10 +11,7 @@
 <div class="container mt-3 mb-3 vh-100">
     <div class="row justify-content-center">
         <div class="col-8">
-            <h5 class="text-center mb-3">Tambah Auditor Periode
-                @foreach ($tahunAuditor->get()->unique('tahunperiode') as $auditor)
-                {{ $auditor->tahunperiode }}
-                @endforeach
+            <h5 class="text-center mb-3">Tambah Auditor
             </h5>
             <form action="/insertAuditor" method="POST">
                 @csrf
@@ -61,9 +44,6 @@
                                     <label for="nipAuditor" class="form-label">NIP</label>
                                     <select id="nipAuditor" class="form-select" aria-label="Default select example" name="nip" required>
                                         <option selected disabled>Pilih NIP Auditor</option>
-                                        @foreach ($users_ as $user)
-                                            <option value="{{ $user->nip }}">{{ $user->nip }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -143,9 +123,7 @@
                     <button type="submit" class="btn btn-primary float-end">
                         Simpan
                     </button>
-                    @foreach ($tahunAuditor->get() as $auditor)
-                    <a href="{{ route('auditor', ['tahunperiode' => $auditor->tahunperiode]) }}">
-                    @endforeach
+                    <a href="/daftarAuditor-periode">
                         <button type="button" class="btn btn-secondary me-3 float-end">
                             Kembali
                         </button>

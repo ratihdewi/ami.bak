@@ -23,13 +23,13 @@ class AuditeeController extends Controller
         return view('spm/daftarauditee-tahun', compact('dataAuditee'));
     }
 
-    public function tambahauditee($tahunperiode)
+    public function tambahauditee()
     {
-        $tahunperiode = Auditee::where('tahunperiode', $tahunperiode)->first(); 
+        // $tahunperiode = Auditee::where('tahunperiode', $tahunperiode)->first(); 
         $users_ = User::all();
         $auditor_ = Auditor::all(); 
 
-        return view('addAuditee', compact('users_', 'auditor_', 'tahunperiode'));
+        return view('addAuditee', compact('users_', 'auditor_'));
     }
 
     public function getAuditee($nip)
