@@ -240,7 +240,7 @@
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "KTS"){{ "checked" }}@endif
-                    @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
+                    @if (Auth::user()->name != $datas->auditee->ketua_auditor || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriKTS">KTS</label>
@@ -249,7 +249,7 @@
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriOB" value="OB" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "OB"){{ "checked" }}@endif
-                    @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
+                    @if (Auth::user()->name != $datas->auditee->ketua_auditor || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriOB">OB</label>
@@ -258,7 +258,7 @@
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriSesuai" value="Sesuai" onclick="display()" value="{{ $datas->Kategori }}"
                   
                     @if ($datas->Kategori == "Sesuai"){{ "checked" }}@endif
-                    @if (Auth::user()->name != $_daftartilik->auditor->nama || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
+                    @if (Auth::user()->name != $datas->auditee->ketua_auditor || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee')){{ "disabled" }}@endif
                   
                   >
                   <label class="form-check-label" for="kategoriSesuai">Sesuai</label>

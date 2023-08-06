@@ -4,11 +4,11 @@
     <a href="/auditor-daftartilik-periode" class="mx-1">
         Periode Daftar Tilik
     </a>/
-    @foreach ($dataAuditor_->unique('tahunperiode') as $auditor)
-    <a href="/auditor-daftartilik/{{ $auditor->tahunperiode }}" class="mx-1">
+    @foreach ($auditees->unique('tahunperiode') as $auditee)
+    <a href="/auditor-daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
     @endforeach
-    @foreach ($dataAuditor_->unique('tahunperiode') as $auditor)
-    {{ $auditor->tahunperiode0 }}/{{ $auditor->tahunperiode }}
+    @foreach ($auditees->unique('tahunperiode') as $auditee)
+    {{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}
     @endforeach
     </a>/
 @endsection
@@ -35,12 +35,12 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                @foreach ($dataAuditor_ as $item)
+                @foreach ($auditees as $item)
                     @foreach ($item->daftartilik()->get() as $dt)
-                    @foreach ($dt->auditee()->get() as $dt_auditee)
+                    {{-- @foreach ($dt->auditee()->get() as $dt_auditee) --}}
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-3 px-0">{{ $dt_auditee->unit_kerja }}</td>
+                        <td class="col-3 px-0">{{ $item->unit_kerja }}</td>
                         <td class="col-2 px-0">{{ $dt->area }}</td>
                         <td class="col-2 px-0">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
                         @foreach ($dt->auditor()->get() as $dt_)
@@ -48,7 +48,7 @@
                         @endforeach
                         <td class="col-1 px-0 text-center"><a href="/auditor-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></td>
                     </tr>
-                    @endforeach
+                    {{-- @endforeach --}}
                     @endforeach
                 @endforeach
             </tbody>

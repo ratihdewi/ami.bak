@@ -151,13 +151,10 @@ class DaftarTilikController extends Controller
 
     // Role AUDITOR
     public function indexAuditor($tahunperiode) {
-        $namaUser = Auth::user()->name;
-        $dataAuditor_ = Auditor::where('nama', $namaUser)->where('tahunperiode', $tahunperiode)->get();
-        // $data_ = DaftarTilik::where('auditor_id', $dataAuditor_->id)->get();
-        // $dataAuditee_ = Auditee::all();
-        //dd($dataAuditor_);
+        $auditees = Auditee::where('ketua_auditor', Auth::user()->name)->orWhere('anggota_auditor', Auth::user()->name)->orWhere('anggota_auditor2', Auth::user()->name)->get();
+        // $dataAuditor_ = Auditor::where('nama', $namaUser)->where('tahunperiode', $tahunperiode)->get();
         
-        return view('auditor/daftarTilik', compact('dataAuditor_'));
+        return view('auditor/daftarTilik', compact('auditees'));
     }
 
     public function indexpertahunauditor()

@@ -129,6 +129,7 @@ class PertanyaanController extends Controller
 
     public function updatedata(Request $request, $id)
     {
+        
         $data = Pertanyaan::find($id);
         $auditee_id = $data->auditee_id;
         $_area = DaftarTilik::all()->where('id', $data->daftartilik_id)->where('auditee_id', $auditee_id)->first();
@@ -142,7 +143,7 @@ class PertanyaanController extends Controller
         $data->update([
             "butirStandar" => $request->butirStandar,
             "nomorButir"=> $request->nomorButir,
-            "indikatorMutu"=> $request->indikatorMutu,
+            "indikatormutu"=> $request->indikatormutu,
             "targetStandar"=> $request->targetStandar,
             "referensi"=> $request->referensi,
             "keterangan"=> $request->keterangan,
@@ -229,7 +230,7 @@ class PertanyaanController extends Controller
         $approve_ = Pertanyaan::find($id);
         $auditor_ = Auditor::where('id', $approve_->auditor_id)->first();
         
-        if (Auth::user()->name == $approve_->daftartilik->auditor->nama) {
+        if (Auth::user()->name == $approve_->auditee->ketua_auditor) {
             if ($approve_->approvalAuditor == 'Belum disetujui Auditor' && ($approve_->Kategori != null && $approve_->inisialAuditor != null)) {
 
                 $approve_->approvalAuditor = 'Menunggu persetujuan Auditee';

@@ -51,7 +51,19 @@ class UserController extends Controller
     public function updatedata(Request $request, $id)
     {
         $data = User::find($id);
-        $data->update($request->all());
+        $data->password = Hash::make($request->password);
+        $data->update([
+            'nip' => $request->nip,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $data->password,
+            'unit_kerja' => $request->unit_kerja,
+            'username' => $request->username,
+            'role' => $request->role,
+            'jabatan' => $request->jabatan,
+            'noTelepon' => $request->noTelepon,
+        ]);
+        $data->save();
         $auditor_ = Auditor::where('nama', $request->name)->first();
         
         if ($auditor_) {

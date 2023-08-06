@@ -31,7 +31,7 @@
 @endsection
 
 @section('container')
-      <div class="row">
+      <div class="row mx-4">
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}

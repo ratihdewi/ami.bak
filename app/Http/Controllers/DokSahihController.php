@@ -39,7 +39,7 @@ class DokSahihController extends Controller
 
     public function storedoksahih(Request $request)
     {
-        
+        // dd($request->all());
         $request->validate([
             'dokSahih' => 'required|mimes:csv,xlsx,xls,pdf,docx|max:10240',
         ]);

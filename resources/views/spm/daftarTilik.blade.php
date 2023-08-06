@@ -16,7 +16,7 @@
 @endsection
 
 @section('container')
-<div class="container pb-3">
+<div class="container vh-100 pb-3">
     <div class="container-fluid float-end my-3">
         @foreach ($data_ as $auditee)
         <a

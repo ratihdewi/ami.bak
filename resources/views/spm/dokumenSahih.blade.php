@@ -43,12 +43,10 @@
           <div class="col border rounded-top text-center py-2 fw-semibold">Dokumen Bukti Sahih</div>  
         </div>
         <div class="row inputDokPendukung my-4 mx-5">
-            @foreach ($doksahihs as $doksahih)
                 <div class="col mb-4" hidden>
                     <label for="pertanyaan_id" class="form-label fw-semibold">ID Pertanyaan</label>
-                    <input type="text" class="form-control" id="pertanyaan_id" placeholder="ID Auditee" name="pertanyaan_id" value="{{ $pertanyaan->  id }}">
+                    <input type="text" class="form-control" id="pertanyaan_id" placeholder="ID Auditee" name="pertanyaan_id" value="{{ $pertanyaan->id }}">
                 </div>
-            @endforeach
           <div class="col mb-4">
             <label for="inputNamaDokumen" class="form-label fw-semibold">Nama Dokumen</label>
             <input type="text" class="form-control" id="inputNamaDokumen" placeholder="contoh: [nama dokumen]_[Revisi 1] *tanpa tanda kurung siku" name="namaFile">

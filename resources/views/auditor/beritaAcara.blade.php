@@ -33,17 +33,17 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                @foreach ($auditor_ as $auditor)
-                @foreach ($auditor->daftartilik()->get() as $item)
+                @foreach ($auditees as $auditee)
+                {{-- @foreach ($auditee->daftartilik()->get() as $item) --}}
                 <tr class="row ListAuditee">
                     <td class="col text-center">{{ $no++ }}</td>
-                    <td class="col-6">{{ $item->auditee->unit_kerja }}</td>
-                    <td class="col text-center">{{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}</td>
+                    <td class="col-6">{{ $auditee->unit_kerja }}</td>
+                    <td class="col text-center">{{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}</td>
                     <td class="col text-center">
-                        <a href="/auditor-auditeeBA/{{ $item->auditee_id }}/{{ $item->auditee->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a>
+                        <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a>
                     </td>
                 </tr>
-                @endforeach
+                {{-- @endforeach --}}
                 @endforeach   
             </tbody>
         </table>

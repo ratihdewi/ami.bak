@@ -94,11 +94,11 @@ class BeritaAcaraController extends Controller
 
     public function indexAuditor()
     {
-        $auditor_ = Auditor::where('nama', Auth::user()->name)->get();
+        $auditees = Auditee::where('ketua_auditor', Auth::user()->name)->orWhere('anggota_auditor', Auth::user()->name)->orWhere('anggota_auditor2', Auth::user()->name)->get();
         //$daftartilik_ = DaftarTilik::where('auditor_id', $auditor_->id)->get();
         $beritaacara_ = BeritaAcara::all();
 
-        return view('auditor/beritaAcara', compact('auditor_', 'beritaacara_'));
+        return view('auditor/beritaAcara', compact('auditees', 'beritaacara_'));
     }
 
     public function indexAuditee()

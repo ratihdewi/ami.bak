@@ -21,11 +21,11 @@ class CreatePertanyaansTable extends Migration
             // $table->unsignedBigInteger('beritaacara_id');
             $table->String('butirStandar')->nullable();
             $table->String('nomorButir')->nullable();
-            $table->String('indikatormutu')->nullable();
+            $table->text('indikatormutu')->nullable();
             $table->String('targetStandar')->nullable();
             $table->String('referensi')->nullable();
             $table->String('keterangan')->nullable();
-            $table->String('pertanyaan')->nullable();
+            $table->text('pertanyaan')->nullable();
             $table->text('responAuditee')->nullable();
             $table->text('responAuditor')->nullable();
             $table->char('inisialAuditor')->nullable();
@@ -33,7 +33,7 @@ class CreatePertanyaansTable extends Migration
             $table->String('Kategori')->nullable();
             $table->String('approvalAuditor')->default('Belum disetujui Auditor');
             $table->String('approvalAuditee')->default('Belum disetujui Auditee');
-            $table->String('narasiPLOR')->nullable();
+            $table->text('narasiPLOR')->nullable();
             // $table->String('fotoKegiatan')->nullable();
             // $table->String('dokSahih')->nullable();
             $table->foreign('daftartilik_id')->references('id')->on('daftar_tiliks')->onUpdate('cascade')
