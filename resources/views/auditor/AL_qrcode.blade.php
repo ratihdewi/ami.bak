@@ -20,11 +20,11 @@
                 </tr>
                 <tr>
                     <td class="text-white text-start">Disetujui oleh:</td>
-                    <td class="text-white text-end">{{ $auditee->ketua_auditee }} ({{ $user->jabatan }})</td>
+                    <td class="text-white text-end">{{ $persetujuan->posisi }} - {{ $persetujuan->nama }} ({{ $user->jabatan }})</td>
                 </tr>
                 <tr>
                     <td class="text-white text-start">Disetujui pada:</td>
-                    <td class="text-white text-end">{{ $pertanyaan->updated_at }}</td>
+                    <td class="text-white text-end">{{ $persetujuan->updated_at }}</td>
                 </tr>
             </tbody>
         </table>

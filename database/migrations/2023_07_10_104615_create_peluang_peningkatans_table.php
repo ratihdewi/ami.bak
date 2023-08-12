@@ -18,7 +18,7 @@ class CreatePeluangPeningkatansTable extends Migration
             $table->unsignedBigInteger('beritaacara_id');
             $table->String('aspek');
             $table->String('kelebihan');
-            $table->String('peningkatan');
+            $table->text('peningkatan');
             $table->foreign('beritaacara_id')->references('id')->on('berita_acaras')->onUpdate('cascade')
             ->onDelete('cascade');
             $table->timestamps();

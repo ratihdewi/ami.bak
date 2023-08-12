@@ -65,7 +65,7 @@
                 </tr>
             </thead>
             <tbody>
-                @php $no = 1; @endphp
+                @php $no = 1; $i = 0; @endphp
                 @foreach ($pertanyaan_ as $beritaacara)
                 <tr class="listTemuanBA">
                     <td class="text-center">{{ $no++ }}</td>
@@ -85,7 +85,7 @@
                     <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
                     <td  class="text-center">
                         @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
-                        {{ $qrCodeAuditee }}
+                        {{ $qrCodeAuditee[$i] }}
                         @else
                             <a
                                 href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
@@ -97,7 +97,7 @@
                     <td></td>
                     <td  class="text-center">
                         @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
-                        {{ $qrCodeAuditor }}
+                        {{ $qrCodeAuditor[$i] }}
                         @else
                             <a
                                 href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
@@ -112,6 +112,7 @@
                         ></a>
                     </td>
                 </tr>
+                {{ $i++ }}
                 @endforeach
             </tbody>
         </table>

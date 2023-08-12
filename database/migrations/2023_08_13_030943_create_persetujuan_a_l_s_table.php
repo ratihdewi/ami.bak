@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePersetujuanBASTable extends Migration
+class CreatePersetujuanALSTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePersetujuanBASTable extends Migration
      */
     public function up()
     {
-        Schema::create('persetujuan_b_a_s', function (Blueprint $table) {
+        Schema::create('persetujuan_a_l_s', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('beritaacara_id');
+            $table->unsignedBigInteger('pertanyaan_id');
             $table->String('posisi');
             $table->String('nama');
             $table->String('eSign');
-            $table->foreign('beritaacara_id')->references('id')->on('berita_acaras')->onUpdate('cascade')
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onUpdate('cascade')
             ->onDelete('cascade');
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreatePersetujuanBASTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('persetujuan_b_a_s');
+        Schema::dropIfExists('persetujuan_a_l_s');
     }
 }

@@ -16,15 +16,15 @@
             <tbody>
                 <tr>
                     <td class="text-white text-start">Perihal</td>
-                    <td class="text-white text-end">Berita Acara - {{ $auditee->unit_kerja }} ({{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }})</td>
+                    <td class="text-white text-end">Berita Acara - {{ $beritaacara->auditee->unit_kerja }} ({{ $beritaacara->auditee->tahunperiode0 }}/{{ $beritaacara->auditee->tahunperiode }})</td>
                 </tr>
                 <tr>
                     <td class="text-white text-start">Disetujui oleh:</td>
-                    <td class="text-white text-end">{{ $auditee->ketua_auditor }} ({{ $user->jabatan }})</td>
+                    <td class="text-white text-end">{{ $persetujuan->posisi }} - {{ $persetujuan->nama }} ({{ $user->jabatan }})</td>
                 </tr>
                 <tr>
                     <td class="text-white text-start">Disetujui pada:</td>
-                    <td class="text-white text-end">{{ $auditee->updated_at }}</td>
+                    <td class="text-white text-end">{{ $persetujuan->updated_at }}</td>
                 </tr>
             </tbody>
         </table>

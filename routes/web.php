@@ -10,6 +10,8 @@ use App\Models\BeritaAcara;
 use App\Models\DaftarHadir;
 use App\Models\DaftarTilik;
 use App\Models\DokLampiran;
+use App\Models\PersetujuanAL;
+use App\Models\PersetujuanBA;
 use App\Models\PeluangPeningkatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -63,36 +65,37 @@ Route::get('/auditor-esignhadir/{auditee_id}/{daftarhadir_id}/{namapeserta}', fu
     return view('auditee/daftarhadir_qrcode', compact('peserta', 'user', 'auditees'));
 });
 
-Route::get('/auditor-esignba/{auditee_id}', function($auditee_id){
-    $auditee = Auditee::find($auditee_id);
-    $user = User::where('name', $auditee->ketua_auditor)->first();
-
+Route::get('/auditor-esignba/{beritaacara_id}', function($beritaacara_id){
+    $persetujuan = PersetujuanBA::where('beritaacara_id', $beritaacara_id)->where('posisi', 'Ketua Auditor')->first();
+    $beritaacara = BeritaAcara::find($beritaacara_id);
+    $user = User::where('name', $persetujuan->nama)->first();
     // dd('Test');
 
-    return view('/auditee/BA_qrcode', compact('auditee', 'user'));
+    return view('/auditee/BA_qrcode', compact('persetujuan', 'user', 'beritaacara'));
 });
 
-Route::get('/auditee-esignba/{auditee_id}', function($auditee_id){
-    $auditee = Auditee::find($auditee_id);
-    $user = User::where('id', $auditee->user_id)->first();
+Route::get('/auditee-esignba/{beritaacara_id}', function($beritaacara_id){
+    $persetujuan = PersetujuanBA::where('beritaacara_id', $beritaacara_id)->where('posisi', 'Ketua Auditee')->first();
+    $beritaacara = BeritaAcara::find($beritaacara_id);
+    $user = User::where('name', $persetujuan->nama)->first();
 
-    return view('auditor/BA_qrcode', compact('auditee', 'user'));
+    return view('auditor/BA_qrcode', compact('persetujuan', 'user', 'beritaacara'));
 });
 
 Route::get('/auditor-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, $pertanyaan_id){
     $auditee = Auditee::find($auditee_id);
     $user = User::where('name', $auditee->ketua_auditor)->first();
-    $pertanyaan = Pertanyaan::find($pertanyaan_id);
+    $persetujuan = PersetujuanAL::where('pertanyaan_id', $pertanyaan_id)->where('posisi', 'Ketua Auditor')->first();
 
-    return view('/auditee/AL_qrcode', compact('auditee', 'user', 'pertanyaan'));
+    return view('/auditee/AL_qrcode', compact('auditee', 'user', 'persetujuan'));
 });
 
 Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, $pertanyaan_id){
     $auditee = Auditee::find($auditee_id);
     $user = User::where('id', $auditee->user_id)->first();
-    $pertanyaan = Pertanyaan::find($pertanyaan_id);
+    $persetujuan = PersetujuanAL::where('pertanyaan_id', $pertanyaan_id)->where('posisi', 'Ketua Auditee')->first();
     
-    return view('/auditor/AL_qrcode', compact('auditee', 'user', 'pertanyaan'));
+    return view('/auditor/AL_qrcode', compact('auditee', 'user', 'persetujuan'));
 });
 
 Auth::routes();

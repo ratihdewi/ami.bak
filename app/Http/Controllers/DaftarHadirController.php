@@ -80,7 +80,7 @@ class DaftarHadirController extends Controller
 
     public function getAuditee()
     {
-        $users = User::all();
+        $users = User::with('unitkerja')->get();
 
         return response()->json($users);
     }

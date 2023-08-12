@@ -324,9 +324,13 @@
           dataType: 'json',
           success: function(response){
               $("#inputAbsenNama1").empty();
+              $('#inputAbsenNama1').append('<option value="" selected disabled>Pilih Auditee</option>');
               if(response != null){
                   response.forEach(respon => {
-                    if (respon.unit_kerja == unit_kerja) {
+
+                    var unitKerja = respon.unitkerja;
+
+                    if (unitKerja.name == unit_kerja) {
                       $('#inputAbsenNama1').append($('<option>', { 
                           value: respon.name,
                           text : respon.name, 
@@ -338,7 +342,7 @@
           }
         });
       }
-      
+      $('#inputAbsenNama1').select2();
     });
 
     $(add_btn).click(function(e){
@@ -415,9 +419,12 @@
                 dataType: 'json',
                 success: function(response){
                     $("#inputAbsenNama"+i).empty();
+                    $('#inputAbsenNama'+i).append('<option value="" selected disabled>Pilih Auditee</option>');
                     if(response != null){
                         response.forEach(respon => {
-                          if (respon.unit_kerja == unit_kerja) {
+                          var unitKerja = respon.unitkerja;
+
+                          if (unitKerja.name == unit_kerja) {
                             $('#inputAbsenNama'+i).append($('<option>', { 
                                 value: respon.name,
                                 text : respon.name, 
@@ -430,7 +437,7 @@
                 }
               });
             }
-            
+            $('#inputAbsenNama'+i).select2();
           });
     });
 

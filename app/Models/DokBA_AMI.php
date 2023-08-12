@@ -30,4 +30,9 @@ class DokBA_AMI extends Model
     {
         return $this->belongsTo(DokLampiran::class);
     }
+
+    public function auditee()
+    {
+        return $this->belongsTo(Auditee::class);
+    }
 }

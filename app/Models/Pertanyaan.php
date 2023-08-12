@@ -55,8 +55,8 @@ class Pertanyaan extends Model
         return $this->hasMany(FotoKegiatan::class); 
     }
 
-    // public function beritaacara()
-    // {
-    //     return $this->belongsTo(BeritaAcara::class);
-    // }
+    public function persetujuanal()
+    {
+        return $this->hasMany(PersetujuanAL::class);
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\Pertanyaan;
 use App\Models\DaftarTilik;
 use App\Models\FotoKegiatan;
 use Illuminate\Http\Request;
+use App\Models\PersetujuanAL;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
 
@@ -213,7 +214,15 @@ class PertanyaanController extends Controller
         if (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditor == 'Belum disetujui Auditor') {
             $request->session()->flash('error', 'Mohon maaf, Auditor belum mengisi AL atau mengajukan persetujuan! Silahkan tunggu!');
         } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee') {
+
             $approve_->approvalAuditee = 'Disetujui Auditee';
+
+            $persetujuanAL = new PersetujuanAL;
+            $persetujuanAL->pertanyaan_id = $approve_->id;
+            $persetujuanAL->posisi = 'Ketua Auditee';
+            $persetujuanAL->nama = $approve_->auditee->ketua_auditee;
+            $persetujuanAL->eSign = $approve_->approvalAuditee;
+            $persetujuanAL->save();
 
             $request->session()->flash('success', 'Audit Lapangan sudah berhasil disetujui oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
     
@@ -245,6 +254,14 @@ class PertanyaanController extends Controller
             } elseif ($approve_->approvalAuditor == 'Menunggu persetujuan Auditee' && ($approve_->Kategori != null && $approve_->inisialAuditor != null)) {
     
                 $approve_->approvalAuditor = 'Disetujui Auditor';
+
+                $persetujuanAL = new PersetujuanAL;
+                $persetujuanAL->pertanyaan_id = $approve_->id;
+                $persetujuanAL->posisi = 'Ketua Auditor';
+                $persetujuanAL->nama = $approve_->auditee->ketua_auditor;
+                $persetujuanAL->eSign = $approve_->approvalAuditor;
+                $persetujuanAL->save();
+
                 $request->session()->flash('success', 'Audit Lapangan berhasil disetujui oleh Ketua Auditor '.$approve_->auditee->ketua_auditor);
             } elseif ($approve_->Kategori == null || $approve_->inisialAuditor == null) {
                 $request->session()->flash('error', 'Mohon mengisi kategori temuan dan inisial Auditor terlebih dahulu');

@@ -55,4 +55,9 @@ class Auditee extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function dokbaami()
+    {
+        return $this->belongsTo(DokBA_AMI::class);
+    }
 }

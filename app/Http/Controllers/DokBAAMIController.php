@@ -14,6 +14,7 @@ use App\Models\DaftarHadir;
 use App\Models\DaftarTilik;
 use App\Models\DokLampiran;
 use Illuminate\Http\Request;
+use App\Models\PersetujuanBA;
 use App\Models\PeluangPeningkatan;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
@@ -37,8 +38,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esignba/'.$auditee->id);
-        $urlAuditor = url('/auditor-esignba/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
+        $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -74,8 +75,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esignba/'.$auditee->id);
-        $urlAuditor = url('/auditor-esignba/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
+        $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -111,8 +112,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esignba/'.$auditee->id);
-        $urlAuditor = url('/auditor-esignba/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
+        $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -238,6 +239,13 @@ class DokBAAMIController extends Controller
         $approve_ = DokBA_AMI::find($id);
         
         $approve_->eSignAuditee = 'Disetujui';
+
+        $persetujuan = new PersetujuanBA;
+        $persetujuan->beritaacara_id = $approve_->beritaacara_id;
+        $persetujuan->posisi = 'Ketua Auditee';
+        $persetujuan->nama = $approve_->auditee->ketua_auditee;
+        $persetujuan->eSign = $approve_->eSignAuditee;
+        $persetujuan->save();
  
         $approve_->save();
 
@@ -250,6 +258,13 @@ class DokBAAMIController extends Controller
         $approve_ = DokBA_AMI::find($id);
         
         $approve_->eSignAuditor = 'Disetujui';
+
+        $persetujuan = new PersetujuanBA;
+        $persetujuan->beritaacara_id = $approve_->beritaacara_id;
+        $persetujuan->posisi = 'Ketua Auditor';
+        $persetujuan->nama = $approve_->auditee->ketua_auditor;
+        $persetujuan->eSign = $approve_->eSignAuditor;
+        $persetujuan->save();
  
         $approve_->save();
 
@@ -284,8 +299,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
+        $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -331,8 +346,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
+        $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -378,8 +393,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
+        $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -425,8 +440,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
+        $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);

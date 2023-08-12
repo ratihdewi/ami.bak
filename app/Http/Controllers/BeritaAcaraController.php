@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use QrCode;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\DokBA_AMI;
+use App\Models\UnitKerja;
 use App\Models\Pertanyaan;
 use App\Models\BeritaAcara;
 use App\Models\DaftarTilik;
-use App\Models\DokBA_AMI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -45,12 +46,15 @@ class BeritaAcaraController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee->id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
+        $qrCodeAuditor = [];
+        $qrCodeAuditee = [];
+        
         foreach ($pertanyaan_ as $key => $pertanyaan) {
             $urlAuditee = url('/auditee-esign/'.$auditee->id.'/'.$pertanyaan->id);
             $urlAuditor = url('/auditor-esign/'.$auditee->id.'/'.$pertanyaan->id);
 
-            $qrCodeAuditor = QrCode::generate($urlAuditor);
-            $qrCodeAuditee = QrCode::generate($urlAuditee);
+            array_push($qrCodeAuditor, QrCode::generate($urlAuditor));
+            array_push($qrCodeAuditee, QrCode::generate($urlAuditee));
         } 
 
         return view('spm/auditeeBA', compact('auditee', 'auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
@@ -63,12 +67,15 @@ class BeritaAcaraController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
+        $qrCodeAuditor = [];
+        $qrCodeAuditee = [];
+        
         foreach ($pertanyaan_ as $key => $pertanyaan) {
             $urlAuditee = url('/auditee-esign/'.$auditee->id.'/'.$pertanyaan->id);
             $urlAuditor = url('/auditor-esign/'.$auditee->id.'/'.$pertanyaan->id);
 
-            $qrCodeAuditor = QrCode::generate($urlAuditor);
-            $qrCodeAuditee = QrCode::generate($urlAuditee);
+            array_push($qrCodeAuditor, QrCode::generate($urlAuditor));
+            array_push($qrCodeAuditee, QrCode::generate($urlAuditee));
         } 
 
         return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
@@ -81,12 +88,15 @@ class BeritaAcaraController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
+        $qrCodeAuditor = [];
+        $qrCodeAuditee = [];
+        
         foreach ($pertanyaan_ as $key => $pertanyaan) {
             $urlAuditee = url('/auditee-esign/'.$auditee->id.'/'.$pertanyaan->id);
             $urlAuditor = url('/auditor-esign/'.$auditee->id.'/'.$pertanyaan->id);
 
-            $qrCodeAuditor = QrCode::generate($urlAuditor);
-            $qrCodeAuditee = QrCode::generate($urlAuditee);
+            array_push($qrCodeAuditor, QrCode::generate($urlAuditor));
+            array_push($qrCodeAuditee, QrCode::generate($urlAuditee));
         } 
 
         return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
@@ -109,8 +119,8 @@ class BeritaAcaraController extends Controller
 
     public function indexAuditee()
     {
-        $user_unitkerja = Auth::user()->unit_kerja;
-        $auditee_ = Auditee::where('unit_kerja', $user_unitkerja)->get();
+        $user_unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
+        $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->get();
         
         $daftartilik_ = DaftarTilik::all();
 
