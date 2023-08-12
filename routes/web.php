@@ -63,18 +63,36 @@ Route::get('/auditor-esignhadir/{auditee_id}/{daftarhadir_id}/{namapeserta}', fu
     return view('auditee/daftarhadir_qrcode', compact('peserta', 'user', 'auditees'));
 });
 
-Route::get('/auditor-esign/{auditee_id}', function($auditee_id){
+Route::get('/auditor-esignba/{auditee_id}', function($auditee_id){
     $auditee = Auditee::find($auditee_id);
-    $user = User::where('id', $auditee->user_id)->first();
+    $user = User::where('name', $auditee->ketua_auditor)->first();
 
-    return view('auditee/BA_qrcode', compact('auditee', 'user'));
+    // dd('Test');
+
+    return view('/auditee/BA_qrcode', compact('auditee', 'user'));
 });
 
-Route::get('/auditee-esign/{auditee_id}', function($auditee_id){
+Route::get('/auditee-esignba/{auditee_id}', function($auditee_id){
     $auditee = Auditee::find($auditee_id);
     $user = User::where('id', $auditee->user_id)->first();
 
     return view('auditor/BA_qrcode', compact('auditee', 'user'));
+});
+
+Route::get('/auditor-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, $pertanyaan_id){
+    $auditee = Auditee::find($auditee_id);
+    $user = User::where('name', $auditee->ketua_auditor)->first();
+    $pertanyaan = Pertanyaan::find($pertanyaan_id);
+
+    return view('/auditee/AL_qrcode', compact('auditee', 'user', 'pertanyaan'));
+});
+
+Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, $pertanyaan_id){
+    $auditee = Auditee::find($auditee_id);
+    $user = User::where('id', $auditee->user_id)->first();
+    $pertanyaan = Pertanyaan::find($pertanyaan_id);
+    
+    return view('/auditor/AL_qrcode', compact('auditee', 'user', 'pertanyaan'));
 });
 
 Auth::routes();
@@ -89,7 +107,7 @@ Route::get('/daftarAuditor-periode', [AuditorController::class, 'indexpertahun']
 Route::get('/daftarAuditee-periode', [AuditeeController::class, 'indexpertahun'])->name('auditee-periode');
 Route::get('/daftartilik-periode', [DaftarTilikController::class, 'indexpertahun'])->name('daftartilik-periode');
 Route::get('/auditor-searchAuditor', [AuditorController::class, 'getAuditor'])->name('auditor-searchAuditor');
-Route::get('/tambahauditee-searchAuditee/{nip}', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
+Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
 Route::get('/tambahauditee-searchAuditor/{tahun}', [AuditeeController::class, 'getAuditor'])->name('searchAuditor');
 Route::get('tambahauditee-searchnipuser/{tahun}', [AuditeeController::class, 'getnipuser'])->name('searchnipuser');
 Route::get('/tambahauditor-searchnipuser/{tahun}', [AuditorController::class, 'getnipuser'])->name('auditor-searchnipuser');

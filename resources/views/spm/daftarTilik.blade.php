@@ -80,7 +80,7 @@
                                 ><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a>
                             <a href="/daftartilik-tampildaftartilik/{{ $item->tahunperiode }}/{{ $dt->id }}" class="mx-2"
                                 ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
-                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}" class="mx-2"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}" class="mx-2"><button class="bg-danger border-0 rounded-1" onclick="return confirm('Apakah Anda yakin akan menghapus area {{ $dt->area }} Auditee {{ $dt->auditee->unit_kerja }}?')"><i class="bi bi-trash text-white"></i></button></a>
                         </td>
                     </tr>
                     

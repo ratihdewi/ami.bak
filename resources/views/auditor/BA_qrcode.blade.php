@@ -16,7 +16,7 @@
             <tbody>
                 <tr>
                     <td class="text-white text-start">Perihal</td>
-                    <td class="text-white text-end">Audit Lapangan - {{ $auditee->unit_kerja }} ({{ $auditee->tahunperiode }})</td>
+                    <td class="text-white text-end">Berita Acara - {{ $auditee->unit_kerja }} ({{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }})</td>
                 </tr>
                 <tr>
                     <td class="text-white text-start">Disetujui oleh:</td>

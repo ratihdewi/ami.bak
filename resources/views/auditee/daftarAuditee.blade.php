@@ -37,7 +37,7 @@
                         <tr>
                             <th scope="row" class="text-center">{{ $no++ }}</th>
                             <td>{{ $item->ketua_auditee }}</td>
-                            <td class="text-center">{{ $item->jabatan_ketua_auditee }}</td>
+                            <td>{{ $item->jabatan_ketua_auditee }}</td>
                             <td>{{ $item->ketua_auditor }}</td>
                             <td>{{ $item->anggota_auditor }}</td>
                         </tr>

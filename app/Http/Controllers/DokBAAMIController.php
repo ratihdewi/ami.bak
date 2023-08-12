@@ -37,8 +37,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$auditee->id);
+        $urlAuditor = url('/auditor-esignba/'.$auditee->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -74,8 +74,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$auditee->id);
+        $urlAuditor = url('/auditor-esignba/'.$auditee->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -111,8 +111,8 @@ class DokBAAMIController extends Controller
 
         $auditee = Auditee::find($auditee_id);
         
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        $urlAuditee = url('/auditee-esignba/'.$auditee->id);
+        $urlAuditor = url('/auditor-esignba/'.$auditee->id);
 
         $qrCodeAuditor = QrCode::generate($urlAuditor);
         $qrCodeAuditee = QrCode::generate($urlAuditee);
@@ -136,49 +136,57 @@ class DokBAAMIController extends Controller
         $ba_ = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
         $dokBA_ = DokBA_AMI::where('beritaacara_id', $ba_->id)->where('auditee_id', $auditee_id)->first();
         
-        return view('spm/BAAMI_ubahDataDokumenBA', compact('ba_','dokBA_'));
+        if ($dokBA_ != null) {
+            return view('spm/BAAMI_ubahDataDokumenBA', compact('ba_','dokBA_'));
+        } else {
+            return view('spm/BAAMI_addDataDokumenBA', compact('ba_','dokBA_'));
+        }
+        
     }
 
     public function auditor_ubahdataDokumenBA($auditee_id, $tahunperiode)
     {
         $ba_ = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
         $dokBA_ = DokBA_AMI::where('beritaacara_id', $ba_->id)->where('auditee_id', $auditee_id)->first();
-        
-        return view('auditor/BAAMI_ubahDataDokumenBA', compact('ba_','dokBA_'));
+
+        if ($dokBA_ != null) {
+            return view('auditor/BAAMI_ubahDataDokumenBA', compact('ba_','dokBA_'));
+        } else {
+            return view('auditor/BAAMI_addDataDokumenBA', compact('ba_','dokBA_'));
+        }
     }
 
     public function insertdataDokumenBA(Request $request, $auditee_id)
     {
         $dataDokumen_ = DokBA_AMI::find($auditee_id);
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->get()->first();
-        dd($dataDokumen==null);
 
-        if ($dataDokumen_ != null) {
+        // if ($dataDokumen_ != null) {
 
-            $dataDokumen_->update([
-                'beritaacara_id' => $beritaacara_->id,
-                'beritaacara_id' => $beritaacara_->id,
-                'judulDokumen' => $request->judulDokumen,
-                'kodeDokumen' => $request->kodeDokumen,
-                'revisiKe' => $request->revisiKe,
-                'tgl_revisi' => $request->tgl_revisi,
-                'tgl_berlaku' => $request->tgl_berlaku,
-            ]);
-            $dataDokumen_->save();
+        //     $dataDokumen_->update([
+        //         'beritaacara_id' => $beritaacara_->id,
+        //         'beritaacara_id' => $beritaacara_->id,
+        //         'judulDokumen' => $request->judulDokumen,
+        //         'kodeDokumen' => $request->kodeDokumen,
+        //         'revisiKe' => $request->revisiKe,
+        //         'tgl_revisi' => $request->tgl_revisi,
+        //         'tgl_berlaku' => $request->tgl_berlaku,
+        //     ]);
+        //     $dataDokumen_->save();
 
-        } else {
+        // } else {
             $dataDokumen = new DokBA_AMI;
             $dataDokumen->beritaacara_id = $beritaacara_->id;
             $dataDokumen->auditee_id = $auditee_id;
             $dataDokumen->judulDokumen = $request->judulDokumen;
             $dataDokumen->kodeDokumen = $request->kodeDokumen;
             $dataDokumen->revisiKe = $request->revisiKe;
-            $dataDokumen->revisiKe = $request->revisiKe;
+            $dataDokumen->tgl_revisi = $request->tgl_revisi;
             $dataDokumen->tgl_berlaku = $request->tgl_berlaku;
             $dataDokumen->save();
-        };
+        // };
 
-        return redirect()->route('BA-AMI', ['auditee_id' => $auditee_id])->with(compact('beritaacara_'));
+        return redirect()->back()->with('success', 'Data Dokumen BA AMI berhasil ditambah!');
     }
 
     public function ubahdataBAAMI($auditee_id)

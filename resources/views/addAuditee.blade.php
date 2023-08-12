@@ -84,17 +84,18 @@
                         <label for="selectUnitKerja" class="form-label"
                             >Unit Kerja</label
                         >
-                        <select
+                        <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" required>
+                        {{-- <select
                             id="selectUnitKerja"
                             class="form-select"
                             name="unit_kerja"
                             required
                         >
                             <option selected disabled>Pilih unit kerja yang akan diaudit</option>
-                            @foreach ($users_ as $user)
-                                <option value="{{ $user->unit_kerja }}">{{ $user->unit_kerja }}</option>
+                            @foreach ($unitkerjas as $unitkerja)
+                                <option value="{{ $unitkerja->id }}">{{ $unitkerja->name }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                     </div>
                     <div class="mb-3">
                         <label for="ketuaAuditee" class="form-label"
@@ -221,7 +222,7 @@
 
         $('#nipAuditee').change(function(){
             let nip = $('#nipAuditee').val();
-            var url = "{{url('/tambahauditee-searchAuditee')}}/"+nip;
+            var url = "{{url('/tambahauditee-searchAuditee')}}";
 
             $.ajax({
                 url: url,
@@ -233,7 +234,10 @@
                         response.forEach(respon => {
                             if (respon.nip == nip) {
                                 $('#user_id').val(respon.id);
-                                $('#selectUnitKerja').val(respon.unit_kerja);
+
+                                var unitKerja = respon.unitkerja;
+
+                                $('#selectUnitKerja').val(unitKerja.name);
                                 $('#ketuaAuditee').val(respon.name);
                                 $('#jabatanKetuaAuditee').val(respon.jabatan);
                             }
@@ -256,7 +260,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#ketuaAuditor').empty();
-                    $('#ketuaAuditor').append('<option value="" selected disabled>Pilih Ketua Auditor</option>');
+                    $('#ketuaAuditor').append('<option value="" selected>Pilih Ketua Auditor</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             return {

@@ -44,12 +44,14 @@ class BeritaAcaraController extends Controller
         $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee->id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
-        
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
 
-        $qrCodeAuditor = QrCode::generate($urlAuditor);
-        $qrCodeAuditee = QrCode::generate($urlAuditee); 
+        foreach ($pertanyaan_ as $key => $pertanyaan) {
+            $urlAuditee = url('/auditee-esign/'.$auditee->id.'/'.$pertanyaan->id);
+            $urlAuditor = url('/auditor-esign/'.$auditee->id.'/'.$pertanyaan->id);
+
+            $qrCodeAuditor = QrCode::generate($urlAuditor);
+            $qrCodeAuditee = QrCode::generate($urlAuditee);
+        } 
 
         return view('spm/auditeeBA', compact('auditee', 'auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
@@ -61,11 +63,13 @@ class BeritaAcaraController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        foreach ($pertanyaan_ as $key => $pertanyaan) {
+            $urlAuditee = url('/auditee-esign/'.$auditee->id.'/'.$pertanyaan->id);
+            $urlAuditor = url('/auditor-esign/'.$auditee->id.'/'.$pertanyaan->id);
 
-        $qrCodeAuditor = QrCode::generate($urlAuditor);
-        $qrCodeAuditee = QrCode::generate($urlAuditee); 
+            $qrCodeAuditor = QrCode::generate($urlAuditor);
+            $qrCodeAuditee = QrCode::generate($urlAuditee);
+        } 
 
         return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
     }
@@ -77,11 +81,13 @@ class BeritaAcaraController extends Controller
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
 
-        $urlAuditee = url('/auditee-esign/'.$auditee->id);
-        $urlAuditor = url('/auditor-esign/'.$auditee->id);
+        foreach ($pertanyaan_ as $key => $pertanyaan) {
+            $urlAuditee = url('/auditee-esign/'.$auditee->id.'/'.$pertanyaan->id);
+            $urlAuditor = url('/auditor-esign/'.$auditee->id.'/'.$pertanyaan->id);
 
-        $qrCodeAuditor = QrCode::generate($urlAuditor);
-        $qrCodeAuditee = QrCode::generate($urlAuditee); 
+            $qrCodeAuditor = QrCode::generate($urlAuditor);
+            $qrCodeAuditee = QrCode::generate($urlAuditee);
+        } 
 
         return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
     }

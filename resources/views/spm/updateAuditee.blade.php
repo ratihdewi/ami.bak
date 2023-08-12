@@ -19,7 +19,7 @@
 <div class="row justify-content-center mb-5">
     <div class="col-8 mt-3">
         <h5 class="text-center">Ubah Data Auditee</h5>
-        <form action="/updateAuditee/{{ $data->id }}" method="POST">
+        <form action="/updateAuditee/{{ $data->id }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mengubah data Auditee?')">
             @csrf
             <div class="card mt-3">
                 <div class="card-body p-4">
@@ -87,14 +87,15 @@
                         <label for="selectUnitKerja" class="form-label"
                             >Unit Kerja</label
                         >
-                        <select
+                        <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" value="{{ $data->unit_kerja }}" required>
+                        {{-- <select
                             id="selectUnitKerja"
                             class="form-select"
                             name="unit_kerja"
                             required
                         >
                             <option selected>{{ $data->unit_kerja }}</option>
-                        </select>
+                        </select> --}}
                     </div>
                     <div class="mb-3">
                         <label for="ketuaAuditee" class="form-label"
@@ -280,7 +281,7 @@
 
         $('#nipAuditee').change(function(){
             let nip = $('#nipAuditee').val();
-            var url = "{{url('/tambahauditee-searchAuditee')}}/"+nip;
+            var url = "{{url('/tambahauditee-searchAuditee')}}";
 
             $.ajax({
                 url: url,
@@ -292,7 +293,10 @@
                         response.forEach(respon => {
                             if (respon.nip == nip) {
                                 $('#user_id').val(respon.id);
-                                $('#selectUnitKerja').val(respon.unit_kerja);
+
+                                // var unitKerja = respon.unitkerja;
+
+                                // $('#selectUnitKerja').val(unitKerja.name);
                                 $('#ketuaAuditee').val(respon.name);
                                 $('#jabatanKetuaAuditee').val(respon.jabatan);
                             }
@@ -315,7 +319,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#ketuaAuditor').empty();
-                    $('#ketuaAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                    $('#ketuaAuditor').append('<option value="" selected>Pilih Ketua Auditor</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             return {
@@ -351,7 +355,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#anggotaAuditor').empty();
-                    $('#anggotaAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                    $('#anggotaAuditor').append('<option value="" selected>Pilih NIP Ketua Auditee</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             if (item.nama != ketuaAuditor ) {
@@ -390,7 +394,7 @@
                 success: function(data) {
                     console.log(data);
                     $('#anggotaAuditor2').empty();
-                    $('#anggotaAuditor2').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                    $('#anggotaAuditor2').append('<option value="" selected>Pilih NIP Ketua Auditee</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             if (item.nama != anggotaAuditor && item.nama != ketuaAuditor ) {

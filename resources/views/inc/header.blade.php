@@ -13,7 +13,7 @@
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu">
-            <li class="ms-3">{{ Auth::user()->role }}</li>
+            <li class="ms-3">{{ Auth::user()->role->name }}</li>
             <li 
                 @if (count(Auth::user()->auditor()->get('user_id')) == 0 )
                     {{ "hidden" }}
@@ -29,7 +29,7 @@
                 <a class="dropdown-item" href="/changeroleauditee/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Auditee)</a>
             </li>
             <li
-                @if (Auth::user()->role != "SPM")
+                @if (Auth::user()->role_id != '1')
                     {{ "hidden" }}
                 @endif
             >

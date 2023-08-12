@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 
 class AuditeeController extends Controller
@@ -25,16 +26,14 @@ class AuditeeController extends Controller
 
     public function tambahauditee()
     {
-        // $tahunperiode = Auditee::where('tahunperiode', $tahunperiode)->first(); 
-        $users_ = User::all();
-        $auditor_ = Auditor::all(); 
+        $unitkerjas = UnitKerja::all();
 
-        return view('addAuditee', compact('users_', 'auditor_'));
+        return view('addAuditee', compact('unitkerjas'));
     }
 
-    public function getAuditee($nip)
+    public function getAuditee()
     {
-        $data = User::where('nip', $nip)->where('nip', 'LIKE', '%'.request('q').'%')->get();
+        $data = User::with('unitkerja')->get();
 
         return response()->json($data);
     }
@@ -60,7 +59,9 @@ class AuditeeController extends Controller
 
     public function insertdata(Request $request)
     {
-        $isAlreadyExistAuditee = Auditee::where('nip', $request->nip)->where('tahunperiode', $request->tahunperiode)->exists();
+        $isAlreadyExistAuditee = Auditee::where('tahunperiode', $request->tahunperiode)->where('unit_kerja', $request->unit_kerja)->exists();
+
+        // dd($isAlreadyExistAuditee);
 
         if ($request->ketua_auditor == $request->anggota_auditor || $request->ketua_auditor == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditor tidak dapat menjadi anggota Auditor secara bersamaan!');
@@ -72,7 +73,7 @@ class AuditeeController extends Controller
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditee dan Tim Auditor tidak dapat memilik data yang sama!');
         } else {
             Auditee::create($request->all());
-            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil ditambah pada periode '.$request->tahunperiode);
+            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil ditambah pada periode '.$request->tahunperiode0.'/'.$request->tahunperiode);
         }
         
     }
@@ -89,7 +90,9 @@ class AuditeeController extends Controller
     {
         $data = Auditee::find($id);
         $existAuditor = Auditor::where('user_id', $data->user_id)->where('tahunperiode', $data->tahunperiode)->exists();
-        // dd($existAuditor);
+        $unitkerja = UnitKerja::where('name', $request->unit_kerja)->first();
+        $existKetuaAuditee = User::where('nip', $request->nip)->where('unitkerja_id', $unitkerja->id)->doesntExist();
+        // dd($existKetuaAuditee);
 
         if ($existAuditor) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data sudah terdaftar sebagai Auditor di tahun yang sama!');
@@ -99,6 +102,8 @@ class AuditeeController extends Controller
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditor tidak dapat menjadi anggota Auditor secara bersamaan!');
         } elseif ($request->anggota_auditor == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Tim Auditor tidak dapat memiliki anggota auditor yang sama!');
+        } elseif ($existKetuaAuditee) {
+            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'User '.$request->ketua_auditee.' tidak terdaftar pada unit kerja '.$data->unit_kerja.' !');
         } else {
             $data->update($request->all());
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');

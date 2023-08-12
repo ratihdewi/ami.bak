@@ -180,7 +180,7 @@
                     <tr>
                         <td class="text-center">{{ $no++ }}</td>
                         <td class="text-center">{{ $temuan->Kategori }}<br>({{ $temuan->inisialAuditor }})</td>
-                        <td class="text-center">{{ $temuan->nomorButir }}</td>
+                        <td>{{ $temuan->nomorButir }}</td>
                         <td>{{ $temuan->narasiPLOR }}</td>
                     </tr>
                     @endforeach

@@ -29,7 +29,7 @@
                       <input type="text" class="form-control" id="beritaacara_id" placeholder="Masukkan id berita acara" name="addmore[0][beritaacara_id]" value="{{ $beritaacara_->id }}">
                   </div>
                 </div>
-                <div class="row inputabsen my-4 mx-5">
+                <div class="row inputabsen my-4 mx-5" hidden>
                   <div class="col">
                       <label for="namapenginput1" class="form-label fw-semibold">Penginput</label>
                       <input type="text" class="form-control" id="namapenginput1" placeholder="Masukkan nama penginput" name="addmore[0][namapenginput]" value="{{ Auth::user()->name }}">

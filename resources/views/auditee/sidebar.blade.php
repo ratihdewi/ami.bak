@@ -31,7 +31,7 @@
             </a>
             <a
                 href="/auditee-daftartilik-periode"
-                class="nav_link {{ Request::routeIs('auditee-daftartilik') ? 'active' : '' || Request::routeIs('auditee-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-dokumensahih') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditee-daftartilik') ? 'active' : '' || Request::routeIs('auditee-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-dokumensahih') ? 'active' : '' || Request::routeIs('auditee-fotokegiatan') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

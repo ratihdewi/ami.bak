@@ -59,7 +59,7 @@
 
         {{-- Simpan Perubahan --}}
         <div class="simpanBA d-flex justify-content-end">
-          <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $auditees->id }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
+          <a href="/auditor-auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>

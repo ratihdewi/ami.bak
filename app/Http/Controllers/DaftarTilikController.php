@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Jadwal;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\UnitKerja;
 use App\Models\Pertanyaan;
 use App\Models\DaftarTilik;
 use Illuminate\Http\Request;
@@ -64,9 +65,9 @@ class DaftarTilikController extends Controller
                     $areadt->bataspengisianRespon = $request->bataspengisianRespon;
                     $areadt->save();
                     
-                    return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('success', 'Data berhasil ditambah!');
+                    return redirect()->route('daftartilik', ['tahunperiode' => $auditee_->tahunperiode])->with('success', 'Data berhasil ditambah!');
                    } else {
-                    return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('error', 'Data Auditor tidak terdaftar sebagai Ketua maupun Anggota Auditor!');
+                    return redirect()->route('daftartilik', ['tahunperiode' => $auditee_->tahunperiode])->with('error', 'Data Auditor tidak terdaftar sebagai Ketua maupun Anggota Auditor!');
                    }
                 }
             }
@@ -168,8 +169,8 @@ class DaftarTilikController extends Controller
 
     //Role AUDITEE
     public function indexAuditee($tahunperiode) {
-        $unitkerja = Auth::User()->unit_kerja;
-        $data_ = Auditee::where('unit_kerja', $unitkerja)->where('tahunperiode', $tahunperiode)->get();
+        $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
+        $data_ = Auditee::where('unit_kerja', $unitkerja->name)->where('tahunperiode', $tahunperiode)->get();
         
         //dd($datas);
         return view('auditee/daftarTilik', compact('data_'));

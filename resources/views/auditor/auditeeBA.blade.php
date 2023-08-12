@@ -82,7 +82,7 @@
                             <i class="bi bi-check-lg"></i>
                         @endif
                     </td>
-                    <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
+                    <td class="col-2">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
                     <td  class="text-center">
                         @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
                         {{ $qrCodeAuditee }}

@@ -62,7 +62,7 @@
                         onblur="(this.type='text')"
                         aria-label="Masukkan Hari/Tanggal Pelaksanaan"
                         name="tgl_pelaksanaan"
-                        value="{{ $data->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
+                        value="{{ $data->tgl_pelaksanaan->translatedFormat('Y-m-d') }}"
                     />
                 </div>
                 <div class="col">
@@ -100,12 +100,12 @@
                     onblur="(this.type='text')"
                     aria-label="Berika Batas Pengisian Respon Auditee"
                     name="bataspengisianRespon"
-                    value="{{ $data->bataspengisianRespon->translatedFormat('d-m-y') }}"
+                    value="{{ $data->bataspengisianRespon->translatedFormat('Y-m-d') }}"
                 />
             </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-end mx-4 mb-4">
-            <a href="/daftarTilik-areadaftartilik/{{ $data->auditee_id }}/{{ $data->area }}">
+            <a href="/daftartilik/{{ $data->auditee->tahunperiode }}">
                 <button type="button" class="btn btn-secondary me-3 float-start">Kembali</button>
             </a>
             <button

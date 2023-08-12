@@ -240,7 +240,7 @@
                     <tr>
                       <td scope="row" class="text-center">{{ $no++ }}</td>
                       <td class="col-2 text-center">{{ $temuanAudit->Kategori }}<br>{{ $temuanAudit->inisialAuditor }}</td>
-                      <td class="col-3 text-center">{{ $temuanAudit->referensi }}<br>{{ $temuanAudit->nomorButir }}</td>
+                      <td class="col-3 text-start">{{ $temuanAudit->referensi }}<br>{{ $temuanAudit->nomorButir }}</td>
                       <td class="col-2 text-start">{{ $temuanAudit->narasiPLOR }}</td>
                     </tr>
                     @endforeach

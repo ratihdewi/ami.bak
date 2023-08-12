@@ -53,10 +53,10 @@ class LoginController extends Controller
         $userAuditor = Auditor::where('user_id', $user->id)->get();
         $userAuditee = Auditee::where('user_id', $user->id)->get();
         // dd($user);
-        if ($user->hasRole('SPM')) {
+        if ($user->hasRole(1)) {
             return redirect()->route('auditor-periode');
         }
-        elseif ($user->hasRole('User')) {
+        elseif ($user->hasRole(2)) {
             if (count(Auth::user()->auditor()->get('user_id')) != 0) {
                 return redirect()->route('auditor-daftarauditor-periode');
             } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {

@@ -43,21 +43,15 @@
                                         <select
                                             id="selectRole"
                                             class="form-select"
-                                            name="role"
+                                            name="role_id"
                                             required
                                         >
                                             <option selected>
                                                 Pilih Role
                                             </option>
                                             @foreach ($roles as $role)
-                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
-                                            {{-- <option value="SPM">
-                                                Satuan Penjaminan Mutu
-                                            </option>
-                                            <option value="User">
-                                                User
-                                            </option> --}}
                                         </select>
                                     </div>
                                 </div>
@@ -79,13 +73,17 @@
                                         <select
                                             id="selectUnitKerja"
                                             class="form-select"
-                                            name="unit_kerja"
+                                            name="unitkerja_id"
                                             required
                                         >
                                             <option selected>
                                                 Pilih unit kerja
                                             </option>
-                                            @include('inc.listAuditee')
+                                            @foreach ($unitkerjas as $unitkerja)
+                                            <option value="{{ $unitkerja->id }}">
+                                                {{ $unitkerja->name }}
+                                            </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col">
@@ -125,6 +123,7 @@
     <script>
         $(document).ready(function(){
             $('#selectUnitKerja').select2();
+            $('#selectRole').select2();
         })
     </script>
 @endpush

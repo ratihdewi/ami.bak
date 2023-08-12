@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -21,13 +22,14 @@ class UserController extends Controller
     public function tambahuser()
     {
         $roles = Role::all();
+        $unitkerjas = UnitKerja::all();
 
-        return view('spm/addUser', compact('roles'));
+        return view('spm/addUser', compact('roles', 'unitkerjas'));
     }
 
     public function insertdata(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
@@ -37,15 +39,17 @@ class UserController extends Controller
             return redirect()->route('daftaruser')->with('error', 'Data pengguna sudah terdaftar!');
         } else {
             $user = User::create($input);
-            $user->assignRole($input['role']);
+            $user->assignRole($input['role_id']);
             return redirect()->route('daftaruser')->with('success', 'Data berhasil ditambahkan');
         }
     }
 
     public function tampildata($id){
         $data = User::find($id);
+        $unitkerjas = UnitKerja::all();
+        $roles = Role::all();
         // dd($data);
-        return view('spm/updateUser', compact('data'));
+        return view('spm/updateUser', compact('data', 'unitkerjas', 'roles'));
     }
 
     public function updatedata(Request $request, $id)
@@ -57,9 +61,9 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $data->password,
-            'unit_kerja' => $request->unit_kerja,
+            'unitkerja_id' => $request->unitkerja_id,
             'username' => $request->username,
-            'role' => $request->role,
+            'role_id' => $request->role_id,
             'jabatan' => $request->jabatan,
             'noTelepon' => $request->noTelepon,
         ]);
@@ -106,7 +110,7 @@ class UserController extends Controller
 
     public function changerolespm($id)
     {
-        $user_ = User::where('id', $id)->where('role', 'SPM')->exists();
+        $user_ = User::where('id', $id)->where('role_id', '1')->exists();
         if ($user_) {
             return redirect()->route('auditor-periode')->with('success', 'Selamat datang di halaman SPM!');
         } else {

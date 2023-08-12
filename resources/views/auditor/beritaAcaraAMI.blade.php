@@ -21,7 +21,7 @@
   <div class="container">
       <div class="d-flex my-4 justify-content-between">
         @foreach ($auditee_ as $auditee)
-          <a href="/auditor-auditeeBA/{{ $auditee->id }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
+          <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
           @endforeach
         <div class="btn-right">
           @foreach ($auditee_ as $auditee)
@@ -229,7 +229,7 @@
                     <tr>
                       <td scope="row" class="text-center">{{ $no++ }}</td>
                       <td class="col-2 text-center">{{ $temuanAudit->Kategori }}<br>{{ $temuanAudit->inisialAuditor }}</td>
-                      <td class="col-3 text-center">{{ $temuanAudit->referensi }}<br>{{ $temuanAudit->nomorButir }}</td>
+                      <td class="col-3 text-start">{{ $temuanAudit->referensi }}<br>{{ $temuanAudit->nomorButir }}</td>
                       <td class="col-2 text-start">{{ $temuanAudit->narasiPLOR }}</td>
                     </tr>
                     @endforeach

@@ -26,7 +26,7 @@ class AuditorController extends Controller
 
     public function getAuditor()
     {
-        $users_ = User::all();
+        $users_ = User::with('unitkerja')->get();
 
         return response()->json($users_);
     }

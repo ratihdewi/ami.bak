@@ -201,8 +201,11 @@
                                 if (respon.nip == id) {
                                     $('#user_id').val(respon.id);
                                     $('#namaAuditor').val(respon.name);
-                                    $('#fakultas').val(respon.unit_kerja);
-                                    $('#programstudi').val(respon.unit_kerja);
+                                    
+                                    var unitKerja = respon.unitkerja;
+
+                                    $('#fakultas').val(unitKerja.fakultas);
+                                    $('#programstudi').val(unitKerja.name);
                                     $('#nomorTelepon').val(respon.noTelepon);
                                 }
                             });

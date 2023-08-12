@@ -277,17 +277,7 @@
               <a href="/auditee-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}">
                 <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Foto Kegiatan</b></button>
               </a>
-              {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="foto_kegiatans[]"> --}}
             </div>
-            {{-- <div class="col">
-              <label for="listFotoKegiatan" class="form-label">Daftar foto kegiatan yang sudah diunggah</label>
-              <select id="listFotoKegiatan" class="form-select" name="foto_kegiatans[]">
-                  <option selected>Daftar foto kegiatan yang sudah diunggah</option>
-                  @foreach ($fotoKegiatan as $foto)
-                  <option>{{ $foto->namaFile }}</option>
-                  @endforeach
-              </select>
-            </div> --}}
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">

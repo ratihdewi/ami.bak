@@ -1,4 +1,24 @@
 @extends('auditor.main_') @section('title') AMI - BA-AMI - Dokumen Pendukung @endsection
+
+@section('linking')
+    <a href="/auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditor-auditeeBA/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    {{ $beritaacara_->auditee->unit_kerja }}
+    </a>/
+
+    <a href="/auditor-BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/auditor-BA-dokumenpendukung/{{ $beritaacara_->auditee_id }}" class="mx-1">
+    Dokumen Pendukung
+    </a>/
+    
+@endsection
+
 @section('container')
   <div class="container mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
@@ -36,13 +56,15 @@
         </div>
 
         {{-- Simpan Perubahan --}}
-        <div class="simpanBA d-grid gap-2">
+        <div class="simpanBA d-flex justify-content-end mx-5">
+          <a href="/auditor-BA-AMI/{{ $beritaacara_->auditee_id }}/{{ $beritaacara_->tahunperiode }}">
+            <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
       <div class="listDokPendukung px-3 my-5">
         <table class="table table-hover">
-          <thead>
+          <thead style="background-color: #bfe9df; border: 2px solid #75c8be;">
               <tr class="">
                   <th class="col-1 text-center">No</th>
                   <th class="col-2 text-center">Kode Dokumen</th>
@@ -58,7 +80,7 @@
                 <td class="col-2 text-center">{{ $dokumenpendukung->kodeDokumen }}</td>
                 <td class="col-3 text-center">{{ $dokumenpendukung->namaDokumen }}</td>
                 <td class="col-2 text-center">
-                  <a href="/BA-deletedokumenpendukung/{{ $dokumenpendukung->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $dokumenpendukung->namaDokumen }} ?')"><i class="bi bi-trash"></i></a>
+                  <a href="/BA-deletedokumenpendukung/{{ $dokumenpendukung->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $dokumenpendukung->namaDokumen }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                 </td>
               </tr>
               @endforeach

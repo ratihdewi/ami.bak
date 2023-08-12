@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -24,9 +25,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'unit_kerja',
+        'unitkerja_id',
         'username',
-        'role',
+        'role_id',
         'jabatan',
         'noTelepon',
     ];
@@ -63,5 +64,15 @@ class User extends Authenticatable
     public function auditee()
     {
         return $this->hasMany(Auditee::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function unitkerja()
+    {
+        return $this->belongsTo(UnitKerja::class);
     }
 }

@@ -48,8 +48,8 @@
                 <th scope="row" class="text-center">{{ $no++ }}</th>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->username }}</td>
-                <td class="text-center">{{ $item->role }}</td>
-                <td>{{ $item->unit_kerja }}</td>
+                <td class="text-center">{{ $item->role->name }}</td>
+                <td>{{ $item->unitkerja->name }}</td>
                 <td class="text-center">
                     <a href="tampilUser/{{ $item->id }}" class="mx-2"
                         ><button class="bg-primary border-0 rounded-1 me-2"><i class="bi bi-pencil-square text-white"></i></button></a>

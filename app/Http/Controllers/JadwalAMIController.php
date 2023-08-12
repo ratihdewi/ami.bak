@@ -62,10 +62,10 @@ class JadwalAMIController extends Controller
 
     public function deletejadwalami($id)
     {
-        $periodeami = new Carbon($request->tgl_mulai);
-        $periode = $periodeami->year;
-
         $jadwalami = JadwalAMI::find($id);
+
+        $periodeami = new Carbon($jadwalami->tgl_mulai);
+        $periode = $periodeami->year;
 
         $jadwalami->delete();
 

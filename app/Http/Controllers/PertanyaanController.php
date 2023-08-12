@@ -210,7 +210,9 @@ class PertanyaanController extends Controller
         $doksahihs = DokSahih::where('pertanyaan_id', $approve_->id)->get();
         $auditee_ = Auditee::where('id', $approve_->auditee_id)->first();
 
-        if (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee') {
+        if (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditor == 'Belum disetujui Auditor') {
+            $request->session()->flash('error', 'Mohon maaf, Auditor belum mengisi AL atau mengajukan persetujuan! Silahkan tunggu!');
+        } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee') {
             $approve_->approvalAuditee = 'Disetujui Auditee';
 
             $request->session()->flash('success', 'Audit Lapangan sudah berhasil disetujui oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
@@ -234,19 +236,23 @@ class PertanyaanController extends Controller
             if ($approve_->approvalAuditor == 'Belum disetujui Auditor' && ($approve_->Kategori != null && $approve_->inisialAuditor != null)) {
 
                 $approve_->approvalAuditor = 'Menunggu persetujuan Auditee';
-                $request->session()->flash('success', 'Persetujuan Audit Lapangan berhasil berhasil diajukan oleh '.$auditor_->nama.' kepada Auditee');
+                $request->session()->flash('success', 'Persetujuan Audit Lapangan berhasil diajukan oleh '.$approve_->auditee->ketua_auditor.' kepada Auditee');
     
+            } elseif ($approve_->approvalAuditor == 'Menunggu persetujuan Auditee' && $approve_->approvalAuditee == 'Belum disetujui Auditee') {
+
+                $request->session()->flash('error', 'Mohon tunggu, AL belum disetujui oleh Auditee!');
+
             } elseif ($approve_->approvalAuditor == 'Menunggu persetujuan Auditee' && ($approve_->Kategori != null && $approve_->inisialAuditor != null)) {
     
                 $approve_->approvalAuditor = 'Disetujui Auditor';
-                $request->session()->flash('success', 'Audit Lapangan berhasil disetujui oleh Auditor '.$auditor_->nama);
+                $request->session()->flash('success', 'Audit Lapangan berhasil disetujui oleh Ketua Auditor '.$approve_->auditee->ketua_auditor);
             } elseif ($approve_->Kategori == null || $approve_->inisialAuditor == null) {
                 $request->session()->flash('error', 'Mohon mengisi kategori temuan dan inisial Auditor terlebih dahulu');
             } elseif ($approve_->approvalAuditor == 'Disetujui Auditor' && $approve_->approvalAuditee == 'Disetujui Auditee') {
                 $request->session()->flash('success', 'Anda sudah menyetujui Audit Lapangan!');
             }
         } else {
-            $request->session()->flash('error', 'Audit Lapangan ini harus disetujui oleh Auditor yang terdaftar pada rencana daftar tilik! ('.$auditor_->nama.')');
+            $request->session()->flash('error', 'Audit Lapangan ini harus disetujui oleh ketua Auditor! ('.$approve_->auditee->ketua_auditor.')');
         }
 
         $approve_->save();
