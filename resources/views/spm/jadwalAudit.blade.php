@@ -12,26 +12,27 @@
 
 <div class="container vh-100 mt-4" style="font-size: 13px">
   {{-- Search Jadwal --}}
-  {{-- <div class="search my-5 p-5 mx-5 text-white rounded">
-    <form action="" method="get">
-      @csrf
-      <div class="input-group">
-        <select class="form-select mx-2 border border-secondary rounded" id="inputGroupSelect04" aria-label="Example select with button addon">
-          <option selected disabled>Filter Auditee</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        <select class="form-select mx-2 border border-secondary rounded" id="inputGroupSelect04" aria-label="Example select with button addon">
-          <option selected disabled>Filter Tahun</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        <button class="btn btn-primary mx-2 border rounded" type="button">Cari</button>
-      </div>
-    </form>
-  </div> --}}
+    <div class="search my-5 p-5 mx-5 text-white rounded">
+      <form action="searchjadwal" method="get">
+        @csrf
+        <div class="input-group d-flex justify-content-around">
+          <select class="form-select mx-3 border border-secondary rounded" id="inputauditee" aria-label="Example select with button addon" name="select_auditee">
+            <option selected disabled>Filter Auditee</option>
+            @foreach ($unitkerjas as $unitkerja)
+            <option value="{{ $unitkerja->name }}">{{ $unitkerja->name }}</option>
+            @endforeach
+          </select>
+          <select class="form-select mx-3 border border-secondary rounded" id="inputtahun" aria-label="Example select with button addon" name="select_tahun">
+            <option selected disabled>Filter Tahun Periode</option>
+            <option value="{{ date('Y') }}">{{ date('Y')-1 }}/{{ date('Y') }}</option>
+            @foreach ($auditee_->unique('tahunperiode0', 'tahunperiode') as $auditee)
+            <option value="{{ $auditee->tahunperiode0 }}">{{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}</option>
+            @endforeach
+          </select>
+          <button class="btn btn-primary mx-2 border rounded" type="submit">Cari</button>
+        </div>
+      </form>
+    </div>
   {{-- Search Jadwal End --}}
   @if ($message = Session::get('success'))
     <div class="alert alert-success" role="alert">
@@ -104,7 +105,7 @@
       <div class="tab-pane fade w-100" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container mt-3">
             <div id="calendar"></div>
-            <div id="inputKetersediaan" class="inputKetersediaan mt-3 p-3 border rounded">
+            {{-- <div id="inputKetersediaan" class="inputKetersediaan mt-3 p-3 border rounded">
               <h5 class="fw-bold">Ketersediaan Jadwal</h5>
               <p id="dateInfo">15 Juni</p>
               <form action="">
@@ -113,7 +114,7 @@
                 <button type="button" class="btn btn-success btn-sm float-end mt-3 mx-1">Simpan</button>
                 <button type="button" class="btn btn-danger btn-sm float-end mt-3 mx-1">Batal</button>
               </form>
-            </div>
+            </div> --}}
         </div>
       </div>
     </div>
@@ -183,6 +184,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!-- Datatable plugin JS library file -->
 <script
@@ -193,6 +195,8 @@
     $(document).ready(function () {
         $("#tablejadwalaudit").DataTable({});
         $("#tablejadwalkeseluruhanami").DataTable({});
+        $('#inputauditee').select2();
+        $('#inputtahun').select2();
     });
 </script>
 <script>

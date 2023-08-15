@@ -190,8 +190,8 @@
                         <tr>
                             <td class="text-center">{{ $no++ }}</td>
                             <td>{{ $pelpeningkatan->aspek }}</td>
-                            <td>{{ $pelpeningkatan->kelebihan }}</td>
-                            <td>{{ $pelpeningkatan->peningkatan }}</td>
+                            <td>{!! $pelpeningkatan->kelebihan !!}</td>
+                            <td>{!! $pelpeningkatan->peningkatan !!}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -204,10 +204,18 @@
                     @endif
                 @endforeach
                 yang dilaporkan dalam
+                @if (count($dokumenpendukung_) > 1)
                 @foreach ($dokumenpendukung_ as $dokumenpendukung)
                     {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }}, 
                 @endforeach
                 .
+                @else
+                @foreach ($dokumenpendukung_ as $dokumenpendukung)
+                    {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }} 
+                @endforeach
+                .
+                @endif
+                
             </p>
         </div>
 

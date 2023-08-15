@@ -131,9 +131,10 @@ Route::post('/insertjadwal', [JadwalController::class, 'insertdata'])->name('ins
 Route::get('/jadwalaudit-tampiljadwalaudit/{id}', [JadwalController::class, 'tampildata'])->name('tampiljadwalaudit');
 Route::post('/jadwalaudit-updatejadwalaudit/{id}', [JadwalController::class, 'updatedata'])->name('updatejadwalaudit');
 Route::get('/jadwalaudit-deletejadwalaudit/{id}', [JadwalController::class, 'deletedata'])->name('deletejadwalaudit');
-Route::get('/dokresmi', function(){
-    return view('spm/dokResmi');
-});
+Route::get('/searchjadwal', [JadwalController::class, 'search'])->name('searchjadwal');
+// Route::get('/dokresmi', function(){
+//     return view('spm/dokResmi');
+// });
 Route::get('/daftartilik/{tahunperiode}', [DaftarTilikController::class, 'index'])->name('daftartilik');
 Route::get('/daftartilik-searchAuditeeAuditor/{auditee_id}', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
 Route::get('/daftarTilik-addareadaftartilik/{tahunperiode}', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
@@ -224,6 +225,8 @@ Route::post('/auditor-BA-addpeluangpeningkatan/{auditee_id}/{tahunperiode}', [Pe
 Route::post('/auditor-BA-updatepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'auditor_updatepeluangpeningkatan'])->name('auditor-BA-updatepeluangpeningkatan');
 Route::get('/auditor-BA-ubahdataDokumenBAAMI/{auditee_id}/{tahunperiode}', [DokBAAMIController::class, 'auditor_ubahdataDokumenBA'])->name('auditor-BA-ubahdataDokumenBAAMI');
 Route::post('/auditor-BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('auditor-BA-AMI-updatedataBAAMI');
+Route::get('/auditor_searchjadwal', [JadwalController::class, 'auditor_search'])->name('auditor_searchjadwal');
+Route::get('/auditor_ketersediaan-jadwal', [FullCalenderController::class, 'auditor_index']);
 
 //Role Auditee
 Route::get('/auditee-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditee'])->name('auditee-daftarauditee');
@@ -244,6 +247,8 @@ Route::get('/auditee-jadwalaudit', [JadwalController::class, 'auditee_index'])->
 Route::get('/auditee-editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'auditee_index'])->name('auditee-dokumensahih');
 Route::get('/auditee-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditee_index'])->name('auditee-fotokegiatan');
 Route::get('/auditee-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditee_editdaftarhadir'])->name('auditee-BA-daftarhadir');
+Route::get('/auditee_searchjadwal', [JadwalController::class, 'auditee_search'])->name('auditee_searchjadwal');
+Route::get('/auditee_ketersediaan-jadwal', [FullCalenderController::class, 'auditee_index']);
 
 
 // Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');

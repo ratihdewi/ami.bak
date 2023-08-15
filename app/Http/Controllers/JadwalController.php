@@ -8,6 +8,7 @@ use App\Models\Jadwal;
 use App\Models\Auditee;
 use App\Models\Auditor;
 use App\Models\JadwalAMI;
+use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +25,107 @@ class JadwalController extends Controller
 
         $auditee_ = Auditee::all();
         $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+        $unitkerjas = UnitKerja::all();
 
-        return view('spm/jadwalAudit', compact('auditee_', 'jadwalami'));
+        return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+    }
+
+    public function search(Request $request)
+    {
+        // dd($request->all());
+        $currentYear = Carbon::now()->format('Y');
+
+        if ($request->select_auditee && $request->select_tahun) {
+            
+            $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->where(function ($query) use ($request) {
+                $query->orWhere('tahunperiode0', $request->select_tahun)
+                    ->orWhere('tahunperiode', $request->select_tahun);
+            })->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+
+        } elseif ($request->select_tahun) {
+            $auditee_ = Auditee::where('tahunperiode0', $request->select_tahun)->orWhere('tahunperiode', $request->select_tahun)->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+
+        } elseif ($request->select_auditee) {
+            $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+        }
+        
+    }
+
+    public function auditor_search(Request $request)
+    {
+        // dd($request->all());
+        $currentYear = Carbon::now()->format('Y');
+
+        if ($request->select_auditee && $request->select_tahun) {
+            
+            $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->where(function ($query) use ($request) {
+                $query->orWhere('tahunperiode0', $request->select_tahun)
+                    ->orWhere('tahunperiode', $request->select_tahun);
+            })->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+
+        } elseif ($request->select_tahun) {
+            $auditee_ = Auditee::where('tahunperiode0', $request->select_tahun)->orWhere('tahunperiode', $request->select_tahun)->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+
+        } elseif ($request->select_auditee) {
+            $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+        }
+    }
+
+    public function auditee_search(Request $request)
+    {
+        // dd($request->all());
+        $currentYear = Carbon::now()->format('Y');
+
+        if ($request->select_auditee && $request->select_tahun) {
+            
+            $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->where(function ($query) use ($request) {
+                $query->orWhere('tahunperiode0', $request->select_tahun)
+                    ->orWhere('tahunperiode', $request->select_tahun);
+            })->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+
+        } elseif ($request->select_tahun) {
+            $auditee_ = Auditee::where('tahunperiode0', $request->select_tahun)->orWhere('tahunperiode', $request->select_tahun)->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+
+        } elseif ($request->select_auditee) {
+            $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->get();
+            $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+            $unitkerjas = UnitKerja::all();
+
+            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+        }
+        
     }
 
     public function auditor_index()
@@ -34,29 +134,21 @@ class JadwalController extends Controller
 
         $auditee_ = Auditee::all();
         $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+        $unitkerjas = UnitKerja::all();
 
-        return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami'));
+        return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
     }
 
     public function auditee_index()
     {
         $currentYear = Carbon::now()->format('Y');
 
-        $auditee_ = Auditee::where('unit_kerja', Auth::user()->unit_kerja)->get();
+        $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
+        $auditee_ = Auditee::where('unit_kerja', $unitkerja->name)->get();
         $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+        $unitkerjas = UnitKerja::all();
 
-        return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami'));
-    }
-
-    public function filter(Request $request)
-    {
-        $jadwal = Jadwal::query();
-
-        $jadwal->when($request->auditee, function($query) use ($request) {
-            return $query->where('auditee', 'like', '%'.$request->name.'%');
-        });
-
-        return view('spm/jadwalAudit'); 
+        return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
     }
 
     public function tambahjadwal()
@@ -77,7 +169,6 @@ class JadwalController extends Controller
         //dd($request->all());
         $auditorname = Auditor::find($request->auditor_id);
         $year = Carbon::parse($request->hari_tgl)->year;
-        // dd($auditorname);
 
         $isExistAuditee = Auditee::where('id', $request->auditee_id)->where('tahunperiode', $request->th_ajaran2)->where(function ($query) use ($auditorname) {
             $query->where('ketua_auditor', $auditorname->nama)->orwhere('anggota_auditor', $auditorname->nama)->orwhere('anggota_auditor2', $auditorname->nama);

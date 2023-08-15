@@ -47,17 +47,17 @@
                     <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]">
                     
                 </div>
-                <div class="col-12 form-floating mb-4">
-                    
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]"></textarea>
-                    <label for="inputKelebihan" class="ms-3">Kelebihan</label>
-                   
+                <div class="col-12 form-floating">
+                  <p for="inputKelebihan" class="form-label fw-semibold">Kelebihan</p>
                 </div>
                 <div class="col-12 form-floating mb-4">
-                    
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]"></textarea>
-                    <label for="inputPeluang" class="ms-3">Peluang untuk Peningkatan</label>
-                   
+                  <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]"></textarea>
+                </div>
+                <div class="col-12 form-floating">
+                  <p for="inputPeluang" class="form-label fw-semibold">Peluang untuk Peningkatan</p>
+                </div>
+                <div class="col-12 form-floating mb-4">
+                  <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]"></textarea>
                 </div>
             </div>
             <div class="row inputPeluangPeningkatan my-4 mx-5">
@@ -97,5 +97,21 @@
         $(this).parents('.add-new').remove();
       });  
     });
+  </script>
+
+  {{-- ck editor --}}
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+  <script>
+    ClassicEditor
+        .create( document.querySelector( '#inputKelebihan' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+
+    ClassicEditor
+        .create( document.querySelector( '#inputPeluang' ) )
+        .catch( error => {
+            console.error( error );
+        } );
   </script>
 @endpush

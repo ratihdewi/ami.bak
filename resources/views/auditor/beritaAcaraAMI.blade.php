@@ -30,7 +30,7 @@
             <button class="btn btn-primary btn-sm" type="button">Pratinjau</button>
           </a>
           @foreach ($auditee_ as $auditee)
-          <a href="/BAAMI-downloadBA/{{ $auditee->id }}">
+          <a href="/BAAMI-downloadBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
           @endforeach
             <button class="btn btn-primary btn-sm" type="button">Cetak</button>
           </a>
@@ -260,7 +260,7 @@
                         <th class="col-1 text-center">No</th>
                         <th class="col-2 text-center">Aspek/Bidang</th>
                         <th class="col-3 text-center">Kelebihan</th>
-                        <th class="col-2 text-center">Peluang untuk Peningkatan</th>
+                        <th class="col-4 text-center">Peluang untuk Peningkatan</th>
                         <th class="col-2 text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -268,10 +268,10 @@
                     @php $no = 1; @endphp
                     @foreach ($pelpeningkatan_ as $peningkatan)
                     <tr>
-                      <td scope="row" class="text-center">{{ $no++ }}</td>
-                      <td class="col-2 text-start">{{ $peningkatan->aspek }}</td>
-                      <td class="col-3 text-start">{{ $peningkatan->kelebihan }}</td>
-                      <td class="col-2 text-start">{{ $peningkatan->peningkatan }}</td>
+                      <td scope="row" class="col-1 text-center">{{ $no++ }}</td>
+                      <td class="col-1 text-start">{{ $peningkatan->aspek }}</td>
+                      <td class="col-3 text-start">{!! $peningkatan->kelebihan !!}</td>
+                      <td class="col-4 text-start">{!! $peningkatan->peningkatan !!}</td>
                       <td class="col-2 text-center">
                         <a href="/auditor-BA-editpeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
                         <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}" class="mx-2"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></button></a>

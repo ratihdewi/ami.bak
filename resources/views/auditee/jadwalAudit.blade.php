@@ -12,26 +12,27 @@
 
 <div class="container vh-100 mt-4" style="font-size: 13px">
   {{-- Search Jadwal --}}
-  {{-- <div class="search my-5 p-5 mx-5 text-white rounded">
-    <form action="" method="get">
+  <div class="search my-5 p-5 mx-5 text-white rounded">
+    <form action="auditee_searchjadwal" method="get">
       @csrf
-      <div class="input-group">
-        <select class="form-select mx-2 border border-secondary rounded" id="inputGroupSelect04" aria-label="Example select with button addon">
+      <div class="input-group d-flex justify-content-around">
+        <select class="form-select mx-3 border border-secondary rounded" id="inputauditee" aria-label="Example select with button addon" name="select_auditee">
           <option selected disabled>Filter Auditee</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          @foreach ($unitkerjas as $unitkerja)
+          <option value="{{ $unitkerja->name }}">{{ $unitkerja->name }}</option>
+          @endforeach
         </select>
-        <select class="form-select mx-2 border border-secondary rounded" id="inputGroupSelect04" aria-label="Example select with button addon">
-          <option selected disabled>Filter Tahun</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select mx-3 border border-secondary rounded" id="inputtahun" aria-label="Example select with button addon" name="select_tahun">
+          <option selected disabled>Filter Tahun Periode</option>
+          <option value="{{ date('Y') }}">{{ date('Y')-1 }}/{{ date('Y') }}</option>
+          @foreach ($auditee_->unique('tahunperiode0', 'tahunperiode') as $auditee)
+          <option value="{{ $auditee->tahunperiode0 }}">{{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}</option>
+          @endforeach
         </select>
-        <button class="btn btn-primary mx-2 border rounded" type="button">Cari</button>
+        <button class="btn btn-primary mx-2 border rounded" type="submit">Cari</button>
       </div>
     </form>
-  </div> --}}
+  </div>
   {{-- Search Jadwal End --}}
 
   {{-- JadwalAudit --}}
@@ -158,6 +159,7 @@
 <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
 <script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
 <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
   $(document).ready(function () {
 
@@ -281,6 +283,8 @@
   $(document).ready(function() {
       $('#jadwalaudit').DataTable();
       $('#tablejadwalkeseluruhan').DataTable();
+      $('#inputauditee').select2();
+      $('#inputtahun').select2();
   });
 </script>
     

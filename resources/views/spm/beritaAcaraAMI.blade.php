@@ -225,19 +225,19 @@
                 <thead>
                     <tr class="">
                         <th class="col-1 text-center">No</th>
-                        <th class="col-2 text-center">KTS/OB<br>(Inisial Auditor)</th>
-                        <th class="col-3 text-center">Referensi<br>(Butir Mutu)</th>
-                        <th class="col-2 text-center">Temuan</th>
+                        <th class="col-1 text-center">KTS/OB<br>(Inisial Auditor)</th>
+                        <th class="col-2 text-center">Referensi<br>(Butir Mutu)</th>
+                        <th class="col-4 text-center">Temuan</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
                     @foreach ($pertanyaan_ as $temuanAudit)
                     <tr>
-                      <td scope="row" class="text-center">{{ $no++ }}</td>
-                      <td class="col-2 text-center">{{ $temuanAudit->Kategori }}<br>{{ $temuanAudit->inisialAuditor }}</td>
-                      <td class="col-3 text-start">{{ $temuanAudit->referensi }}<br>{{ $temuanAudit->nomorButir }}</td>
-                      <td class="col-2 text-start">{{ $temuanAudit->narasiPLOR }}</td>
+                      <td scope="row" class="col-1 text-center">{{ $no++ }}</td>
+                      <td class="col-1 text-center">{{ $temuanAudit->Kategori }}<br>{{ $temuanAudit->inisialAuditor }}</td>
+                      <td class="col-2 text-start">{{ $temuanAudit->referensi }}<br>{{ $temuanAudit->nomorButir }}</td>
+                      <td class="col-4 text-start">{{ $temuanAudit->narasiPLOR }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -266,9 +266,9 @@
                 <thead>
                     <tr class="">
                         <th class="col-1 text-center">No</th>
-                        <th class="col-2 text-center">Aspek/Bidang</th>
+                        <th class="col-1 text-center">Aspek/Bidang</th>
                         <th class="col-3 text-center">Kelebihan</th>
-                        <th class="col-2 text-center">Peluang untuk Peningkatan</th>
+                        <th class="col-4 text-center">Peluang untuk Peningkatan</th>
                         <th class="col-2 text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -277,9 +277,9 @@
                     @foreach ($pelpeningkatan_ as $peningkatan)
                     <tr>
                       <td scope="row" class="text-center">{{ $no++ }}</td>
-                      <td class="col-2 text-start">{{ $peningkatan->aspek }}</td>
-                      <td class="col-3 text-start">{{ $peningkatan->kelebihan }}</td>
-                      <td class="col-2 text-start">{{ $peningkatan->peningkatan }}</td>
+                      <td class="col-1 text-start">{{ $peningkatan->aspek }}</td>
+                      <td class="col-3 text-start">{!! $peningkatan->kelebihan !!}</td>
+                      <td class="col-4 text-start">{!! $peningkatan->peningkatan !!}</td>
                       <td class="col-2 text-center">
                         <a href="/BA-editpeluangpeningkatan/{{ $peningkatan->id }}/{{ $peningkatan->beritaacara->tahunperiode }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
                         <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')"></i></button></a>

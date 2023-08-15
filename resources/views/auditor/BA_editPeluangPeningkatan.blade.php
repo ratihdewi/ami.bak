@@ -47,17 +47,17 @@
                     <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]" value="{{ $peningkatan_->aspek }}">
                     
                 </div>
-                <div class="col-12 form-floating mb-4">
-                    
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]" value="{{ $peningkatan_->kelebihan }}">{{ $peningkatan_->kelebihan }}</textarea>
-                    <label for="inputKelebihan" class="ms-3">Kelebihan</label>
-                   
+                <div class="col-12 form-floating">
+                  <p for="inputKelebihan" class="form-label fw-semibold">Kelebihan</p>
                 </div>
                 <div class="col-12 form-floating mb-4">
-                    
-                    <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]" value="{{ $peningkatan_->peningkatan }}">{{ $peningkatan_->peningkatan }}</textarea>
-                    <label for="inputPeluang" class="ms-3">Peluang untuk Peningkatan</label>
-                   
+                  <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]" value="{{ $peningkatan_->kelebihan }}">{{ $peningkatan_->kelebihan }}</textarea>
+                </div>
+                <div class="col-12 form-floating">
+                  <p for="inputPeluang" class="form-label fw-semibold">Peluang untuk Peningkatan</p>
+                </div>
+                <div class="col-12 form-floating mb-4">
+                  <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]" value="{{ $peningkatan_->peningkatan }}">{{ $peningkatan_->peningkatan }}</textarea>
                 </div>
             </div>
         </div>
@@ -72,21 +72,20 @@
   </div>
 @endsection
 
-{{-- @push('script')
+@push('script')
+  {{-- ck editor --}}
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
   <script>
-    $(document).ready(function(){
-      var max_fields = 50;
-      var wrapper = $(".pelpeningkatan");
-      var add_btn = $(".moreItems_add");
-      var i = 1;
-      $(add_btn).click(function(e){
-        e.preventDefault();
-        if (i < max_fields) {
-          i++;
+    ClassicEditor
+        .create( document.querySelector( '#inputKelebihan' ) )
+        .catch( error => {
+            console.error( error );
+        } );
 
-          $(wrapper).append('<div class="row inputPeluangPeningkatan my-4 mx-5"><div class="col-12 mb-4" hidden><label for="getBeritaAcaraID" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="getBeritaAcaraID" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div><div class="col-12 mb-4"><label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang</label><input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][aspek]"></div><div class="col-12 form-floating mb-4"><textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore['+i+'][kelebihan]"></textarea><label for="inputKelebihan" class="ms-3">Kelebihan</label>\</div>\<div class="col-12 form-floating mb-4">\<textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore['+i+'][peningkatan]"></textarea><label for="inputPeluang" class="ms-3">Peluang untuk Peningkatan</label></div></div>')
-        }
-      });
-    });
+    ClassicEditor
+        .create( document.querySelector( '#inputPeluang' ) )
+        .catch( error => {
+            console.error( error );
+        } );
   </script>
-@endpush --}}
+@endpush

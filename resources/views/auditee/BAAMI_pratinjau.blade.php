@@ -206,8 +206,8 @@
                     <tr>
                         <td class="text-center">{{ $no++ }}</td>
                         <td>{{ $pelpeningkatan->aspek }}</td>
-                        <td>{{ $pelpeningkatan->kelebihan }}</td>
-                        <td>{{ $pelpeningkatan->peningkatan }}</td>
+                        <td>{!! $pelpeningkatan->kelebihan !!}</td>
+                        <td>{!! $pelpeningkatan->peningkatan !!}</td>
                     </tr>
                     @endforeach
                 </tbody>
