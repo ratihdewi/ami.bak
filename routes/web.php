@@ -274,3 +274,10 @@ Route::get('/ketersediaan-jadwal', [FullCalenderController::class, 'index']);
 
 Route::post('/ketersediaan-jadwal/action', [FullCalenderController::class, 'action']);
 
+Route::get('full-calender', [FullCalenderController::class, 'index']);
+
+Route::post('full-calender/action', [FullCalenderController::class, 'action']);
+
+Route::get('/create-session', [FullCalenderController::class, 'createSession']);
+Route::post('/store-create-session', [FullCalenderController::class, 'storeSession']);
+Route::get('/delete-session/{id}', [FullCalenderController::class, 'deleteSession']);

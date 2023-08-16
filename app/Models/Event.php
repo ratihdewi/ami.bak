@@ -10,6 +10,11 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-		'title', 'start', 'end', 'penginput',
-	];
+      'title', 'start', 'end', 'penginput', 'session'
+    ]; 
+    
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
+    }
 }

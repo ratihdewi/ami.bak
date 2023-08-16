@@ -92,19 +92,43 @@
       </div>
 
       {{-- Ketersediaan Jadwal --}}
+      {{-- Modal select ketersediaan jadwal --}}
+      <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content event" id="modal-content">
+            <div class="modal-header" style="background: rgba(177, 227, 229, 0.37);">
+              <h5 class="modal-title" id="exampleModalLabel">Ketersediaan Jadwal</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p id="dateInfo"></p>
+              <div class="row">
+                <div class="col">
+                  <label for="inisialnama">Inisial Nama:</label>
+                  <input type="text" class="form-control" id="inisialnama" placeholder="contoh: AN" name="title">
+                </div>
+                <div class="col mx-auto">
+                  <label for="session">Sesi:</label><br>
+                  <select id="session" class="w-100" name="session">
+                    <option value="Pilih Sesi" disabled selected>Pilih Sesi</option>
+                    @foreach ($sessions as $session)
+                      <option value="{{ $session->sesiKe }}">{{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="background: rgba(177, 227, 229, 0.37);">
+              <button type="button" id="cancelBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" id="saveBtn" class="btn btn-success">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="tab-pane fade w-100" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container mt-3">
             <div id="calendar"></div>
-            <div id="inputKetersediaan" class="inputKetersediaan mt-3 p-3 border rounded">
-              <h5 class="fw-bold">Ketersediaan Jadwal</h5>
-              <p id="dateInfo">15 Juni</p>
-              <form action="">
-                <input type="text" placeholder="Silahkan masukkan sesi menrut ketersediaan dan kesediaan Anda" class="w-100 border rounded">
-
-                <button type="button" class="btn btn-success btn-sm float-end mt-3 mx-1">Simpan</button>
-                <button type="button" class="btn btn-danger btn-sm float-end mt-3 mx-1">Batal</button>
-              </form>
-            </div>
         </div>
       </div>
     </div>
@@ -157,11 +181,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-{{-- <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
-<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
-<script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
-<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
   $(document).ready(function () {
 
@@ -170,25 +191,40 @@
             'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
         }
     });
+
     var calendar = $('#calendar').fullCalendar({
+
+        displayEventTime : false,
         editable:true,
         header:{
-            left:'prev,next today',
+            left:'prev,next',
             center:'title',
-            right:'month,agendaWeek,agendaDay'
+            right:'month'
         },
-        events:'/ketersediaan-jadwal',
+        events:'/auditor_ketersediaan-jadwal',
+        eventRender: function(event, element) {
+            // Menambahkan atribut tambahan ke tampilan acara
+            $(element).find('.fc-title').append(' - ' + event.session);
+        },
         selectable:true,
         selectHelper: true,
         select:function(start, end, allDay)
         {
-            var title = prompt('Initial Name:');
+            var date = $.fullCalendar.formatDate(start, 'D MMMM Y');
+            $('#bookingModal').modal('toggle');
+            $('#dateInfo').html(date);
+            
+            var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+            var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
 
-            if(title)
-            {
-                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+              $('#saveBtn').click(function() {
+                var title = $('#inisialnama').val();
+                var session = $('#session').val();
 
-                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
+                console.log(start);
+                console.log(end);
+                console.log(title);
+                console.log(session);
 
                 $.ajax({
                     url:"/ketersediaan-jadwal/action",
@@ -197,15 +233,23 @@
                         title: title,
                         start: start,
                         end: end,
+                        session: session,
                         type: 'add'
                     },
                     success:function(data)
                     {
+                        console.log(data);
                         calendar.fullCalendar('refetchEvents');
                         alert("Event Created Successfully");
+                        $("#inputKetersediaan").load(location.href + " #inputKetersediaan");
                     }
                 })
-            }
+                $("#form").load(location.href + " #form");
+              });
+
+              $('#cancelBtn').click(function() {
+                location.reload();
+              })
         },
         editable:true,
         eventResize: function(event, delta)
@@ -213,6 +257,7 @@
             var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
             var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
             var title = event.title;
+            var session = event.session;
             var id = event.id;
             $.ajax({
                 url:"/ketersediaan-jadwal/action",
@@ -221,6 +266,7 @@
                     title: title,
                     start: start,
                     end: end,
+                    session: session,
                     id: id,
                     type: 'update'
                 },
@@ -231,11 +277,12 @@
                 }
             })
         },
-        eventDrop: function(event, delta)
+        eventDrop: function(event)
         {
             var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
             var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
             var title = event.title;
+            var session = event.session;
             var id = event.id;
             $.ajax({
                 url:"/ketersediaan-jadwal/action",
@@ -244,6 +291,7 @@
                     title: title,
                     start: start,
                     end: end,
+                    session: session,
                     id: id,
                     type: 'update'
                 },
@@ -277,7 +325,7 @@
         }
     });
 
-});
+  });
 </script>
 
 {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
@@ -288,6 +336,7 @@
       $('#tablejadwalkeseluruhan').DataTable()
       $('#inputauditee').select2();
       $('#inputtahun').select2();
+      $('#session').select2();
   });
 </script>
     

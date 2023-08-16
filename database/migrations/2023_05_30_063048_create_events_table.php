@@ -19,6 +19,10 @@ class CreateEventsTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('penginput');
+            $table->string('session');
+            // $table->unsignedBigInteger('session_id');
+            // $table->foreign('session_id')->references('id')->on('sessions')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

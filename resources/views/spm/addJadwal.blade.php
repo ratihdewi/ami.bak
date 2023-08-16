@@ -30,7 +30,7 @@
                                     type="text"
                                     class="form-control"
                                     id="kegiatan"
-                                    name="kegiatan"
+                                    name="kegiatan" placeholder="Masukkan kegiatan"
                                     required
                                 />
                             </div>
@@ -49,6 +49,7 @@
                                             class="form-control"
                                             id="subKegiatan"
                                             name="subkegiatan"
+                                            placeholder="Masukkan sub kegiatan"
                                         />
                                     </div>
                                 </div>

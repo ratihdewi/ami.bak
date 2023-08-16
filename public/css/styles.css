@@ -179,23 +179,29 @@ button.btn.btn-success.float-end,
 /* Ketersediaan Jadwal */
 #inputKetersediaan {
     background: rgba(177, 227, 229, 0.37);
-    min-height: 260px;
+    min-height: 230px;
 }
 #dateInfo {
     font-size: 16px;
     font-weight: 500;
     color: #303030;
 }
-#inputKetersediaan form input {
-    min-height: 100px;
-    padding: 10px 20px 50px;
-    vertical-align: top;
-}
 
 @media screen and (max-width: 382px) {
     #inputKetersediaan {
         min-height: 320px;
     }
+}
+
+#bookingModal span.select2.select2-container.select2-container--default,
+#bookingModal span.select2.select2-container.select2-container--default.select2-container--below,
+#bookingModal span.select2.select2-container.select2-container--default.select2-container--below.select2-container--open {
+    width: inherit !important;
+}
+
+span.fc-title {
+    color: #ffffff !important;
+    padding: 10px;
 }
 
 /* Dokumen Resmi */

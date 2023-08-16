@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Jadwal;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\Session;
 use App\Models\JadwalAMI;
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
@@ -26,8 +27,9 @@ class JadwalController extends Controller
         $auditee_ = Auditee::all();
         $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
         $unitkerjas = UnitKerja::all();
+        $sessions = Session::all();
 
-        return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+        return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
     }
 
     public function search(Request $request)
@@ -135,8 +137,9 @@ class JadwalController extends Controller
         $auditee_ = Auditee::all();
         $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
         $unitkerjas = UnitKerja::all();
+        $sessions = Session::all();
 
-        return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+        return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
     }
 
     public function auditee_index()
@@ -147,8 +150,9 @@ class JadwalController extends Controller
         $auditee_ = Auditee::where('unit_kerja', $unitkerja->name)->get();
         $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
         $unitkerjas = UnitKerja::all();
+        $sessions = Session::all();
 
-        return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+        return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
     }
 
     public function tambahjadwal()
