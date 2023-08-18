@@ -279,8 +279,7 @@
                 <thead>
                     <tr class="mt-3">
                         <th class="col-1 text-center">No</th>
-                        <th class="col-3 text-center">Kegiatan</th>
-                        <th class="col-3 text-center">Sub Kegiatan</th>
+                        <th class="col-6 text-center">Kegiatan</th>
                         <th class="col-3 text-center">Waktu</th>
                         <th class="col-2 text-center">Aksi</th>
                     </tr>
@@ -291,8 +290,13 @@
                     <tr>
                       <th scope="row" class="text-center">{{ $no_++ }}</th>
                       <td>{{ $jdami->kegiatan }}</td>
-                      <td>{{ $jdami->subkegiatan }}</td>
-                      <td class="col-3">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
+                      <td class="col-3 text-center">
+                        @if ($jdami->tgl_mulai == $jdami->tgl_berakhir)
+                          {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }}
+                        @else
+                          {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}
+                        @endif
+                      </td>
                       <td class="text-center">
                         <a href="/editjadwalami-keseluruhan/{{ $jdami->id }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
                         <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>

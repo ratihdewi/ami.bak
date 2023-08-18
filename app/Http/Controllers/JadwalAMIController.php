@@ -19,14 +19,15 @@ class JadwalAMIController extends Controller
     {
         $periodeami = new Carbon($request->tgl_mulai);
         $periode = $periodeami->year;
-        
-        $jadwalami = new JadwalAMI([
-            "kegiatan" => $request->kegiatan,
-            "subkegiatan" => $request->subkegiatan,
-            "tgl_mulai" => $request->tgl_mulai,
-            "tgl_berakhir" => $request->tgl_berakhir,
-        ]);
-        $jadwalami->save();
+        // dd($request->addmore);
+        foreach ($request->addmore as $key => $value) {
+            $jadwalami = new JadwalAMI([
+                "kegiatan" => $value['kegiatan'],
+                "tgl_mulai" => $value['tgl_mulai'],
+                "tgl_berakhir" => $value['tgl_berakhir'],
+            ]);
+            $jadwalami->save();
+        }
 
         return redirect()->route('jadwalaudit')->with('addsuccess', 'Jadwal Keseluruhan AMI periode '.$periode.' berhasil ditambahkan!');
     }

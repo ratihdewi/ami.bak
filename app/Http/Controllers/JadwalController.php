@@ -25,7 +25,7 @@ class JadwalController extends Controller
         $currentYear = Carbon::now()->format('Y');
 
         $auditee_ = Auditee::all();
-        $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+        $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->whereYear('tgl_mulai', $currentYear)->get();
         $unitkerjas = UnitKerja::all();
         $sessions = Session::all();
 
@@ -45,22 +45,25 @@ class JadwalController extends Controller
             })->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
 
         } elseif ($request->select_tahun) {
             $auditee_ = Auditee::where('tahunperiode0', $request->select_tahun)->orWhere('tahunperiode', $request->select_tahun)->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
 
         } elseif ($request->select_auditee) {
             $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
         }
         
     }
@@ -78,22 +81,25 @@ class JadwalController extends Controller
             })->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
 
         } elseif ($request->select_tahun) {
             $auditee_ = Auditee::where('tahunperiode0', $request->select_tahun)->orWhere('tahunperiode', $request->select_tahun)->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
 
         } elseif ($request->select_auditee) {
             $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('auditor/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
         }
     }
 
@@ -110,22 +116,25 @@ class JadwalController extends Controller
             })->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
 
         } elseif ($request->select_tahun) {
             $auditee_ = Auditee::where('tahunperiode0', $request->select_tahun)->orWhere('tahunperiode', $request->select_tahun)->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->orWhereYear('tgl_berakhir', $request->select_tahun+1)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
 
         } elseif ($request->select_auditee) {
             $auditee_ = Auditee::where('unit_kerja', $request->select_auditee)->get();
             $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
             $unitkerjas = UnitKerja::all();
+            $sessions = Session::all();
 
-            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas'));
+            return view('auditee/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions'));
         }
         
     }
@@ -135,7 +144,7 @@ class JadwalController extends Controller
         $currentYear = Carbon::now()->format('Y');
 
         $auditee_ = Auditee::all();
-        $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+        $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->whereYear('tgl_mulai', $currentYear)->get();
         $unitkerjas = UnitKerja::all();
         $sessions = Session::all();
 
@@ -148,7 +157,7 @@ class JadwalController extends Controller
 
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
         $auditee_ = Auditee::where('unit_kerja', $unitkerja->name)->get();
-        $jadwalami = JadwalAMI::whereYear('tgl_mulai', $currentYear)->get();
+        $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->whereYear('tgl_mulai', $currentYear)->get();
         $unitkerjas = UnitKerja::all();
         $sessions = Session::all();
 
@@ -170,36 +179,100 @@ class JadwalController extends Controller
 
     public function insertdata(Request $request)
     {
-        //dd($request->all());
-        $auditorname = Auditor::find($request->auditor_id);
-        $year = Carbon::parse($request->hari_tgl)->year;
-
-        $isExistAuditee = Auditee::where('id', $request->auditee_id)->where('tahunperiode', $request->th_ajaran2)->where(function ($query) use ($auditorname) {
-            $query->where('ketua_auditor', $auditorname->nama)->orwhere('anggota_auditor', $auditorname->nama)->orwhere('anggota_auditor2', $auditorname->nama);
-        })->exists();
-
-        if ($isExistAuditee && ($request->th_ajaran1 == $year || $request->th_ajaran2 == $year)) {
-            Jadwal::create($request->all());
-            $return = redirect()->route('jadwalaudit')->with('success', 'Jadwal audit berhasil ditambah');
-        } elseif (!$isExistAuditee) {
-            $return = redirect()->route('jadwalaudit')->with('error', 'Maaf, data tidak terdaftar sebagai Auditee. Silahkan input kembali data dengan benar!');
-        } elseif ($request->th_ajaran1 == $year || $request->th_ajaran2 == $year) {
-            $return = redirect()->route('jadwalaudit')->with('error', 'Maaf, tahun ajaran dan tanggal pelaksanaan tidak sesuai. Silahkan input kembali data dengan benar!');
+        // dd($request->addmore);
+        $returns = null;
+        foreach ($request->addmore as $key => $value) {
+            
+            $auditorname = Auditor::find($value['auditor_id']);
+            $year = Carbon::parse($value['hari_tgl'])->year;
+            
+            $isExistAuditee = Auditee::where('id', $value['auditee_id'])->where('tahunperiode', $value['th_ajaran2'])->where(function ($query) use ($auditorname) {
+                $query->where('ketua_auditor', $auditorname->nama)->orwhere('anggota_auditor', $auditorname->nama)->orwhere('anggota_auditor2', $auditorname->nama);
+            })->exists();
+            // $returns = null;
+            if ($isExistAuditee && ($value['th_ajaran1'] == $year || $value['th_ajaran2'] == $year)) {
+                // dd($value);
+                $jadwalaudit = new Jadwal;
+                $jadwalaudit->auditee_id = $value['auditee_id'];
+                $jadwalaudit->auditor_id = $value['auditor_id'];
+                $jadwalaudit->th_ajaran1 = $value['th_ajaran1'];
+                $jadwalaudit->th_ajaran2 = $value['th_ajaran2'];
+                $jadwalaudit->hari_tgl = $value['hari_tgl'];
+                $jadwalaudit->tempat = $value['tempat'];
+                $jadwalaudit->waktu = $value['waktu'];
+                $jadwalaudit->kegiatan = $value['kegiatan'];
+                $jadwalaudit->save();
+                
+                $returns = redirect()->route('jadwalaudit')->with('success', 'Jadwal audit berhasil ditambah');
+                // return $return;
+            } elseif (!$isExistAuditee) {
+                $returns = redirect()->route('jadwalaudit')->with('error', 'Maaf, data tidak terdaftar sebagai Auditee. Silahkan input kembali data dengan benar!');
+                // return $return;
+            } elseif ($value['th_ajaran1'] != $year || $value['th_ajaran2'] != $year) {
+                $returns = redirect()->route('jadwalaudit')->with('error', 'Maaf, tahun ajaran dan tanggal pelaksanaan tidak sesuai. Silahkan input kembali data dengan benar!');
+                // return $return;
+            }
+            // $returns = $return;
         }
-        return $return;
+        
+        return $returns;
     }
 
     public function tampildata($id){
         $data = Jadwal::find($id);
+        $auditee_ = Auditee::all();
+        $auditor_ = Auditor::all();
         //dd($data);
-        return view('spm/updateJadwalAudit', compact('data'));
+        return view('spm/updateJadwalAudit', compact('data', 'auditor_', 'auditee_'));
     }
 
     public function updatedata(Request $request, $id)
     {
+        // dd($request->addmore);
         $data = Jadwal::find($id);
-        $data->update($request->all());
-        return redirect()->route('jadwalaudit')->with('success', 'Data berhasil diupdate');
+        
+        if ($data->exists()) {
+            $data->update($request->all());
+
+            $returns = redirect()->route('jadwalaudit')->with('success', 'Data berhasil diupdate');
+        } else {
+            $returns = null;
+            foreach ($request->addmore as $key => $value) {
+                
+                $auditorname = Auditor::find($value['auditor_id']);
+                $year = Carbon::parse($value['hari_tgl'])->year;
+                
+                $isExistAuditee = Auditee::where('id', $value['auditee_id'])->where('tahunperiode', $value['th_ajaran2'])->where(function ($query) use ($auditorname) {
+                    $query->where('ketua_auditor', $auditorname->nama)->orwhere('anggota_auditor', $auditorname->nama)->orwhere('anggota_auditor2', $auditorname->nama);
+                })->exists();
+                // $returns = null;
+                if ($isExistAuditee && ($value['th_ajaran1'] == $year || $value['th_ajaran2'] == $year)) {
+                    // dd($value);
+                    $jadwalaudit = new Jadwal;
+                    $jadwalaudit->auditee_id = $value['auditee_id'];
+                    $jadwalaudit->auditor_id = $value['auditor_id'];
+                    $jadwalaudit->th_ajaran1 = $value['th_ajaran1'];
+                    $jadwalaudit->th_ajaran2 = $value['th_ajaran2'];
+                    $jadwalaudit->hari_tgl = $value['hari_tgl'];
+                    $jadwalaudit->tempat = $value['tempat'];
+                    $jadwalaudit->waktu = $value['waktu'];
+                    $jadwalaudit->kegiatan = $value['kegiatan'];
+                    $jadwalaudit->save();
+                    
+                    $returns = redirect()->route('jadwalaudit')->with('success', 'Jadwal audit berhasil ditambah');
+                    // return $return;
+                } elseif (!$isExistAuditee) {
+                    $returns = redirect()->route('jadwalaudit')->with('error', 'Maaf, data tidak terdaftar sebagai Auditee. Silahkan input kembali data dengan benar!');
+                    // return $return;
+                } elseif ($value['th_ajaran1'] != $year || $value['th_ajaran2'] != $year) {
+                    $returns = redirect()->route('jadwalaudit')->with('error', 'Maaf, tahun ajaran dan tanggal pelaksanaan tidak sesuai. Silahkan input kembali data dengan benar!');
+                    // return $return;
+                }
+                // $returns = $return;
+            }
+        }
+        
+        return $returns;
     }
 
     public function deletedata($id)

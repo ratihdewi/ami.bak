@@ -25,7 +25,7 @@ class DaftarTilikController extends Controller
     }
 
     public function indexpertahun() {
-        $data_ = Auditee::all();
+        $data_ = Auditee::orderBy('tahunperiode0', 'ASC')->get();
 
         // dd($data_);
         return view('spm/daftarTilik-tahun', compact('data_'));
@@ -160,7 +160,7 @@ class DaftarTilikController extends Controller
 
     public function indexpertahunauditor()
     {
-        $data_ = Auditee::all();
+        $data_ = Auditee::orderBy('tahunperiode0', 'ASC')->get();
 
         if (count(Auth::user()->auditor()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditor()->get('user_id')) != 0)) {
             return view('auditor/daftarTilik-tahun', compact('data_'));
@@ -178,7 +178,7 @@ class DaftarTilikController extends Controller
 
     public function indexpertahunauditee()
     {
-        $data_ = Auditee::all();
+        $data_ = Auditee::orderBy('tahunperiode0', 'ASC')->get();
 
         if (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
             return view('auditee/daftarTilik-tahun', compact('data_'));

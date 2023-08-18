@@ -19,37 +19,21 @@
                 <div class="card-body p-4">
                     <form action="/updatejadwalami-keseluruhan/{{ $jadwalami->id }}" method="POST">
                         @csrf
-                        <div class="row mb-3 px-5 py-3">
-                            <label
-                                for="kegiatan"
-                                class="col-sm-3 col-form-label"
-                                >Kegiatan</label
-                            >
-                            <div class="col-sm-9">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="kegiatan"
-                                    name="kegiatan"
-                                    value="{{ $jadwalami->kegiatan }}"
-                                />
-                            </div>
-                        </div>
                         <div class="card mb-4">
                             <div class="body-card px-5 pt-5 pb-4">
                                 <div class="row mb-4">
                                     <label
-                                        for="subKegiatan"
+                                        for="kegiatan"
                                         class="col-sm-3 col-form-label"
-                                        >Subkegiatan</label
+                                        >Kegiatan</label
                                     >
                                     <div class="col-sm-9">
                                         <input
                                             type="text"
                                             class="form-control"
-                                            id="subKegiatan"
-                                            name="subkegiatan"
-                                            value="{{ $jadwalami->subkegiatan }}"
+                                            id="kegiatan"
+                                            name="kegiatan"
+                                            value="{{ $jadwalami->kegiatan }}"
                                         />
                                     </div>
                                 </div>
@@ -85,16 +69,10 @@
                                         onblur="(this.type='text')"
                                             id="tgl_berakhir"
                                             name="tgl_berakhir"
-                                            value="{{ $jadwalami->tgl_mulai->translatedFormat('Y-m-d') }}"
+                                            value="{{ $jadwalami->tgl_berakhir->translatedFormat('Y-m-d') }}"
                                         />
                                     </div>
                                 </div>
-                                <button
-                                    type="button"
-                                    class="btn btn-primary btn-sm float-end"
-                                >
-                                    Tambah
-                                </button>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success float-end">

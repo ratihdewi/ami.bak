@@ -148,8 +148,8 @@
             <thead>
                 <tr class="">
                     <th class="col-1 text-center">No</th>
-                    <th class="col-3 text-center">Kegiatan</th>
-                    <th class="col-3 text-center">Sub Kegiatan</th>
+                    <th class="col-7 text-center">Kegiatan</th>
+                    {{-- <th class="col-3 text-center">Sub Kegiatan</th> --}}
                     <th class="col-4 text-center">Waktu</th>
                 </tr>
             </thead>
@@ -157,10 +157,16 @@
                 @php $no_ = 1; @endphp
                 @foreach ($jadwalami as $jdami)
                 <tr>
-                  <td scope="row" class="text-center">{{ $no_++ }}</td>
-                  <td class="">{{ $jdami->kegiatan }}</td>
-                  <td class="text-center">{{ $jdami->subkegiatan }}</td>
-                  <td class="col-4 text-center">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
+                  <td scope="row" class="col-1 text-center">{{ $no_++ }}</td>
+                  <td class="col-7">{{ $jdami->kegiatan }}</td>
+                  {{-- <td class="text-center">{{ $jdami->subkegiatan }}</td> --}}
+                  <td class="col-4 text-center">
+                    @if ($jdami->tgl_mulai == $jdami->tgl_berakhir)
+                      {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }}
+                    @else
+                      {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}
+                    @endif
+                  </td>
                 </tr>
                 @endforeach
             </tbody>

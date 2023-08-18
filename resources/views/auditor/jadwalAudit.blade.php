@@ -24,7 +24,7 @@
         </select>
         <select class="form-select mx-3 border border-secondary rounded" id="inputtahun" aria-label="Example select with button addon" name="select_tahun">
           <option selected disabled>Filter Tahun Periode</option>
-          <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+          <option value="{{ date('Y') }}">{{ date('Y') - 1 }}/{{ date('Y') }}</option>
           @foreach ($auditee_->unique('tahunperiode0', 'tahunperiode') as $auditee)
           <option value="{{ $auditee->tahunperiode0 }}">{{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}</option>
           @endforeach
@@ -148,8 +148,8 @@
             <thead>
                 <tr class="">
                     <th class="col-1 text-center">No</th>
-                    <th class="col-3 text-center">Kegiatan</th>
-                    <th class="col-3 text-center">Sub Kegiatan</th>
+                    <th class="col-6 text-center">Kegiatan</th>
+                    {{-- <th class="col-3 text-center">Sub Kegiatan</th> --}}
                     <th class="col-3 text-center">Waktu</th>
                 </tr>
             </thead>
@@ -157,10 +157,16 @@
                 @php $no_ = 1; @endphp
                 @foreach ($jadwalami as $jdami)
                 <tr>
-                  <th scope="row" class="text-center">{{ $no_++ }}</th>
-                  <td class="">{{ $jdami->kegiatan }}</td>
-                  <td class="">{{ $jdami->subkegiatan }}</td>
-                  <td class="col-3">{{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}</td>
+                  <td scope="row" class="col-1 text-center">{{ $no_++ }}</td>
+                  <td class="col-6">{{ $jdami->kegiatan }}</td>
+                  {{-- <td class="">{{ $jdami->subkegiatan }}</td> --}}
+                  <td class="col-3 text-center">
+                    @if ($jdami->tgl_mulai == $jdami->tgl_berakhir)
+                      {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }}
+                    @else
+                      {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }} - {{ $jdami->tgl_berakhir->translatedFormat('l, d M Y') }}
+                    @endif
+                  </td>
                 </tr>
                 @endforeach
             </tbody>

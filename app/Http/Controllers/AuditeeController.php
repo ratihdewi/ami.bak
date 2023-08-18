@@ -19,7 +19,7 @@ class AuditeeController extends Controller
 
     public function indexpertahun()
     {
-        $dataAuditee = Auditee::all();
+        $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
         // dd($data);
         return view('spm/daftarauditee-tahun', compact('dataAuditee'));
     }
@@ -141,7 +141,7 @@ class AuditeeController extends Controller
 
     public function indexauditorpertahun()
     {
-        $dataAuditee = Auditee::all();
+        $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
         // dd($data);
         return view('auditor/daftarauditee-tahun', compact('dataAuditee'));
     }
@@ -157,7 +157,7 @@ class AuditeeController extends Controller
 
     public function indexauditeepertahun()
     {
-        $dataAuditee = Auditee::all();
+        $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
         // dd($data);
         return view('auditee/daftarauditee-tahun', compact('dataAuditee'));
     }

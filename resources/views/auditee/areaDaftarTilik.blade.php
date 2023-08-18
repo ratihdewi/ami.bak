@@ -16,7 +16,7 @@
 @endsection
 
 @section('container')
-<div class="container">
+<div class="container vh-100">
     <div class="container-fluid float-end my-4">
         {{-- @foreach ($data_ as $item)  --}}
                 <a
@@ -52,10 +52,9 @@
                 @foreach ($data_ as $d_pertanyaan)
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-2 px-0 text-center">{{ $data->auditee->unit_kerja }}</td>
+                        <td class="col-2 px-0">{{ $data->auditee->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center">{{ $data->area }}</td>
-                        
-                        <td class="col-2 px-0 text-center">{{ $d_pertanyaan->butirStandar }}</td>
+                        <td class="col-2 px-0">{{ $d_pertanyaan->butirStandar }}</td>
                         <td class="col-1 px-0 text-center">{{ $d_pertanyaan->nomorButir }}</td>
                         <td class="col-3 px-0">
                             {{ $d_pertanyaan->pertanyaan }}

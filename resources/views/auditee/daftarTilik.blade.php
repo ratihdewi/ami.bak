@@ -16,7 +16,7 @@
 @endsection
 
 @section('container')
-<div class="container pb-3 mt-5">
+<div class="container vh-100 pb-3 mt-5">
     <div class="tableAreaDaftarTilik mx-3">
         <table
             class="table table-hover mb-3"
@@ -41,11 +41,11 @@
                     @foreach ($item->daftartilik()->get() as $dt)
                     <tr class="row">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
-                        <td class="col-3 px-0 text-center">{{ $item->unit_kerja }}</td>
+                        <td class="col-3 px-0">{{ $item->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center">{{ $dt->area }}</td>
-                        <td class="col-2 px-0 text-center">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
+                        <td class="col-2 px-0">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>
                         @foreach ($dt->auditor()->get() as $dt_)
-                            <td class="col-3 px-0 text-center">{{ $dt_->nama }}</td>
+                            <td class="col-3 px-0">{{ $dt_->nama }}</td>
                         @endforeach
                         <td class="col-1 px-0 text-center"><a href="/auditee-daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></td>
                     </tr>
