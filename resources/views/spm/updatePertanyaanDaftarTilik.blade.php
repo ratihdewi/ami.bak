@@ -314,7 +314,7 @@
             @endif
           >
           @if ($datas->approvalAuditor == 'Belum disetujui Auditor')
-              {{ "Ajukan persetujuan AL" }}
+              {{ "Belum disetujui Auditor" }}
           @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Belum disetujui Auditee')
               {{ "Menunggu persetujuan Auditee" }}
           @elseif ($datas->approvalAuditor == 'Menunggu persetujuan Auditee' && $datas->approvalAuditee == 'Disetujui Auditee')
