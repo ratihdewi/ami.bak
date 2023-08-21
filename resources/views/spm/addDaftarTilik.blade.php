@@ -258,7 +258,9 @@
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <a href="/editfotokegiatan">
+              @foreach ($data as $item)
+              <a href="/spm-editfotokegiatan/{{ $item->auditee_id }}/{{ $item->auditee->tahunperiode }}">
+              @endforeach
                 <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
               </a>
             </div>
