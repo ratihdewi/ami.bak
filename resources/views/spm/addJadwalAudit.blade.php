@@ -20,7 +20,7 @@
                     <form action="/insertjadwal" method="POST">
                         @csrf
                         <div class="row mb-3 px-5 py-3">
-                            <label for="auditee" class="col-sm-3 col-form-label"
+                            <label for="auditee_id" class="col-sm-3 col-form-label"
                                 >Auditee</label
                             >
                             <div class="col-sm-9">
@@ -39,9 +39,6 @@
                             <div class="col-sm-9">
                                 <select id="auditor_id" class="form-select" name="addmore[0][auditor_id]" required>
                                     <option selected disabled>Pilih Auditor yang akan dijadwalkan</option>
-                                    @foreach ($auditor_ as $auditor)
-                                        <option value="{{ $auditor->id }}">{{ $auditor->nama }}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -166,6 +163,7 @@
 @endsection
 
 @push('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function(){
             var max_fields = 50;
@@ -198,6 +196,56 @@
             $(document).on('click', '#remove-tr', function(){  
                 $(this).parents('.add-new').remove();
             });
+
+
+            $('#auditee_id').change(function(){
+                var auditee_id = $('#auditee_id').val();
+                
+                $.ajax({
+                url: "{{url('tambahjadwal-getauditor')}}/"+ auditee_id,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    console.log(data);
+                    $('#auditor_id').empty();
+                    $('#auditor_id').append('<option value="" selected disabled>Pilih Auditor yang akan dijadwalkan</option>');
+                    if (Array.isArray(data)) {
+                        var mappedData = data.map(function(item) {
+                            return {
+                                id: item.ketua_auditor,
+                                text: item.ketua_auditor,
+                            };
+                        });
+
+                        data.forEach(function(item) {
+                            mappedData.push({
+                                id: item.anggota_auditor,
+                                text: item.anggota_auditor,
+                            });
+                        });
+
+                        data.forEach(function(item) {
+                            mappedData.push({
+                                id: item.anggota_auditor2,
+                                text: item.anggota_auditor2,
+                            });
+                        });
+
+                        $('#auditor_id').select2({
+                            data: mappedData,
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                },
+                error: function() {
+                    console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
+
+            });
+            
         });
     </script>
 @endpush

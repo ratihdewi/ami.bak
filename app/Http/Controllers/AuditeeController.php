@@ -38,9 +38,9 @@ class AuditeeController extends Controller
         return response()->json($data);
     }
 
-    public function getAuditor()
+    public function getAuditor($tahun)
     {
-        $auditor_ = Auditor::all();
+        $auditor_ = Auditor::where('tahunperiode', $tahun)->get();
 
         return response()->json($auditor_);
     }

@@ -131,6 +131,7 @@ Route::post('/insertjadwal', [JadwalController::class, 'insertdata'])->name('ins
 Route::get('/jadwalaudit-tampiljadwalaudit/{id}', [JadwalController::class, 'tampildata'])->name('tampiljadwalaudit');
 Route::post('/jadwalaudit-updatejadwalaudit/{id}', [JadwalController::class, 'updatedata'])->name('updatejadwalaudit');
 Route::get('/jadwalaudit-deletejadwalaudit/{id}', [JadwalController::class, 'deletedata'])->name('deletejadwalaudit');
+Route::get('/tambahjadwal-getauditor/{auditee_id}', [JadwalController::class, 'getAuditor'])->name('tambahjadwal-getauditor');
 Route::get('/searchjadwal', [JadwalController::class, 'search'])->name('searchjadwal');
 // Route::get('/dokresmi', function(){
 //     return view('spm/dokResmi');
