@@ -197,6 +197,7 @@
                 $(this).parents('.add-new').remove();
             });
 
+            $('#auditee_id').select2();
 
             $('#auditee_id').change(function(){
                 var auditee_id = $('#auditee_id').val();
