@@ -118,7 +118,7 @@
                 oleh:
             </p>
             <div class="tabledaftarhadir mb-5 px-3">
-                <table class="table table-bordered">
+                <table class="table table-bordered w-75">
                     <thead>
                         <tr class="text-center">
                             <th colspan="2">Nama</th>
