@@ -133,9 +133,9 @@ Route::post('/jadwalaudit-updatejadwalaudit/{id}', [JadwalController::class, 'up
 Route::get('/jadwalaudit-deletejadwalaudit/{id}', [JadwalController::class, 'deletedata'])->name('deletejadwalaudit');
 Route::get('/tambahjadwal-getauditor/{auditee_id}', [JadwalController::class, 'getAuditor'])->name('tambahjadwal-getauditor');
 Route::get('/searchjadwal', [JadwalController::class, 'search'])->name('searchjadwal');
-// Route::get('/dokresmi', function(){
-//     return view('spm/dokResmi');
-// });
+Route::get('/dokresmi', function(){
+    return view('spm/dokResmi');
+});
 Route::get('/daftartilik/{tahunperiode}', [DaftarTilikController::class, 'index'])->name('daftartilik');
 Route::get('/daftartilik-searchAuditeeAuditor/{auditee_id}', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
 Route::get('/daftarTilik-addareadaftartilik/{tahunperiode}', [DaftarTilikController::class, 'tambahDT'])->name('addDT');

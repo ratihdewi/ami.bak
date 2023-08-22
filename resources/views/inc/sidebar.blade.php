@@ -27,6 +27,8 @@
                         alt="Logo-Auditee"
                         width="25"
                 /></i>
+                {{-- <span class="nav_name">Daftar Auditee</span> --}}
+                {{-- <i class="bi bi-building h4 text-white"></i> --}}
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
