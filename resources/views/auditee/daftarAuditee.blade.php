@@ -17,7 +17,7 @@
 @endsection
 
 @section('container')
-    <div class="container justify-content-center mb-4 mt-5" style="font-size: 15px">
+    <div class="container vh-100 justify-content-center mb-4 mt-5" style="font-size: 15px">
         <div class="row">
             <table class="table table-hover mt-5 mb-3" id="tableAuditee">
                 <thead>

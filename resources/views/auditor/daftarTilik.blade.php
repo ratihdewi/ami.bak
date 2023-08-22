@@ -14,7 +14,7 @@
 @endsection
 
 @section('container')
-<div class="container pb-3 mb-4 mt-5">
+<div class="container vh-100 pb-3 mb-4 mt-5">
     <div class="tableAreaDaftarTilik mx-3">
         <table
             class="table table-hover mb-3"

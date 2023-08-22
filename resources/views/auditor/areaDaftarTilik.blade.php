@@ -16,7 +16,7 @@
 @endsection
 
 @section('container')
-<div class="container">
+<div class="container vh-100">
     <div class="container-fluid float-end my-4">
         <a
             href="/auditor-daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"

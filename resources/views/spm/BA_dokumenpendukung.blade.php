@@ -20,7 +20,7 @@
 @endsection
 
 @section('container')
-  <div class="container mb-4">
+  <div class="container vh-100 mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
