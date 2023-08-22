@@ -153,7 +153,7 @@
                   <div class="bodysession">
                     <div class="row">
                       <div class="col">
-                        <label for="namasesi">Sesi Ke-1</label>
+                        <label for="namasesi">Sesi Ke-</label>
                         <input type="text" class="form-control" id="namasesi" placeholder="contoh: Sesi 1" name="addmore[0][sesiKe]">
                       </div>
                       <div class="col">
