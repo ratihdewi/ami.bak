@@ -99,22 +99,52 @@
                         @endforeach
                     </td>
                     <td class="w-50">Hari/Tanggal : 
+                        <?php $i=1; ?>
                         @foreach ($jadwalAudit_ as $jadwal)
-                        {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}, 
+                            @if (count($jadwalAudit_) == 1)
+                                {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}
+                            @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                                @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                                    {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }},
+                                @elseif ($i == count($jadwalAudit_))
+                                    {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}
+                                @endif
+                            @endif
+                            <?php $i++; ?>
                         @endforeach
                     </td>
                 </tr>
                 <tr>
                     <td class="w-50">Waktu : 
+                        <?php $i=1; ?>
                         @foreach ($jadwalAudit_ as $jadwal)
-                        {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB, 
+                            @if (count($jadwalAudit_) == 1)
+                                {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
+                            @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                                @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                                    {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB,
+                                @elseif ($i == count($jadwalAudit_))
+                                {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
+                                @endif
+                            @endif
+                            <?php $i++; ?>
                         @endforeach
                     </td>
                 </tr>
                 <tr>
                     <td class="w-50">Media : 
+                        <?php $i=1; ?>
                         @foreach ($jadwalAudit_ as $jadwal)
-                        {{ $jadwal->tempat }}, 
+                            @if (count($jadwalAudit_) == 1)
+                                {{ $jadwal->tempat }}
+                            @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                                @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                                    {{ $jadwal->tempat }},
+                                @elseif ($i == count($jadwalAudit_))
+                                    {{ $jadwal->tempat }}
+                                @endif
+                            @endif
+                            <?php $i++; ?>
                         @endforeach
                     </td>
                 </tr>
@@ -218,17 +248,27 @@
                 @endif
             @endforeach
             yang dilaporkan dalam
+            <?php $i=1; ?>
             @foreach ($dokumenpendukung_ as $dokumenpendukung)
-                {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }}, 
+                @if (count($dokumenpendukung_) == 1)
+                    {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }}.
+                @elseif (count($dokumenpendukung_) > 1 && count($dokumenpendukung_) != 1)
+                    @if ($i < count($dokumenpendukung_) && $i != count($dokumenpendukung_))
+                        {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }},
+                    @elseif ($i == count($dokumenpendukung_))
+                        {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }}.
+                    @endif
+                @endif
+                <?php $i++; ?>
             @endforeach
-            .
         </p>
     </div>
     <div id="ttdpersetujuan" class="ttdpersetujuan my-3 mx-4 py-2">
         <table class="table table-borderless">
             <tbody>
                 <tr>
-                    <td colspan="2" class="text-center">Menyetujui,</td>
+                    <td class="text-center border-0">Menyetujui,</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td class="w-50 text-center">Auditee,</td>

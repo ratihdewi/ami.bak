@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">
     <title>Table</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container-pratinjau mx-4 my-5">
@@ -85,22 +92,52 @@
                             @endforeach
                         </td>
                         <td class="w-50">Hari/Tanggal : 
+                            <?php $i=1; ?>
                             @foreach ($jadwalAudit_ as $jadwal)
-                            {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}, 
+                                @if (count($jadwalAudit_) == 1)
+                                    {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}
+                                @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                                    @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                                        {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }},
+                                    @elseif ($i == count($jadwalAudit_))
+                                        {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}
+                                    @endif
+                                @endif
+                                <?php $i++; ?>
                             @endforeach
                         </td>
                     </tr>
                     <tr>
                         <td class="w-50">Waktu : 
+                            <?php $i=1; ?>
                             @foreach ($jadwalAudit_ as $jadwal)
-                            {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB, 
-                            @endforeach
+                                @if (count($jadwalAudit_) == 1)
+                                    {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
+                                @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                                    @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                                        {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB,
+                                    @elseif ($i == count($jadwalAudit_))
+                                    {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
+                                    @endif
+                                @endif
+                                <?php $i++; ?>
+                            @endforeach 
                         </td>
                     </tr>
                     <tr>
                         <td class="w-50">Media : 
+                            <?php $i=1; ?>
                             @foreach ($jadwalAudit_ as $jadwal)
-                            {{ $jadwal->tempat }}, 
+                                @if (count($jadwalAudit_) == 1)
+                                    {{ $jadwal->tempat }}
+                                @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                                    @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                                        {{ $jadwal->tempat }},
+                                    @elseif ($i == count($jadwalAudit_))
+                                        {{ $jadwal->tempat }}
+                                    @endif
+                                @endif
+                                <?php $i++; ?>
                             @endforeach
                         </td>
                     </tr>
@@ -204,17 +241,19 @@
                     @endif
                 @endforeach
                 yang dilaporkan dalam
-                @if (count($dokumenpendukung_) > 1)
+                <?php $i=1; ?>
                 @foreach ($dokumenpendukung_ as $dokumenpendukung)
-                    {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }}, 
+                    @if (count($dokumenpendukung_) == 1)
+                        {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }}.
+                    @elseif (count($dokumenpendukung_) > 1 && count($dokumenpendukung_) != 1)
+                        @if ($i < count($dokumenpendukung_) && $i != count($dokumenpendukung_))
+                            {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }},
+                        @elseif ($i == count($dokumenpendukung_))
+                            {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }}.
+                        @endif
+                    @endif
+                    <?php $i++; ?>
                 @endforeach
-                .
-                @else
-                @foreach ($dokumenpendukung_ as $dokumenpendukung)
-                    {{ $dokumenpendukung->namaDokumen }} {{ '('.$dokumenpendukung->kodeDokumen.')' }} 
-                @endforeach
-                .
-                @endif
                 
             </p>
         </div>
