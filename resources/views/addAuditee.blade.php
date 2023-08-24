@@ -26,7 +26,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="row">
-                                <label for="tahunperiode" class="form-label"
+                                <label class="fw-semibold" for="tahunperiode" class="form-label"
                                         >Tahun Periode</label
                                     >
                                 <div class="col-sm-5">
@@ -59,7 +59,7 @@
                             </div>
                         </div> 
                         <div class="col">
-                            <label for="nipAuditee" class="form-label">NIP</label> <br>
+                            <label class="fw-semibold" for="nipAuditee" class="form-label">NIP</label> <br>
                             <select id="nipAuditee" class="form-select" name="nip" aria-label="Default select example" placeholder="Pilih NIP Ketua Auditee" required>
                                 <option value="" selected disabled>Pilih NIP Ketua Auditee</option>
                             </select>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="row mb-3" hidden>
                         <div class="col">
-                            <label for="user_id" class="form-label"
+                            <label class="fw-semibold" for="user_id" class="form-label"
                                 >ID User</label
                             >
                             <input
@@ -81,7 +81,7 @@
                         </div>         
                     </div>
                     <div class="mb-3">
-                        <label for="selectUnitKerja" class="form-label"
+                        <label class="fw-semibold" for="selectUnitKerja" class="form-label"
                             >Unit Kerja</label
                         >
                         <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" required>
@@ -98,7 +98,7 @@
                         </select> --}}
                     </div>
                     <div class="mb-3">
-                        <label for="ketuaAuditee" class="form-label"
+                        <label class="fw-semibold" for="ketuaAuditee" class="form-label"
                             >Ketua Auditee</label
                         >
                         <input
@@ -111,7 +111,7 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <label for="jabatanKetuaAuditee" class="form-label"
+                        <label class="fw-semibold" for="jabatanKetuaAuditee" class="form-label"
                             >Jabatan Ketua Auditee</label
                         >
                         <input
@@ -124,7 +124,7 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <label for="ketuaAuditor" class="form-label">Ketua Auditor</label> <br>
+                        <label class="fw-semibold" for="ketuaAuditor" class="form-label">Ketua Auditor</label> <br>
                         <select
                             class="form-select" aria-label="Default select example"
                             id="ketuaAuditor"
@@ -137,7 +137,7 @@
                     </div>
                     <div id="anggotaauditor" class="row mb-3">
                         <div class="col">
-                            <label for="anggotaAuditor" class="form-label">Anggota Auditor 1</label> <br>
+                            <label class="fw-semibold" for="anggotaAuditor" class="form-label">Anggota Auditor 1</label> <br>
                             <select
                                 class="form-select" aria-label="Default select example"
                                 id="anggotaAuditor"
@@ -150,7 +150,7 @@
                     </div>
                     <div id="anggotaauditor2" class="row mb-3">
                         <div class="col">
-                            <label for="anggotaAuditor2" class="form-label">Anggota Auditor 2 (Opsional)</label> <br>
+                            <label class="fw-semibold" for="anggotaAuditor2" class="form-label">Anggota Auditor 2 (Opsional)</label> <br>
                             <select
                                 class="form-select" aria-label="Default select example"
                                 id="anggotaAuditor2"
@@ -186,38 +186,105 @@
 <script>
     $(document).ready(function() {
 
-        $('#tahunperiode').change(function(){
+        // $('#tahunperiode').change(function(){
+        //     let tahun = $('#tahunperiode').val();
+        //     console.log(tahun);
+
+        //     $.ajax({
+        //         url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
+        //         type: 'GET',
+        //         dataType: 'json',
+        //         data: { q: '' },
+        //         success: function(data) {
+        //             console.log(data);
+        //             $('#nipAuditee').empty();
+        //             $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+        //             if (Array.isArray(data)) {
+        //                 var mappedData = data.map(function(item) {
+        //                     return {
+        //                         id: item.nip,
+        //                         text: item.nip,
+        //                     };
+        //                 });
+
+        //                 $('#nipAuditee').select2({
+        //                     data: mappedData,
+        //                 });
+        //             } else {
+        //                 console.error('Data yang diterima dari server bukan array yang valid.');
+        //             }
+        //         },
+        //         error: function() {
+        //         console.error('Terjadi kesalahan saat memuat data users.');
+        //         }
+        //     });
+        // });
+
+        $('#tahunperiode').change(function () {
+            console.log('Berhasil');
+            let tahunAwal = $('#tahunperiode0').val();
+            tahunAwal = parseInt(tahunAwal);
+
+            let minvalue = $('#tahunperiode').attr('min', tahunAwal+1);
+            let maxvalue = $('#tahunperiode').attr('max', tahunAwal+1);
+
+            minvalue = parseInt($('#tahunperiode').attr('min'));
+            maxvalue = parseInt($('#tahunperiode').attr('max'));
+
             let tahun = $('#tahunperiode').val();
+            console.log(tahunAwal);
             console.log(tahun);
 
-            $.ajax({
-                url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
-                type: 'GET',
-                dataType: 'json',
-                data: { q: '' },
-                success: function(data) {
-                    console.log(data);
-                    $('#nipAuditee').empty();
-                    $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
-                    if (Array.isArray(data)) {
-                        var mappedData = data.map(function(item) {
-                            return {
-                                id: item.nip,
-                                text: item.nip,
-                            };
-                        });
-
-                        $('#nipAuditee').select2({
-                            data: mappedData,
-                        });
-                    } else {
-                        console.error('Data yang diterima dari server bukan array yang valid.');
+            if (tahun < minvalue || tahun > maxvalue) {
+                console.log('Gagal');
+                $.ajax({
+                    url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { q: '' },
+                    success: function(data) {
+                        $('#nipAuditee').empty();
+                        $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                        if (Array.isArray(data)) {
+                            $('#nipAuditee').select2();
+                        } else {
+                            console.error('Data yang diterima dari server bukan array yang valid.');
+                        }
+                    },
+                    error: function() {
+                    console.error('Terjadi kesalahan saat memuat data users.');
                     }
-                },
-                error: function() {
-                console.error('Terjadi kesalahan saat memuat data users.');
-                }
-            });
+                });
+            } else {
+                $.ajax({
+                    url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { q: '' },
+                    success: function(data) {
+                        console.log(data);
+                        $('#nipAuditee').empty();
+                        $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                        if (Array.isArray(data)) {
+                            var mappedData = data.map(function(item) {
+                                return {
+                                    id: item.nip,
+                                    text: item.nip,
+                                };
+                            });
+
+                            $('#nipAuditee').select2({
+                                data: mappedData,
+                            });
+                        } else {
+                            console.error('Data yang diterima dari server bukan array yang valid.');
+                        }
+                    },
+                    error: function() {
+                    console.error('Terjadi kesalahan saat memuat data users.');
+                    }
+                });
+            }
         });
 
         $('#nipAuditee').change(function(){

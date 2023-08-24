@@ -186,15 +186,15 @@ class JadwalController extends Controller
 
     public function insertdata(Request $request)
     {
-        //dd($request->addmore);
+        
         $returns = null;
         foreach ($request->addmore as $key => $value) {
             
             $auditorname = Auditor::where('nama', $value['auditor_id'])->first();
             $year = Carbon::parse($value['hari_tgl'])->year;
             
-            $isExistAuditee = Auditee::where('id', $value['auditee_id'])->where('tahunperiode', $value['th_ajaran2'])->where(function ($query) use ($auditorname) {
-                $query->where('ketua_auditor', $auditorname->nama)->orwhere('anggota_auditor', $auditorname->nama)->orwhere('anggota_auditor2', $auditorname->nama);
+            $isExistAuditee = Auditee::where('id', $value['auditee_id'])->where('tahunperiode', $value['th_ajaran2'])->where(function ($query) use ($value) {
+                $query->where('ketua_auditor', $value['auditor_id'])->orwhere('anggota_auditor', $value['auditor_id'])->orwhere('anggota_auditor2', $value['auditor_id']);
             })->exists();
             
             if ($isExistAuditee && ($value['th_ajaran1'] == $year || $value['th_ajaran2'] == $year)) {

@@ -91,7 +91,7 @@
                           <td class="col-1">{{ $item->kegiatan }}</td>
                           <td class="col-1 text-center">
                             <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white h7"></i></button></a>
-                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white h7"></i></button></a>
+                            <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus jadwal pada tanggal {{ $item->hari_tgl->translatedFormat('l, d M Y') }} pukul {{ $item->waktu->isoFormat('HH:mm') }} WIB')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white h7"></i></button></a>
                           </td>
                       </tr>
                       @endforeach
@@ -255,7 +255,16 @@
   
   {{-- Jadwal keseluruhan --}}
   <div class="jadwalKeseluruhan" style="margin-top: 100px">
-    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist">
+    @if ($message = Session::get('addsuccess'))
+      <div class="alert alert-success" role="alert">
+        {{ $message }}
+      </div>
+    @elseif ($message = Session::get('adderror'))
+      <div class="alert alert-danger" role="alert">
+        {{ $message }}
+      </div>
+    @endif
+    <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-3" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jadwal Audit Mutu Internal</button>
       </li>
@@ -263,15 +272,7 @@
         <button type="button" class="btn btn-primary btn-sm my-2">Tambah Jadwal</button>
       </a>
     </ul>
-    @if ($message = Session::get('addsuccess'))
-      <div class="alert alert-success" role="alert">
-        {{ $message }}
-      </div>
-    @elseif ($message = Session::get('error'))
-    <div class="alert alert-danger" role="alert">
-      {{ $message }}
-    </div>
-    @endif
+    
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active w-100 my-3" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
@@ -299,7 +300,7 @@
                       </td>
                       <td class="text-center">
                         <a href="/editjadwalami-keseluruhan/{{ $jdami->id }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
-                        <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                        <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus jadwal AMI kegiatan {{ $jdami->kegiatan }}')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                       </td>
                     </tr>
                     @endforeach

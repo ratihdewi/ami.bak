@@ -53,7 +53,7 @@
         >
             <thead>
                 <tr class="row header_areadaftartilik d-flex justify-content-center mt-4">
-                    <th class="col px-2 text-center">No</th>
+                    <th class="col-1 px-2 text-center">No</th>
                     <th class="col px-2 text-center">Auditee</th>
                     <th class="col px-2 text-center">Area</th>
                     <th class="col px-2 text-center">
@@ -68,7 +68,7 @@
                 @foreach ($data_ as $item)
                     @foreach ($item->daftartilik()->get() as $dt)
                     <tr class="row header_areadaftartilik d-flex justify-content-center">
-                        <td class="col px-0 text-center">{{ $no++ }}</td>
+                        <td class="col-1 px-0 text-center">{{ $no++ }}</td>
                         <td class="col px-1">{{ $item->unit_kerja }}</td>
                         <td class="col px-2">{{ $dt->area }}</td>
                         <td class="col px-3">{{ $dt->bataspengisianRespon->translatedFormat('l, d M Y') }}</td>

@@ -171,20 +171,20 @@
           <div class="row g-3 my-4 mx-3">
             <div class="col">
               <label for="butirStandar" class="visually-hidden">Butir Standar</label>
-              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ old('butirStandar') }}">
+              <input id="butirStandar" type="text" class="form-control" placeholder="Masukkan Butir Standar. Contoh: [01 Kompetensi Lulusan]" aria-label="Butir Standar" name="butirStandar" value="{{ old('butirStandar') }}">
             </div>
             <div class="col">
               <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
-              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ old('nomorButir') }}">
+              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir. Contoh: [A.01.01]" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ old('nomorButir') }}">
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ old('pertanyaan') }}"></textarea>
-            <label for="pertanyaan">Masukkan pertanyaan disini</label>
+            <label for="pertanyaan">Ajukan pertanyaan</label>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" value="{{ old('indikatormutu') }}"></textarea>
-            <label for="indikatorMutu">Masukkan indikator mutu disini</label>
+            <label for="indikatorMutu">Masukkan indikator mutu</label>
           </div>        
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" value="{{ old('targetStandar') }}"></textarea>
@@ -212,7 +212,7 @@
               </div>
             </div>
           </div>
-          <label for="#" class="mb-4 mx-4">Respon Auditee</label>
+          <label for="#" class="mb-4 mx-4 fw-semibold">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
               <div class="row mt-2 mx-4">
@@ -230,13 +230,13 @@
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"></textarea>
-                <label for="responAuditee">Tuliskan respon Auditee disini</label>
+                <label for="responAuditee">Tuliskan respon Auditee</label>
               </div>
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor"></textarea>
-            <label for="responAuditor">Tuliskan respon Auditor disini <b>**)</b></label>
+            <label for="responAuditor">Tuliskan respon Auditor <b>**)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
             <div class="col">

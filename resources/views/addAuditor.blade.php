@@ -20,14 +20,14 @@
                         <div class="addauditor">
                             <div class="row mb-3">
                                 <div class="col" hidden>
-                                    <label for="user_id" class="form-label">ID User</label>
+                                    <label class="fw-semibold" for="user_id" class="form-label">ID User</label>
                                     <input type="text" name="user_id" class="form-control" id="user_id" placeholder="ID User" aria-label="ID User"/>
                                 </div>         
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
                                     <div class="row">
-                                        <label for="tahunperiode" class="form-label">Tahun Periode</label>
+                                        <label class="fw-semibold" for="tahunperiode" class="form-label">Tahun Periode</label>
                                         <div class="col-sm-5">
                                             <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" max="3000" aria-label="Tahun Akhir" required/>
                                         </div>
@@ -35,13 +35,13 @@
                                             <h3 class="">/</h3>
                                         </div>
                                         <div class="col-sm-5">
-                                            <input type="number" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Akhir" aria-label="Tahun Akhir" min="2016" max="3000" required/>
+                                            <input type="number" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Akhir" aria-label="Tahun Akhir" required/>
                                         </div>
                                     </div>
                                     
                                 </div> 
                                 <div class="col">
-                                    <label for="nipAuditor" class="form-label">NIP</label>
+                                    <label class="fw-semibold" for="nipAuditor" class="form-label">NIP</label>
                                     <select id="nipAuditor" class="form-select" aria-label="Default select example" name="nip" required>
                                         <option selected disabled>Pilih NIP Auditor</option>
                                     </select>
@@ -49,11 +49,11 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
-                                    <label for="namaAuditor" class="form-label">Nama</label>
+                                    <label class="fw-semibold" for="namaAuditor" class="form-label">Nama</label>
                                     <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor"/>
                                 </div>
                                 <div class="col">
-                                    <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
+                                    <label class="fw-semibold" for="nomorTelepon" class="form-label">Nomor Telepon</label>
                                     <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon"
                                         placeholder="Nomor Telepon"
                                         aria-label="Nomor Telepon"
@@ -62,7 +62,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
-                                    <label for="fakultas" class="form-label"
+                                    <label class="fw-semibold" for="fakultas" class="form-label"
                                         >Fakultas</label
                                     >
                                     <input
@@ -75,7 +75,7 @@
                                     />
                                 </div>
                                 <div class="col">
-                                    <label for="programstudi" class="form-label"
+                                    <label class="fw-semibold" for="programstudi" class="form-label"
                                         >Program Studi</label
                                     >
                                     <input
@@ -90,7 +90,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
-                                    <label for="tanggalmulai" class="form-label"
+                                    <label class="fw-semibold" for="tanggalmulai" class="form-label"
                                         >Tanggal Mulai</label
                                     >
                                     <input
@@ -100,10 +100,11 @@
                                         id="tanggalmulai"
                                         placeholder="Tanggal Mulai Tugas"
                                         aria-label="Tanggal Mulai Tugas"
+                                        required
                                     />
                                 </div>
                                 <div class="col">
-                                    <label for="tanggalberakhir" class="form-label"
+                                    <label class="fw-semibold" for="tanggalberakhir" class="form-label"
                                         >Tanggal Berakhir</label
                                     >
                                     <input
@@ -113,6 +114,7 @@
                                         id="tanggalberakhir"
                                         placeholder="Tanggal Berakhir Tugas"
                                         aria-label="Tanggal Berakhir Tugas"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -137,43 +139,77 @@
 @endsection @push('script') 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
 
 <script>
     $(document).ready(function(){
 
         $('#tahunperiode').change(function () {
+            let tahunAwal = $('#tahunperiode0').val();
+            tahunAwal = parseInt(tahunAwal);
+
+            let minvalue = $('#tahunperiode').attr('min', tahunAwal+1);
+            let maxvalue = $('#tahunperiode').attr('max', tahunAwal+1);
+
+            minvalue = parseInt($('#tahunperiode').attr('min'));
+            maxvalue = parseInt($('#tahunperiode').attr('max'));
+
             let tahun = $('#tahunperiode').val();
+            console.log(tahunAwal);
             console.log(tahun);
 
-            $.ajax({
-                url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahun,
-                type: 'GET',
-                dataType: 'json',
-                data: { q: '' },
-                success: function(data) {
-                    console.log(data);
-                    $('#nipAuditor').empty();
-                    $('#nipAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
-                    if (Array.isArray(data)) {
-                        var mappedData = data.map(function(item) {
-                            return {
-                                id: item.nip,
-                                text: item.nip,
-                            };
-                        });
-
-                        $('#nipAuditor').select2({
-                            data: mappedData,
-                        });
-                    } else {
-                        console.error('Data yang diterima dari server bukan array yang valid.');
+            if (tahun < minvalue || tahun > maxvalue) {
+                console.log('Gagal');
+                $.ajax({
+                    url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { q: '' },
+                    success: function(data) {
+                        console.log(data);
+                        $('#nipAuditor').empty();
+                        $('#nipAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
+                        if (Array.isArray(data)) {
+                            $('#nipAuditor').select2();
+                        } else {
+                            console.error('Data yang diterima dari server bukan array yang valid.');
+                        }
+                    },
+                    error: function() {
+                    console.error('Terjadi kesalahan saat memuat data users.');
                     }
-                },
-                error: function() {
-                console.error('Terjadi kesalahan saat memuat data users.');
-                }
-            });
-        })
+                });
+            } else {
+                $.ajax({
+                    url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { q: '' },
+                    success: function(data) {
+                        console.log(data);
+                        $('#nipAuditor').empty();
+                        $('#nipAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
+                        if (Array.isArray(data)) {
+                            var mappedData = data.map(function(item) {
+                                return {
+                                    id: item.nip,
+                                    text: item.nip,
+                                };
+                            });
+
+                            $('#nipAuditor').select2({
+                                data: mappedData,
+                            });
+                        } else {
+                            console.error('Data yang diterima dari server bukan array yang valid.');
+                        }
+                    },
+                    error: function() {
+                    console.error('Terjadi kesalahan saat memuat data users.');
+                    }
+                });
+            }
+        });
 
         $('#nipAuditor').change(function(){
             var id = $(this).val();

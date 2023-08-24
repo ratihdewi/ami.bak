@@ -167,20 +167,20 @@
           <div class="row g-3 my-4 mx-3">
             <div class="col" disabled>
               <label for="butirStandar" class="visually-hidden">Butir Standar</label>
-              <input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" readonly>
+              <input id="butirStandar" type="text" class="form-control" placeholder="Masukkan Butir Standar. Contoh: [01 Kompetensi Lulusan]" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" readonly>
             </div>
             <div class="col">
               <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
-              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" readonly>
+              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir. Contoh: [A.01.01]" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" readonly>
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" readonly>{{ $datas->pertanyaan }}</textarea>
-            <label for="pertanyaan">Masukkan pertanyaan disini</label>
+            <textarea class="form-control" placeholder="Ajukan pertanyaan" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" readonly>{{ $datas->pertanyaan }}</textarea>
+            <label for="pertanyaan">Masukkan pertanyaan</label>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" readonly>{{ $datas->indikatormutu }}</textarea>
-            <label for="indikatorMutu">Masukkan indikator mutu disini</label>
+            <label for="indikatorMutu">Masukkan indikator mutu</label>
           </div>        
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" readonly>{{ $datas->targetStandar }}</textarea>
@@ -208,7 +208,7 @@
               </div>
             </div>
           </div>
-          <label for="responAuditeeGroup" class="mb-4 mx-4">Respon Auditee</label>
+          <label for="responAuditeeGroup" class="mb-4 mx-4 fw-semibold">Respon Auditee</label>
           <div id="responAuditeeGroup" class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
               <div class="row mx-2 mb-4 px-1">
@@ -218,20 +218,20 @@
                 </a>
               </div>
               <div class="form-floating mb-3 mx-4">
-                <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"
+                <textarea class="form-control" placeholder="Tuliskan respon Auditee" id="responAuditee" style="height: 100px" name="responAuditee"
                 @if (($datas->responAuditee != NULL &&  Auth::user()->role == "Auditor") || $datas->approvalAuditor == 'Disetujui Auditor' || $datas->approvalAuditee == 'Disetujui Auditee')
                     {{ "readonly" }}
                 @elseif ($datas->responAuditee == NULL &&  Auth::user()->role != "SPM")
                     {{ "required" }}
                 @endif
                 >{{ $datas->responAuditee }}</textarea>
-                <label for="responAuditee">Tuliskan respon Auditee disini</label>
+                <label for="responAuditee">Tuliskan respon Auditee</label>
               </div>
             </div>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor" readonly>{{ $datas->responAuditor }}</textarea>
-            <label for="responAuditor">Tuliskan respon Auditor disini<b> **)</b></label>
+            <label for="responAuditor">Tuliskan respon Auditor<b> **)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
             <div class="col">

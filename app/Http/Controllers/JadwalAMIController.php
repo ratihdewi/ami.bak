@@ -45,7 +45,7 @@ class JadwalAMIController extends Controller
         $periodeami = new Carbon($data->tgl_mulai);
         $periode = $periodeami->year;
         $data->update($request->all());
-        return redirect()->route('jadwalaudit')->with('success', 'Jadwal Keseluruhan AMI periode '.$periode.' berhasil diupdate!');
+        return redirect()->route('jadwalaudit')->with('addsuccess', 'Jadwal Keseluruhan AMI periode '.$periode.' berhasil diupdate!');
     }
 
     // public function updatejadwalami(Request $request, $id)
@@ -70,6 +70,6 @@ class JadwalAMIController extends Controller
 
         $jadwalami->delete();
 
-        return redirect()->back()->with('success', 'Jadwal Keseluruhan AMI periode '.$periode.' berhasil dihapus!');
+        return redirect()->back()->with('addsuccess', 'Jadwal Keseluruhan AMI periode '.$periode.' berhasil dihapus!');
     }
 }

@@ -41,6 +41,7 @@ class DaftarTilikController extends Controller
 
     public function insertdataArea(Request $request)
     {
+        // dd($request->all());
         $isAlreadyExist = DaftarTilik::where('auditee_id', $request->auditee_id)->where('area', $request->area)->exists();
         $auditee_ = Auditee::where('id', $request->auditee_id)->first();
         $auditor_ = Auditor::all();
@@ -51,7 +52,6 @@ class DaftarTilikController extends Controller
         if ($isAlreadyExist) {
             return redirect()->route('daftartilik', ['tahunperiode' => $years])->with('error', 'Data sudah tersedia!');
         } else {
-            
             foreach ($auditor_ as $key => $auditor) {
                 if ($request->auditor_id == $auditor->nama) {
                    if ($auditor->nama == $auditee_->ketua_auditor || $auditor->nama == $auditee_->anggota_auditor || $auditor->nama == $auditee_->anggota_auditor2) {

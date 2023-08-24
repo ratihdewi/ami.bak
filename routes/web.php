@@ -113,7 +113,7 @@ Route::get('/auditor-searchAuditor', [AuditorController::class, 'getAuditor'])->
 Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
 Route::get('/tambahauditee-searchAuditor/{tahun}', [AuditeeController::class, 'getAuditor'])->name('searchAuditor');
 Route::get('tambahauditee-searchnipuser/{tahun}', [AuditeeController::class, 'getnipuser'])->name('searchnipuser');
-Route::get('/tambahauditor-searchnipuser/{tahun}', [AuditorController::class, 'getnipuser'])->name('auditor-searchnipuser');
+Route::get('/tambahauditor-searchnipuser/{tahunAwal}/{tahun}', [AuditorController::class, 'getnipuser'])->name('auditor-searchnipuser');
 Route::get('/usercontrol', [UserController::class, 'index'])->name('daftaruser');
 Route::get('/addUser', [UserController::class, 'tambahuser'])->name('tambahuser');
 Route::post('/insertUser', [UserController::class, 'insertdata'])->name('insertuser');
