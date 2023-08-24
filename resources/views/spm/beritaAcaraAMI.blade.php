@@ -140,22 +140,52 @@
               </div>
               <div class="col label border py-2 fw-semibold text-start">Waktu</div>
               <div class="col border py-2 text-start">
-                @foreach ($jadwalAudit_ as $jadwalAudit)
-                {{ $jadwalAudit->waktu->isoFormat('hh:mm') }} WIB,
+                <?php $i=1; ?>
+                @foreach ($jadwalAudit_ as $jadwal)
+                    @if (count($jadwalAudit_) == 1)
+                        {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
+                    @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                        @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                            {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB,
+                        @elseif ($i == count($jadwalAudit_))
+                        {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
+                        @endif
+                    @endif
+                    <?php $i++; ?>
                 @endforeach 
               </div>
             </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Hari/Tanggal</div>
               <div class="col border py-2 text-start">
-                @foreach ($jadwalAudit_ as $jadwalAudit)
-                {{ $jadwalAudit->hari_tgl->translatedFormat('l, d M Y') }}; 
+                <?php $i=1; ?>
+                @foreach ($jadwalAudit_ as $jadwal)
+                    @if (count($jadwalAudit_) == 1)
+                        {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }}
+                    @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                        @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                            {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }},
+                        @elseif ($i == count($jadwalAudit_))
+                            {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }}
+                        @endif
+                    @endif
+                    <?php $i++; ?>
                 @endforeach
               </div>
               <div class="col label border py-2 fw-semibold text-start">Media</div>
               <div class="col border py-2 text-start">
-                @foreach ($jadwalAudit_ as $jadwalAudit)
-                {{ $jadwalAudit->tempat }},   
+                <?php $i=1; ?>
+                @foreach ($jadwalAudit_ as $jadwal)
+                    @if (count($jadwalAudit_) == 1)
+                        {{ $jadwal->tempat }}
+                    @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
+                        @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                            {{ $jadwal->tempat }},
+                        @elseif ($i == count($jadwalAudit_))
+                            {{ $jadwal->tempat }}
+                        @endif
+                    @endif
+                    <?php $i++; ?>
                 @endforeach
               </div>
               </div>
