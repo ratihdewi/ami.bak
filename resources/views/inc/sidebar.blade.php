@@ -1,5 +1,5 @@
 <nav class="nav">
-    <div>
+    <div id="sidebarspm">
         <a href="#" class="nav_logo">
             <img src="/asset/Logo-Up.png" alt="Logo-UPer" width="28" />
             <span class="nav_logo-name"> AMI </span>

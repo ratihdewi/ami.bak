@@ -155,11 +155,8 @@
             maxvalue = parseInt($('#tahunperiode').attr('max'));
 
             let tahun = $('#tahunperiode').val();
-            console.log(tahunAwal);
-            console.log(tahun);
 
             if (tahun < minvalue || tahun > maxvalue) {
-                console.log('Gagal');
                 $.ajax({
                     url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
                     type: 'GET',
