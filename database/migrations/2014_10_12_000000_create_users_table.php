@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             ->onDelete('cascade');
             $table->foreign('unitkerja_id')->references('id')->on('unit_kerjas')->onUpdate('cascade')
             ->onDelete('cascade');
+            $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
             $table->rememberToken();
             $table->timestamps();
         });

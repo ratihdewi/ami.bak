@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data = User::all();
+        $data = User::where('status', 'aktif')->get();
         // dd($data);
         return view('spm/daftarUser', compact('data'));
     }
@@ -82,7 +82,9 @@ class UserController extends Controller
     public function deletedata($id)
     {
         $data = User::find($id);
-        $data->delete();
+        $data->status = 'tidak aktif';
+        $data->save();
+        // dd($data);
         return redirect()->route('daftaruser')->with('success', 'Data berhasil dihapus');
     }
 

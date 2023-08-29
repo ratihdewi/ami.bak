@@ -53,6 +53,7 @@ class AuditorController extends Controller
 
         $data = User::whereNotIn('id', $auditees)
                     ->whereNotIn('id', $auditors)->where('nip', 'LIKE', '%'.request('q').'%')
+                    ->where('status', 'aktif')
                     ->get();
         
         return response()->json($data);
