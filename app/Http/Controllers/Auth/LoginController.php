@@ -61,6 +61,8 @@ class LoginController extends Controller
                 return redirect()->route('auditor-daftarauditor-periode');
             } elseif (count(Auth::user()->auditee()->get('user_id')) != 0) {
                 return redirect()->route('auditee-daftarauditor-periode');
+            } else {
+                return redirect()->route('auditee-daftarauditor-periode');
             }
         } 
     }
