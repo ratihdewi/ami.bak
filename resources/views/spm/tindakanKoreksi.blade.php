@@ -1,11 +1,15 @@
-@extends('layout.main') @section('title') AMI - Tindakan Koreksi @endsection
+@extends('layout.main')
+
+@section('title') AMI - Tindakan Koreksi @endsection
+
+@section('linking')
+    <a href="/tindakankoreksi" class="mx-1">
+        Tindakan Koreksi
+    </a>/
+@endsection
+
 @section('container')
-<div class="container" style="font-size: 15px">
-    <div class="container-fluid d-flex justify-content-between mt-4">
-        <div class="input-group w-50 h-25 my-3 ms-4">
-            <input class="form-control" id="myInput" type="text" style="font-size: 15px" placeholder="Cari berdasarkan Auditee">
-        </div>
-    </div>
+<div class="container vh-100" style="font-size: 15px">
     <div class="topSection d-flex justify-content-around mx-2 mt-4">
         @if ($message = Session::get('success'))
         <div class="alert alert-success" role="alert">
@@ -13,49 +17,64 @@
         </div>
         @endif
     </div>
-    <div class="tableBA mx-3">
-        <table class="table table-hover listAuditee">
-            <thead>
+
+    <div class="tableBA mx-3 mt-3 mb-4">
+        <table class="table table-hover my-5 listAuditee" id="beritaacara">
+            <thead class="mt-5">
                 <tr class="row ListAuditeeHeader">
-                    <th class="col-1 text-center">No</th>
-                    <th class="col-7 text-center">Auditee</th>
-                    <th class="col-4 text-center">Tahun Pelaksanaan</th>
+                    <th class="col-1 px-2 text-center">No</th>
+                    <th class="col px-3 text-center">Auditee</th>
+                    <th class="col-2 px-2  text-center">Periode</th>
+                    <th class="col-1 px-2  text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1; @endphp
+                @foreach ($auditee_->unique('unit_kerja', 'tahunperiode') as $auditee)
+                @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="row ListAuditee">
                     <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-7 auditee"><a href="/tindakankoreksi-temuan" class="text-decoration-none text-black">Fakultas Sains dan Ilmu Komputer</a></td>
-                    <td class="col-4 text-center">2023</td>
-                </tr>
-                <tr class="row ListAuditee">
-                    <td class="col-1 text-center">{{ $no++ }}</td>
-                    <td class="col-7 auditee"><a href="/tindakankoreksi-temuan" class="text-decoration-none text-black">Program Studi Ilmu Komputer</a></td>
-                    <td class="col-4 text-center">2022</td>
-                </tr>
-                {{-- @foreach ($data as $item)
-                <tr>
-                    <th scope="row" class="text-center">{{ $no++ }}</th>
-                    <td>{{ $item->name }}</td>
-                    <td class="text-center">{{ $item->username }}</td>
-                    <td class="text-center">{{ $item->role }}</td>
-                    <td>{{ $item->unit_kerja }}</td>
-                    <td class="text-center">
-                        <a href="tampilUser/{{ $item->id }}" class="mx-2"
-                            ><i class="bi bi-pencil-square"></i
-                        ></a>
-                        <a href="deleteUser/{{ $item->id }}" class="mx-2"
-                            ><i class="bi bi-trash"></i
-                        ></a>
+                    <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
+                    <td class="col-2 px-0 text-center">{{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}</td>
+                    <td class="col-1 pe-3 text-center">
+                        {{-- <a href="/auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a> --}}
+                        <a href="/tindakankoreksi-temuan/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a>
                     </td>
                 </tr>
-                @endforeach --}}
+                @endforeach
+                @endforeach   
             </tbody>
         </table>
     </div>
 </div>
 @endsection
+
+@push('script')
+
+<script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $(".ListAuditee").filter(function() {
+        // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+
+<!-- jQuery library file -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- Datatable plugin JS library file -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#beritaacara').DataTable({ });
+    });
+</script>
+    
+@endpush
 
 @push('script')
 

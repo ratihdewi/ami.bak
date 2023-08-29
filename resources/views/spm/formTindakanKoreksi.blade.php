@@ -4,54 +4,72 @@
 
 @section('container')
     <div class="container px-5">
-      <form action="" class="form-tindakankoreksiTemuan mx-4 my-5">
+      <form action="/tindakankoreksi-store/{{ $noPTK }}" class="form-tindakankoreksiTemuan mx-4 my-5">
         <div class="headerInfo mb-5">
           <div class="row">
             <div class="col-2 border border-secondary border-opacity-75 fw-bolder py-2">PTK No.</div>
-            <div class="col-4 border border-secondary border-opacity-75 py-2"></div>
+            <div class="col-4 border border-secondary border-opacity-75 py-2">{{ $noPTK }}</div>
             <div class="col-2 border border-secondary border-opacity-75 fw-bolder py-2">Kategori Temuan</div>
             <div class="col-4 border border-secondary border-opacity-75 py-2">
               <div class="form-check form-check-inline mx-3">
-                <input class="form-check-input" type="checkbox" id="KTS" value="KTS" disabled>
+                <input class="form-check-input" type="checkbox" id="KTS" 
+                  @if ($pertanyaans->Kategori == "KTS")
+                      {{ "checked" }}
+                  @endif
+                disabled>
                 <label class="form-check-label" for="KTS">KTS</label>
               </div>
               <div class="form-check form-check-inline mx-3">
-                <input class="form-check-input" type="checkbox" id="OB" value="OB" checked disabled>
+                <input class="form-check-input" type="checkbox" id="OB" 
+                @if ($pertanyaans->Kategori == "OB")
+                    {{ "checked" }}
+                @endif
+                disabled>
                 <label class="form-check-label" for="OB">OB</label>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-2 border border-secondary border-opacity-75 fw-bolder py-2">Unit Kerja</div>
-            <div class="col-10 border border-secondary border-opacity-75 py-2"></div>
+            <div class="col-10 border border-secondary border-opacity-75 py-2">{{ $pertanyaans->auditee->unit_kerja }}</div>
           </div>
           <div class="row">
             <div class="col-2 border border-secondary border-opacity-75 fw-bolder py-2">Ketua Unit Kerja</div>
-            <div class="col-10 border border-secondary border-opacity-75 py-2"></div>
+            <div class="col-10 border border-secondary border-opacity-75 py-2">{{ $pertanyaans->auditee->ketua_auditee }}</div>
           </div>
         </div>
         <div class="auditorSection mb-5">
           <div class="row">
             <div class="col-3 border border-secondary border-opacity-75 fw-bolder py-2">Referensi (Butir Mutu)</div>
-            <div class="col-9 border border-secondary border-opacity-75 py-2"></div>
+            <div class="col-9 border border-secondary border-opacity-75 py-2">{{ $pertanyaans->nomorButir }}</div>
           </div>
           <div class="row">
             <div class="col-12 border border-secondary border-opacity-75 fw-bolder py-2">Deskripsi/Uraian Temuan</div>
           </div>
           <div class="row">
-            <div class="col-12 border border-secondary border-opacity-75 py-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi nulla fuga harum excepturi ipsam cumque rerum id velit suscipit culpa illo, minima quas amet asperiores laboriosam et perspiciatis temporibus doloribus?</div>
+            <div class="col-12 border border-secondary border-opacity-75 py-2">{{ $pertanyaans->narasiPLOR }}</div>
           </div>
           <div class="row justify-content-between border border-secondary border-opacity-75">
             <div class="col-6 fw-bolder py-2">
               Akar Penyebab
             </div>
             <div class="col-2 py-2 me-0 text-end">
-              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#formBatasAkses">Batasi akses</button>
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#formBatasAksesAuditor">Batasi akses</button>
+            </div>
+          </div>
+          <div class="row" hidden>
+            <div class="col-12 border border-secondary border-opacity-75 py-2">
+              <textarea class="form-control border border-0" id="noPTK" name="noPTK" placeholder="Nomor PTK" rows="3" value="{{ $noPTK }}">{{ $noPTK }}</textarea>
+            </div>
+          </div>
+          <div class="row" hidden>
+            <div class="col-12 border border-secondary border-opacity-75 py-2">
+              <textarea class="form-control border border-0" id="pertanyaan_id" name="pertanyaan_id" placeholder="ID Pertanyaan" rows="3" value="{{ $pertanyaans->id }}">{{ $pertanyaans->id }}</textarea>
             </div>
           </div>
           <div class="row">
             <div class="col-12 border border-secondary border-opacity-75 py-2">
-              <textarea class="form-control border border-0" id="akarPenyebab" placeholder="Tuliskan akar penyebab (diisi oleh Auditor)" rows="3"></textarea>
+              <textarea class="form-control border border-0" id="akarPenyebab" name="akarPenyebab" placeholder="Tuliskan akar penyebab (diisi oleh Auditor)" rows="3"></textarea>
             </div>
           </div>
           <div class="row">
@@ -115,7 +133,7 @@
           <button class="btn btn-primary me-md-2" id="btn-tinjau" type="button" onclick="tinjauEfektivitas()">Tinjau Efektivitas</button>
           <button class="btn btn-success simpanTK" type="submit">Simpan</button>
         </div>
-        <div class="modal" id="formBatasAkses">
+        <div class="modal" id="formBatasAksesAuditor">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
@@ -127,18 +145,26 @@
 
               <!-- Modal body -->
               <div class="modal-body">
-                <form>
+                <form action="/create-batasan-akses-auditor">
                   <div class="mb-3">
-                    <label for="namaPengisi" class="col-form-label">Auditor/Auditee</label>
-                    <input type="text" class="form-control" id="namaPengisi" placeholder="Nama Auditor atau Auditee">
+                    <label for="namaPengisi" class="col-form-label">Auditor</label><br>
+                    <select name="auditor" id="namaPengisi" class="w-100 p-2 rounded">
+                      <option selected disabled>Pilih Auditor</option>
+                      <option value="{{ $pertanyaans->auditee->ketua_auditor }}">{{ $pertanyaans->auditee->ketua_auditor }}</option>
+                      <option value="{{ $pertanyaans->auditee->anggota_auditor }}">{{ $pertanyaans->auditee->anggota_auditor }}</option>
+                      @if ($pertanyaans->auditee->anggota_auditor2 != null)
+                        <option value="{{ $pertanyaans->auditee->anggota_auditor2 }}">{{ $pertanyaans->auditee->anggota_auditor2 }}</option>
+                      @endif
+                    </select>
+                    {{-- <input type="text" class="form-control" id="namaPengisi" name="auditor" placeholder="Nama Auditor atau Auditee"> --}}
                   </div>
                   <div class="mb-3">
                     <label for="tglMulaiPengisian" class="col-form-label">Tanggal mulai persetujuan</label>
-                    <input type="date" class="form-control" id="tglMulaiPengisian" placeholder="Masukkan tanggal mulai persetujuan tindakan koreksi">
+                    <input type="date" class="form-control" id="tglMulaiPengisian" name="batasPengisian0" placeholder="Masukkan tanggal mulai persetujuan tindakan koreksi" value="{{ $pertanyaans->daftartilik->tgl_pelaksanaan->translatedFormat('Y-m-d') }}">
                   </div>
                   <div class="mb-3">
                     <label for="tglBerakhirPengisian" class="col-form-label">Tanggal berakhir persetujuan</label>
-                    <input type="date" class="form-control" id="tglBerakhirPengisian" placeholder="Masukkan tanggal berakhir persetujuan tindakan koreksi">
+                    <input type="date" class="form-control" id="tglBerakhirPengisian" name="batasPengisian1" placeholder="Masukkan tanggal berakhir persetujuan tindakan koreksi" value="{{ $pertanyaans->daftartilik->tgl_pelaksanaan->addDays(14)->translatedFormat('Y-m-d') }}">
                   </div>
                 </form>
               </div>
@@ -157,9 +183,16 @@
 
 @push('script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
       $("#btn-tinjau").click(function(){
         $(".auditorSection2").html('<div class="row justify-content-between border border-secondary border-opacity-75"><div class="col-6 fw-bolder py-2">Tinjau Efektivitas Tindakan Koreksi</div><div class="col-4 py-2 me-0 text-end"><input type="number" step="0.1" min="0.0" max="1.0" placeholder="% selesai" class="btn btn-sm w-25 border border-secondary me-2"><select name="statustinjauan" id="statustinjauan" class="btn btn-sm border border-secondary me-2 fw-semibold"><option selected disabled>Pilih status</option><option value="Selesai">Selesai</option><option value="Tidak Selesai">Tidak Selesai</option></select><a href="#"><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#formBatasAkses">Batasi akses</button></a></div></div><div class="row"><div class="col-12 border border-secondary border-opacity-75 py-2"><textarea class="form-control border border-0" id="inputTinjauan" placeholder="Tuliskan hasil tinjauan rencana tindakan koreksi (diisi oleh Auditor)" rows="3"></textarea></div></div><div class="row"><div class="col-4 border border-secondary border-opacity-75 fw-bolder py-2 text-center">Nama Auditor</div><div class="col-4 border border-secondary border-opacity-75 fw-bolder py-2 text-center">Tanda Tangan</div><div class="col-4 border border-secondary border-opacity-75 fw-bolder py-2 text-center">Tanggal</div></div><div class="row"><div class="col-4 border border-secondary border-opacity-75 py-2"><input class="form-control border border-0" type="text" id="namaPeninjau"></div><div class="col-4 border border-secondary border-opacity-75 py-2"><div class="d-grid col-2 mx-auto py-3"><button class="btn btn-success approvalAuditor2" type="button">Approve</button></div></div><div class="col-4 border border-secondary border-opacity-75 py-2"><div class="d-grid col-5 mx-auto py-3"><input class="form-control" type="date"></div></div></div>').toggle();
       });
     </script>
+    {{-- <script>
+      $(document).ready(function() {
+        $('#namaPengisi').select2();
+      });
+    </script> --}}
+    
 @endpush

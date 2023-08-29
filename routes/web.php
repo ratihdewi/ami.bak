@@ -179,8 +179,8 @@ Route::post('/BA-storedokumenpendukung/{auditee_id}', [DokLampiranController::cl
 Route::get('/BA-lihatdokumenpendukung/{id}', [DokLampiranController::class, 'lihatdokumenpendukung'])->name('BA-lihatdokumenpendukung');
 Route::get('/BA-deletedokumenpendukung/{id}', [DokLampiranController::class, 'deletedokumenpendukung'])->name('BA-deletedokumenpendukung');
 Route::get('/tindakankoreksi', [TindakanKoreksiController::class, 'index'])->name('tindakankoreksi');
-Route::get('/tindakankoreksi-temuan', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');
-Route::get('/tindakankoreksi-formtemuan', [TindakanKoreksiController::class, 'tampilForm'])->name('tindakankoreksi-formtemuan');
+Route::get('/tindakankoreksi-temuan/{auditee_id}/{tahunperiode}', [TindakanKoreksiController::class, 'daftarTemuan'])->name('tindakankoreksi-temuan');
+Route::get('/tindakankoreksi-formtemuan/{pertanyaan_id}/{noPTK}', [TindakanKoreksiController::class, 'tampilForm'])->name('tindakankoreksi-formtemuan');
 Route::get('/dokumensahih', [DokSahihController::class, 'index'])->name('dokumensahih');
 Route::get('/editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'spm_index'])->name('spm-dokumensahih');
 Route::post('/storedokumensahih', [DokSahihController::class, 'storedoksahih'])->name('storedokumensahih');
@@ -196,6 +196,8 @@ Route::get('/editjadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'edit
 Route::post('/updatejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'updatejadwalami'])->name('updatejadwalami-keseluruhan');
 Route::get('/deletejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
 // Route::get('/generateqrcode/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
+Route::get('/tindakankoreksi-store/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('tindakankoreksi-store');
+Route::get('/create-batasan-akses-auditor', [TindakanKoreksiController::class, 'store'])->name('create-batasan-akses-auditor');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

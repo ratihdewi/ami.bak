@@ -15,6 +15,14 @@ class CreateTindakanKoreksisTable extends Migration
     {
         Schema::create('tindakan_koreksis', function (Blueprint $table) {
             $table->id();
+            $table->integer('noPTK');
+            $table->text('akarPenyebab')->nullable();
+            $table->date('batasPengisian0')->nullable();
+            $table->date('batasPengisian1')->nullable();
+            $table->String('auditor')->nullable();
+            $table->unsignedBigInteger('pertanyaan_id');
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

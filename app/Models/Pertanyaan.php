@@ -59,4 +59,9 @@ class Pertanyaan extends Model
     {
         return $this->hasMany(PersetujuanAL::class);
     }
+
+    public function tindakankoreksi()
+    {
+        return $this->belongsTo(TindakanKoreksi::class);
+    }
 }
