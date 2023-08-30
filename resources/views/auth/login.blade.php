@@ -11,7 +11,7 @@
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
-                            <img src="asset/Logo-UP.png" alt="LogoUPer" width="100" class="mt-3 mb-4 mx-auto d-block">
+                            <img src="asset/Logo-Up.png" alt="LogoUPer" width="100" class="mt-3 mb-4 mx-auto d-block">
                             @csrf
                             <div class="row mb-4">
                                 <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>

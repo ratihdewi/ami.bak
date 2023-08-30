@@ -41,7 +41,7 @@
                         alt="Logo-DaftarTilik"
                         width="25"
                 /></i>
-                <span class="nav_name"> DaftarTilik </span>
+                <span class="nav_name"> Daftar Tilik </span>
             </a>
             <a
                 href="/jadwalaudit"

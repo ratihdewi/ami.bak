@@ -1,6 +1,20 @@
 @extends('layout.main') 
 
-@section('title') AMI - Temuan Berita Acara @endsection
+@section('title') AMI - Temuan Tindakan Koreksi @endsection
+
+@section('linking')
+    <a href="/tindakankoreksi" class="mx-1">
+        Tindakan Koreksi
+    </a>/
+
+    @foreach ($auditee_->unique('unit_kerja', 'tahunperiode') as $auditee)
+    @foreach ($auditee->beritaacara()->get() as $item)
+    <a href="/tindakankoreksi-temuan/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="mx-1">
+    @endforeach
+    @endforeach
+        Temuan
+    </a>/
+@endsection
 
 @section('container')
     <div class="container vh-100" style="font-size: 15px;">

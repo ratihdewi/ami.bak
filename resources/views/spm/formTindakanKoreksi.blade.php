@@ -1,6 +1,21 @@
 @extends('layout.main') 
 
-@section('title') AMI - Temuan Berita Acara @endsection
+@section('title') AMI - Tindakan Koreksi @endsection
+
+@section('linking')
+    <a href="/tindakankoreksi" class="mx-1">
+        Tindakan Koreksi
+    </a>/
+
+    <a href="/tindakankoreksi-temuan/{{ $pertanyaans->auditee_id }}/{{ $pertanyaans->auditee->tahunperiode}}" class="mx-1">
+        Temuan
+    </a>/
+
+    <a href="/tindakankoreksi-formtemuan/{{ $pertanyaans->id }}/{{ $noPTK }}" class="mx-1">
+      Form
+    </a>/
+    
+@endsection
 
 @section('container')
     <div class="container px-5">
@@ -69,7 +84,7 @@
           </div>
           <div class="row">
             <div class="col-12 border border-secondary border-opacity-75 py-2">
-              <textarea class="form-control border border-0" id="akarPenyebab" name="akarPenyebab" placeholder="Tuliskan akar penyebab (diisi oleh Auditor)" rows="3"></textarea>
+              <textarea class="form-control border border-0" id="akarPenyebab" name="akarPenyebab" placeholder="Tuliskan akar penyebab (diisi oleh Auditor)" rows="3">{{ $pertanyaans->akarPenyebab }}</textarea>
             </div>
           </div>
           <div class="row">
