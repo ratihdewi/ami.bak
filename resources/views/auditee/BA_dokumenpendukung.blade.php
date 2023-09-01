@@ -43,15 +43,15 @@
         </div>
         <div class="col mb-4">
           <label for="inputKodeDokumen" class="form-label fw-semibold">Kode Dokumen</label>
-          <input type="text" class="form-control" id="inputKodeDokumen" placeholder="Masukkan Kode Dokumen Pendukung" name="kodeDokumen">
+          <input type="text" class="form-control" id="inputKodeDokumen" placeholder="Masukkan Kode Dokumen Pendukung" name="kodeDokumen" required>
         </div>
         <div class="col mb-4">
           <label for="inputNamaDokumen" class="form-label fw-semibold">Nama Dokumen</label>
-          <input type="text" class="form-control" id="inputNamaDokumen" placeholder="Masukkan Nama Dokumen Pendukung" name="namaDokumen">
+          <input type="text" class="form-control" id="inputNamaDokumen" placeholder="Masukkan Nama Dokumen Pendukung" name="namaDokumen" required>
         </div>
         <div class="col mb-4">
           <label for="dokumen" class="form-label fw-semibold">Upload Dokumen</label>
-          <input class="form-control" type="file" id="dokumen" placeholder="Opsional" multiple name="dokumen">
+          <input class="form-control" type="file" id="dokumen" placeholder="Opsional" multiple name="dokumen" required>
           <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)</p>
         </div>
       </div>
@@ -78,8 +78,8 @@
             @foreach ($dokumenpendukung_ as $dokumenpendukung)
             <tr>
               <td scope="row" class="text-center">{{ $no++ }}</td>
-              <td class="col-2 text-center">{{ $dokumenpendukung->kodeDokumen }}</td>
-              <td class="col-3 text-center">{{ $dokumenpendukung->namaDokumen }}</td>
+              <td class="col-2">{{ $dokumenpendukung->kodeDokumen }}</td>
+              <td class="col-3">{{ $dokumenpendukung->namaDokumen }}</td>
               <td class="col-2 text-center">
                 <a href="/BA-deletedokumenpendukung/{{ $dokumenpendukung->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $dokumenpendukung->namaDokumen }} ?')"><button class="btn btn-danger btn-sm"><i class="bi bi-trash text-white h7"></i></button></a>
               </td>

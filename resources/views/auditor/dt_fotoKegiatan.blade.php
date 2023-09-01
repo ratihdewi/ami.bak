@@ -48,11 +48,11 @@
             {{-- @endforeach --}}
           <div class="col mb-4">
             <label for="inputnamaphoto" class="form-label fw-semibold">Nama File Foto</label>
-            <input type="text" class="form-control" id="inputnamaphoto" placeholder="contoh: [nama foto] *tanpa tanda kurung siku" name="namaFile">
+            <input type="text" class="form-control" id="inputnamaphoto" placeholder="contoh: [nama foto] *tanpa tanda kurung siku" name="namaFile" required>
           </div>
           <div class="col mb-4">
             <label for="foto" class="form-label fw-semibold">Unggah Foto Kegiatan</label>
-            <input class="form-control" type="file" id="foto" placeholder="Unggah Foto Kegiatan" multiple name="foto">
+            <input class="form-control" type="file" id="foto" placeholder="Unggah Foto Kegiatan" multiple name="foto" required>
             <p class="fw-light fst-italic">*.jpeg, .png, .jpg (maks. 2MB)</p>
           </div>
         </div>

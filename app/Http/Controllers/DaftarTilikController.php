@@ -179,8 +179,12 @@ class DaftarTilikController extends Controller
     public function indexpertahunauditee()
     {
         $data_ = Auditee::orderBy('tahunperiode0', 'ASC')->get();
+        $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
+        $dataUser = Auditee::where('unit_kerja', $unitkerja->name)->orderBy('tahunperiode0', 'ASC')->get();
 
         if (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
+            return view('auditee/daftarTilik-tahun', compact('data_'));
+        } elseif (count(Auth::user()->auditee()->get('user_id')) == 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
             return view('auditee/daftarTilik-tahun', compact('data_'));
         }
     }

@@ -22,7 +22,7 @@
 @endsection
 
 @section('container')
-  <div class="container mb-4">
+  <div class="container vh-100 mb-4">
       <div class="topSection d-flex justify-content-around mx-2 mt-4">
           @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
@@ -51,11 +51,11 @@
             {{-- @endforeach --}}
           <div class="col mb-4">
             <label for="inputNamaDokumen" class="form-label fw-semibold">Nama Dokumen</label>
-            <input type="text" class="form-control" id="inputNamaDokumen" placeholder="contoh: [nama dokumen]_[Revisi 1] *tanpa tanda kurung siku" name="namaFile">
+            <input type="text" class="form-control" id="inputNamaDokumen" placeholder="contoh: [nama dokumen]_[Revisi 1] *tanpa tanda kurung siku" name="namaFile" required>
           </div>
           <div class="col mb-4">
             <label for="dokSahih" class="form-label fw-semibold">Unggah Dokumen Bukti Sahih</label>
-            <input class="form-control" type="file" id="dokSahih" placeholder="Unggah Dokumen Bukti Sahih" multiple name="dokSahih">
+            <input class="form-control" type="file" id="dokSahih" placeholder="Unggah Dokumen Bukti Sahih" multiple name="dokSahih" required>
             <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)</p>
           </div>
         </div>

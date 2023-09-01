@@ -213,7 +213,7 @@ class PertanyaanController extends Controller
 
         if (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditor == 'Belum disetujui Auditor') {
             $request->session()->flash('error', 'Mohon maaf, Auditor belum mengisi AL atau mengajukan persetujuan! Silahkan tunggu!');
-        } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee') {
+        } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee' && $auditee_->ketua_auditee == Auth::user()->name) {
 
             $approve_->approvalAuditee = 'Disetujui Auditee';
 
@@ -231,6 +231,8 @@ class PertanyaanController extends Controller
             $request->session()->flash('error', 'Mohon isikan respon Auditee beserta Dokumen Bukti Sahih terlebih dahulu!');
         } elseif ($approve_->approvalAuditee == 'Disetujui Auditee') {
             $request->session()->flash('success', 'Anda sudah menyetujui Audit Lapangan!');
+        } elseif ($auditee_->ketua_auditee != Auth::user()->name) {
+            $request->session()->flash('error', 'Persetujuan AL hanya dilakukan oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
         }
         // dd($approve_);
         return redirect()->back();
