@@ -53,8 +53,7 @@
                 <td class="text-center">
                     <a href="tampilUser/{{ $item->id }}" class="mx-2"
                         ><button class="bg-primary border-0 rounded-1 me-2"><i class="bi bi-pencil-square text-white"></i></button></a>
-                    <a href="deleteUser/{{ $item->id }}"
-                        ><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                    <a href="deleteUser/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus user {{ $item->name }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                 </td>
             </tr>
             @endforeach

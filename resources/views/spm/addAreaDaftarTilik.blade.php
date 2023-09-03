@@ -39,7 +39,7 @@
                         name="auditee_id"
                         required
                     >
-                        <option selected disabled>Auditee</option>
+                        <option value="">Auditee</option>
                         @foreach ($listAuditee->unique('unit_kerja') as $item)
                         <option value="{{ $item->id }}">
                             {{ $item->unit_kerja }}
@@ -50,10 +50,6 @@
                 <div class="col">
                     <label class="fw-semibold" for="auditor">Auditor</label>
                     <select id="auditor" class="form-select" name="auditor_id"required>
-                        {{-- <option selected disabled>Pilih Auditor</option> --}}
-                        {{-- @foreach ($listAuditor as $item)
-                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                        @endforeach --}}
                     </select>
                 </div>
             </div>
@@ -87,7 +83,7 @@
                 <div class="col">
                     <label class="fw-semibold" for="area">Area Audit</label>
                     <select id="area" class="form-select" name="area" required>
-                        <option selected disabled>Pilih area yang akan diaudit</option>
+                        <option value="">Pilih area yang akan diaudit</option>
                         <option>Pendidikan</option>
                         <option>Penelitian</option>
                         <option>PkM</option>

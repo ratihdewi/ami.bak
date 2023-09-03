@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
@@ -43,7 +44,10 @@ class AuditorController extends Controller
         //             ->get();
         
         // return view('addAuditor', compact('users_', 'tahunAuditor', 'auditees', 'auditors'));
-        return view('addAuditor');
+
+        $currentYear = Carbon::now()->year;
+
+        return view('addAuditor', compact('currentYear'));
     }
 
     public function getnipuser($tahunperiode0, $tahunperiode)
@@ -75,17 +79,19 @@ class AuditorController extends Controller
 
     public function tampildata($id){
         $data = Auditor::find($id);
+        $currentYear = Carbon::now()->year;
         
-        return view('updateAuditor', compact('data'));
+        return view('updateAuditor', compact('data', 'currentYear'));
     }
 
     public function updatedata(Request $request, $id)
     {
+        // dd($request->all());
         $data = Auditor::find($id);
         $dataAuditorUsers = User::where('nip', $data->nip)->get();
         
         foreach ($dataAuditorUsers as $key => $dataAuditorUser) {
-            if ( $dataAuditorUser->nip == $request->nip && $dataAuditorUser->name == $request->nama && $dataAuditorUser->unit_kerja == $request->program_studi && $dataAuditorUser->unit_kerja == $request->fakultas ) {
+            if ( $dataAuditorUser->nip == $request->nip && $dataAuditorUser->name == $request->nama && $dataAuditorUser->unitkerja->name == $request->program_studi && $dataAuditorUser->unitkerja->name == $request->fakultas ) {
                 
                 $data->update($request->all());
                 $dataAuditorUser->update([
