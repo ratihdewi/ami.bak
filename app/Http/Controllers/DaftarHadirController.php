@@ -97,41 +97,47 @@ class DaftarHadirController extends Controller
 
     public function storedaftarhadir(Request $request, $auditee_id)
     {
-        $users_ = User::all();
+        // dd($request->addmore);
+        if ($request->addmore == null) {
+            return redirect()->back()->with('error', 'Tidak ada data yang ditambahkan!');
+        } else {
+            $users_ = User::all();
 
-        $request->validate([
-            'addmore.*.beritaacara_id' => 'required',
-            'addmore.*.posisi' => 'required',
-            'addmore.*.namapeserta' => 'required',
-            'addmore.*.namapenginput' => 'required',
-        ]);
-        
-        foreach ($users_ as $key => $user) {
-            foreach ($request->addmore as $key => $value) {
+            $request->validate([
+                'addmore.*.beritaacara_id' => 'required',
+                'addmore.*.posisi' => 'required',
+                'addmore.*.namapeserta' => 'required',
+                'addmore.*.namapenginput' => 'required',
+            ]);
+            
+            foreach ($users_ as $key => $user) {
+                foreach ($request->addmore as $key => $value) {
 
-                $user_ = User::where('name', $value['namapeserta'])->first();
-                $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
-                $notExist = DaftarHadir::where('namapeserta', $value['namapeserta'])->where('beritaacara_id', $beritaacara_->id)->doesntExist();
-                $existAuditor_ = Auditor::where('user_id', $user_->id);
-                $existAuditee_ = Auditee::where('user_id', $user_->id);
+                    $user_ = User::where('name', $value['namapeserta'])->first();
+                    $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
+                    $notExist = DaftarHadir::where('namapeserta', $value['namapeserta'])->where('beritaacara_id', $beritaacara_->id)->doesntExist();
+                    $existAuditor_ = Auditor::where('user_id', $user_->id);
+                    $existAuditee_ = Auditee::where('user_id', $user_->id);
 
-                // dd($auditee);
-                if ($notExist) {
-                    $daftarhadir = new DaftarHadir;
-                    $daftarhadir->beritaacara_id = $value['beritaacara_id'];
-                    $daftarhadir->posisi = $value['posisi'];
-                    $daftarhadir->namapeserta = $value['namapeserta'];
-                    $daftarhadir->namapenginput = $value['namapenginput'];
-                    $daftarhadir->save();
-                    $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
-                } elseif (!$notExist) {
-                    $return = redirect()->back()->with('error', 'Data peserta sudah tersedia!');
-                } elseif ($value['namapeserta'] != $user->name && $value['posisi'] != $user->role) {
-                    $return = redirect()->back()->with('error', 'Data peserta tidak terdaftar!');
+                    // dd($auditee);
+                    if ($notExist) {
+                        $daftarhadir = new DaftarHadir;
+                        $daftarhadir->beritaacara_id = $value['beritaacara_id'];
+                        $daftarhadir->posisi = $value['posisi'];
+                        $daftarhadir->namapeserta = $value['namapeserta'];
+                        $daftarhadir->namapenginput = $value['namapenginput'];
+                        $daftarhadir->save();
+                        $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
+                    } elseif (!$notExist) {
+                        $return = redirect()->back()->with('error', 'Data peserta sudah tersedia!');
+                    } elseif ($value['namapeserta'] != $user->name && $value['posisi'] != $user->role) {
+                        $return = redirect()->back()->with('error', 'Data peserta tidak terdaftar!');
+                    }
                 }
             }
+        
+            return $return;
         }
-        return $return;
     }
 
     public function deletedaftarhadir($id)

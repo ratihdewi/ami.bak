@@ -29,7 +29,7 @@
           @endif
       </div>
 
-      <form action="/auditor-BA-updatepeluangpeningkatan/{{ $peningkatan_->id}}" method="POST">
+      <form id="myForm" action="/auditor-BA-updatepeluangpeningkatan/{{ $peningkatan_->id}}" method="POST">
         @csrf
         {{-- Peluang Peningkatan --}}
         <div class="row sectionName mx-0 m-5">
@@ -44,7 +44,7 @@
                 <div class="col-12 mb-4">
                     
                     <label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang</label>
-                    <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]" value="{{ $peningkatan_->aspek }}">
+                    <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]" value="{{ $peningkatan_->aspek }}" required>
                     
                 </div>
                 <div class="col-12 form-floating">
@@ -52,12 +52,14 @@
                 </div>
                 <div class="col-12 form-floating mb-4">
                   <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]" value="{{ $peningkatan_->kelebihan }}">{{ $peningkatan_->kelebihan }}</textarea>
+                  <div id="error-message" style="color: red;"></div>
                 </div>
                 <div class="col-12 form-floating">
                   <p for="inputPeluang" class="form-label fw-semibold">Peluang untuk Peningkatan</p>
                 </div>
                 <div class="col-12 form-floating mb-4">
                   <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]" value="{{ $peningkatan_->peningkatan }}">{{ $peningkatan_->peningkatan }}</textarea>
+                  <div id="error-message-peluang" style="color: red;"></div>
                 </div>
             </div>
         </div>
@@ -87,5 +89,27 @@
         .catch( error => {
             console.error( error );
         } );
+  </script>
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+      var kelebihanTextarea = document.getElementById("inputKelebihan");
+      var peluangTextarea = document.getElementById("inputPeluang");
+      var errorMessage = document.getElementById("error-message");
+      var errorMessagePeluang = document.getElementById("error-message-peluang");
+
+      if (kelebihanTextarea.value === "") {
+        errorMessage.textContent = "Kolom kelebihan harus diisi!";
+        event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+      } else {
+        errorMessage.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+      }
+
+      if (peluangTextarea.value === "") {
+        errorMessagePeluang.textContent = "Kolom peluang untuk peningkatan harus diisi!";
+        event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+      } else {
+        errorMessagePeluang.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+      }
+    });
   </script>
 @endpush

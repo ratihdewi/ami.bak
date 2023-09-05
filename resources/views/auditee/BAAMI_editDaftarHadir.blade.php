@@ -29,13 +29,25 @@
 @endsection
 
 @section('container')
-    <div class="container mb-3 mb-5">
+    <div class="container vh-100 mb-3">
         <form action="/BA-savedaftarhadir/{{ $beritaacara_->auditee_id }}" method="post">
           @csrf
           {{-- Berita Acara AMI - Daftar Hadir --}}
-          <div class="row sectionName mx-4 mb-5 mt-5">
-              <div class="col border rounded-top text-center py-2 fw-semibold">Berita Acara AMI - Daftar Hadir</div>  
+          <div class="row topSection d-flex justify-content-around mx-2 mt-5">
+            @if ($message = Session::get('success'))
+              <div class="alert alert-success" role="alert">
+                  {{ $message }}
+              </div>
+            @elseif ($message = Session::get('error'))
+              <div class="alert alert-danger" role="alert">
+                  {{ $message }}
+              </div>
+            @endif
+            <div class="row sectionName mx-4 mb-5 mt-3">
+                <div class="col border rounded-top text-center py-2 fw-semibold">Berita Acara AMI - Daftar Hadir</div>  
+            </div>
           </div>
+          
           <div class="row" hidden>
             <label for="unit_kerja" class="form-label fw-semibold">Unit Kerja</label>
             <input type="text" class="form-control" id="unit_kerja" placeholder="Masukkan unit kerja" value="{{ $unit_kerja->unit_kerja }}">
@@ -65,7 +77,7 @@
                 <div class="col-4 mb-4">
                   @foreach ($daftarhadir_ as $daftarhadir)
                   <label for="inputPosisi1" class="form-label fw-semibold">Auditor/Auditee:</label>
-                  <select id="inputPosisi1" class="form-select mb-4" value="{{ $daftarhadir->posisi }}">
+                  <select id="inputPosisi1" class="form-select mb-4" value="{{ $daftarhadir->posisi }}" disabled>
                       <option selected disabled>{{ $daftarhadir->posisi }}</option>
                       <option value="Auditor" disabled>Auditor</option>
                       <option value="Auditee">Auditee</option>
@@ -75,7 +87,7 @@
                 <div class="col-7 mb-4">
                   @foreach ($daftarhadir_ as $daftarhadir)
                   <label for="inputAbsenNama1" class="form-label fw-semibold">Nama</label>
-                  <select id="inputAbsenNama1" class="form-select mb-4" value="{{ $daftarhadir->namapeserta }}">
+                  <select id="inputAbsenNama1" class="form-select mb-4" value="{{ $daftarhadir->namapeserta }}" disabled>
                     <option>{{ $daftarhadir->namapeserta }}</option>
                   </select>
                   @endforeach

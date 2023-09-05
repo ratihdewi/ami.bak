@@ -112,7 +112,7 @@ Route::get('/daftartilik-periode', [DaftarTilikController::class, 'indexpertahun
 Route::get('/auditor-searchAuditor', [AuditorController::class, 'getAuditor'])->name('auditor-searchAuditor');
 Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
 Route::get('/tambahauditee-searchAuditor/{tahun}', [AuditeeController::class, 'getAuditor'])->name('searchAuditor');
-Route::get('tambahauditee-searchnipuser/{tahun}', [AuditeeController::class, 'getnipuser'])->name('searchnipuser');
+Route::get('tambahauditee-searchnipuser/{tahunAwal}/{tahun}', [AuditeeController::class, 'getnipuser'])->name('searchnipuser');
 Route::get('/tambahauditor-searchnipuser/{tahunAwal}/{tahun}', [AuditorController::class, 'getnipuser'])->name('auditor-searchnipuser');
 Route::get('/usercontrol', [UserController::class, 'index'])->name('daftaruser');
 Route::get('/addUser', [UserController::class, 'tambahuser'])->name('tambahuser');
@@ -196,8 +196,11 @@ Route::get('/editjadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'edit
 Route::post('/updatejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'updatejadwalami'])->name('updatejadwalami-keseluruhan');
 Route::get('/deletejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
 // Route::get('/generateqrcode/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
-Route::get('/tindakankoreksi-store/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('tindakankoreksi-store');
-Route::get('/create-batasan-akses-auditor', [TindakanKoreksiController::class, 'store'])->name('create-batasan-akses-auditor');
+Route::post('/tindakankoreksi-store/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('tindakankoreksi-store');
+// Route::get('/tindakankoreksi-storerencanatindakan/{noPTK}', [TindakanKoreksiController::class, 'storerencanatindakan'])->name('tindakankoreksi-storerencanatindakan');
+Route::get('/tindakankoreksi-signakarpenyebab/{noPTK}', [TindakanKoreksiController::class, 'signakarpenyebab'])->name('tindakankoreksi-signakarpenyebab');
+Route::get('/tindakankoreksi-signrencanatindakan/{noPTK}', [TindakanKoreksiController::class, 'signrencanatindakan'])->name('tindakankoreksi-signrencanatindakan');
+// Route::get('/create-batasan-akses-auditor', [TindakanKoreksiController::class, 'store'])->name('create-batasan-akses-auditor');
 
 // Role Auditor
 Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

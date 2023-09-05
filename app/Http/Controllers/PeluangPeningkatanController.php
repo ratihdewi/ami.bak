@@ -65,6 +65,11 @@ class PeluangPeningkatanController extends Controller
 
     public function updatepeluangpeningkatan(Request $request, $id)
     {
+        $request->validate([
+            'addmore.*.aspek' => 'required', // Ini adalah contoh validasi untuk memeriksa input ini wajib diisi.
+            // ... validasi lainnya ...
+        ]);
+
         $peningkatan_ = PeluangPeningkatan::find($id);
         $beritaacara_ = BeritaAcara::where('id', $peningkatan_->beritaacara_id)->first();
 
