@@ -50,13 +50,14 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label class="fw-semibold" for="namaAuditor" class="form-label">Nama</label>
-                                    <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor"/>
+                                    <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor" readonly/>
                                 </div>
                                 <div class="col">
                                     <label class="fw-semibold" for="nomorTelepon" class="form-label">Nomor Telepon</label>
                                     <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon"
                                         placeholder="Nomor Telepon"
                                         aria-label="Nomor Telepon"
+                                        readonly
                                     />
                                 </div>
                             </div>
@@ -72,6 +73,7 @@
                                         id="fakultas"
                                         placeholder="Fakultas"
                                         aria-label="Fakultas"
+                                        readonly
                                     />
                                 </div>
                                 <div class="col">
@@ -85,6 +87,7 @@
                                         id="programstudi"
                                         placeholder="Program Studi"
                                         aria-label="Program Studi"
+                                        readonly
                                     />
                                 </div>
                             </div>
@@ -200,7 +203,7 @@
                 thPeriode0 = parseInt(thPeriode0);
                 thPeriode1 = parseInt(thPeriode1);
 
-                let firstDate = new Date(thPeriode0, 1, 1);
+                let firstDate = new Date(thPeriode0, 0, 1);
                 let lastDate = new Date(thPeriode1, 11, 31);
 
                 let minfirstDate = firstDate.toISOString().slice(0, 10);
@@ -245,14 +248,13 @@
 
             // Dapatkan nilai input
             let inputValue = parseInt(inputElement.value);
-
-            console.log('0 : ' + inputValue);
+            let maxvalue = maxValue + 1;
 
             // Validasi input
             if (isNaN(inputValue)) {
                 validationMessageElement.textContent = "Input bukan angka. Silakan masukkan angka.";
             } else if ((inputValue < minValue || inputValue > maxValue)) {
-                validationMessageElement.textContent = "Harap masukkan tahun periode antara " + minValue + " dan " + 2023 + ".";
+                validationMessageElement.textContent = "Harap masukkan tahun periode antara " + minValue + " dan " + maxvalue + ".";
                 validationMessageElement.style.marginTop = '5px';
             } else {
                 validationMessageElement.textContent = ""; // Hapus pesan validasi jika input valid
