@@ -34,17 +34,6 @@ class AuditorController extends Controller
 
     public function tambahauditor()
     {
-        // $tahunAuditor = Auditor::where('tahunperiode', $tahunperiode);
-
-        // $auditees = Auditee::where('tahunperiode', $tahunperiode)->pluck('user_id');
-        // $auditors = Auditor::where('tahunperiode', $tahunperiode)->pluck('user_id');
-
-        // $users_ = User::whereNotIn('id', $auditees)
-        //             ->whereNotIn('id', $auditors)->where('nip', 'LIKE', '%'.request('q').'%')
-        //             ->get();
-        
-        // return view('addAuditor', compact('users_', 'tahunAuditor', 'auditees', 'auditors'));
-
         $currentYear = Carbon::now()->year;
 
         return view('addAuditor', compact('currentYear'));
@@ -86,14 +75,18 @@ class AuditorController extends Controller
 
     public function updatedata(Request $request, $id)
     {
-        // dd($request->all());
+        
         $data = Auditor::find($id);
         $dataAuditorUsers = User::where('nip', $data->nip)->get();
         
         foreach ($dataAuditorUsers as $key => $dataAuditorUser) {
-            if ( $dataAuditorUser->nip == $request->nip && $dataAuditorUser->name == $request->nama && $dataAuditorUser->unitkerja->name == $request->program_studi && $dataAuditorUser->unitkerja->name == $request->fakultas ) {
-                
-                $data->update($request->all());
+            if ( $dataAuditorUser->nip == $request->nip && $dataAuditorUser->name == $request->nama && $dataAuditorUser->unitkerja->name == $request->program_studi && $dataAuditorUser->unitkerja->fakultas == $request->fakultas ) {
+                $data->update([
+                    "tahunperiode0" => $request->tahunperiode0,
+                    "tahunperiode" =>$request->tahunperiode,
+                    "tgl_mulai" => $request->tgl_mulai,
+                    "tgl_berakhir" => $request->tgl_berakhir,
+                ]);
                 $dataAuditorUser->update([
                     'noTelepon' => $request->noTelepon,
                 ]);

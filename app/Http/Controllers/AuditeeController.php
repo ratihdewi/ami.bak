@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
@@ -27,8 +28,9 @@ class AuditeeController extends Controller
     public function tambahauditee()
     {
         $unitkerjas = UnitKerja::all();
+        $currentYear = Carbon::now()->year;
 
-        return view('addAuditee', compact('unitkerjas'));
+        return view('addAuditee', compact('unitkerjas', 'currentYear'));
     }
 
     public function getAuditee()
@@ -45,10 +47,10 @@ class AuditeeController extends Controller
         return response()->json($auditor_);
     }
 
-    public function getnipuser($tahun)
+    public function getnipuser($tahunperiode0, $tahunperiode)
     {
-        $auditees = Auditee::where('tahunperiode', $tahun)->pluck('user_id');
-        $auditors = Auditor::where('tahunperiode', $tahun)->pluck('user_id');
+        $auditees = Auditee::where('tahunperiode0', $tahunperiode0)->where('tahunperiode', $tahunperiode)->pluck('user_id');
+        $auditors = Auditor::where('tahunperiode0', $tahunperiode0)->where('tahunperiode', $tahunperiode)->pluck('user_id');
 
         $data = User::whereNotIn('id', $auditees)
                     ->whereNotIn('id', $auditors)->where('nip', 'LIKE', '%'.request('q').'%')
