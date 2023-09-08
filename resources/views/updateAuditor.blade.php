@@ -38,13 +38,13 @@
                                         <div class="row">
                                             <label for="tahunperiode" class="form-label">Tahun Periode</label>
                                             <div class="col-sm-5">
-                                                <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" max="{{ $currentYear }}" aria-label="Tahun Akhir" value="{{ $data->tahunperiode0 }}" oninput="validateInput()" required/>
+                                                <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" max="{{ $currentYear }}" aria-label="Tahun Akhir" value="{{ $data->tahunperiode0 }}" oninput="validateInput()" required readonly/>
                                             </div>
                                             <div class="col-sm-2 text-center">
                                                 <h3 class="">/</h3>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input type="number" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Akhir" aria-label="Tahun Akhir" value="{{ $data->tahunperiode }}" onchange="validateChange()" required/>
+                                                <input type="number" name="tahunperiode" class="form-control" id="tahunperiode" placeholder="Tahun Akhir" aria-label="Tahun Akhir" value="{{ $data->tahunperiode }}" onchange="validateChange()" required readonly/>
                                             </div>
                                         </div>
                                         <p id="validationMessage" style="color: red; font-size: 10px;"></p>
@@ -59,11 +59,11 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="namaAuditor" class="form-label">Nama</label>
-                                        <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor" value="{{ $data->nama }}"/>
+                                        <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor" value="{{ $data->nama }}" readonly/>
                                     </div>
                                     <div class="col">
                                         <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
-                                        <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}"/>
+                                        <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}" readonly/>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -79,6 +79,7 @@
                                             placeholder="Fakultas"
                                             aria-label="Fakultas"
                                             value="{{ $data->fakultas }}"
+                                            readonly
                                         />
                                     </div>
                                     <div class="col">
@@ -93,6 +94,7 @@
                                             placeholder="Program Studi"
                                             aria-label="Program Studi"
                                             value="{{ $data->program_studi }}"
+                                            readonly
                                         />
                                     </div>
                                 </div>
@@ -263,6 +265,37 @@
 
             let tglMulai = document.getElementById('tanggalmulai');
             let tglberakhir = document.getElementById('tanggalberakhir');
+            let tahunAwal = $('#tahunperiode0').val();
+            let tahun = $('#tahunperiode').val();
+
+            console.log("tahun periode : " + tahunAwal + "/" + tahun);
+
+            $.ajax({
+                url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    console.log(data);
+                    if (Array.isArray(data)) {
+                        var mappedData = data.map(function(item) {
+                            return {
+                                id: item.nip,
+                                text: item.nip,
+                            };
+                        });
+
+                        $('#nipAuditor').select2({
+                            data: mappedData,
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                },
+                error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
 
             $('#tahunperiode0').change(function () {
                 let tahunAwal = parseInt($('#tahunperiode0').val());
@@ -381,6 +414,8 @@
                 }
 
             })
+
+            $('#nipAuditor').select2();
         });
 
         function validateInput() {

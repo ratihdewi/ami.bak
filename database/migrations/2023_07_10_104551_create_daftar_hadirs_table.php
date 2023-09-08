@@ -19,6 +19,7 @@ class CreateDaftarHadirsTable extends Migration
             $table->String('posisi');
             $table->String('namapeserta');
             $table->String('namapenginput');
+            $table->String('deletedBy')->nullable();
             $table->String('eSign')->default('Hadir');
             $table->foreign('beritaacara_id')->references('id')->on('berita_acaras')->onUpdate('cascade')
             ->onDelete('cascade');

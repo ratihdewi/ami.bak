@@ -65,11 +65,9 @@ a {
 .l-navbar:hover {
     position: fixed;
     top: 0;
-    /* left: -30%; */
     width: calc(var(--nav-width) + 156px);
     height: 100vh;
     background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%);
-    /* padding: 0.5rem 1rem 0 0; */
     transition: 0.5s;
     z-index: var(--z-fixed);
 }
@@ -393,6 +391,8 @@ span.fc-title {
 .auditorSection2 button.btn.btn-success.approvalAuditor2 {
     background: #b4ddb8;
     border: 1px solid #008f0e;
+    color: #008f0e;
+    font-weight: bold;
 }
 
 tr.row.header_areadaftartilik,
@@ -421,3 +421,51 @@ tr.row.header_pertanyaandaftartilik {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* Tindakan Koreksi */
+@media screen and (max-width: 768px)
+{
+    .formTindakanKoreksi {
+        overflow-x: auto;
+    }
+
+    .headerInfo,
+    .auditorSection,
+    .auditeeSection,
+    .auditorSection2,
+    .btn-formTindakanKoreksi {
+        width: 250%;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px)
+{
+    .formTindakanKoreksi {
+        overflow-x: auto;
+    }
+
+    .headerInfo,
+    .auditorSection,
+    .auditeeSection,
+    .auditorSection2,
+    .btn-formTindakanKoreksi {
+        
+        width: 300%;
+    }
+}
+
+@media screen and (max-width: 320px)
+{
+    .formTindakanKoreksi {
+        overflow-x: auto;
+    }
+
+    .headerInfo,
+    .auditorSection,
+    .auditeeSection,
+    .auditorSection2,
+    .btn-formTindakanKoreksi {
+        width: 500%;
+    }
+}
+

@@ -121,10 +121,10 @@
       {{-- </form> --}}
       @endforeach
       @endforeach
-    
+      {{-- {{ $data }} --}}
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
       @foreach ($data as $item)
-      <form action="/daftartilik-insertpertanyaan" method="POST" enctype="multipart/form-data">
+      <form id="myForm" action="/daftartilik-insertpertanyaan" method="POST" enctype="multipart/form-data">
       @endforeach
         @csrf
         <div id="temuanDT" class="card mt-4 mb-1 mx-4 px-3">
@@ -145,7 +145,7 @@
             <div class="col">
                 <input
                     type="number"
-                    id="auditee_id"
+                    id="auditee_id_"
                     class="form-control"
                     placeholder="Masukkan tempat pelaksanaan"
                     aria-label="Masukkan tempat pelaksanaan"
@@ -256,13 +256,26 @@
                 </div>
               </div>
             </div>
+            {{-- {{ $pertanyaan_id }} --}}
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              @foreach ($data as $item)
-              <a href="/spm-editfotokegiatan/{{ $item->auditee_id }}/{{ $item->auditee->tahunperiode }}">
-              @endforeach
+              {{-- <a href="#"> --}}
                 <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
-              </a>
+              {{-- </a> --}}
+              {{-- @if ($pertanyaan_id != null)
+                @foreach ($data as $item)
+                <a href="/spm-editfotokegiatan/{{ $item->auditee_id }}/{{ $item->auditee->tahunperiode }}/{{ $pertanyaan_id }}">
+                @endforeach
+                  <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+                </a>
+              @else
+                @foreach ($data as $item)
+                <a href="/fotokegiatan/{{ $item->auditee_id }}">
+                @endforeach
+                  <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+                </a>
+              @endif --}}
+              
             </div>
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
@@ -316,17 +329,171 @@
             }
         }
 
+        var isInputPending = false; // Menyimpan status input yang tertunda
+        var questionId = null; // Menyimpan ID pertanyaan yang sudah ada
+        var idPertanyaan = null;
+
+        var inputElements = document.querySelectorAll('input, textarea, select');
+
+        // Tambahkan event listener ke setiap elemen input untuk mengatur isInputPending menjadi true saat ada perubahan
+        inputElements.forEach(function(input) {
+            input.addEventListener('input', function() {
+                isInputPending = true;
+            });
+        });
+
+        window.addEventListener('beforeunload', function(event) {
+          if (isInputPending) {
+            
+            var confirmationMessage = 'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman? Data yang belum disimpan akan hilang.';
+            var userConfirmed = window.confirm(confirmationMessage);
+            
+            // Jika pengguna memilih "Batal," cegah perubahan halaman
+            if (!userConfirmed) {
+                event.preventDefault();
+                event.returnValue = '';
+            }
+            
+            // Jika pengguna memilih "OK," panggil fungsi saveFormData
+            if (userConfirmed) {
+                saveFormData();
+            }
+        }
+        });
+
+        function saveFormData() {
+          // Menggunakan AJAX untuk mengirim data ke server
+          var formData = new FormData(document.getElementById('myForm'));
+          idPertanyaan = null;
+
+          // Jika ada ID pertanyaan yang sudah ada, kirimkan ID tersebut bersama data form
+          if (questionId !== null) {
+              formData.append('question_id', questionId);
+          }
+
+          // Mengembalikan promise
+          return new Promise(function(resolve, reject) {
+              $.ajax({
+                  url: '/daftartilik-autosavepertanyaan', // Ganti dengan URL endpoint server Anda
+                  method: 'POST',
+                  data: formData,
+                  processData: false,
+                  contentType: false,
+                  success: function(response) {
+                      // Jika server mengembalikan ID pertanyaan, simpan ID tersebut
+                      if (response.hasOwnProperty('question_id')) {
+                          questionId = response.question_id;
+                      }
+                      // Berikan umpan balik ke pengguna jika sukses
+                      console.log('Data berhasil disimpan');
+                      console.log(response);
+                      idPertanyaan = response.data.id;
+                      console.log("ID Pertanyaan = " + idPertanyaan);
+                      
+                      // Setelah penyimpanan berhasil, atur isInputPending menjadi false
+                      isInputPending = false;
+                      resolve(response); // Mengembalikan response
+                  },
+                  error: function(error) {
+                      // Tangani kesalahan jika terjadi
+                      console.error('Terjadi kesalahan saat menyimpan data');
+                      // Setelah terjadi kesalahan, atur isInputPending menjadi false untuk mencegah autosave terus-menerus
+                      isInputPending = false;
+                      reject(error); // Mengembalikan error
+                  }
+              });
+          });
+        }
+
   $(document).ready(function(){
     var max_fields = 50;
     var wrapper = $("#temuanDT");
     var add_btn = $(".moreItems_add");
     var i = 1;
+    var auditee_id = $('#auditee_id_').val();
+    var butirStandar;
+    var nomorButir;
+    var pertanyaan;
+    var indikatorMutu;
+    var targetStandar;
+    var inputButirStandar;
+    var referensi;
+    var keterangan;
+    var responAuditee;
+    var responAuditor;
+    var kategori;
+    var narasiPLOR;
+    var inisialAuditor;
+    var skorAuditor;
+
+    console.log(auditee_id);
+    // console.log(butirStandar);
+
+    $('#butirStandar').change(function() {
+      var bs = $(this).val();
+      $('#inputButirStandar').val(bs);
+    });
+
     $(add_btn).click(function(e){
       e.preventDefault();
       if (i < max_fields) {
         i++;
         
         $(wrapper).append('<div id="temuanDT" class="card mt-5 mb-4 mx-4 px-3"><div class="row g-3 my-4 mx-3"><div class="col"><label for="butirStandar" class="visually-hidden">Butir Standar</label><input id="butirStandar" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar"></div><div class="col"><label for="nomorButir" class="visually-hidden">Nomor Butir</label><input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir" aria-label="Masukkan Nomor Butir"></div></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px"></textarea><label for="pertanyaan">Masukkan pertanyaan disini</label></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu"></textarea><label for="indikatorMutu">Masukkan indikator mutu disini</label></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar"></textarea><label for="targetStandar">Masukkan target standar</label></div><div class="inputGrupText row justify-content-between g-3 mb-4 mx-4"><div class="col-7 border rounded me-5"><div class="row g-3 my-4 mx-3"><div class="col inputButirStandar"><label for="inputButirStandar" class="form-label">Butir Standar</label><input type="text" class="form-control" id="inputButirStandar"></div><div class="col inputReferensi"><label for="inputReferensi" class="form-label">Referensi</label><input type="text" class="form-control" id="inputReferensi"></div></div></div><div class="col-4 border rounded ms-5"><div class="row g-3 my-4 mx-3"><div class="col inputKeterangan"><label for="inputKeterangan" class="form-label">Keterangan</label><input type="text" class="form-control" id="inputKeterangan"></div></div></div></div><label for="#" class="mb-4 mx-4">Respon Auditee</label><div class="row g-3 mb-4 mx-4 border rounded"><div class="col my-4"><label for="inputDokSahih" class="form-label mx-4">Dokumen Bukti Sahih</label><div class="input-group mx-4 mb-4"><input type="file" class="form-control" id="inputDokSahih" aria-describedby="inputGroupFileAddon04" aria-label="Upload"><button class="btn btn-outline-secondary me-5" type="button" id="inputGroupFileAddon04">Unggah</button></div><div class="form-floating mb-3 mx-4"><textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px"></textarea><label for="responAuditee">Tuliskan respon Auditee disini</label></div></div></div><div class="form-floating mb-4 mx-4"><textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px"></textarea><label for="responAuditor">Tuliskan respon Auditor disini</label></div><div class="row g-3 mb-4 mx-3"><div class="col"><label for="kategoriTemuan" class="form-label">Kategori Temuan</label><div id="kategoriTemuan" class="border rounded ps-4 py-2"><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriKTS" value="KTS" onclick="display()"><label class="form-check-label" for="kategoriKTS">KTS</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriOB" value="OB" onclick="display()"><label class="form-check-label" for="kategoriOB">OB</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="kategoriTemuan" id="kategoriSesuai" value="Sesuai" onclick="display()"><label class="form-check-label" for="kategoriSesuai">Sesuai</label></div></div></div><div class="col"><label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label><input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan"></div></div><div id="narasiPLOR" class="form-floating mb-4 mx-4"></div><div class="row g-3 mb-4 mx-4"><div class="col border rounded px-4 py-4 me-2"><label for="inisialAuditor" class="form-label">Inisial Auditor</label><input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Butir Standar"></div><div class="col border rounded px-4 py-4 ms-2"><label for="skorAuditor" class="form-label">Skor Auditor</label><input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor"></div></div></div>')
+      }
+    });
+
+    $('#fotoKegiatan').click(function() {
+      butirStandar = $('#butirStandar').val();
+      nomorButir = $('#nomorButir').val();
+      pertanyaan = $('#pertanyaan').val();
+      indikatorMutu = $('#indikatorMutu').val();
+      targetStandar = $('#targetStandar').val();
+      referensi = $('#inputReferensi').val();
+      keterangan = $('#inputKeterangan').val();
+      responAuditee = $('#responAuditee').val();
+      responAuditor = $('#responAuditor').val();
+      kategori = $('#kategoriTemuan').val();
+      narasiPLOR = $('#narasiPLOR').val();
+      inisialAuditor = $('#inisialAuditor').val();
+      skorAuditor = $('#skorAuditor').val();
+      tahunperiode = "{{ $pertanyaan_id->auditee->tahunperiode }}";
+      console.log(tahunperiode);
+      console.log(butirStandar);
+
+      
+      if (butirStandar == '' && nomorButir == '' && pertanyaan == '' && indikatorMutu == '' && targetStandar == '' && referensi == '' && keterangan == '' && responAuditee == '' && responAuditor == '' && kategori == '' && narasiPLOR == '' && inisialAuditor == '' && skorAuditor == '') {
+        console.log("Gagal");
+        $.ajax({
+          url: '/fotokegiatan/' + auditee_id,
+          method: 'GET',
+          success: function(data){
+            console.log("sukses url");
+            console.log("ID Pertanyaan di foto kegiatan = " + idPertanyaan);
+            window.location.href = '/fotokegiatan/' + auditee_id;
+          }
+        });
+      } else if (butirStandar != '' || nomorButir != '' || pertanyaan != '' || indikatorMutu != '' || targetStandar != '' || referensi != '' || keterangan != '' || responAuditee != '' || responAuditor != '' || kategori != '' || narasiPLOR != '' || inisialAuditor != '' || skorAuditor != '') {
+        saveFormData().then(function(response) {
+            // Di sini Anda bisa menggunakan nilai response.data.id
+            var idPertanyaan = response.data.id;
+            console.log("Nilai ID Pertanyaan di foto = " + idPertanyaan);
+            // Lakukan operasi lain dengan nilai tersebut
+            
+            $.ajax({
+              url: '/spm-editfotokegiatan/' + auditee_id + '/' + tahunperiode + '/' + idPertanyaan,
+              method: 'GET',
+              success: function(data){
+                console.log("sukses url");
+                console.log("ID Pertanyaan di foto kegiatan = " + idPertanyaan);
+                window.location.href = '/spm-editfotokegiatan/' + auditee_id + '/' + tahunperiode + '/' + idPertanyaan;
+              }
+            });
+        }).catch(function(error) {
+            // Tangani kesalahan jika terjadi
+            console.error('Terjadi kesalahan: ' + error);
+        });
+        console.log("Terisi");
       }
     });
   });

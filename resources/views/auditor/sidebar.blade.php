@@ -31,7 +31,7 @@
             </a>
             <a
                 href="/auditor-daftartilik-periode"
-                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-periode') ? 'active' : '' || Request::routeIs('auditor-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditor-dokumensahih') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-periode') ? 'active' : '' || Request::routeIs('auditor-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditor-dokumensahih') ? 'active' : '' || Request::routeIs('auditor-fotokegiatan') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -55,7 +55,7 @@
             </a>
             <a
                 href="/auditor-beritaacara"
-                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('auditor-auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('auditor-BA-AMI') ? 'active' : '' || Request::routeIs('auditor-BA-daftarhadir') ? 'active' : '' || Request::routeIs('auditor-BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('auditor-BA-editpeluangpeningkatan') ? 'active' : '' || Request::routeIs('auditor-BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('auditor-BAAMI-pratinjauBA') ? 'active' : '' || Request::routeIs('auditor-fotokegiatan') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('auditor-beritaacara') ? 'active' : '' || Request::routeIs('auditor-auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('auditor-BA-AMI') ? 'active' : '' || Request::routeIs('auditor-BA-daftarhadir') ? 'active' : '' || Request::routeIs('auditor-BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('auditor-BA-editpeluangpeningkatan') ? 'active' : '' || Request::routeIs('auditor-BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('auditor-BAAMI-pratinjauBA') ? 'active' : '' || Request::routeIs('auditor-fotokegiatanBA') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

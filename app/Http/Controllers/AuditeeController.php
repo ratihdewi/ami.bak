@@ -64,7 +64,6 @@ class AuditeeController extends Controller
     {
         $isAlreadyExistAuditee = Auditee::where('tahunperiode', $request->tahunperiode)->where('unit_kerja', $request->unit_kerja)->exists();
 
-        // dd($isAlreadyExistAuditee);
 
         if ($request->ketua_auditor == $request->anggota_auditor || $request->ketua_auditor == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditor tidak dapat menjadi anggota Auditor secara bersamaan!');
@@ -94,9 +93,12 @@ class AuditeeController extends Controller
         $data = Auditee::find($id);
         $existAuditor = Auditor::where('user_id', $data->user_id)->where('tahunperiode', $data->tahunperiode)->exists();
         $unitkerja = UnitKerja::where('name', $request->unit_kerja)->first();
-        $existKetuaAuditee = User::where('nip', $request->nip)->where('unitkerja_id', $unitkerja->id)->doesntExist();
-        // dd($existKetuaAuditee);
-
+        if ($unitkerja != null) {
+            $existKetuaAuditee = User::where('nip', $request->nip)->where('unitkerja_id', $unitkerja->id)->where('name', $request->ketua_auditee)->where('jabatan', $request->jabatan_ketua_auditee)->doesntExist();
+        } else {
+            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Unit kerja tidak terdaftar!');
+        }
+        
         if ($existAuditor) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data sudah terdaftar sebagai Auditor di tahun yang sama!');
         } elseif ($request->ketua_auditee == $request->ketua_auditor || $request->ketua_auditee == $request->anggota_auditor || $request->ketua_auditee == $request->anggota_auditor2) {
@@ -106,7 +108,9 @@ class AuditeeController extends Controller
         } elseif ($request->anggota_auditor == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Tim Auditor tidak dapat memiliki anggota auditor yang sama!');
         } elseif ($existKetuaAuditee) {
-            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'User '.$request->ketua_auditee.' tidak terdaftar pada unit kerja '.$data->unit_kerja.' !');
+            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'User ('.$request->ketua_auditee.') tidak terdaftar pada unit kerja ('.$data->unit_kerja.') !');
+        } elseif ($unitkerja == null) {
+            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Unit kerja tidak terdaftar!');
         } else {
             $data->update($request->all());
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');
@@ -120,32 +124,18 @@ class AuditeeController extends Controller
         return redirect()->route('auditee', ['tahunperiode' => $data->tahunperiode])->with('success', 'Data berhasil dihapus');
     }
 
-    // public function autocomplete(Request $request)
-    // {
-    //     $datas = User::select("name")->where('role','LIKE','%'.'Auditee'.'%')
-    //             ->where("name","LIKE","%{$request->input('query')}%")
-    //             ->get();
-    //     $dataModified = array();
-    //     foreach ($datas as $data)
-    //     {
-    //     $dataModified[] = $data->name;
-    //     }
-    //     // dd($datas);
-    //     return response()->json($dataModified);
-    // }
-
     //role auditor start
     public function indexauditor($tahunperiode)
     {
         $data = Auditee::where('tahunperiode', $tahunperiode)->get();
-        // dd($data);
+        
         return view('auditor/daftarAuditee', compact('data'));
     }
 
     public function indexauditorpertahun()
     {
         $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
-        // dd($data);
+        
         return view('auditor/daftarauditee-tahun', compact('dataAuditee'));
     }
     //role auditor end
@@ -154,14 +144,14 @@ class AuditeeController extends Controller
     public function indexauditee($tahunperiode)
     {
         $data = Auditee::where('tahunperiode', $tahunperiode)->get();
-        // dd($data);
+        
         return view('auditee/daftarAuditee', compact('data'));
     }
 
     public function indexauditeepertahun()
     {
         $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
-        // dd($data);
+        
         return view('auditee/daftarauditee-tahun', compact('dataAuditee'));
     }
     //role auditee end

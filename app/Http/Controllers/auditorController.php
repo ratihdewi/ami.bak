@@ -75,26 +75,20 @@ class AuditorController extends Controller
 
     public function updatedata(Request $request, $id)
     {
-        
         $data = Auditor::find($id);
-        $dataAuditorUsers = User::where('nip', $data->nip)->get();
-        
-        foreach ($dataAuditorUsers as $key => $dataAuditorUser) {
-            if ( $dataAuditorUser->nip == $request->nip && $dataAuditorUser->name == $request->nama && $dataAuditorUser->unitkerja->name == $request->program_studi && $dataAuditorUser->unitkerja->fakultas == $request->fakultas ) {
-                $data->update([
-                    "tahunperiode0" => $request->tahunperiode0,
-                    "tahunperiode" =>$request->tahunperiode,
-                    "tgl_mulai" => $request->tgl_mulai,
-                    "tgl_berakhir" => $request->tgl_berakhir,
-                ]);
-                $dataAuditorUser->update([
-                    'noTelepon' => $request->noTelepon,
-                ]);
-                
-            } else {
-                return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data tidak terdaftar sebagai user!');
-            }
+        $dataAuditorUsers = User::where('id', $request->user_id)->first();
+
+        if ( $dataAuditorUsers->nip == $request->nip && $dataAuditorUsers->name == $request->nama && $dataAuditorUsers->unitkerja->name == $request->program_studi && $dataAuditorUsers->unitkerja->fakultas == $request->fakultas ) {
+            // dd($request->all());
+            $data->update($request->all());
+            $dataAuditorUsers->update([
+                'noTelepon' => $request->noTelepon,
+            ]);
+            
+        } else {
+            return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data tidak terdaftar sebagai user!');
         }
+        
         return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');
     }
 

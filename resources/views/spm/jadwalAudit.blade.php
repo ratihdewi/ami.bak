@@ -372,7 +372,7 @@
             var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
             var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
 
-              $('#saveBtn').click(function() {
+              $('#saveBtn').off('click').on('click', function() {
                 var title = $('#inisialnama').val();
                 var session = $('#session').val();
 
@@ -400,11 +400,12 @@
                     }
                 })
                 $("#form").load(location.href + " #form");
+                $('#bookingModal').modal('hide');
               });
 
               $('#cancelBtn').click(function() {
                 location.reload();
-              })
+              });
         },
         editable:true,
         eventResize: function(event, delta)
@@ -504,6 +505,35 @@
 
   $(document).on('click', '#remove-tr', function(){  
     $(this).parents('.add-new').remove();
+  });
+</script>
+<script>
+  // Fungsi untuk membuka modal
+  // function openBookingModal() {
+  //   $('#bookingModal').modal('show');
+  // }
+
+  // Fungsi untuk merefresh modal
+  function refreshModal() {
+    // Isi modal dengan data yang diperlukan
+    // Misalnya, mengosongkan input dan pilihannya
+    $('#inisialnama').val('');
+    $('#session').val('Pilih Sesi');
+
+    // Tambahkan kode lain sesuai kebutuhan
+
+    // Buka kembali modal
+    openBookingModal();
+  }
+
+  // Ketika modal ditutup, panggil fungsi refreshModal
+  $('#bookingModal').on('hidden.bs.modal', function (e) {
+    refreshModal();
+  });
+
+  // Panggil fungsi untuk membuka modal saat halaman dimuat
+  $(document).ready(function () {
+    openBookingModal();
   });
 </script>
     

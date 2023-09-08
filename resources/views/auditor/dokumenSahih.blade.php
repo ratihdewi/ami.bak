@@ -53,7 +53,7 @@
           </div>
           <div class="col mb-4">
             <label for="dokSahih" class="form-label fw-semibold">Unggah Dokumen Bukti Sahih</label>
-            <input class="form-control" type="file" id="dokSahih" placeholder="Unggah Dokumen Bukti Sahih" multiple name="dokSahih" disabled>
+            <input class="form-control" type="file" id="dokSahih" placeholder="Unggah Dokumen Bukti Sahih" multiple name="dokSahih" accept=".csv, .xlsx, .xls, .pdf, .docx" disabled>
             <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)</p>
           </div>
         </div>

@@ -70,4 +70,9 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    'allowed_extensions' => [
+        'image' => ['jpg', 'jpeg', 'png'],
+        'document' => ['pdf', 'doc', 'docx'],
+    ],
+
 ];

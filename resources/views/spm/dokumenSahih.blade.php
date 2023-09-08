@@ -23,23 +23,22 @@
 
 @section('container')
     <div class="container vh-100 mb-4">
-        <div class="topSection d-flex justify-content-around mx-2 mt-4">
-          @if ($message = Session::get('success'))
+      <div class="topSection d-flex justify-content-around mx-2 mt-4 mb-4"></div>
+
+      {{-- Start Form BA AMI --}}
+      <form id="myForm" action="/storedokumensahih" method="POST" enctype="multipart/form-data">
+        @csrf
+        {{-- Dokumen Pendukung --}}
+        @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
               {{ $message }}
           </div>
-          @elseif ($message = Session::get('error'))
-            <div class="alert alert-success" role="alert">
-                {{ $message }}
-            </div>
-          @endif
-        </div>
-
-      {{-- Start Form BA AMI --}}
-      <form action="/storedokumensahih" method="POST" enctype="multipart/form-data">
-        @csrf
-        {{-- Dokumen Pendukung --}}
-        <div class="row sectionName mx-0 m-5">
+        @elseif ($message = Session::get('error'))
+          <div class="alert alert-success" role="alert">
+              {{ $message }}
+          </div>
+        @endif
+        <div class="row sectionName mx-0 m-2">
           <div class="col border rounded-top text-center py-2 fw-semibold">Dokumen Bukti Sahih</div>  
         </div>
         <div class="row inputDokPendukung my-4 mx-5">
@@ -53,8 +52,8 @@
           </div>
           <div class="col mb-4">
             <label for="dokSahih" class="form-label fw-semibold">Unggah Dokumen Bukti Sahih</label>
-            <input class="form-control" type="file" id="dokSahih" placeholder="Unggah Dokumen Bukti Sahih" multiple name="dokSahih" required>
-            <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)</p>
+            <input class="form-control" type="file" id="dokSahih" placeholder="Unggah Dokumen Bukti Sahih" multiple name="dokSahih" accept=".csv, .xlsx, .xls, .pdf, .docx" required>
+            <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)   <span id="error" style="color: red; font-weight: bold"></span></p>
           </div>
         </div>
 
@@ -92,3 +91,24 @@
       </div>
   </div>
 @endsection
+
+@push('script')
+    <script>
+      $('#myForm').on('submit', function(e) {
+          var files = $('#dokSahih')[0].files;
+
+          for (let i = 0; i < files.length; i++) {
+              var file = files[i];
+              var fileSizeInMB = file.size / (1024 * 1024); // Konversi ke MB
+              console.log("Dokumen sahih "  + i + " : " + fileSizeInMB);
+
+              // Validasi ukuran file (misalnya, tidak lebih dari 5 MB)
+              if (fileSizeInMB > 10) {
+                  $('#error').text('Ukuran file terlalu besar.');
+                  e.preventDefault(); // Mencegah submit formulir
+                  return;
+              }
+          }
+      });
+    </script>
+@endpush

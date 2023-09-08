@@ -146,7 +146,8 @@ Route::get('/daftarTilik-areadaftartilik/{auditee_id}/{area}', [PertanyaanContro
 Route::get('/daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'pratinjaudt'])->name('daftartilik-pratinjaudaftartilik');
 Route::get('/daftartilik-exportdaftartilik/{id}/{auditee_id}', [DaftarTilikController::class, 'exportexcel'])->name('daftartilik-exportdaftartilik');
 Route::get('/daftartilik-adddaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'tambahdata'])->name('daftartilik-adddaftartilik');
-Route::post('/daftartilik-insertpertanyaan', [PertanyaanController::class, 'insertpertanyaan'])->name('daftartilik-insertpertanyaan');
+Route::post('/daftartilik-insertpertanyaan', [PertanyaanController::class, 'insertpertanyaan'])->name('daftartilik-autosavepertanyaan');
+Route::post('/daftartilik-autosavepertanyaan', [PertanyaanController::class, 'saveFormData'])->name('daftartilik-insertpertanyaan');
 Route::get('/daftartilik-tampilpertanyaandaftartilik/{id}', [PertanyaanController::class, 'tampildata'])->name('daftartilik-tampilpertanyaandaftartilik');
 Route::post('/daftartilik-updatedatapertanyaandaftartilik/{id}', [PertanyaanController::class, 'updatedata'])->name('daftartilik-updatedatapertanyaandaftartilik');
 Route::get('/daftartilik-deletedatapertanyaandaftartilik/{id}', [PertanyaanController::class, 'deletedata'])->name('daftartilik-deletedatapertanyaandaftartilik');
@@ -186,8 +187,9 @@ Route::get('/editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'spm
 Route::post('/storedokumensahih', [DokSahihController::class, 'storedoksahih'])->name('storedokumensahih');
 Route::get('/deletedokumensahih/{id}', [DokSahihController::class, 'deletedoksahih'])->name('deletedokumensahih');
 Route::get('/lihatdokumensahih/{id}', [DokSahihController::class, 'lihatdoksahih'])->name('lihatdokumensahih');
-Route::get('/fotokegiatan', [FotoKegiatanController::class, 'index'])->name('fotokegiatan');
-Route::get('/spm-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'spm_index'])->name('spm-fotokegiatan');
+Route::get('/fotokegiatan/{auditee_id}', [FotoKegiatanController::class, 'index'])->name('fotokegiatan');
+Route::get('/spm-editfotokegiatan/{auditee_id}/{tahunperiode}/{pertanyaan_id}', [FotoKegiatanController::class, 'spm_index'])->name('spm-fotokegiatan');
+Route::get('/spm-fotokegiatanBA/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'spm_indexBA'])->name('spm-fotokegiatanBA');
 Route::post('/storefotokegiatan', [FotoKegiatanController::class, 'storefotokegiatan'])->name('storefotokegiatan');
 Route::get('/deletefotokegiatan/{id}', [FotoKegiatanController::class, 'deletefotokegiatan'])->name('deletefotokegiatan');
 Route::get('/lihatfotokegiatan/{id}', [FotoKegiatanController::class, 'lihatfotokegiatan'])->name('lihatfotokegiatan');
@@ -223,7 +225,8 @@ Route::get('/auditor-BA-dokumenpendukung/{auditee_id}', [DokLampiranController::
 Route::get('/auditor-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'auditor_pratinjaudt'])->name('auditor-daftartilik-pratinjaudaftartilik');
 Route::get('/auditor-jadwalaudit', [JadwalController::class, 'auditor_index'])->name('auditor-jadwalaudit');
 Route::get('/auditor-editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'auditor_index'])->name('auditor-dokumensahih');
-Route::get('/auditor-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditor_index'])->name('auditor-fotokegiatan');
+Route::get('/auditor-editfotokegiatan/{auditee_id}/{tahunperiode}/{pertanyaan_id}', [FotoKegiatanController::class, 'auditor_index'])->name('auditor-fotokegiatan');
+Route::get('/auditor-fotokegiatanBA/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditor_indexBA'])->name('auditor-fotokegiatanBA');
 Route::get('/auditor-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditor_editdaftarhadir'])->name('auditor-BA-daftarhadir');
 Route::get('/auditor-BA-peluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'auditor_ubahpeluangpeningkatan'])->name('auditor-BA-peluangpeningkatan');
 Route::get('/auditor-BA-editpeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'auditor_editpeluangpeningkatan'])->name('auditor-BA-editpeluangpeningkatan');
@@ -251,7 +254,8 @@ Route::get('/auditee-BA-dokumenpendukung/{auditee_id}', [DokLampiranController::
 Route::get('/auditee-daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'auditee_pratinjaudt'])->name('auditee-daftartilik-pratinjaudaftartilik');
 Route::get('/auditee-jadwalaudit', [JadwalController::class, 'auditee_index'])->name('auditee-jadwalaudit');
 Route::get('/auditee-editdokumensahih/{pertanyaan_id}', [DokSahihController::class, 'auditee_index'])->name('auditee-dokumensahih');
-Route::get('/auditee-editfotokegiatan/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditee_index'])->name('auditee-fotokegiatan');
+Route::get('/auditee-editfotokegiatan/{auditee_id}/{tahunperiode}/{pertanyaan_id}', [FotoKegiatanController::class, 'auditee_index'])->name('auditee-fotokegiatan');
+Route::get('/auditee-fotokegiatanBA/{auditee_id}/{tahunperiode}', [FotoKegiatanController::class, 'auditee_indexBA'])->name('auditee-fotokegiatanBA');
 Route::get('/auditee-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditee_editdaftarhadir'])->name('auditee-BA-daftarhadir');
 Route::get('/auditee_searchjadwal', [JadwalController::class, 'auditee_search'])->name('auditee_searchjadwal');
 Route::get('/auditee_ketersediaan-jadwal', [FullCalenderController::class, 'auditee_index']);

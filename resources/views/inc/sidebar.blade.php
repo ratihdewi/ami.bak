@@ -33,7 +33,7 @@
             </a>
             <a
                 href="/daftartilik-periode"
-                class="nav_link {{ Request::routeIs('daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('spm-dokumensahih') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik') ? 'active' : '' || Request::routeIs('addDT') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-updatedataareadaftartilik') ? 'active' : '' || Request::routeIs('areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampildaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-adddaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('spm-dokumensahih') ? 'active' : '' || Request::routeIs('spm-fotokegiatan') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img
@@ -57,7 +57,7 @@
             </a>
             <a
                 href="/beritaacara"
-                class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' || Request::routeIs('BA-ubahdataDokumenBAAMI') ? 'active' : '' || Request::routeIs('BA-daftarhadir') ? 'active' : '' || Request::routeIs('BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('BAAMI-pratinjauBA') ? 'active' : '' || Request::routeIs('spm-fotokegiatan') ? 'active' : '' || Request::routeIs('BA-editpeluangpeningkatan') ? 'active' : '' }}"
+                class="nav_link {{ Request::routeIs('beritaacara') ? 'active' : '' || Request::routeIs('auditeeBA') ? 'active' : '' || Request::routeIs('BA-AMI') ? 'active' : '' || Request::routeIs('ubahdataBA') ? 'active' : '' || Request::routeIs('BA-ubahdataDokumenBAAMI') ? 'active' : '' || Request::routeIs('BA-daftarhadir') ? 'active' : '' || Request::routeIs('BA-peluangpeningkatan') ? 'active' : '' || Request::routeIs('BA-dokumenpendukung') ? 'active' : '' || Request::routeIs('BAAMI-pratinjauBA') ? 'active' : '' || Request::routeIs('spm-fotokegiatanBA') ? 'active' : '' || Request::routeIs('BA-editpeluangpeningkatan') ? 'active' : '' }}"
             >
                 <i class="bx nav_icon"
                     ><img

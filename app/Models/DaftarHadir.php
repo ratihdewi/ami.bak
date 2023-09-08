@@ -13,6 +13,8 @@ class DaftarHadir extends Model
         'beritaacara_id',
         'posisi',
         'namapeserta',
+        'namapenginput',
+        'deletedBy',
         'eSign',
     ];
 

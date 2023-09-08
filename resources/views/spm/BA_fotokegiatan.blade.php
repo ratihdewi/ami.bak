@@ -3,19 +3,19 @@
 @section('title') AMI - Daftar Tilik - Foto Kegiatan @endsection
 
 @section('linking')
-    <a href="" class="mx-1">
-        Foto Kegiatan
-    </a>/
+  <a href="" class="mx-1">
+    Foto Kegiatan
+  </a>/
 
-    <a href="/spm-editfotokegiatan/{{ $auditees->id }}/{{ $auditees->tahunperiode }}/{{ $pertanyaan_id }}" class="mx-1">
-    {{ $auditees->unit_kerja }}
-    </a>/
+  <a href="/spm-fotokegiatanBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
+  {{ $auditees->unit_kerja }}
+  </a>/
 @endsection
 
 @section('container')
   <div class="container vh-100 mb-4">
-    <div class="topSection d-flex justify-content-around mx-2 mt-4 mb-4"></div>
-
+      <div class="topSection d-flex justify-content-around mx-2 mt-4 mb-4"></div>
+      
       {{-- Start Form BA AMI --}}
       <form id="myForm" action="/storefotokegiatan" method="POST" enctype="multipart/form-data">
         @csrf
@@ -52,12 +52,7 @@
 
         {{-- Simpan Perubahan --}}
         <div class="simpanBA d-flex justify-content-end">
-          @if ($pertanyaan_id != null)
-            <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $pertanyaan_id }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
-          @else
-            <a href="/daftartilik-adddaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
-          @endif
-          
+          <a href="/auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
@@ -91,12 +86,6 @@
 @endsection
 
 @push('script')
-    <script>
-      $(document).ready(function() {
-        var pertanyaan = "{{ $pertanyaan_id }}"
-        console.log(pertanyaan);
-      });
-    </script>
     <script>
       $('#myForm').on('submit', function(e) {
           var files = $('#foto')[0].files;

@@ -50,7 +50,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -87,7 +87,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -124,7 +124,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);

@@ -39,6 +39,7 @@
                                         aria-label="Tahun Awal"
                                         min="2016" max="3000"
                                         value="{{ $data->tahunperiode0 }}"
+                                        readonly
                                         required
                                     />
                                 </div>
@@ -55,6 +56,7 @@
                                         aria-label="Tahun Akhir"
                                         min="2016" max="3000"
                                         value="{{ $data->tahunperiode }}"
+                                        readonly
                                         required
                                     />
                                 </div>
@@ -62,7 +64,7 @@
                         </div> 
                         <div class="col">
                             <label for="nipAuditee" class="form-label">NIP</label> <br>
-                            <select id="nipAuditee" class="form-select" name="nip" aria-label="Default select example" placeholder="Pilih NIP Ketua Auditee" required>
+                            <select id="nipAuditee" class="form-select" name="nip" aria-label="Default select example" placeholder="Pilih NIP Ketua Auditee" readonly required>
                                 <option selected>{{ $data->nip }}</option>
                             </select>
                         </div>           
@@ -87,15 +89,7 @@
                         <label for="selectUnitKerja" class="form-label"
                             >Unit Kerja</label
                         >
-                        <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" value="{{ $data->unit_kerja }}" required>
-                        {{-- <select
-                            id="selectUnitKerja"
-                            class="form-select"
-                            name="unit_kerja"
-                            required
-                        >
-                            <option selected>{{ $data->unit_kerja }}</option>
-                        </select> --}}
+                        <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" value="{{ $data->unit_kerja }}" readonly required>
                     </div>
                     <div class="mb-3">
                         <label for="ketuaAuditee" class="form-label"
@@ -108,6 +102,7 @@
                             placeholder="Masukkan nama Ketua Auditee"
                             name="ketua_auditee"
                             value="{{ $data->ketua_auditee }}"
+                            readonly
                             required
                         />
                     </div>
@@ -122,6 +117,7 @@
                             placeholder="Masukkan jabatan Ketua Auditee"
                             name="jabatan_ketua_auditee"
                             value="{{ $data->jabatan_ketua_auditee }}"
+                            readonly
                             required
                         />
                     </div>
@@ -171,7 +167,7 @@
                 <button type="submit" class="btn btn-primary float-end">
                     Simpan
                 </button>
-                <a href="{{ route('auditee-periode') }}">
+                <a href="{{ route('auditee', ['tahunperiode' => $data->tahunperiode]) }}">
                     <button type="button" class="btn btn-secondary me-3 float-end">Kembali</button>
                 </a>
             </div>
@@ -256,8 +252,6 @@
                 data: { q: '' },
                 success: function(data) {
                     console.log(data);
-                    // $('#nipAuditee').empty();
-                    // $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             return {
@@ -421,14 +415,19 @@
     });
 
     $(document).ready(function(){
+        // let tahun = $('#tahunperiode').val();
+        let tahunAwal = $('#tahunperiode0').val();
         let tahun = $('#tahunperiode').val();
 
+        console.log("tahun periode : " + tahunAwal + "/" + tahun);
+
         $.ajax({
-            url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
+            url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
             type: 'GET',
             dataType: 'json',
             data: { q: '' },
             success: function(data) {
+                console.log(data);
                 if (Array.isArray(data)) {
                     var mappedData = data.map(function(item) {
                         return {
@@ -448,6 +447,33 @@
             console.error('Terjadi kesalahan saat memuat data users.');
             }
         });
+
+        // $.ajax({
+        //     url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
+        //     type: 'GET',
+        //     dataType: 'json',
+        //     data: { q: '' },
+        //     success: function(data) {
+        //         console.log("suksesssss");
+        //         if (Array.isArray(data)) {
+        //             var mappedData = data.map(function(item) {
+        //                 return {
+        //                     id: item.nip,
+        //                     text: item.nip,
+        //                 };
+        //             });
+
+        //             $('#nipAuditee').select2({
+        //                 data: mappedData,
+        //             });
+        //         } else {
+        //             console.error('Data yang diterima dari server bukan array yang valid.');
+        //         }
+        //     },
+        //     error: function() {
+        //     console.error('Terjadi kesalahan saat memuat data users.');
+        //     }
+        // });
     })
 </script>
     

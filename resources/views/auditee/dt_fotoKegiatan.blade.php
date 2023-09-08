@@ -3,39 +3,33 @@
 @section('title') AMI - Daftar Tilik - Foto Kegiatan @endsection
 
 @section('linking')
-    <a href="/auditee-beritaacara" class="mx-1">
-        Berita Acara
-    </a>/
-
-    <a href="/auditee-auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
-    {{ $auditees->unit_kerja }}
-    </a>/
-
-    <a href="/auditee-editfotokegiatan/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
+  <a href="" class="mx-1">
     Foto Kegiatan
-    </a>/
-    
+  </a>/
+
+  <a href="/auditee-editfotokegiatan/{{ $auditees->id }}/{{ $auditees->tahunperiode }}/{{ $pertanyaan_id }}" class="mx-1">
+  {{ $auditees->unit_kerja }}
+  </a>/
 @endsection
 
 @section('container')
   <div class="container vh-100 mb-4">
-      <div class="topSection d-flex justify-content-around mx-2 mt-4">
-          @if ($message = Session::get('success'))
-          <div class="alert alert-success" role="alert">
-              {{ $message }}
-          </div>
-          @elseif ($message = Session::get('error'))
-            <div class="alert alert-success" role="alert">
-                {{ $message }}
-            </div>
-          @endif
-      </div>
+    <div class="topSection d-flex justify-content-around mx-2 mt-4 mb-4"></div>
 
       {{-- Start Form BA AMI --}}
-      <form action="/storefotokegiatan" method="POST" enctype="multipart/form-data">
+      <form id="myForm" action="/storefotokegiatan" method="POST" enctype="multipart/form-data">
         @csrf
-        {{-- Dokumen Pendukung --}}
-        <div class="row sectionName mx-0 m-5">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+        @elseif ($message = Session::get('error'))
+          <div class="alert alert-danger" role="alert">
+              {{ $message }}
+          </div>
+        @endif
+        {{-- Foto --}}
+        <div class="row sectionName mx-0 m-2">
           <div class="col border rounded-top text-center py-2 fw-semibold">Foto Kegiatan Audit Lapangan - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode }})</div>  
         </div>
         <div class="row inputDokDokSahih my-4 mx-5">
@@ -51,14 +45,14 @@
           </div>
           <div class="col mb-4">
             <label for="foto" class="form-label fw-semibold">Unggah Foto Kegiatan</label>
-            <input class="form-control" type="file" id="foto" placeholder="Unggah Foto Kegiatan" multiple name="foto" required>
-            <p class="fw-light fst-italic">*.jpeg, .png, .jpg (maks. 2MB)</p>
+            <input class="form-control" type="file" id="foto" placeholder="Unggah Foto Kegiatan" multiple name="foto" accept=".jpg, .png, .jpeg" required>
+            <p class="fw-light fst-italic">*.jpeg, .png, .jpg (maks. 2MB)   <span id="error" style="color: red; font-weight: bold"></span></p>
           </div>
         </div>
 
         {{-- Simpan Perubahan --}}
         <div class="simpanBA d-flex justify-content-end">
-          <a href="/auditee-auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
+          <a href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $pertanyaan_id }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
@@ -90,3 +84,26 @@
       </div>
   </div>
 @endsection
+
+@push('script')
+    <script>
+      $('#myForm').on('submit', function(e) {
+          var files = $('#foto')[0].files;
+
+          for (let i = 0; i < files.length; i++) {
+              var file = files[i];
+              var fileSizeInMB = file.size / (1024 * 1024); // Konversi ke MB
+              console.log("Photo "  + i + " : " + fileSizeInMB);
+
+              // Validasi ukuran file (misalnya, tidak lebih dari 5 MB)
+              if (fileSizeInMB > 2) {
+                  $('#error').text('Ukuran file terlalu besar.');
+                  e.preventDefault(); // Mencegah submit formulir
+                  return;
+              }
+          }
+
+          // Jika semua file sesuai, formulir akan disubmit
+      });
+    </script>
+@endpush

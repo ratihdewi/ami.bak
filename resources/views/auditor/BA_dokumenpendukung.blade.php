@@ -20,20 +20,23 @@
 @endsection
 
 @section('container')
-  <div class="container mb-4">
-      <div class="topSection d-flex justify-content-around mx-2 mt-4">
-          @if ($message = Session::get('success'))
+  <div class="container vh-100 mb-4">
+      <div class="topSection d-flex justify-content-around mx-2 mt-4 mb-4"></div>
+      
+      {{-- Start Form BA AMI --}}
+      <form id="myForm" action="/BA-storedokumenpendukung/{{ $beritaacara_->auditee_id }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @if ($message = Session::get('success'))
           <div class="alert alert-success" role="alert">
               {{ $message }}
           </div>
-          @endif
-      </div>
-
-      {{-- Start Form BA AMI --}}
-      <form action="/BA-storedokumenpendukung/{{ $beritaacara_->auditee_id }}" method="POST" enctype="multipart/form-data">
-        @csrf
+        @elseif ($message = Session::get('error'))
+          <div class="alert alert-success" role="alert">
+              {{ $message }}
+          </div>
+        @endif
         {{-- Dokumen Pendukung --}}
-        <div class="row sectionName mx-0 m-5">
+        <div class="row sectionName mx-2 m-2">
           <div class="col border rounded-top text-center py-2 fw-semibold">Dokumen Pendukung</div>  
         </div>
         <div class="row inputDokPendukung my-4 mx-5">
@@ -51,8 +54,8 @@
           </div>
           <div class="col mb-4">
             <label for="dokumen" class="form-label fw-semibold">Upload Dokumen</label>
-            <input class="form-control" type="file" id="dokumen" placeholder="Opsional" multiple name="dokumen" required>
-            <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)</p>
+            <input class="form-control" type="file" id="dokumen" placeholder="Opsional" multiple name="dokumen" accept=".csv, .xlsx, .xls, .pdf, .docx" required>
+            <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)   <span id="error" style="color: red; font-weight: bold"></span></p>
           </div>
         </div>
 
@@ -91,21 +94,23 @@
   </div>
 @endsection
 
-{{-- @push('script')
-  <script>
-    $(document).ready(function(){
-      var max_fields = 50;
-      var wrapper = $(".inputAbsen");
-      var add_btn = $(".moreItems_add");
-      var i = 1;
-      $(add_btn).click(function(e){
-        e.preventDefault();
-        if (i < max_fields) {
-          i++;
+@push('script')
+    <script>
+      $('#myForm').on('submit', function(e) {
+          var files = $('#dokumen')[0].files;
 
-          $(wrapper).append('<div class="row inputAbsen my-4"><div class="col-4 mb-4 me-2"><label for="inputPosisi" class="form-label">Auditor/Auditee:</label><select id="inputPosisi" class="form-select"><option selected disabled>Pilih Auditor/Auditee</option><option value="Auditor">Auditor</option><option value="Auditee">Auditee</option></select></div><div class="col-7 mb-4"><label for="inputAbsenNama" class="form-label fw-semibold">Nama</label><input type="text" class="form-control" id="inputAbsenNama" placeholder="Masukkan nama peserta BA"></div></div>')
-        }
+          for (let i = 0; i < files.length; i++) {
+              var file = files[i];
+              var fileSizeInMB = file.size / (1024 * 1024); // Konversi ke MB
+              console.log("Dokumen sahih "  + i + " : " + fileSizeInMB);
+
+              // Validasi ukuran file (misalnya, tidak lebih dari 5 MB)
+              if (fileSizeInMB > 10) {
+                  $('#error').text('Ukuran file terlalu besar.');
+                  e.preventDefault(); // Mencegah submit formulir
+                  return;
+              }
+          }
       });
-    });
-  </script>
-@endpush --}}
+    </script>
+@endpush

@@ -21,13 +21,56 @@
                 {{ $message }}
             </div>
         @endif
+        
+        </div>
         <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary btn-sm my-3 px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-target="#staticBackdrop">Tambah Periode</button>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Periode AMI</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class=" row mb-3">
+                    <div class="col">
+                        <label for="recipient-name" class="col-form-label">Tahun periode awal</label>
+                        <input type="number" class="form-control" id="thPeriodeAwal">
+                    </div>
+                    <div class="col">
+                        <label for="recipient-name" class="col-form-label">Tahun periode akhir</label>
+                        <input type="number" class="form-control" id="thPeriodeAkhir">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="recipient-name" class="col-form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="tglMulai">
+                    </div>
+                    <div class="col">
+                        <label for="recipient-name" class="col-form-label">Tanggal Akhir</label>
+                        <input type="date" class="form-control" id="tglAkhir">
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary">Simpan</button>
+            </div>
+            </div>
+        </div>
+        {{-- <div class="d-flex justify-content-end">
             <a href="/addAuditor" class="text-white" style="font-weight: 600; text-decoration: none">
                 <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
                     Tambah
                 </button>
             </a>
-        </div>
+        </div> --}}
     </div>
         
     <div class="row">

@@ -24,7 +24,7 @@ class DaftarHadirController extends Controller
         }
 
         $users = User::all();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
         $auditor = Auditor::where('user_id', Auth::user()->id);
         $auditee = Auditee::where('user_id', Auth::user()->id);
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
@@ -45,7 +45,7 @@ class DaftarHadirController extends Controller
         }
 
         $users = User::all();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
         $auditor = Auditor::where('user_id', Auth::user()->id);
         $auditee = Auditee::where('user_id', Auth::user()->id);
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
@@ -66,7 +66,7 @@ class DaftarHadirController extends Controller
         }
 
         $users = User::all();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
         $auditor = Auditor::where('user_id', Auth::user()->id);
         $auditee = Auditee::where('user_id', Auth::user()->id);
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
@@ -97,10 +97,11 @@ class DaftarHadirController extends Controller
 
     public function storedaftarhadir(Request $request, $auditee_id)
     {
-        // dd($request->addmore);
+        
         if ($request->addmore == null) {
             return redirect()->back()->with('error', 'Tidak ada data yang ditambahkan!');
         } else {
+            // dd($request->addmore);
             $users_ = User::all();
 
             $request->validate([
@@ -129,8 +130,19 @@ class DaftarHadirController extends Controller
                         $daftarhadir->save();
                         $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
                     } elseif (!$notExist) {
-                        $return = redirect()->back()->with('error', 'Data peserta sudah tersedia!');
-                    } elseif ($value['namapeserta'] != $user->name && $value['posisi'] != $user->role) {
+                        $daftarhadirexist = DaftarHadir::where('namapeserta', $value['namapeserta'])->first();
+                        
+                        if ($daftarhadirexist != null) {
+                            $daftarhadirexist->update([
+                                'deletedBy' => null,
+                            ]);
+
+                            $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
+                        } else {
+                            $return = redirect()->back()->with('error', 'Data peserta sudah tersedia!');
+                        }
+                        
+                    } elseif ($value['namapeserta'] != $user->name) {
                         $return = redirect()->back()->with('error', 'Data peserta tidak terdaftar!');
                     }
                 }
@@ -145,7 +157,11 @@ class DaftarHadirController extends Controller
         $daftarhadir_ = DaftarHadir::find($id);
         $auditee_ = BeritaAcara::where('id', $daftarhadir_->beritaacara_id)->first();
         
-        $daftarhadir_->delete();
+        // $daftarhadir_->delete();
+        $daftarhadir_->update([
+            'deletedBy' => Auth::user()->name,
+        ]);
+        $daftarhadir_->save();
         return redirect()->back()->with('success', 'Data peserta berhasil dihapus!');
     }
 

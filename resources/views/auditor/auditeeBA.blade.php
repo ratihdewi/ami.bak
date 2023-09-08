@@ -107,7 +107,7 @@
                         @endif
                     </td>
                     <td  class="text-center">
-                        <a href="/auditor-editfotokegiatan/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
+                        <a href="/auditor-fotokegiatanBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
                             ><i class="bi bi-folder-fill text-warning h3"></i
                         ></a>
                     </td>

@@ -122,7 +122,7 @@
       @endforeach
     
       {{-- Form (berbagai) pertanyaan dari setiap auiditee --}}
-      <form action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST">
+      <form id="myForm" action="/daftartilik-updatedatapertanyaandaftartilik/{{ $datas->id }}" method="POST">
         @csrf
         <div id="temuanDT" class="card mt-4 mb-4 mx-4 px-3">
           @foreach ($_daftartiliks as $_daftartilik)
@@ -277,7 +277,7 @@
             </div>
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <a href="/auditor-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}">
+              <a href="/auditor-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}/{{ $datas->id}}">
                 <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Foto Kegiatan</b></button>
               </a>
               {{-- <input id="fotoKegiatan" type="file" class="form-control py-2" placeholder="Masukkan Dokumentasi Foto Kegiatan" aria-label="Masukkan Dokumentasi Foto Kegiatan" name="fotoKegiatan" value="{{ $datas->fotoKegiatan }}"> --}}
@@ -371,6 +371,33 @@
           document.getElementById("narasiPLOR").innerHTML
                 = ''; 
       }
+  }
+
+  document.getElementById('myForm').addEventListener('input', function() {
+      // Fungsi ini akan dipanggil setiap kali ada perubahan pada form
+      saveFormData();
+  });
+
+  function saveFormData() {
+      let pertanyaan_id = '{{ $datas->id }}';
+      console.log(pertanyaan_id);
+      // Menggunakan AJAX untuk mengirim data ke server
+      var formData = new FormData(document.getElementById('myForm'));
+      $.ajax({
+          url: '/daftartilik-updatedatapertanyaandaftartilik/' + pertanyaan_id, // Ganti dengan URL endpoint server Anda
+          method: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+              // Berikan umpan balik ke pengguna jika sukses
+              console.log('Data berhasil disimpan');
+          },
+          error: function(error) {
+              // Tangani kesalahan jika terjadi
+              console.error('Terjadi kesalahan saat menyimpan data');
+          }
+      });
   }
 
   $(document).ready(function(){

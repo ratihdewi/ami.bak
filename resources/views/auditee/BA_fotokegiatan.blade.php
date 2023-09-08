@@ -1,15 +1,15 @@
-@extends('layout.main') 
+@extends('auditee.main_') 
 
 @section('title') AMI - Daftar Tilik - Foto Kegiatan @endsection
 
 @section('linking')
-    <a href="" class="mx-1">
-        Foto Kegiatan
-    </a>/
+  <a href="" class="mx-1">
+    Foto Kegiatan
+  </a>/
 
-    <a href="/spm-editfotokegiatan/{{ $auditees->id }}/{{ $auditees->tahunperiode }}/{{ $pertanyaan_id }}" class="mx-1">
-    {{ $auditees->unit_kerja }}
-    </a>/
+  <a href="/auditee-fotokegiatanBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}" class="mx-1">
+  {{ $auditees->unit_kerja }}
+  </a>/  
 @endsection
 
 @section('container')
@@ -30,7 +30,7 @@
         @endif
         {{-- Foto --}}
         <div class="row sectionName mx-0 m-2">
-          <div class="col border rounded-top text-center py-2 fw-semibold">Foto Kegiatan Audit Lapangan - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode0 }}/{{ $auditees->tahunperiode }})</div>  
+          <div class="col border rounded-top text-center py-2 fw-semibold">Foto Kegiatan Audit Lapangan - {{ $auditees->unit_kerja }} ({{ $auditees->tahunperiode }})</div>  
         </div>
         <div class="row inputDokDokSahih my-4 mx-5">
             {{-- @foreach ($doksahihs as $doksahih) --}}
@@ -52,12 +52,7 @@
 
         {{-- Simpan Perubahan --}}
         <div class="simpanBA d-flex justify-content-end">
-          @if ($pertanyaan_id != null)
-            <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $pertanyaan_id }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
-          @else
-            <a href="/daftartilik-adddaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
-          @endif
-          
+          <a href="/auditee-auditeeBA/{{ $auditees->id }}/{{ $auditees->tahunperiode }}"><button type="button" class="btn btn-secondary me-md-2">Kembali</button></a>
           <button class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
       </form>
@@ -80,7 +75,7 @@
                 <td class="col text-center">{{ $fotokegiatan->updated_at }}</td>
                 <td class="col text-center">
                   <a href="/lihatfotokegiatan/{{ $fotokegiatan->id }}" target="_blank"><button class="bg-warning border-0 rounded-1 me-3"><i class="bi bi-eye-fill"></i></button></i></a>
-                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></a>
                 </td>
               </tr>
               @endforeach
@@ -91,12 +86,6 @@
 @endsection
 
 @push('script')
-    <script>
-      $(document).ready(function() {
-        var pertanyaan = "{{ $pertanyaan_id }}"
-        console.log(pertanyaan);
-      });
-    </script>
     <script>
       $('#myForm').on('submit', function(e) {
           var files = $('#foto')[0].files;

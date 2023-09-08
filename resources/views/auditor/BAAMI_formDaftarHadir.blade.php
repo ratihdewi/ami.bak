@@ -56,6 +56,12 @@
                   <input type="text" class="form-control" id="beritaacara_id" placeholder="Masukkan id berita acara" name="addmore[0][beritaacara_id]" value="{{ $beritaacara_->id }}">
               </div>
             </div>
+            <div class="row inputabsen my-4 mx-5" hidden>
+              <div class="col">
+                  <label for="deletedBy" class="form-label fw-semibold">Deleted By</label>
+                  <input type="text" class="form-control" id="deletedBy" placeholder="Masukkan nama penghapus" name="addmore[0][deletedBy]">
+              </div>
+            </div>
             <div class="row inputabsen my-4 mx-5">
               <div class="col" hidden>
                 <label for="namapenginput" class="form-label fw-semibold">Penginput</label>
@@ -90,7 +96,7 @@
           <a href="/auditor-BA-AMI/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
           @endforeach
           <button class="btn btn-secondary me-md-2" type="button">Kembali</button></a>
-            <button class="btn btn-success" type="submit">Simpan Perubahan</button>
+            <button id="btnSimpan" class="btn btn-success" type="submit">Simpan Perubahan</button>
         </div>
     </form>
     </div>
@@ -211,18 +217,19 @@
       if (i < max_fields) {
         console.log('#inputPosisi'+i);
         i++;
-        $(wrapper).append('<div class="inputAbsen add-new mx-4"><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="beritaacara_id'+i+'" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="beritaacara_id'+i+'" placeholder="Masukkan id berita acara" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div></div><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="namapenginput'+i+'" class="form-label fw-semibold">Penginput</label><input type="text" class="form-control" id="namapenginput'+i+'" placeholder="Masukkan nama penginput" name="addmore['+i+'][namapenginput]" value="{{ Auth::user()->name }}"></div></div><div class="row inputabsen my-4 mx-5"><div class="col-4 mb-4"><label for="inputPosisi'+i+'" class="form-label fw-semibold">Auditor/Auditee:</label><select id="inputPosisi'+i+'" class="form-select mb-4" name="addmore['+i+'][posisi]"><option selected disabled>Posisi (Auditor/Auditee)</option><option value="Auditor">Auditor</option><option value="Auditee" disabled>Auditee</option></select></div><div class="col-7 mb-4"><label for="inputAbsenNama'+i+'" class="form-label fw-semibold">Nama</label><select id="inputAbsenNama'+i+'" class="form-select" name="addmore['+i+'][namapeserta]" required><option></option></select></div><div class="col-1 my-4"><button id="remove-tr" class="btn btn-danger float-end my-1 remove-tr" type="button"><i class="bi bi-x p-0" style="color: #ffff"></i></button></div></div></div>')  
+        $(wrapper).append('<div class="inputAbsen add-new mx-4"><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="beritaacara_id'+i+'" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="beritaacara_id'+i+'" placeholder="Masukkan id berita acara" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div></div><div class="row inputabsen my-4 mx-5" hidden><div class="col"><label for="namapenginput'+i+'" class="form-label fw-semibold">Penginput</label><input type="text" class="form-control" id="namapenginput'+i+'" placeholder="Masukkan nama penginput" name="addmore['+i+'][namapenginput]" value="{{ Auth::user()->name }}"></div><div class="col"><label for="deletedBy'+i+'" class="form-label fw-semibold">Deleted By</label><input type="text" class="form-control" id="deletedBy'+i+'" placeholder="Masukkan nama penghapus" name="addmore['+i+'][deletedBy]"></div></div><div class="row inputabsen my-4 mx-5"><div class="col-4 mb-4"><label for="inputPosisi'+i+'" class="form-label fw-semibold">Auditor/Auditee:</label><select id="inputPosisi'+i+'" class="form-select mb-4" name="addmore['+i+'][posisi]"><option selected disabled>Posisi (Auditor/Auditee)</option><option value="Auditor">Auditor</option><option value="Auditee" disabled>Auditee</option></select></div><div class="col-7 mb-4"><label for="inputAbsenNama'+i+'" class="form-label fw-semibold">Nama</label><select id="inputAbsenNama'+i+'" class="form-select" name="addmore['+i+'][namapeserta]" required><option></option></select></div><div class="col-1 my-4"><button id="remove-tr" class="btn btn-danger float-end my-1 remove-tr" type="button"><i class="bi bi-x p-0" style="color: #ffff"></i></button></div></div></div>');
       }
     });
     
     $(document).on('click', '#moreItems_add', function() {
       console.log("berhasil", i);
+            var deletedBy = $('#deletedBy').val("null");
+            console.log(deletedBy);
       $('#inputPosisi'+i).change(function(){
             var posisi = $(this).val();
             var auditee_id = "{{ $beritaacara_->auditee_id }}"
             var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
             var urlAuditee = '{{ route("BA-daftarhadir-searchAuditee") }}';
-            
             if(posisi == "Auditor"){
               $.ajax({
                   url: urlAuditor,
@@ -301,33 +308,33 @@
       $(this).parents('.add-new').remove();
     });
 
-    function alifa(params) {
-      var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
-      var test;
-      if (params = 'Auditor') {
-        $.ajax({
-          url: urlAuditor,
-          type: 'get',
-          async: false,
-          dataType: 'json',
-          success: function(response){
-              $("#inputAbsenNama").empty();
+    // function alifa(params) {
+    //   var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
+    //   var test;
+    //   if (params = 'Auditor') {
+    //     $.ajax({
+    //       url: urlAuditor,
+    //       type: 'get',
+    //       async: false,
+    //       dataType: 'json',
+    //       success: function(response){
+    //           $("#inputAbsenNama").empty();
       
-              if(response != null){
-                  response.forEach(respon => {
-                      $('#inputAbsenNama').append($('<option>', { 
-                          value: respon.nama,
-                          text : respon.nama, 
-                      }));
+    //           if(response != null){
+    //               response.forEach(respon => {
+    //                   $('#inputAbsenNama').append($('<option>', { 
+    //                       value: respon.nama,
+    //                       text : respon.nama, 
+    //                   }));
                       
-                  });
+    //               });
                   
-              }
-          }
-        });
-      }
-      return test;
-    }
+    //           }
+    //       }
+    //     });
+    //   }
+    //   return test;
+    // }
 
   </script>
 @endpush

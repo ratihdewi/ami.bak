@@ -27,13 +27,15 @@ class PertanyaanController extends Controller
 
     public function tambahdata($auditee_id, $area){
         
-        $data = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('area', $area);
+        $data = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
         $data_ = Pertanyaan::all();
         $listAuditee = Auditee::all();
         $listAuditor = Auditor::all();
+        $pertanyaan_id = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->first();;
 
-        // dd($data->auditee_id);
-        return view('spm/addDaftarTilik', compact('data', 'data_', 'listAuditee', 'listAuditor'));
+        // dd($pertanyaan_id);
+
+        return view('spm/addDaftarTilik', compact('data', 'data_', 'listAuditee', 'listAuditor', 'pertanyaan_id'));
     }
 
     public function insertpertanyaan(Request $request)
@@ -95,6 +97,17 @@ class PertanyaanController extends Controller
         }
 
         return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil ditambah!');
+    }
+
+    public function saveFormData(Request $request)
+    {
+        // Validasi data form jika diperlukan
+
+        // Simpan data ke database
+        $newData = Pertanyaan::create($request->all());
+
+        // Mengirimkan data yang baru dibuat sebagai respons JSON
+        return response()->json(['message' => 'Data berhasil disimpan', 'data' => $newData]);
     }
 
     public function tampildata(Request $request, $id){
