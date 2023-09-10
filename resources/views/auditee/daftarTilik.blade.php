@@ -16,19 +16,19 @@
 @endsection
 
 @section('container')
-<div class="container vh-100 pb-3 mt-5">
-    <div class="tableAreaDaftarTilik mx-3">
+<div class="container-fluid pb-3 mt-5" style="min-height: 100vh">
+    <div class="row mx-3">
         <table
             class="table table-hover mb-3"
-            id="tableAreaDaftarTilik"
+            id="tableareaDT"
             style="font-size: 13px;border-bottom: none"
         >
             <thead>
-                <tr class="row header_areadaftartilik mt-3">
+                <tr class="">
                     <th class="col-1 px-0 text-center">No</th>
                     <th class="col-3 px-0 text-center">Auditee</th>
                     <th class="col-2 px-0 text-center">Area</th>
-                    <th class="col-2 px-3 text-center">
+                    <th class="col-2 px-0 text-center">
                         Batas Pengisian Respon Auditee
                     </th>
                     <th class="col-3 px-0 text-center">Auditor</th>
@@ -39,7 +39,7 @@
                 @php $no = 1; @endphp
                 @foreach ($data_ as $item)
                     @foreach ($item->daftartilik()->get() as $dt)
-                    <tr class="row">
+                    <tr class="">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
                         <td class="col-3 px-0">{{ $item->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center">{{ $dt->area }}</td>
@@ -71,7 +71,7 @@
 ></script>
 <script>
     $(document).ready(function () {
-        $("#tableAreaDaftarTilik").DataTable({});
+        $("#tableareaDT").DataTable({});
     });
 </script>
 @endpush

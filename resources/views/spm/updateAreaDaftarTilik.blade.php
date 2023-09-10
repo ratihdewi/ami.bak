@@ -19,7 +19,7 @@
 {{-- Form update setiap auditee --}}
 <div class="container vh-100 pt-3">
     <h5 class="text-center">Ubah Area Daftar Tilik</h5>
-    <form action="/daftartilik-updatedataareadaftartilik/{{ $data->id }}" method="POST">
+    <form id="myForm" action="/daftartilik-updatedataareadaftartilik/{{ $data->id }}" method="POST">
         @csrf
         <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
             <div class="row g-3 my-4 mx-3">
@@ -29,23 +29,16 @@
                         id="auditee_id"
                         class="form-select"
                         name="auditee_id"
+                        disabled
                         required
                     >
-                        <option selected disabled>{{ $data->auditee->unit_kerja }}</option>
-                        @foreach ($listAuditee as $item)
-                        <option value="{{ $item->id }}" name="auditee_id">
-                            {{ $item->unit_kerja }}
-                        </option>
-                        @endforeach
+                        <option value="{{ $data->auditee_id }}" selected>{{ $data->auditee->unit_kerja }}</option>
                     </select>
                 </div>
                 <div class="col">
                     <label class="fw-semibold" for="auditor">Auditor</label>
                     <select id="auditor" class="form-select" name="auditor_id">
-                        <option selected disabled>{{ $data->auditor->nama }}</option>
-                        @foreach ($listAuditor as $item)
-                        <option value="{{ $item->id }}" name="auditor_id">{{ $item->nama }}</option>
-                        @endforeach
+                        <option selected>{{ $data->auditor->nama }}</option>
                     </select>
                 </div>
             </div>
@@ -127,6 +120,7 @@
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
@@ -148,6 +142,7 @@
         var wrapper = $("#temuanDT");
         var add_btn = $(".moreItems_add");
         var i = 1;
+
         $(add_btn).click(function (e) {
             e.preventDefault();
             if (i < max_fields) {
@@ -159,9 +154,167 @@
             }
         });
 
+        var defaultView_ = $('#tgl-pelaksanaan');
+        var copyDate_ = defaultView_.attr("type", "date");
+        var copyText_ = defaultView_.attr("type", "text");
+        var valueAwal_ = $('#tgl-pelaksanaan').val()
+        var valueSementara_ = valueAwal_;
+        var valueSementara2 = valueAwal_;
+
+        var formattedDateDefault_ = moment(valueSementara_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        copyText_.val(formattedDateDefault_);
+
+        $("#tgl-pelaksanaan").on("focus", function () {
+            
+            $(this).attr("type", "date");
+            copyDate_.val(formattedDateDefault_);
+        });
+
+        $("#tgl-pelaksanaan").on("blur", function () {
+            
+            if (!isValidDate($(this).val())) {
+
+                var value_ = valueSementara2_;
+                
+                var formattedDateBlur_ = moment(value_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+                copyText_.val(formattedDateBlur_);
+            } else {
+                valueAwal_ = $(this).val();
+                var formattedDate_ = moment(valueAwal_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+                copyText_.val(formattedDate_);
+            }
+        });
+
+        function isValidDate(value_) {
+            var date = new Date(value_);
+            return !isNaN(date.getTime());
+        }
+
+        var defaultView = $('#bataspengisianRespon');
+        var copyDate = defaultView.attr("type", "date");
+        var copyText = defaultView.attr("type", "text");
+        var valueAwal = $('#bataspengisianRespon').val()
+        var valueSementara = valueAwal;
+        var valueSementara2 = valueAwal;
+
+        var formattedDateDefault = moment(valueSementara, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        copyText.val(formattedDateDefault);
+
+        $("#bataspengisianRespon").on("focus", function () {
+            
+            $(this).attr("type", "date");
+            copyDate.val(formattedDateDefault);
+        });
+
+        $("#bataspengisianRespon").on("blur", function () {
+            
+            if (!isValidDate($(this).val())) {
+
+                var value = valueSementara2;
+                
+                var formattedDateBlur = moment(value, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+                copyText.val(formattedDateBlur);
+            } else {
+                valueAwal = $(this).val();
+                var formattedDate = moment(valueAwal, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+                copyText.val(formattedDate);
+            }
+        });
+
+        function isValidDate(value) {
+            var date = new Date(value);
+            return !isNaN(date.getTime());
+        }
+
+        $('#myForm').on('submit', function(e) {
+            $('#bataspengisianRespon').val(valueAwal);
+            $('#tgl-pelaksanaan').val(valueAwal_);
+            // var con2 = $('#tgl_berakhir').val();
+            // e.preventDefault();
+        })
+
+        // flatpickr("#tgl-pelaksanaan", {
+        //     locale: "{{ $locale }}",
+        //     dateFormat: "dddd, D MMM Y",
+        //     altFormat: "DD-MM-YYYY",
+        //     enableTime: false,
+        //     time_24hr: true,
+        //     timeZone: "Asia/Jakarta",
+        //     parseDate: (datestr, format, locale) => {
+        //         return moment(datestr, format, true).toDate();
+        //     },
+        //     formatDate: (date, format) => {
+        //         // locale can also be used
+        //         return moment(date).format(format);
+        //     }
+        // });
+
+        // flatpickr("#bataspengisianRespon", {
+        //     locale: "{{ $locale }}",
+        //     dateFormat: "dddd, D MMM Y",
+        //     altFormat: "DD-MM-YYYY",
+        //     enableTime: false,
+        //     time_24hr: true,
+        //     timeZone: "Asia/Jakarta",
+        //     parseDate: (datestr, format, locale) => {
+        //         return moment(datestr, format, true).toDate();
+        //     },
+        //     formatDate: (date, format) => {
+        //         // locale can also be used
+        //         return moment(date).format(format);
+        //     }
+        // });
+
         $('#auditee_id').select2();
         $('#area').select2();
         $('#auditor').select2();
+
+        var auditee_id = $('#auditee_id').val();
+        console.log(auditee_id);
+        var url = "{{url('/daftartilik-searchAuditeeAuditor')}}/"+auditee_id;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: { q: '' },
+            success: function(data) {
+                // $('#auditor').empty();
+                // $('#auditor').append('<option value="" selected disabled>Pilih Auditor</option>');
+                if (Array.isArray(data)) {
+                    console.log(auditee_id);
+                    var mappedData = data.map(function(item) {
+                        return {
+                            id: item.ketua_auditor,
+                            text: item.ketua_auditor,
+                        };
+                    });
+
+                    data.forEach(function(item) {
+                        mappedData.push({
+                            id: item.anggota_auditor,
+                            text: item.anggota_auditor,
+                        });
+                    });
+
+                    data.forEach(function(item) {
+                        mappedData.push({
+                            id: item.anggota_auditor2,
+                            text: item.anggota_auditor2,
+                        });
+                    });
+
+                    $('#auditor').select2({
+                        data: mappedData,
+                    });
+                } else {
+                    console.error('Data yang diterima dari server bukan array yang valid.');
+                }
+            },
+            error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
+            }
+        });
     });
 </script>
 

@@ -46,10 +46,11 @@
                                         >
                                         <div class="col-sm-9">
                                             <input
-                                                type="date"
+                                                type="text"
                                                 class="form-control"
                                                 id="tgl_mulai"
                                                 name="addmore[0][tgl_mulai]"
+                                                placeholder="Hari, Tanggal Bln Tahun"
                                                 required
                                             />
                                         </div>
@@ -62,10 +63,11 @@
                                         >
                                         <div class="col-sm-9">
                                             <input
-                                                type="date"
+                                                type="text"
                                                 class="form-control"
                                                 id="tgl_berakhir"
                                                 name="addmore[0][tgl_berakhir]"
+                                                placeholder="Hari, Tanggal Bln Tahun"
                                                 required
                                             />
                                         </div>
@@ -88,12 +90,109 @@
 @endsection
 
 @push('script')
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
     <script>
         $(document).ready(function(){
             var max_fields = 50;
             var wrapper = $("#detailjadwal");
             var add_btn = $("#moreItems_add");
             var i = 1;
+
+            // flatpickr("#tgl_mulai", {
+            //     dateFormat: "l, d M Y", // Format tampilan
+            //     altFormat: "Y-m-d", // Format yang akan digunakan saat mengirimkan data
+            //     altInput: true, // Aktifkan input alternatif untuk menampilkan tanggal dalam altFormat
+            //     locale: {
+            //         firstDayOfWeek: 0, // Minggu dimulai dari hari pertama
+            //         weekdays: {
+            //             shorthand: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+            //             longhand: [
+            //                 "Minggu",
+            //                 "Senin",
+            //                 "Selasa",
+            //                 "Rabu",
+            //                 "Kamis",
+            //                 "Jumat",
+            //                 "Sabtu",
+            //             ],
+            //         },
+            //         months: {
+            //             shorthand: [
+            //                 "Jan",
+            //                 "Feb",
+            //                 "Mar",
+            //                 "Apr",
+            //                 "Mei",
+            //                 "Jun",
+            //                 "Jul",
+            //                 "Agu",
+            //                 "Sep",
+            //                 "Okt",
+            //                 "Nov",
+            //                 "Des",
+            //             ],
+            //             longhand: [
+            //                 "Januari",
+            //                 "Februari",
+            //                 "Maret",
+            //                 "April",
+            //                 "Mei",
+            //                 "Juni",
+            //                 "Juli",
+            //                 "Agustus",
+            //                 "September",
+            //                 "Oktober",
+            //                 "November",
+            //                 "Desember",
+            //             ],
+            //         },
+            //     },
+            //     enableTime: false,
+            //     time_24hr: true,
+            //     timeZone: "Asia/Jakarta",
+            //     onChange: function(selectedDates, dateStr, instance) {
+            //         // Konversi tanggal ke format altFormat saat ada perubahan
+            //         instance.altInput.value = instance.formatDate(
+            //             selectedDates[0],
+            //             "l, d M Y"
+            //         );
+            //     },
+            // });
+
+            flatpickr("#tgl_mulai", {
+                locale: "{{ $locale }}",
+                dateFormat: "dddd, D MMM Y",
+                altFormat: "DD-MM-YYYY",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+                parseDate: (datestr, format, locale) => {
+                    return moment(datestr, format, true).toDate();
+                },
+                formatDate: (date, format) => {
+                    // locale can also be used
+                    return moment(date).format(format);
+                }
+            });
+
+            flatpickr("#tgl_berakhir", {
+                dateFormat: "dddd, D MMM Y",
+                altFormat: "DD-MM-YYYY",
+                locale: "id",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+                parseDate: (datestr, format) => {
+                    return moment(datestr, format, true).toDate();
+                },
+                formatDate: (date, format, locale) => {
+                    // locale can also be used
+                    return moment(date).format(format);
+                }
+            });
 
             
             $(add_btn).click(function(e){

@@ -1,6 +1,8 @@
 @extends('auditee.main_') 
 
-@section('title') AMI - Daftar Auditor @endsection
+@section('title') 
+    AMI - Daftar Auditor
+@endsection
 
 @section('linking')
     <a href="/auditee-daftarauditor-periode" class="mx-1">
@@ -18,7 +20,7 @@
 
 @section('container')
 
-<div class="container vh-100 mt-4 mb-3" style="font-size: 15px">
+<div class="container-fluid mt-4 mb-3" style="font-size: 15px; min-height: 100vh">
     <div class="row">
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>
@@ -63,6 +65,7 @@
 <script>
     $(document).ready(function () {
         $("#tableAuditor").DataTable({});
+        
     });
 </script>
 @endpush

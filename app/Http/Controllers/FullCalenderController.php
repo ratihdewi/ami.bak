@@ -15,7 +15,8 @@ class FullCalenderController extends Controller
     	{
     		$data = Event::whereDate('start', '>=', $request->start)
                        ->whereDate('end',   '<=', $request->end)
-                       ->get(['id', 'title', 'start', 'end', 'penginput', 'session']);
+					   ->orderBy('session')
+                       ->get(['id', 'title', 'start', 'end', 'penginput', 'session', 'peran']);
 
             return response()->json($data);
     	}
@@ -29,8 +30,7 @@ class FullCalenderController extends Controller
     	{
     		$data = Event::whereDate('start', '>=', $request->start)
                        ->whereDate('end',   '<=', $request->end)
-					   ->where('penginput', Auth::user()->name)
-                       ->get(['id', 'title', 'start', 'end', 'penginput', 'session']);
+                       ->get(['id', 'title', 'start', 'end', 'penginput', 'session', 'peran']);
             return response()->json($data);
     	}
     	return view('auditor/jadwalAudit');
@@ -42,8 +42,7 @@ class FullCalenderController extends Controller
     	{
     		$data = Event::whereDate('start', '>=', $request->start)
                        ->whereDate('end',   '<=', $request->end)
-					   ->where('penginput', Auth::user()->name)
-                       ->get(['id', 'title', 'start', 'end', 'penginput', 'session']);
+                       ->get(['id', 'title', 'start', 'end', 'penginput', 'session', 'peran']);
             return response()->json($data);
     	}
     	return view('auditee/jadwalAudit');
@@ -97,6 +96,7 @@ class FullCalenderController extends Controller
     				'end'		=>	$request->end,
 					'session'	=>	$request->session,
 					'penginput'	=>	Auth::user()->name,
+					'peran'	=>	Auth::user()->peran,
     			]);
 
     			return response()->json($event);
@@ -111,6 +111,7 @@ class FullCalenderController extends Controller
     				'end'		=>	$request->end,
 					'session'	=>	$request->session,
 					'penginput'	=>	Auth::user()->name,
+					'peran'	=>	Auth::user()->peran,
     			]);
 
     			return response()->json($event);

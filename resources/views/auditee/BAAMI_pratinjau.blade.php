@@ -174,17 +174,17 @@
                 <tbody>
                     <?php $i=0; $j=0 ?>
                     @foreach ($daftarhadir_ as $daftarhadir)
-                    @if ($daftarhadir->posisi == 'Auditor')
+                    @if ($daftarhadir->posisi == 'Ketua Auditor' || $daftarhadir->posisi == 'Anggota Auditor')
                     <tr>
-                        <td rowspan>Auditor</td>
+                        <td rowspan>{{ $daftarhadir->posisi }}</td>
                         <td>{{ $daftarhadir->namapeserta }}</td>
                         <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                         
                     </tr>
                     <?php $i++; ?>
-                    @elseif ($daftarhadir->posisi == 'Auditee')
+                    @elseif ($daftarhadir->posisi == 'Ketua Auditee' || $daftarhadir->posisi == 'Anggota Auditee')
                     <tr>
-                        <td rowspan>Auditee</td>
+                        <td rowspan>{{ $daftarhadir->posisi }}</td>
                         <td>{{ $daftarhadir->namapeserta }}</td>
                         <td class="text-center">{{ $eSignAuditee[$j] }}</td>
                     </tr>

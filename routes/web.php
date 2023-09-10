@@ -124,7 +124,7 @@ Route::get('/searchuser-addauditor', [UserController::class, 'viewuser'])->name(
 Route::get('/findusers', [UserController::class, 'getuser'])->name('finduserauditor');
 Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudit');
 Route::get('/jadwalaudit-filter', [JadwalController::class, 'filter'])->name('jadwalauditfilter');
-Route::get('/jadwalauditAMI-tambahjadwal', [JadwalController::class, 'tambahjadwal'])->name('tambahjadwal');
+Route::get('/jadwalauditAMI-tambahjadwal', [JadwalAMIController::class, 'tambahjadwal'])->name('tambahjadwal');
 Route::get('/jadwalaudit-tambahjadwal', [JadwalController::class, 'tambahjadwalaudit'])->name('tambahjadwalaudit');
 Route::post('/insertjadwal', [JadwalController::class, 'insertdata'])->name('insertjadwal');
 // Route::get('/insertjadwal', [JadwalController::class, 'index'])->name('insertjadwal');
@@ -132,7 +132,8 @@ Route::get('/jadwalaudit-tampiljadwalaudit/{id}', [JadwalController::class, 'tam
 Route::post('/jadwalaudit-updatejadwalaudit/{id}', [JadwalController::class, 'updatedata'])->name('updatejadwalaudit');
 Route::get('/jadwalaudit-deletejadwalaudit/{id}', [JadwalController::class, 'deletedata'])->name('deletejadwalaudit');
 Route::get('/tambahjadwal-getauditor/{auditee_id}', [JadwalController::class, 'getAuditor'])->name('tambahjadwal-getauditor');
-Route::get('/searchjadwal', [JadwalController::class, 'search'])->name('searchjadwal');
+Route::post('/searchjadwal', [JadwalController::class, 'search'])->name('searchjadwal');
+Route::get('/jadwalaudit-searchauditee/{tahunperiode0}/{tahunperiode}', [JadwalController::class, 'getUnitKerja'])->name('jadwalaudit-searchauditee');
 Route::get('/dokresmi', function(){
     return view('spm/dokResmi');
 });

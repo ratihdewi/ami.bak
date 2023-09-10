@@ -17,7 +17,7 @@
 }
 body {
     position: relative;
-    margin: var(--header-height) 0 0 0;
+    margin-left: 8% !important;
     padding: 0 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
@@ -61,6 +61,7 @@ a {
     background: #ffffff !important;
     color: #303030 !important;
     font-weight: 600px !important;
+    
 }
 .l-navbar:hover {
     position: fixed;
@@ -88,6 +89,10 @@ a {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+}
+
+.nav-list {
+    position: fixed;
 }
 
 .nav a {
@@ -148,6 +153,14 @@ nav .active {
     border-radius: 10px;
     width: 200px;
     background-clip: padding-box;
+}
+
+/* header */
+li.roleAuditor.disabled,
+li.roleAuditee.disabled,
+li.roleSPM.disabled {
+    pointer-events: none;
+    opacity: 0.6;
 }
 
 .height-100 {
@@ -293,13 +306,13 @@ span.fc-title {
         margin-top: 12% !important;
         margin-bottom: 8% !important;
     }
-    table#tableAreaDaftarTilik td,
+    /* table#tableAreaDaftarTilik td,
     table#tableDaftarTilik td {
         margin-left: 0px;
         margin-right: 0px;
         padding-left: 0rem !important;
         padding-right: 0rem !important;
-    }
+    } */
 }
 
 @media screen and (max-width: 1024px) {
@@ -324,7 +337,7 @@ span.fc-title {
         margin-top: 8% !important;
         margin-bottom: 8% !important;
     }
-    table#tableAreaDaftarTilik,
+    /* table#tableAreaDaftarTilik,
     table#tableDaftarTilik {
         font-size: 12px !important  ;
         display: block;
@@ -336,7 +349,7 @@ span.fc-title {
         margin-right: 0px;
         padding-left: 1.5rem !important;
         padding-right: 1.5rem !important;
-    }
+    } */
 }
 
 /* Berita acara */
@@ -395,10 +408,10 @@ span.fc-title {
     font-weight: bold;
 }
 
-tr.row.header_areadaftartilik,
+/* tr.row.header_areadaftartilik,
 tr.row.header_pertanyaandaftartilik {
     display: block;
-}
+} */
 
 .select2-container .select2-selection--single
 {

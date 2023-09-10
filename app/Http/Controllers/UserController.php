@@ -91,6 +91,12 @@ class UserController extends Controller
     public function changeroleauditor($id)
     {
         $auditor_ = Auditor::where('user_id', $id)->exists();
+        $user = User::find($id);
+
+        $user->update([
+            'peran' => 'auditor',
+        ]);
+        $user->save();
 
         if ($auditor_) {
             return redirect()->route('auditor-daftarauditor-periode')->with('success', 'Selamat datang di halaman Auditor!');
@@ -102,6 +108,12 @@ class UserController extends Controller
     public function changeroleauditee($id)
     {
         $auditee_ = Auditee::where('user_id', $id)->exists();
+        $user = User::find($id);
+
+        $user->update([
+            'peran' => 'auditee',
+        ]);
+        $user->save();
 
         if ($auditee_) {
             return redirect()->route('auditee-daftarauditor-periode')->with('success', 'Selamat datang di halaman Auditee!');
@@ -113,6 +125,13 @@ class UserController extends Controller
     public function changerolespm($id)
     {
         $user_ = User::where('id', $id)->where('role_id', '1')->exists();
+        $user = User::find($id);
+
+        $user->update([
+            'peran' => 'spm',
+        ]);
+        $user->save();
+
         if ($user_) {
             return redirect()->route('auditor-periode')->with('success', 'Selamat datang di halaman SPM!');
         } else {

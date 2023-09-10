@@ -13,24 +13,33 @@
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu">
-            <li class="ms-3">{{ Auth::user()->role->name }}</li>
+            <li class="ms-3">Profil</li>
             <li 
                 @if (count(Auth::user()->auditor()->get('user_id')) == 0 )
-                    {{ "hidden" }}
+                    hidden
+                @endif
+                @if (Auth::user()->peran == 'auditor')
+                    class="roleAuditor disabled"
                 @endif
             >
                 <a class="dropdown-item" href="/changeroleauditor/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Auditor)</a>
             </li>
             <li
                 @if (count(Auth::user()->auditee()->get('user_id')) == 0 )
-                    {{ "hidden" }}
+                    hidden
+                @endif
+                @if (Auth::user()->peran == 'auditee')
+                    class="roleAuditee disabled"
                 @endif
             >
                 <a class="dropdown-item" href="/changeroleauditee/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Auditee)</a>
             </li>
             <li
                 @if (Auth::user()->role_id != '1')
-                    {{ "hidden" }}
+                    hidden
+                @endif
+                @if (Auth::user()->peran == 'spm')
+                    class="roleSPM disabled"
                 @endif
             >
                 <a class="dropdown-item" href="/changerolespm/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (SPM)</a>

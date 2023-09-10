@@ -24,7 +24,7 @@ class DaftarHadirController extends Controller
         }
 
         $users = User::all();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $auditor = Auditor::where('user_id', Auth::user()->id);
         $auditee = Auditee::where('user_id', Auth::user()->id);
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
@@ -45,7 +45,7 @@ class DaftarHadirController extends Controller
         }
 
         $users = User::all();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $auditor = Auditor::where('user_id', Auth::user()->id);
         $auditee = Auditee::where('user_id', Auth::user()->id);
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
@@ -66,7 +66,7 @@ class DaftarHadirController extends Controller
         }
 
         $users = User::all();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $auditor = Auditor::where('user_id', Auth::user()->id);
         $auditee = Auditee::where('user_id', Auth::user()->id);
         $unit_kerja = Auditee::where('id', $beritaacara_->auditee_id)->first();
@@ -119,8 +119,18 @@ class DaftarHadirController extends Controller
                     $notExist = DaftarHadir::where('namapeserta', $value['namapeserta'])->where('beritaacara_id', $beritaacara_->id)->doesntExist();
                     $existAuditor_ = Auditor::where('user_id', $user_->id);
                     $existAuditee_ = Auditee::where('user_id', $user_->id);
+                    $auditee = Auditee::find($auditee_id);
 
-                    // dd($auditee);
+                    if ($value['namapeserta'] == $auditee->ketua_auditee) {
+                        $value['posisi'] = "Ketua Auditee";
+                    } elseif ($value['namapeserta'] == $auditee->ketua_auditor) {
+                        $value['posisi'] = "Ketua Auditor";
+                    } elseif ($value['namapeserta'] == $auditee->anggota_auditor || $value['namapeserta'] == $auditee->anggota_auditor2) {
+                        $value['posisi'] = "Anggota Auditor";
+                    } else {
+                        $value['posisi'] = "Anggota Auditee";
+                    }
+
                     if ($notExist) {
                         $daftarhadir = new DaftarHadir;
                         $daftarhadir->beritaacara_id = $value['beritaacara_id'];

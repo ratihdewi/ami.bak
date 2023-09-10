@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Exports\DaftarTilikExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 
 class DaftarTilikController extends Controller
@@ -33,10 +34,12 @@ class DaftarTilikController extends Controller
 
     public function tambahDT($tahunperiode)
     {   
+        $locale = Config::get('app.locale');
+        $timeZone = Config::get('app.timezone');
         $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
         $listAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         
-        return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor'));
+        return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor', 'locale', 'timeZone'));
     }
 
     public function insertdataArea(Request $request)
@@ -85,19 +88,32 @@ class DaftarTilikController extends Controller
     }
 
     public function tampildata($tahunperiode, $id){
+        $locale = Config::get('app.locale');
+        $timeZone = Config::get('app.timezone');
         $data = DaftarTilik::find($id);
         $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
         $listAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         //dd($data->auditee->unit_kerja);
         
-        return view('spm/updateAreaDaftarTilik', compact('data','listAuditee','listAuditor'));
+        return view('spm/updateAreaDaftarTilik', compact('data','listAuditee','listAuditor', 'locale', 'timeZone'));
     }
 
     public function updatedata(Request $request, $id)
     {
         $data = DaftarTilik::find($id);
-        $data->update($request->all());
-        return redirect()->back()->with('success', 'Data berhasil diupdate');
+        $auditor = Auditor::find($data->auditor_id);
+
+        // dd($request->all());
+
+        $data->update([
+            'auditor_id' => $auditor->id,
+            'tgl_pelaksanaan' => $request->tgl_pelaksanaan,
+            'tempat' => $request->tempat,
+            'bataspengisianRespon' => $request->bataspengisianRespon,
+        ]);
+        $data->save();
+
+        return redirect()->route('daftartilik', ['tahunperiode' => $data->auditee->tahunperiode])->with('success', 'Data berhasil diupdate');
     }
 
     public function deletedata($id)

@@ -112,7 +112,7 @@
                   <select id="session" class="w-100" name="session">
                     <option value="Pilih Sesi" disabled selected>Pilih Sesi</option>
                     @foreach ($sessions as $session)
-                      <option value="{{ $session->sesiKe }}">{{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</option>
+                      <option value="{{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)">{{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</option>
                     @endforeach
                   </select>
                 </div>
@@ -209,7 +209,14 @@
         },
         events:'/auditor_ketersediaan-jadwal',
         eventRender: function(event, element) {
-            // Menambahkan atribut tambahan ke tampilan acara
+            if (event.peran == 'auditor') {
+              $(element).find('.fc-content').css('background-color', '#367E18');
+            } else if (event.peran == 'spm') {
+              $(element).find('.fc-content').css('background-color', '#CC3636');
+            } else if (event.peran == 'auditee') {
+              $(element).find('.fc-content').css('background-color', '#F57328');
+            }
+
             $(element).find('.fc-title').append(' - ' + event.session);
         },
         selectable:true,
@@ -223,7 +230,7 @@
             var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
             var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
 
-              $('#saveBtn').click(function() {
+              $('#saveBtn').off('click').on('click', function() {
                 var title = $('#inisialnama').val();
                 var session = $('#session').val();
 
@@ -251,10 +258,17 @@
                     }
                 })
                 $("#form").load(location.href + " #form");
+
+                $('#bookingModal').on('hidden.bs.modal', function (e) {
+                  $('#inisialnama').val('');
+                  $('#session').val('Pilih Sesi');
+                });
+
+                $('#bookingModal').modal('hide');
               });
 
               $('#cancelBtn').click(function() {
-                location.reload();
+                $('#bookingModal').modal('hide');
               })
         },
         editable:true,
@@ -331,6 +345,29 @@
         }
     });
 
+  });
+</script>
+<script>
+  var sesi = {!! json_encode($sessions) !!};
+
+  // Fungsi untuk membuka modal
+  function openBookingModal() {
+    $('#bookingModal').modal('show');
+  }
+
+  // Fungsi untuk merefresh modal
+  function refreshModal() {
+      $('#inisialnama').val('');
+      $('#session').empty();
+      $('#session').append('<option value="Pilih Sesi" disabled selected>Pilih Sesi</option>');
+      for (let i = 0; i < sesi.length; i++) {
+        $('#session').append('<option value="'+sesi[i].sesiKe+' ('+moment(sesi[i].waktuMulai).format('HH:mm')+' - '+moment(sesi[i].waktuSelesai).format('HH:mm')+' WIB)"> '+sesi[i].sesiKe+' ('+moment(sesi[i].waktuMulai).format('HH:mm')+' - '+moment(sesi[i].waktuSelesai).format('HH:mm')+' WIB)</option>');
+      }
+  }
+
+  // Ketika modal ditutup, panggil fungsi refreshModal
+  $('#bookingModal').on('hidden.bs.modal', function (e) {
+    refreshModal();
   });
 </script>
 

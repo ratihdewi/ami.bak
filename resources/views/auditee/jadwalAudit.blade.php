@@ -10,7 +10,7 @@
 
 @section('container')
 
-<div class="container vh-100 mt-4" style="font-size: 13px">
+<div class="container-fluid mt-4" style="font-size: 13px; min-height: 100vh">
   {{-- Search Jadwal --}}
   <div class="search my-5 p-5 mx-5 text-white rounded">
     <form action="auditee_searchjadwal" method="get">
@@ -60,8 +60,8 @@
                         <th class="col-2 text-center">Auditee</th>
                         <th class="col-2 text-center">Auditor</th>
                         <th class="col-1 text-center">Tahun Ajaran</th>
-                        <th class="col-1 text-center">Tempat</th>
-                        <th class="col-2 text-center">Hari/Tanggal</th>
+                        <th class="col-2 text-center">Tempat</th>
+                        <th class="col-1 text-center">Hari/Tanggal</th>
                         <th class="col-1 text-center">Waktu</th>
                         <th class="col-2 text-center">Kegiatan</th>
                     </tr>
@@ -72,15 +72,15 @@
                     @foreach ($auditee->jadwalaudit()->get() as $item)
                       <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
-                        <td class="text-center">
+                        <td>
                           {{ $auditee->unit_kerja }}
                         </td>
-                          <td class="text-center">{{ $item->auditor->nama }}</td>
+                          <td>{{ $item->auditor->nama }}</td>
                           <td class="text-center">{{ $item->th_ajaran1 }}/{{ $item->th_ajaran2 }}</td>
-                          <td class="text-center">{{ $item->tempat }}</td>
-                          <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
+                          <td>{{ $item->tempat }}</td>
+                          <td>{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
                           <td class="text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB </td>
-                          <td class="text-center">{{ $item->kegiatan }}</td>
+                          <td>{{ $item->kegiatan }}</td>
                       </tr>
                       @endforeach
                       @endforeach
@@ -112,7 +112,7 @@
                   <select id="session" class="w-100" name="session">
                     <option value="Pilih Sesi" disabled selected>Pilih Sesi</option>
                     @foreach ($sessions as $session)
-                      <option value="{{ $session->sesiKe }}">{{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</option>
+                      <option value="{{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)">{{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</option>
                     @endforeach
                   </select>
                 </div>
@@ -135,7 +135,7 @@
   </div>
   
   {{-- Jadwal keseluruhan --}}
-  <div class="jadwalKeseluruhan" style="margin-top: 100px">
+  <div class="jadwalKeseluruhan mb-5" style="margin-top: 100px">
     <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jadwal Audit Mutu Internal</button>
@@ -208,54 +208,133 @@
         },
         events:'/auditee_ketersediaan-jadwal',
         eventRender: function(event, element) {
-            // Menambahkan atribut tambahan ke tampilan acara
+            if (event.peran == 'auditor') {
+              $(element).find('.fc-content').css('background-color', '#367E18');
+            } else if (event.peran == 'spm') {
+              $(element).find('.fc-content').css('background-color', '#CC3636');
+            } else if (event.peran == 'auditee') {
+              $(element).find('.fc-content').css('background-color', '#F57328');
+            }
+            
             $(element).find('.fc-title').append(' - ' + event.session);
         },
-        selectable:true,
-        selectHelper: true,
-        select:function(start, end, allDay)
-        {
-            var date = $.fullCalendar.formatDate(start, 'D MMMM Y');
-            $('#bookingModal').modal('toggle');
-            $('#dateInfo').html(date);
-            
-            var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-
-              $('#saveBtn').click(function() {
-                var title = $('#inisialnama').val();
-                var session = $('#session').val();
-
-                console.log(start);
-                console.log(end);
-                console.log(title);
-                console.log(session);
-
-                $.ajax({
-                    url:"/ketersediaan-jadwal/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        session: session,
-                        type: 'add'
-                    },
-                    success:function(data)
-                    {
-                        console.log(data);
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Created Successfully");
-                        $("#inputKetersediaan").load(location.href + " #inputKetersediaan");
-                    }
-                })
-                $("#form").load(location.href + " #form");
-              });
-
-              $('#cancelBtn').click(function() {
-                location.reload();
-              })
+        selectable: function(start, end, jsEvent, view) {
+            // Misalkan Anda ingin mengaktifkan selectable hanya jika peran adalah 'auditor'
+            // Sesuaikan kondisi ini sesuai dengan kebutuhan Anda
+            if (view.calendar.getEventSources()[0].events.some(event => event.peran === 'auditee')) {
+                return true; // Aktifkan selectable
+            } else {
+                return false; // Nonaktifkan selectable
+            }
         },
+        // selectable:true,
+        selectHelper: true,
+        select: function(start, end, allDay) {
+            var peran = "{{ Auth::user()->peran }}";
+            
+            if (peran == 'auditee') {
+                var date = $.fullCalendar.formatDate(start, 'D MMMM Y');
+                $('#bookingModal').modal('toggle');
+                $('#dateInfo').html(date);
+                
+                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
+
+                $('#saveBtn').off('click').on('click', function() {
+                    var title = $('#inisialnama').val();
+                    var session = $('#session').val();
+
+                    console.log(start);
+                    console.log(end);
+                    console.log(title);
+                    console.log(session);
+
+                    $.ajax({
+                        url: "/ketersediaan-jadwal/action",
+                        type: "POST",
+                        data: {
+                            title: title,
+                            start: start,
+                            end: end,
+                            session: session,
+                            type: 'add'
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            calendar.fullCalendar('refetchEvents');
+                            alert("Jadwal berhasil ditambahkan!");
+                            $("#inputKetersediaan").load(location.href + " #inputKetersediaan");
+                        }
+                    });
+                    $("#form").load(location.href + " #form");
+
+                    $('#bookingModal').on('hidden.bs.modal', function(e) {
+                        $('#inisialnama').val('');
+                        $('#session').val('Pilih Sesi');
+                    });
+
+                    $('#bookingModal').modal('hide');
+                });
+
+                $('#cancelBtn').click(function() {
+                    $('#bookingModal').modal('hide');
+                });
+            } else {
+                // Jika pengguna tidak memiliki peran 'admin', Anda dapat menampilkan pesan atau melakukan tindakan lain.
+                alert("Anda tidak memiliki izin untuk melakukan pemilihan tanggal.");
+            }
+        },
+        // select:function(start, end, allDay)
+        // {
+        //     var date = $.fullCalendar.formatDate(start, 'D MMMM Y');
+        //     $('#bookingModal').modal('toggle');
+        //     $('#dateInfo').html(date);
+            
+        //     var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+        //     var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
+
+        //       $('#saveBtn').off('click').on('click',function() {
+        //         var title = $('#inisialnama').val();
+        //         var session = $('#session').val();
+
+        //         console.log(start);
+        //         console.log(end);
+        //         console.log(title);
+        //         console.log(session);
+
+        //         $.ajax({
+        //             url:"/ketersediaan-jadwal/action",
+        //             type:"POST",
+        //             data:{
+        //                 title: title,
+        //                 start: start,
+        //                 end: end,
+        //                 session: session,
+        //                 type: 'add'
+        //             },
+        //             success:function(data)
+        //             {
+        //                 console.log(data);
+        //                 calendar.fullCalendar('refetchEvents');
+        //                 alert("Event Created Successfully");
+        //                 $("#inputKetersediaan").load(location.href + " #inputKetersediaan");
+        //             }
+        //         })
+        //         $("#form").load(location.href + " #form");
+
+        //         $('#bookingModal').on('hidden.bs.modal', function (e) {
+        //           $('#inisialnama').val('');
+        //           $('#session').val('Pilih Sesi');
+        //         });
+
+        //         $('#bookingModal').modal('hide');
+
+        //       });
+
+        //       $('#cancelBtn').click(function() {
+        //         $('#bookingModal').modal('hide');
+        //       })
+        // },
         editable:true,
         eventResize: function(event, delta)
         {
@@ -282,54 +361,95 @@
                 }
             })
         },
-        eventDrop: function(event)
+        eventDrop: function(event, delta, revertFunc)
         {
-            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-            var title = event.title;
-            var session = event.session;
-            var id = event.id;
-            $.ajax({
-                url:"/ketersediaan-jadwal/action",
-                type:"POST",
-                data:{
-                    title: title,
-                    start: start,
-                    end: end,
-                    session: session,
-                    id: id,
-                    type: 'update'
-                },
-                success:function(response)
-                {
-                    calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
-                }
-            })
+            var username = "{{ Auth::user()->name }}";
+            var peran = "{{ Auth::user()->peran }}";
+
+            if (username == event.penginput && peran == event.peran) {
+              var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
+              var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
+              var title = event.title;
+              var session = event.session;
+              var id = event.id;
+
+              $.ajax({
+                  url:"/ketersediaan-jadwal/action",
+                  type:"POST",
+                  data:{
+                      title: title,
+                      start: start,
+                      end: end,
+                      session: session,
+                      id: id,
+                      type: 'update'
+                  },
+                  success:function(response)
+                  {
+                      calendar.fullCalendar('refetchEvents');
+                      alert("Jadwal berhasil diubah!");
+                  }
+              })
+            } else {
+              alert("Anda tidak memiliki izin untuk melakukan perubahan jadwal.");
+              revertFunc(); 
+            }
+            
         },
 
         eventClick:function(event)
         {
-            if(confirm("Are you sure you want to remove it?"))
-            {
-                var id = event.id;
-                $.ajax({
-                    url:"/ketersediaan-jadwal/action",
-                    type:"POST",
-                    data:{
-                        id:id,
-                        type:"delete"
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Deleted Successfully");
-                    }
-                })
+            var username = "{{ Auth::user()->name }}";
+            var peran = "{{ Auth::user()->peran }}";
+
+            if (username == event.penginput && peran == event.peran) {
+              if(confirm("Are you sure you want to remove it?"))
+              {
+                  var id = event.id;
+                  $.ajax({
+                      url:"/ketersediaan-jadwal/action",
+                      type:"POST",
+                      data:{
+                          id:id,
+                          type:"delete"
+                      },
+                      success:function(response)
+                      {
+                          calendar.fullCalendar('refetchEvents');
+                          alert("Jadwal berhasil di hapus!");
+                      }
+                  })
+              }
+            } else {
+              alert("Anda tidak memiliki izin untuk melakukan penghapusan jadwal."); 
             }
+
         }
     });
 
+  });
+</script>
+<script>
+  var sesi = {!! json_encode($sessions) !!};
+
+  // Fungsi untuk membuka modal
+  function openBookingModal() {
+    $('#bookingModal').modal('show');
+  }
+
+  // Fungsi untuk merefresh modal
+  function refreshModal() {
+      $('#inisialnama').val('');
+      $('#session').empty();
+      $('#session').append('<option value="Pilih Sesi" disabled selected>Pilih Sesi</option>');
+      for (let i = 0; i < sesi.length; i++) {
+        $('#session').append('<option value="'+sesi[i].sesiKe+' ('+moment(sesi[i].waktuMulai).format('HH:mm')+' - '+moment(sesi[i].waktuSelesai).format('HH:mm')+' WIB)"> '+sesi[i].sesiKe+' ('+moment(sesi[i].waktuMulai).format('HH:mm')+' - '+moment(sesi[i].waktuSelesai).format('HH:mm')+' WIB)</option>');
+      }
+  }
+
+  // Ketika modal ditutup, panggil fungsi refreshModal
+  $('#bookingModal').on('hidden.bs.modal', function (e) {
+    refreshModal();
   });
 </script>
 {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}

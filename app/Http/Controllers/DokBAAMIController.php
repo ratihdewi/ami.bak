@@ -50,7 +50,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -87,7 +87,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -124,7 +124,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -275,19 +275,19 @@ class DokBAAMIController extends Controller
     public function pratinjauba($auditee_id, $tahunperiode)
     {
         $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
-        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
 
         $eSignAuditor = [];
         $eSignAuditee = [];
 
         foreach ($daftarhadirs as $key => $daftarhadir) {
-            if ($daftarhadir->posisi == "Auditor") {
+            if ($daftarhadir->posisi == "Ketua Auditor" || $daftarhadir->posisi == "Anggota Auditor") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadiran = QrCode::generate($url);
 
                 array_push($eSignAuditor, QrCode::generate($url));
-            } elseif ($daftarhadir->posisi == "Auditee") {
+            } elseif ($daftarhadir->posisi == "Ketua Auditee" || $daftarhadir->posisi == "Anggota Auditee") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadirane = QrCode::generate($url);
@@ -328,13 +328,13 @@ class DokBAAMIController extends Controller
         $eSignAuditee = [];
 
         foreach ($daftarhadirs as $key => $daftarhadir) {
-            if ($daftarhadir->posisi == "Auditor") {
+            if ($daftarhadir->posisi == "Ketua Auditor" || $daftarhadir->posisi == "Anggota Auditor") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadiran = QrCode::generate($url);
 
                 array_push($eSignAuditor, QrCode::generate($url));
-            } elseif ($daftarhadir->posisi == "Auditee") {
+            } elseif ($daftarhadir->posisi == "Ketua Auditee" || $daftarhadir->posisi == "Anggota Auditee") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadiran = QrCode::generate($url);
@@ -375,13 +375,13 @@ class DokBAAMIController extends Controller
         $eSignAuditee = [];
 
         foreach ($daftarhadirs as $key => $daftarhadir) {
-            if ($daftarhadir->posisi == "Auditor") {
+            if ($daftarhadir->posisi == "Ketua Auditor" || $daftarhadir->posisi == "Anggota Auditor") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadiran = QrCode::generate($url);
 
                 array_push($eSignAuditor, QrCode::generate($url));
-            } elseif ($daftarhadir->posisi == "Auditee") {
+            } elseif ($daftarhadir->posisi == "Ketua Auditee" || $daftarhadir->posisi == "Anggota Auditee") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadiran = QrCode::generate($url);
@@ -422,13 +422,13 @@ class DokBAAMIController extends Controller
         $eSignAuditee = [];
 
         foreach ($daftarhadirs as $key => $daftarhadir) {
-            if ($daftarhadir->posisi == "Auditor") {
+            if ($daftarhadir->posisi == "Ketua Auditor" || $daftarhadir->posisi == "Anggota Auditor") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadiran = QrCode::generate($url);
 
                 array_push($eSignAuditor, QrCode::generate($url));
-            } elseif ($daftarhadir->posisi == "Auditee") {
+            } elseif ($daftarhadir->posisi == "Ketua Auditee" || $daftarhadir->posisi == "Anggota Auditee") {
                 $url = url('/auditor-esignhadir/'.$auditee_id.'/'.$daftarhadir->id.'/'.$daftarhadir->namapeserta);
 
                 $esignKehadiran = QrCode::generate($url);

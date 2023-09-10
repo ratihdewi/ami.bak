@@ -9,7 +9,7 @@
 @endsection
 
 @section('container')
-<div class="container vh-100 my-4"  style="font-size: 15px">
+<div class="container-fluid my-4"  style="font-size: 15px; min-height: 100vh">
     <div class="row">
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>

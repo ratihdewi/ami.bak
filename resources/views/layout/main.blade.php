@@ -17,9 +17,13 @@
             >   
                 <div class="row mb-2 mt-3 me-2" style="font-size: 14px">
                     <div class="col d-flex justify-content-end">
-                        <a href="" style="text-decoration: none;">
-                            <i class="bi bi-person-square me-2 h87"></i><span><b>SPM</b></span>
-                        </a>/
+                        @if (Auth::user()->peran == 'user')
+                            <a href="" style="text-decoration: none;"><i class="bi bi-person-square me-2"></i><span><b>User/</b></span></a>
+                        @elseif (Auth::user()->peran == 'spm')
+                            <a href="" style="text-decoration: none;">
+                                <i class="bi bi-person-square me-2 h87"></i><span><b>SPM</b></span>
+                            </a>/
+                        @endif
                         @yield('linking')
                     </div>
                 </div>

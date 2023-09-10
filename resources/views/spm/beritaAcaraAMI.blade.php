@@ -224,7 +224,15 @@
                   @foreach ($daftarhadir_ as $daftarhadir)
                   <tr>
                     <td scope="row" class="text-center">{{ $no++ }}</td>
-                    <td class="col-2 text-center">{{ $daftarhadir->posisi }}</td>
+                    <td class="col-2 text-center">
+                      @if ($daftarhadir->beritaacara->auditee->ketua_auditee == $daftarhadir->namapeserta)
+                        {{ "Ketua Auditee" }}
+                      @elseif ($daftarhadir->beritaacara->auditee->ketua_auditor == $daftarhadir->namapeserta)
+                        {{ "Ketua Auditor" }}
+                      @else
+                        {{ $daftarhadir->posisi }}
+                      @endif
+                    </td>
                     <td class="col-3 text-center">{{ $daftarhadir->namapeserta }}</td>
                     <td class="col-2 text-center">
                       @if ($daftarhadir->eSign == 'Hadir')

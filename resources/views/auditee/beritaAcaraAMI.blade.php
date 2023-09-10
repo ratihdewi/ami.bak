@@ -18,7 +18,7 @@
 @endsection
 
 @section('container')
-  <div class="container">
+  <div class="container-fluid">
       <div class="d-flex my-4 justify-content-between">
         <div class="btn-left">
           @foreach ($auditee_ as $auditee)
@@ -72,7 +72,7 @@
           </ul>
           
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container-fluid text-center dataDokumenBA my-3 px-3">
           
           <div class="row">
             <div class="col-3 label border py-2 fw-semibold text-start">Judul Dokumen</div>
@@ -126,7 +126,7 @@
             </li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container-fluid text-center dataDokumenBA my-3 px-3">
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
                 <div class="col-9 border py-2 text-start">
@@ -212,7 +212,7 @@
             </li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container-fluid text-center dataDokumenBA my-3 px-3">
             <table class="table table-hover">
                 <thead>
                     <tr class="">
@@ -254,7 +254,7 @@
             </li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container-fluid text-center dataDokumenBA my-3 px-3">
             <table class="table table-hover">
                 <thead>
                     <tr class="">
@@ -294,7 +294,7 @@
             </li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container-fluid text-center dataDokumenBA my-3 px-3">
             <table class="table table-hover">
                 <thead>
                     <tr class="row">
@@ -334,7 +334,7 @@
             </li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container-fluid text-center dataDokumenBA my-3 px-3">
           <table class="table table-hover">
               <thead>
                   <tr class="">
@@ -367,7 +367,7 @@
             </li>
           </ul>
         </div>
-        <div class="container text-center dataDokumenBA my-3 px-3">
+        <div class="container-fluid text-center dataDokumenBA my-3 px-3">
             <table class="table table-hover">
                 <thead>
                     <tr class="">
