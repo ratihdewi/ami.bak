@@ -15,7 +15,6 @@
         }
         thead {
             display: table-header-group;
-            page-break-before: always; /* Menambahkan pemisah halaman sebelum elemen <thead> */
         }
 
         tfoot {
