@@ -16,12 +16,6 @@
         thead {
             display: table-header-group;
         }
-        tfoot {
-            display: table-row-group;
-        }
-        tr {
-            page-break-inside: avoid;
-        }
     </style>
 </head>
 <body>
