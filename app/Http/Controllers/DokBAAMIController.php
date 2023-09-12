@@ -500,6 +500,11 @@ class DokBAAMIController extends Controller
 
         $pdf = PDF::loadView('spm/BAAMI_exportpdf', $data);
         $pdf->setPaper('A4', 'portrait');
+        $options = [
+            'margin-top' => '20mm',
+            'margin-bottom' => '20mm',
+        ]
+        $pdf->setOptions($options);
         
         $namaFile = $auditee->unit_kerja.'-'.$baami->judulDokumen.'.pdf';
      
