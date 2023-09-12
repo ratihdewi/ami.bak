@@ -503,7 +503,7 @@ class DokBAAMIController extends Controller
         $options = [
             'margin-top' => '20mm',
             'margin-bottom' => '20mm',
-        ]
+        ];
         $pdf->setOptions($options);
         
         $namaFile = $auditee->unit_kerja.'-'.$baami->judulDokumen.'.pdf';
