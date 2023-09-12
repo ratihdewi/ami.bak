@@ -13,10 +13,14 @@
             font-size: 18px;
             letter-spacing: 0.5px;
         }
+<<<<<<< HEAD
         table {
             display: table-row-group;
         }
         thead {
+=======
+        /* thead {
+>>>>>>> 933c1a9cbf5af26754119bba9b835b8fe477fdea
             display: table-header-group;
         }
 
@@ -26,7 +30,7 @@
 
         tr {
             page-break-inside: auto;
-        }
+        } */
     </style>
 </head>
 <body>
