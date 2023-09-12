@@ -10,7 +10,7 @@
 @endsection
 
 @section('container')
-<div class="container vh-100 my-4"  style="font-size: 15px">
+<div class="container my-4"  style="font-size: 15px; min-height: 100vh">
     <div class="row">
         @if ($message = Session::get('succes'))
             <div class="alert alert-success" role="alert">
@@ -24,46 +24,67 @@
         
         </div>
         <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-primary btn-sm my-3 px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-target="#staticBackdrop">Tambah Periode</button>
+            <button type="button" class="btn btn-primary btn-sm my-3 px-3" data-bs-toggle="modal" data-bs-target="#addPeriodeModal">Tambah Periode</button>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Periode AMI</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                <div class=" row mb-3">
-                    <div class="col">
-                        <label for="recipient-name" class="col-form-label">Tahun periode awal</label>
-                        <input type="number" class="form-control" id="thPeriodeAwal">
+        <div class="modal fade" id="addPeriodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog">
+                <form id="periodeForm" action="/daftarAuditor-periode-addperiode" method="POST">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Periode AMI</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="col">
-                        <label for="recipient-name" class="col-form-label">Tahun periode akhir</label>
-                        <input type="number" class="form-control" id="thPeriodeAkhir">
+                    <div class="modal-body">
+                        
+                        <div class=" row mb-3">
+                            <div class="col">
+                                <label for="recipient-name" class="col-form-label">Tahun periode awal</label>
+                                <input type="number" min="2016" max="{{ $currentYear - 1 }}" class="form-control" id="thPeriodeAwal" name="tahunperiode1" required>
+                            </div>
+                            <div class="col">
+                                <label for="recipient-name" class="col-form-label">Tahun periode akhir</label>
+                                <input type="number" min="2017" max="{{ $currentYear }}" class="form-control" id="thPeriodeAkhir" name="tahunperiode2" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="recipient-name" class="col-form-label">Tanggal Mulai</label>
+                                <div class="col">
+                                    <div class="input-group date" id="tglmulai">
+                                        <input type="text" class="form-control" id="tglMulai" name="tgl_mulai" placeholder="{{ $currentDate }}" required>
+                                        <span class="input-group-append">
+                                        <span class="input-group-text bg-light d-block">
+                                            <i class="bi bi-calendar"></i>
+                                        </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="recipient-name" class="col-form-label">Tanggal Akhir</label>
+                                <div class="col">
+                                    <div class="input-group date" id="tglakhir">
+                                        <input type="text" class="form-control" id="tglAkhir" name="tgl_berakhir" placeholder="{{ $currentDate }}" required>
+                                        <span class="input-group-append">
+                                        <span class="input-group-text bg-light d-block">
+                                            <i class="bi bi-calendar"></i>
+                                        </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="recipient-name" class="col-form-label">Tanggal Mulai</label>
-                        <input type="date" class="form-control" id="tglMulai">
-                    </div>
-                    <div class="col">
-                        <label for="recipient-name" class="col-form-label">Tanggal Akhir</label>
-                        <input type="date" class="form-control" id="tglAkhir">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary" id="savePeriode">Simpan</button>
                     </div>
                 </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Simpan</button>
-            </div>
-            </div>
-        </div>
         {{-- <div class="d-flex justify-content-end">
             <a href="/addAuditor" class="text-white" style="font-weight: 600; text-decoration: none">
                 <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
@@ -73,7 +94,7 @@
         </div> --}}
     </div>
         
-    <div class="row">
+    <div class="row mb-5">
         <table class="table table-hover mt-5 mb-3" id="tableAuditor">
             <thead>
                 <tr>
@@ -86,11 +107,15 @@
                 @php
                     $no = 1;    
                 @endphp
-                @foreach ($dataAuditor->unique('tahunperiode') as $item)
+                @foreach ($dataAuditor as $item)
                     <tr>
                         <th scope="row" class=" col-2 text-center">{{ $no++ }}</th>
-                        <th class="col-8">Periode {{ $item->tahunperiode0 }}/{{ $item->tahunperiode }}</th>
-                        <th class="col-2 text-center"><a href="/daftarAuditor/{{ $item->tahunperiode }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></a></th>
+                        <th class="col-8">Periode {{ $item->tahunperiode1 }}/{{ $item->tahunperiode2 }}</th>
+                        <th class="col-2 text-center">
+                            <a href="/daftarAuditor/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning me-1"><i class="bi bi-eye-fill"></i></button></a>
+                            {{-- <a href=""><button class="bg-primary border-0 rounded-1 me-0"><i class="bi bi-pencil-square text-white"></i></button></a> --}}
+                            <a href="/daftarauditor-deleteperiode/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus periode ini?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                        </th>
                     </tr>
                 @endforeach
             </tbody>
@@ -106,9 +131,71 @@
   
       <!-- Datatable plugin JS library file -->
      <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.id.min.js" integrity="sha512-5dCXH+uVhgMJkIOoV1tEejq2voWTEqqh2Q2+Caz6//+6i9dLpfyDmAzKcdbogrXjPLanlDO5pTsBDKzmaJcWFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
             $('#tableAuditor').DataTable({ });
+
+            $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(function(){
+                $('#datepicker').datepicker();
+                $('#tglmulai').datepicker({
+                    format: 'dd-mm-yyyy',
+                });
+                $('#tglakhir').datepicker({
+                    format: 'dd-mm-yyyy',
+                });
+            });
+
+            // $('#savePeriode').on('click', function() {
+
+            //     var tahunperiode1 = $('#thPeriodeAwal').val();
+            //     var tahunperiode2 = $('#thPeriodeAkhir').val();
+            //     var tgl_mulai = $('#tglMulai').val();
+            //     var tgl_berakhir = $('#tglAkhir').val();
+
+            //     console.log(tahunperiode1);
+            //     console.log(tgl_mulai);
+
+            //     $.ajax({
+            //         url:"/daftarAuditor-periode-addperiode",
+            //         method:"POST",
+            //         data:{
+            //             tahunperiode1: tahunperiode1,
+            //             tahunperiode2: tahunperiode2,
+            //             tgl_mulai: tgl_mulai,
+            //             tgl_berakhir: tgl_berakhir,
+            //         },
+            //         success:function(data)
+            //         {
+            //             alert("Event Created Successfully");
+            //             location.reload();
+            //         }
+            //     })
+            //     $('#addPeriodeModal').modal('hide');
+            // })
+
+            // $('#createSession').click(function() {
+            //     $('#sessionModal').modal('toggle');
+            // });
+
+            // function refreshModal() {
+            //     $('#thPeriodeAwal').val('');
+            //     $('#thPeriodeAkhir').val('');
+            //     $('#tglMulai').val('');
+            //     $('#tglAkhir').val('');
+            // }
+
+            // // Ketika modal ditutup, panggil fungsi refreshModal
+            // $('#addPeriodeModal').on('hidden.bs.modal', function (e) {
+            //     refreshModal();
+            // });
         });
     </script>
 @endpush
