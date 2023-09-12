@@ -7,10 +7,20 @@
     <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">
     <title>Table</title>
     <style>
+        
         body {
             font-family: 'Times New Roman', Times, serif;
             font-size: 18px;
             letter-spacing: 0.5px;
+        }
+        thead {
+            display: table-header-group;
+        }
+        tfoot {
+            display: table-row-group;
+        }
+        tr {
+            page-break-inside: avoid;
         }
     </style>
 </head>
