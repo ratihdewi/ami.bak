@@ -311,7 +311,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -322,7 +322,7 @@ class DokBAAMIController extends Controller
     public function auditor_pratinjauba($auditee_id, $tahunperiode)
     {
         $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
-        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
 
         $eSignAuditor = [];
         $eSignAuditee = [];
@@ -358,7 +358,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -369,7 +369,7 @@ class DokBAAMIController extends Controller
     public function auditee_pratinjauba($auditee_id, $tahunperiode)
     {
         $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
-        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
 
         $eSignAuditor = [];
         $eSignAuditee = [];
@@ -405,7 +405,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
@@ -416,7 +416,7 @@ class DokBAAMIController extends Controller
     public function downloadba(Request $request, $auditee_id, $tahunperiode)
     {
         $beritaacaras = BeritaAcara::where('auditee_id', $auditee_id)->where('tahunperiode', $tahunperiode)->first();
-        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->get();
+        $daftarhadirs = DaftarHadir::where('beritaacara_id', $beritaacaras->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
 
         $eSignAuditor = [];
         $eSignAuditee = [];
@@ -453,7 +453,7 @@ class DokBAAMIController extends Controller
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
-        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->get();
+        $daftarhadir_ = DaftarHadir::where('beritaacara_id', $beritaacara_->id)->where('deletedBy', null)->orderByRaw("FIELD(posisi, 'Ketua Auditor', 'Anggota Auditor', 'Ketua Auditee', 'Anggota Auditee')")->get();
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
