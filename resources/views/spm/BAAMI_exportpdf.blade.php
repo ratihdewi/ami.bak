@@ -7,10 +7,23 @@
     <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">
     <title>Table</title>
     <style>
+        
         body {
             font-family: 'Times New Roman', Times, serif;
             font-size: 18px;
             letter-spacing: 0.5px;
+        }
+        thead {
+            display: table-header-group;
+            page-break-before: always; /* Menambahkan pemisah halaman sebelum elemen <thead> */
+        }
+
+        tfoot {
+            display: table-row-group;
+        }
+
+        tr {
+            page-break-inside: auto;
         }
     </style>
 </head>
@@ -167,7 +180,7 @@
                         @foreach ($daftarhadir_ as $daftarhadir)
                         @if ($daftarhadir->posisi == 'Ketua Auditor' || $daftarhadir->posisi == 'Anggota Auditor')
                         <tr>
-                            <td rowspan>Auditor</td>
+                            <td rowspan>{{ $daftarhadir->posisi }}</td>
                             <td>{{ $daftarhadir->namapeserta }}</td>
                             <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                             
@@ -175,7 +188,7 @@
                         <?php $i++; ?>
                         @elseif ($daftarhadir->posisi == 'Ketua Auditee' || $daftarhadir->posisi == 'Anggota Auditee')
                         <tr>
-                            <td rowspan>Auditee</td>
+                            <td rowspan>{{ $daftarhadir->posisi }}</td>
                             <td>{{ $daftarhadir->namapeserta }}</td>
                             <td class="text-center">{{ $eSignAuditee[$j] }}</td>
                         </tr>
