@@ -13,7 +13,7 @@
             font-size: 18px;
             letter-spacing: 0.5px;
         }
-        thead {
+        /* thead {
             display: table-header-group;
         }
 
@@ -23,7 +23,7 @@
 
         tr {
             page-break-inside: auto;
-        }
+        } */
     </style>
 </head>
 <body>
