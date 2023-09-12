@@ -167,7 +167,7 @@
                         @foreach ($daftarhadir_ as $daftarhadir)
                         @if ($daftarhadir->posisi == 'Ketua Auditor' || $daftarhadir->posisi == 'Anggota Auditor')
                         <tr>
-                            <td rowspan>Auditor</td>
+                            <td rowspan>{{ $daftarhadir->posisi }}</td>
                             <td>{{ $daftarhadir->namapeserta }}</td>
                             <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                             
@@ -175,7 +175,7 @@
                         <?php $i++; ?>
                         @elseif ($daftarhadir->posisi == 'Ketua Auditee' || $daftarhadir->posisi == 'Anggota Auditee')
                         <tr>
-                            <td rowspan>Auditee</td>
+                            <td rowspan>{{ $daftarhadir->posisi }}</td>
                             <td>{{ $daftarhadir->namapeserta }}</td>
                             <td class="text-center">{{ $eSignAuditee[$j] }}</td>
                         </tr>

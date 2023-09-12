@@ -7,11 +7,11 @@
     <a href="/daftarAuditor-periode" class="mx-1">
         Periode Auditor
     </a>/
-    @foreach ($dataAuditor->unique('tahunperiode') as $auditor)
-    <a href="/daftarAuditor/{{ $auditor->tahunperiode }}" class="mx-1">
+    @foreach ($periodes as $periode)
+    <a href="/daftarAuditor/{{ $periode->tahunperiode2 }}" class="mx-1">
     @endforeach
-    @foreach ($dataAuditor->unique('tahunperiode') as $auditor)
-    {{ $auditor->tahunperiode0 }}/{{ $auditor->tahunperiode }}
+    @foreach ($periodes as $periode)
+    {{ $periode->tahunperiode1 }}/{{ $periode->tahunperiode2 }}
     @endforeach
     </a>/
 @endsection
@@ -21,13 +21,16 @@
 
 <div class="container vh-100"  style="font-size: 15px">
     <div class="row my-4">
-        @foreach ($dataAuditor as $auditor)
-        <a href="/addAuditor" class="text-white" style="font-weight: 600; text-decoration: none">
-        @endforeach
-            <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
-                Tambah
-            </button>
-        </a> 
+        <div class="col float-end">
+            @foreach ($periodes as $periode)
+            <a href="/addAuditor/{{ $periode->tahunperiode2 }}" class="text-white" style="font-weight: 600; text-decoration: none">
+            @endforeach
+                <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
+                    Tambah
+                </button>
+            </a> 
+        </div>
+        
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}
