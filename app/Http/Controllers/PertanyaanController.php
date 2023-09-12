@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
@@ -122,28 +123,31 @@ class PertanyaanController extends Controller
     }
 
     public function auditee_tampildata(Request $request, $id){
+        $currentDate = Carbon::now()->format('Y-m-d');
+
         $datas = Pertanyaan::find($id);
         $_daftartiliks = DaftarTilik::where('id', $datas->daftartilik_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $datas->auditee_id)->get();
         $auditor_ = Auditor::where('id', $datas->auditor_id)->get();
         $auditee_ = Auditee::where('id', $datas->auditee_id)->get();
 
-        return view('auditee/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks'));
+        return view('auditee/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks', 'currentDate'));
     }
 
     public function auditor_tampildata(Request $request, $id){
+        $currentDate = Carbon::now()->format('Y-m-d');
         $datas = Pertanyaan::find($id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $datas->auditee_id)->get();
         $auditor_ = Auditor::where('id', $datas->auditor_id)->get();
         $auditee_ = Auditee::where('id', $datas->auditee_id)->get();
         $_daftartiliks = DaftarTilik::where('id', $datas->daftartilik_id)->get();
         
-        return view('auditor/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks'));
+        return view('auditor/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks', 'currentDate'));
     }
 
     public function updatedata(Request $request, $id)
     {
-        
+        // dd($request->all());
         $data = Pertanyaan::find($id);
         $auditee_id = $data->auditee_id;
         $_area = DaftarTilik::all()->where('id', $data->daftartilik_id)->where('auditee_id', $auditee_id)->first();

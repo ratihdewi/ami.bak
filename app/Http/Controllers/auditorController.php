@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
 
 class AuditorController extends Controller
@@ -13,16 +14,19 @@ class AuditorController extends Controller
     //role spm start
     public function index($tahunperiode)
     {
+        $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->get();
         $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         // dd($data);
-        return view('daftarAuditor', compact('dataAuditor'));
+        return view('daftarAuditor', compact('dataAuditor', 'periodes'));
     }
 
     public function indexpertahun()
     {
-        $dataAuditor = Auditor::orderBy('tahunperiode0', 'ASC')->get();
+        $currentYear = Carbon::now()->format('Y');
+        $currentDate = Carbon::now()->format('l, d M Y');
+        $dataAuditor = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditor')->get();
         // dd($data);
-        return view('spm/daftarauditor-tahun', compact('dataAuditor'));
+        return view('spm/daftarauditor-tahun', compact('dataAuditor', 'currentYear', 'currentDate'));
     }
 
     public function getAuditor()
@@ -32,11 +36,12 @@ class AuditorController extends Controller
         return response()->json($users_);
     }
 
-    public function tambahauditor()
+    public function tambahauditor($tahunperiode)
     {
         $currentYear = Carbon::now()->year;
+        $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode);
 
-        return view('addAuditor', compact('currentYear'));
+        return view('addAuditor', compact('currentYear', 'periodes'));
     }
 
     public function getnipuser($tahunperiode0, $tahunperiode)
@@ -54,11 +59,19 @@ class AuditorController extends Controller
 
     public function insertdata(Request $request)
     {
+        // dd($request->all());
         $isAuditorExist = Auditor::where('nip', $request->nip)->where('tahunperiode', $request->tahunperiode)->exists();
         $isAuditeeExist = Auditee::where('nip', $request->nip)->where('tahunperiode', $request->tahunperiode)->exists();
+
+        $tahunmulai = $request->tgl_mulai;
+        $tahunakhir = $request->tgl_berakhir;
+        $tahun = Carbon::parse($tahunmulai)->year;
+        $tahun_ = Carbon::parse($tahunakhir)->year;
         
         if ($isAuditorExist && $isAuditeeExist) {
             return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data sudah tersedia!');
+        } elseif (($tahun < $request->tahunperiode0 || $tahun > $request->tahunperiode) && ($tahun_ < $request->tahunperiode0 || $tahun > $request->tahunperiode)) {
+            return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Tanggal tidak sesuai dengan periode pelaksanaan!');
         } else {
             Auditor::create($request->all());
             return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil ditambah');

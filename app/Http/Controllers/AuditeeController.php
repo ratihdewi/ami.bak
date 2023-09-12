@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
 use App\Models\UnitKerja;
+use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
 
 class AuditeeController extends Controller
@@ -20,9 +21,11 @@ class AuditeeController extends Controller
 
     public function indexpertahun()
     {
-        $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
+        $currentYear = Carbon::now()->format('Y');
+        $currentDate = Carbon::now()->format('l, d M Y');
+        $dataAuditee = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->where('keterangan', 'Periode Auditee')->get();
         // dd($data);
-        return view('spm/daftarauditee-tahun', compact('dataAuditee'));
+        return view('spm/daftarauditee-tahun', compact('dataAuditee', 'currentYear', 'currentDate'));
     }
 
     public function tambahauditee()

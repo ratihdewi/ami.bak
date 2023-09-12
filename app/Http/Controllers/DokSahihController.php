@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\DokSahih;
 use App\Models\Pertanyaan;
 use Illuminate\Http\Request;
@@ -23,10 +24,13 @@ class DokSahihController extends Controller
 
     public function auditee_index($pertanyaan_id)
     {
+        $currentDate = Carbon::now()->format('Y-m-d');
         $pertanyaan = Pertanyaan::find($pertanyaan_id);
+        // dd($currentDate < $batas);
+
         $doksahihs = DokSahih::where('pertanyaan_id', $pertanyaan_id)->get();
 
-        return view('auditee/dokumenSahih', compact('doksahihs', 'pertanyaan'));
+        return view('auditee/dokumenSahih', compact('doksahihs', 'pertanyaan', 'currentDate'));
     }
 
     public function spm_index($pertanyaan_id)

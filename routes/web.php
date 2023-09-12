@@ -31,6 +31,7 @@ use App\Http\Controllers\DaftarTilikController;
 use App\Http\Controllers\DokLampiranController;
 use App\Http\Controllers\FotoKegiatanController;
 use App\Http\Controllers\FullCalenderController;
+use App\Http\Controllers\TahunPeriodeController;
 use App\Http\Controllers\TindakanKoreksiController;
 use App\Http\Controllers\PeluangPeningkatanController;
 
@@ -106,6 +107,9 @@ Route::get('/changeroleauditee/{id}', [UserController::class, 'changeroleauditee
 Route::get('/changerolespm/{id}', [UserController::class, 'changerolespm'])->name('changerolespm');
 
 //Route Role SPM
+Route::post('/daftarAuditor-periode-addperiode', [TahunPeriodeController::class, 'store'])->name('addperiode');
+Route::post('/daftarAuditee-periode-addperiode', [TahunPeriodeController::class, 'storeauditee'])->name('auditee.addperiode');
+Route::get('/daftarauditor-deleteperiode/{id}', [TahunPeriodeController::class, 'delete'])->name('auditor-deleteperiode');
 Route::get('/daftarAuditor-periode', [AuditorController::class, 'indexpertahun'])->name('auditor-periode');
 Route::get('/daftarAuditee-periode', [AuditeeController::class, 'indexpertahun'])->name('auditee-periode');
 Route::get('/daftartilik-periode', [DaftarTilikController::class, 'indexpertahun'])->name('daftartilik-periode');
@@ -262,8 +266,8 @@ Route::get('/auditee_searchjadwal', [JadwalController::class, 'auditee_search'])
 Route::get('/auditee_ketersediaan-jadwal', [FullCalenderController::class, 'auditee_index']);
 
 
-// Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
-Route::get('/addAuditor', [AuditorController::class, 'tambahauditor'])->name('tambahauditor_');
+Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
+// Route::get('/addAuditor', [AuditorController::class, 'tambahauditor'])->name('tambahauditor_');
 Route::post('/insertAuditor', [AuditorController::class, 'insertdata'])->name('insertauditor');
 
 Route::get('/addAuditee', [AuditeeController::class, 'tambahauditee'])->name('tambahauditee');

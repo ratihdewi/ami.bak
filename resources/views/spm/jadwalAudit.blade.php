@@ -371,6 +371,7 @@
               // console.log(events);
               
               events.sort(function (a, b) {
+                console.log(a);
                 var titleA = a.session.toLowerCase();
                 var titleB = b.session.toLowerCase();
                 if (titleA < titleB) return -1;
@@ -378,7 +379,7 @@
                 return 0;
               });
               sortedEvents = events;
-              console.log(sortedEvents);
+              // console.log(sortedEvents);
             }
 
         },
@@ -403,14 +404,14 @@
         //   }
         // },
         eventRender: function(event, element) {
-          console.log(sortedEvents);
-          // console.log(element);
+          // console.log(event);
+          // console.log(sortedEvent);
 
           var sortedEvent = sortedEvents.find(function(sortedEvent) {
             return event.id === sortedEvent.id;
           });
 
-          console.log(sortedEvent);
+          // console.log(sortedEvent);
 
           if (sortedEvent) {
             if (sortedEvent.peran == 'auditor') {

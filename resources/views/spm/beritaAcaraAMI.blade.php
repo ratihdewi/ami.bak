@@ -114,6 +114,7 @@
         </div>
         
       </div>
+
       <div class="BA_AMI mb-4">
         <div class="dataDokBA mt-5">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
@@ -172,7 +173,7 @@
                     <?php $i++; ?>
                 @endforeach
               </div>
-              <div class="col label border py-2 fw-semibold text-start">Media</div>
+              <div class="col label border py-2 fw-semibold text-start">Tempat</div>
               <div class="col border py-2 text-start">
                 <?php $i=1; ?>
                 @foreach ($jadwalAudit_ as $jadwal)
