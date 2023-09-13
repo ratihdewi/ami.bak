@@ -14,6 +14,7 @@
             letter-spacing: 0.5px;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         table {
             display: table-row-group;
         }
@@ -22,9 +23,14 @@
         /* thead {
 >>>>>>> 933c1a9cbf5af26754119bba9b835b8fe477fdea
             display: table-header-group;
+=======
+
+        table {
+            display: table;
+>>>>>>> ee9ae987decb8d14028e770c396b4db9185ea3ed
         }
 
-        tfoot {
+        /* tfoot {
             display: table-row-group;
         }
 
