@@ -37,11 +37,11 @@
 
         @media print {
             tbody tr:first-child {
-                border-top: 1px solid #000; /* Atur border-top pada baris pertama di setiap halaman */
+                border-top: 1px solid #000 !important;
             }
 
             tbody tr:last-child {
-                border-bottom: 1px solid #000; /* Atur border-bottom pada baris terakhir di setiap halaman */
+                border-bottom: 1px solid #000 !important;
             }
 
         }
