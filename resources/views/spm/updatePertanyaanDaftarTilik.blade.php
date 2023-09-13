@@ -83,8 +83,7 @@
                           onfocus="(this.type='date')"
                           onblur="(this.type='text')"
                           aria-label="Masukkan Hari/Tanggal Pelaksanaan"
-                          name="tgl_pelaksanaan"
-                          value="{{ $_daftartilik->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
+                          value="{{ $_daftartilik->tgl_pelaksanaan->translatedFormat('l, d M Y') }}"
                           disabled
                       />
                   </div>
@@ -123,8 +122,7 @@
                       onfocus="(this.type='date')"
                       onblur="(this.type='text')"
                       aria-label="Berikan Batas Pengisian Respon Auditee"
-                      name="bataspengisianRespon"
-                      value="{{ $_daftartilik->bataspengisianRespon->translatedFormat('d-m-y') }}"
+                      value="{{ $_daftartilik->bataspengisianRespon->translatedFormat('l, d M Y') }}"
                       disabled
                   />
               </div>

@@ -27,7 +27,7 @@
                             <div class="row mb-1">
                                 <div class="col">
                                     <div class="row">
-                                        <label class="fw-semibold" for="tahunperiode" class="form-label">Tahun Periode</label>
+                                        <label class="fw-semibold" for="tahunperiode" class="form-label">Tahun Periode <span class="text-danger fw-bold">*</span></label>
                                         <div class="col-sm-5">
                                             <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" max="{{ $currentYear - 1 }}" aria-label="Tahun Akhir" oninput="validateInput()" 
                                             @foreach ($periodes->get() as $periode)
@@ -49,7 +49,7 @@
                                     <p id="validationMessage" style="color: red; font-size: 10px;"></p>
                                 </div> 
                                 <div class="col">
-                                    <label class="fw-semibold" for="nipAuditor" class="form-label">NIP</label>
+                                    <label class="fw-semibold" for="nipAuditor" class="form-label">NIP <span class="text-danger fw-bold">*</span></label>
                                     <select id="nipAuditor" class="form-select" aria-label="Default select example" name="nip" required>
                                         <option selected disabled>Pilih NIP Auditor</option>
                                     </select>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
-                                    <label class="fw-semibold" for="namaAuditor" class="form-label">Nama</label>
+                                    <label class="fw-semibold" for="namaAuditor" class="form-label">Nama <span class="text-danger fw-bold">*</span></label>
                                     <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor" readonly/>
                                 </div>
                                 <div class="col">
@@ -72,7 +72,7 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label class="fw-semibold" for="fakultas" class="form-label"
-                                        >Fakultas</label
+                                        >Fakultas <span class="text-danger fw-bold">*</span></label
                                     >
                                     <input
                                         type="text"
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="col">
                                     <label class="fw-semibold" for="programstudi" class="form-label"
-                                        >Program Studi</label
+                                        >Program Studi <span class="text-danger fw-bold">*</span></label
                                     >
                                     <input
                                         type="text"

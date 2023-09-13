@@ -10,7 +10,7 @@
     @foreach ($periodes as $periode)
     <a href="/daftarAuditor/{{ $periode->tahunperiode2 }}" class="mx-1">
     @endforeach
-    @foreach ($periodes as $periode)
+    @foreach ($periodes->unique('tahunperiode1', 'keterangan') as $periode)
     {{ $periode->tahunperiode1 }}/{{ $periode->tahunperiode2 }}
     @endforeach
     </a>/

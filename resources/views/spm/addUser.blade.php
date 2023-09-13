@@ -23,22 +23,22 @@
                             <div class="card-body p-4">
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="nip" class="form-label">NIP</label>
+                                        <label for="nip" class="form-label">NIP <span class="text-danger fw-bold">*</span></label>
                                         <input type="string" name="nip" class="form-control" id="nip" placeholder="nip" aria-label="nip" required>
                                     </div>
                                     <div class="col">
-                                        <label for="nama" class="form-label">Nama</label>
+                                        <label for="nama" class="form-label">Nama <span class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="name" class="form-control" id="nama" placeholder="Nama Auditor" aria-label="Nama" required>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="email" class="form-label">Email</label>
+                                        <label for="email" class="form-label">Email <span class="text-danger fw-bold">*</span></label>
                                         <input type="email" name="email" class="form-control" id="email" placeholder="Email" aria-label="Email" required>
                                     </div>
                                     <div class="col">
                                         <label for="selectRole" class="form-label"
-                                            >Role</label
+                                            >Role <span class="text-danger fw-bold">*</span></label
                                         >
                                         <select
                                             id="selectRole"
@@ -57,18 +57,18 @@
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="username" class="form-label">Username</label>
+                                        <label for="username" class="form-label">Username <span class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="username" class="form-control" id="username" placeholder="Username" aria-label="Username" required>
                                     </div>
                                     <div class="col">
-                                        <label for="pwd" class="form-label">Password</label>
+                                        <label for="pwd" class="form-label">Password <span class="text-danger fw-bold">*</span></label>
                                         <input type="password" name="password" class="form-control" id="pwd" placeholder="Password" aria-label="Password" required>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="selectUnitKerja" class="form-label"
-                                            >Unit Kerja</label
+                                            >Unit Kerja <span class="text-danger fw-bold">*</span></label
                                         >
                                         <select
                                             id="selectUnitKerja"
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="col">
-                                            <label for="jabatan" class="form-label">Jabatan</label>
+                                            <label for="jabatan" class="form-label">Jabatan <span class="text-danger fw-bold">*</span></label>
                                             <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" required>
                                         </div>    
                                     </div>

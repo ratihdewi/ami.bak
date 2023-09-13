@@ -32,7 +32,7 @@
         <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
             <div class="row g-3 my-4 mx-3">
                 <div class="col">
-                    <label class="fw-semibold" for="auditee_id">Auditee</label>
+                    <label class="fw-semibold" for="auditee_id">Auditee <span class="text-danger fw-bold">*</span></label>
                     <select
                         id="auditee_id"
                         class="form-select"
@@ -48,14 +48,14 @@
                     </select>
                 </div>
                 <div class="col">
-                    <label class="fw-semibold" for="auditor">Auditor</label>
+                    <label class="fw-semibold" for="auditor">Auditor <span class="text-danger fw-bold">*</span></label>
                     <select id="auditor" class="form-select" name="auditor_id"required>
                     </select>
                 </div>
             </div>
             <div class="row g-3 mb-4 mx-3">
                 <div class="col">
-                    <label class="fw-semibold" for="tgl-pelaksanaan">Tanggal Pelaksanaan</label>
+                    <label class="fw-semibold" for="tgl-pelaksanaan">Tanggal Pelaksanaan <span class="text-danger fw-bold">*</span></label>
                     <input
                         type="text"
                         id="tgl-pelaksanaan"
@@ -67,7 +67,7 @@
                     />
                 </div>
                 <div class="col">
-                    <label class="fw-semibold" for="tempat">Tempat Pelaksanaan</label>
+                    <label class="fw-semibold" for="tempat">Tempat Pelaksanaan <span class="text-danger fw-bold">*</span></label>
                     <input
                         type="text"
                         id="tempat"
@@ -81,7 +81,7 @@
             </div>
             <div class="row g-3 mb-4 mx-3">
                 <div class="col">
-                    <label class="fw-semibold" for="area">Area Audit</label>
+                    <label class="fw-semibold" for="area">Area Audit <span class="text-danger fw-bold">*</span></label>
                     <select id="area" class="form-select" name="area" required>
                         <option value="">Pilih area yang akan diaudit</option>
                         <option>Pendidikan</option>
@@ -93,7 +93,7 @@
             </div>
             <div class="row g-3 mb-5 mx-3">
                 <div class="col">
-                    <label class="fw-semibold" for="bataspengisianRespon">Batas Pengisian Respon</label>
+                    <label class="fw-semibold" for="bataspengisianRespon">Batas Pengisian Respon <span class="text-danger fw-bold">*</span></label>
                     <input
                         id="bataspengisianRespon"
                         type="text"

@@ -40,17 +40,17 @@
                         
                         <div class=" row mb-3">
                             <div class="col">
-                                <label for="recipient-name" class="col-form-label">Tahun periode awal</label>
+                                <label for="recipient-name" class="col-form-label">Tahun periode awal <span class="text-danger fw-bold">*</span></label>
                                 <input type="number" min="2016" max="{{ $currentYear - 1 }}" class="form-control" id="thPeriodeAwal" name="tahunperiode1" required>
                             </div>
                             <div class="col">
-                                <label for="recipient-name" class="col-form-label">Tahun periode akhir</label>
+                                <label for="recipient-name" class="col-form-label">Tahun periode akhir <span class="text-danger fw-bold">*</span></label>
                                 <input type="number" min="2017" max="{{ $currentYear }}" class="form-control" id="thPeriodeAkhir" name="tahunperiode2" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="recipient-name" class="col-form-label">Tanggal Mulai</label>
+                                <label for="recipient-name" class="col-form-label">Tanggal Mulai <span class="text-danger fw-bold">*</span></label>
                                 <div class="col">
                                     <div class="input-group date" id="tglmulai">
                                         <input type="text" class="form-control" id="tglMulai" name="tgl_mulai" placeholder="{{ $currentDate }}" required>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label for="recipient-name" class="col-form-label">Tanggal Akhir</label>
+                                <label for="recipient-name" class="col-form-label">Tanggal Akhir <span class="text-danger fw-bold">*</span></label>
                                 <div class="col">
                                     <div class="input-group date" id="tglakhir">
                                         <input type="text" class="form-control" id="tglAkhir" name="tgl_berakhir" placeholder="{{ $currentDate }}" required>

@@ -27,7 +27,7 @@
                         <div class="col">
                             <div class="row">
                                 <label class="fw-semibold" for="tahunperiode" class="form-label"
-                                        >Tahun Periode</label
+                                        >Tahun Periode <span class="text-danger fw-bold">*</span></label
                                     >
                                 <div class="col-sm-5">
                                     <input
@@ -62,7 +62,7 @@
                             <p id="validationMessage" style="color: red; font-size: 10px;"></p>
                         </div> 
                         <div class="col">
-                            <label class="fw-semibold" for="nipAuditee" class="form-label">NIP</label> <br>
+                            <label class="fw-semibold" for="nipAuditee" class="form-label">NIP <span class="text-danger fw-bold">*</span></label> <br>
                             <select id="nipAuditee" class="form-select" name="nip" aria-label="Default select example" placeholder="Pilih NIP Ketua Auditee" required>
                                 <option value="" selected disabled>Pilih NIP Ketua Auditee</option>
                             </select>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="fw-semibold" for="selectUnitKerja" class="form-label"
-                            >Unit Kerja</label
+                            >Unit Kerja <span class="text-danger fw-bold">*</span></label
                         >
                         <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" required readonly>
                         {{-- <select
@@ -102,7 +102,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="fw-semibold" for="ketuaAuditee" class="form-label"
-                            >Ketua Auditee</label
+                            >Ketua Auditee <span class="text-danger fw-bold">*</span></label
                         >
                         <input
                             type="text"
@@ -116,7 +116,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="fw-semibold" for="jabatanKetuaAuditee" class="form-label"
-                            >Jabatan Ketua Auditee</label
+                            >Jabatan Ketua Auditee <span class="text-danger fw-bold">*</span></label
                         >
                         <input
                             type="text"
@@ -129,7 +129,7 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <label class="fw-semibold" for="ketuaAuditor" class="form-label">Ketua Auditor</label> <br>
+                        <label class="fw-semibold" for="ketuaAuditor" class="form-label">Ketua Auditor <span class="text-danger fw-bold">*</span></label> <br>
                         <select
                             class="form-select" aria-label="Default select example"
                             id="ketuaAuditor"
@@ -142,7 +142,7 @@
                     </div>
                     <div id="anggotaauditor" class="row mb-3">
                         <div class="col">
-                            <label class="fw-semibold" for="anggotaAuditor" class="form-label">Anggota Auditor 1</label> <br>
+                            <label class="fw-semibold" for="anggotaAuditor" class="form-label">Anggota Auditor 1 <span class="text-danger fw-bold">*</span></label> <br>
                             <select
                                 class="form-select" aria-label="Default select example"
                                 id="anggotaAuditor"

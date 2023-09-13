@@ -72,8 +72,7 @@
                           onfocus="(this.type='date')"
                           onblur="(this.type='text')"
                           aria-label="Masukkan Hari/Tanggal Pelaksanaan"
-                          name="tgl_pelaksanaan"
-                          value="{{ $item->tgl_pelaksanaan->translatedFormat('d-m-y') }}"
+                          value="{{ $item->tgl_pelaksanaan->translatedFormat('l, d M Y') }}"
                           disabled
                       />
                   </div>
@@ -112,8 +111,7 @@
                       onfocus="(this.type='date')"
                       onblur="(this.type='text')"
                       aria-label="Berikan Batas Pengisian Respon Auditee"
-                      name="bataspengisianRespon"
-                      value="{{ $item->bataspengisianRespon->translatedFormat('d-m-y') }}"
+                      value="{{ $item->bataspengisianRespon->translatedFormat('l, d M Y') }}"
                       disabled
                   />
               </div>
@@ -170,21 +168,30 @@
           @endforeach
           <div class="row g-3 my-4 mx-3">
             <div class="col">
-              <label for="butirStandar" class="visually-hidden">Butir Standar</label>
+              <label for="butirStandar" class="fw-semibold">Butir Standar <span class="text-danger fw-bold">*</span></label>
               <input id="butirStandar" type="text" class="form-control" placeholder="Masukkan Butir Standar. Contoh: [01 Kompetensi Lulusan]" aria-label="Butir Standar" name="butirStandar" value="{{ old('butirStandar') }}">
             </div>
             <div class="col">
-              <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
+              <label for="nomorButir" class="fw-semibold">Nomor Butir <span class="text-danger fw-bold">*</span></label>
               <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir. Contoh: [A.01.01]" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ old('nomorButir') }}">
             </div>
           </div>
+          <div class="form-floating mx-4">
+            <p class="fw-semibold mb-0">Pertanyaan <span class="text-danger fw-bold">*</span></p>
+          </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan pertanyaan di sini" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ old('pertanyaan') }}"></textarea>
-            <label for="pertanyaan">Ajukan pertanyaan</label>
+            <textarea class="form-control" placeholder="Ajukan Pertanyaan" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ old('pertanyaan') }}"></textarea>
+            <label for="pertanyaan">Pertanyaan</label>
+          </div>
+          <div class="form-floating mx-4">
+            <p class="fw-semibold mb-0">Indikator Mutu <span class="text-danger fw-bold">*</span></p>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" value="{{ old('indikatormutu') }}"></textarea>
             <label for="indikatorMutu">Masukkan indikator mutu</label>
+          </div>
+          <div class="form-floating mx-4">
+            <p class="fw-semibold mb-0">Target Standar <span class="text-danger fw-bold">*</span></p>
           </div>        
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" value="{{ old('targetStandar') }}"></textarea>
@@ -194,11 +201,11 @@
             <div class="col-7 border rounded me-5">
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
-                  <label for="inputButirStandar" class="form-label">Butir Standar</label>
+                  <label for="inputButirStandar" class="form-label fw-semibold">Butir Standar <span class="text-danger fw-bold">*</span></label>
                   <input type="text" class="form-control" id="inputButirStandar" value="{{ old('butirStandar') }}">
                 </div>
                 <div class="col inputReferensi">
-                  <label for="inputReferensi" class="form-label">Referensi</label>
+                  <label for="inputReferensi" class="form-label fw-semibold">Referensi</label>
                   <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ old('referensi') }}">
                 </div>
               </div>
@@ -206,7 +213,7 @@
             <div class="col-4 border rounded ms-5">
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputKeterangan">
-                  <label for="inputKeterangan" class="form-label">Keterangan</label>
+                  <label for="inputKeterangan" class="form-label fw-semibold">Keterangan</label>
                   <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ old('keterangan') }}">
                 </div>
               </div>
@@ -225,7 +232,7 @@
               <div class="row mx-2 mb-4 px-1">
                 <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
                 <a href="/dokumensahih">
-                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Dokumen Bukti Sahih</b></button>
+                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Dokumen Bukti Sahih</b></button>
                 </a>
               </div>
               <div class="form-floating mb-3 mx-4">
@@ -259,7 +266,7 @@
             {{-- {{ $pertanyaan_id }} --}}
             <div class="col">
               <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
-              <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Unggah Foto Kegiatan</b></button>
+              <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Foto Kegiatan</b></button>
             </div>
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
