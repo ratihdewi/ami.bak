@@ -37,11 +37,11 @@
 
         @media print {
             .tablekesesuaian tr:first-child {
-                border-top: 1px solid #000;
+                border-top: 1px solid #000 !important;
             }
 
             .tablekesesuaian tr:last-child {
-                border-bottom: 1px solid #000;
+                border-bottom: 1px solid #000 !important;
             }
 
         }
