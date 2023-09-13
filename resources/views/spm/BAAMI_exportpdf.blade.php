@@ -23,8 +23,8 @@
             page-break-inside: avoid;
         }
 
-        .tablekesesuaian tr {
-            page-break-inside: auto;
+        .tablekesesuaian table {
+            page-break-inside: avoid;
         }
         /* thead {
 >>>>>>> 933c1a9cbf5af26754119bba9b835b8fe477fdea
