@@ -1,7 +1,7 @@
 @media print {
 
-    .tableketidaksesuaian thead {
-        border: none;
+    .tableketidaksesuaian {
+        font-size: 20px;
     }
 
     .tablekesesuaian tbody:first-child {
