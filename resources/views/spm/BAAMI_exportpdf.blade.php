@@ -23,18 +23,10 @@
             page-break-inside: avoid;
         }
 
-        .tablekesesuaian {
-            page-break-inside: auto;
-            position: relative;
-        }
-
-        .tablekesesuaian::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-bottom: 1px solid #000;
+        @media print {
+            .tablekesesuaian thead {
+                display: table-header-group !important;
+            }
         }
 
 
