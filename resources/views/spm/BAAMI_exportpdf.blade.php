@@ -25,7 +25,6 @@
 
         .tablekesesuaian thead { display: table-header-group; }
         .tablekesesuaian tfoot { display: table-row-group; }
-        .tablekesesuaian tr { page-break-inside: avoid; }
 
 
         /* .tablekesesuaian {
@@ -205,7 +204,7 @@
                         @if ($daftarhadir->posisi == 'Ketua Auditor' || $daftarhadir->posisi == 'Anggota Auditor')
                         <tr>
                             <td>{{ $daftarhadir->namapeserta }}</td>
-                            <td rowspan>{{ $daftarhadir->posisi }}</td>
+                            <td>{{ $daftarhadir->posisi }}</td>
                             <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                             
                         </tr>
