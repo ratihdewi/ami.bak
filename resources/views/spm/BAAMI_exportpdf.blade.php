@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">
     <title>Table</title>
-    <style type="text/css">
+    <style media="print" type="text/css">
         
         body {
             font-family: 'Times New Roman', Times, serif;
