@@ -187,7 +187,7 @@
                 oleh:
             </p>
             <div class="tabledaftarhadir mb-5 px-3">
-                <table class="table table-bordered w-75">
+                <table class="table table-bordered">
                     <thead>
                         <tr class="text-center">
                             <th>Nama</th>
