@@ -23,11 +23,11 @@
             page-break-inside: avoid;
         }
 
-        /* @media print { */
-            .tablekesesuaian thead {
+        @media print {
+            #tablekesesuaian thead {
                 display: table-header-group !important;
             }
-        /* } */
+        }
 
 
         /* .tablekesesuaian {
@@ -250,7 +250,7 @@
             </div>
             <div class="tablekesesuaian mb-5">
                 <p class="ms-3"><b>B. Peluang Peningkatan</b></p>
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="tablekesesuaian">
                     <thead class="text-center">
                         <tr>
                             <th>No.</th>
