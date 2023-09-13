@@ -13,11 +13,12 @@
             font-size: 18px;
             letter-spacing: 0.5px;
         }
-        /* thead {
-            display: table-header-group;
+
+        table {
+            display: table;
         }
 
-        tfoot {
+        /* tfoot {
             display: table-row-group;
         }
 
