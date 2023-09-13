@@ -1,9 +1,9 @@
 @media print {
-    .tablekesesuaian tr:first-child {
+    .tablekesesuaian tbody:first-child {
         border-top: 1px solid #000 !important;
     }
 
-    .tablekesesuaian tr:last-child {
+    .tablekesesuaian tbody:last-child {
         border-bottom: 1px solid #000 !important;
     }
 
