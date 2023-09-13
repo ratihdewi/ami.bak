@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use PDF;
 use QrCode;
+use Carbon\Carbon;
 use App\Models\Jadwal;
-use App\Models\Auditee;
 // use Barryvdh\DomPDF\PDF;
+use App\Models\Auditee;
 use App\Models\DokBA_AMI;
 use App\Models\Pertanyaan;
 use App\Models\BeritaAcara;
@@ -321,8 +322,11 @@ class DokBAAMIController extends Controller
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+        $hari_tgl = Jadwal::where('auditee_id', $auditee_id)->min('hari_tgl');
+        $waktu = Jadwal::where('auditee_id', $auditee_id)->where('hari_tgl', $hari_tgl)->first();
+        $jadwalaudit = Jadwal::orderBy('hari_tgl', 'ASC')->where('auditee_id', $auditee_id)->get();
 
-        return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee', 'auditee'));
+        return view('spm/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee', 'auditee', 'hari_tgl', 'waktu', 'jadwalaudit'));
     }
 
     public function auditor_pratinjauba($auditee_id, $tahunperiode)
@@ -368,8 +372,11 @@ class DokBAAMIController extends Controller
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+        $hari_tgl = Jadwal::where('auditee_id', $auditee_id)->min('hari_tgl');
+        $waktu = Jadwal::where('auditee_id', $auditee_id)->where('hari_tgl', $hari_tgl)->first();
+        $jadwalaudit = Jadwal::orderBy('hari_tgl', 'ASC')->where('auditee_id', $auditee_id)->get();
 
-        return view('auditor/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('auditor/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee', 'hari_tgl', 'waktu', 'jadwalaudit'));
     }
 
     public function auditee_pratinjauba($auditee_id, $tahunperiode)
@@ -415,8 +422,11 @@ class DokBAAMIController extends Controller
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+        $hari_tgl = Jadwal::where('auditee_id', $auditee_id)->min('hari_tgl');
+        $waktu = Jadwal::where('auditee_id', $auditee_id)->where('hari_tgl', $hari_tgl)->first();
+        $jadwalaudit = Jadwal::orderBy('hari_tgl', 'ASC')->where('auditee_id', $auditee_id)->get();
 
-        return view('auditee/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('auditee/BAAMI_pratinjau', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSignAuditor', 'eSignAuditee', 'qrCodeAuditor', 'qrCodeAuditee', 'hari_tgl', 'waktu', 'jadwalaudit'));
     }
 
     public function downloadba(Request $request, $auditee_id, $tahunperiode)
@@ -463,6 +473,9 @@ class DokBAAMIController extends Controller
         $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
+        $hari_tgl = Jadwal::where('auditee_id', $auditee_id)->min('hari_tgl');
+        $waktu = Jadwal::where('auditee_id', $auditee_id)->where('hari_tgl', $hari_tgl)->first();
+        $jadwalaudit = Jadwal::orderBy('hari_tgl', 'ASC')->where('auditee_id', $auditee_id)->get();
         
         // $beritaacara_ = BeritaAcara::where('id', $id)->get();
         // dd($beritaacara_);
@@ -502,6 +515,8 @@ class DokBAAMIController extends Controller
             'eSignAuditee' => $eSignAuditee,
             'qrCodeAuditor' => $qrCodeAuditor,
             'qrCodeAuditee' => $qrCodeAuditee,
+            'waktu' => $waktu,
+            'jadwalaudit' => $jadwalaudit,
         ];
 
         $pdf = PDF::loadView('spm/BAAMI_exportpdf', $data);

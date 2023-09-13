@@ -179,13 +179,13 @@
               <div class="col label border py-2 fw-semibold text-start">Tempat</div>
               <div class="col border py-2 text-start">
                 <?php $i=1; ?>
-                @foreach ($jadwalAudit_ as $jadwal)
-                    @if (count($jadwalAudit_) == 1)
+                @foreach ($jadwalAudit_->unique('tempat') as $jadwal)
+                    @if (count($jadwalAudit_->unique('tempat')) == 1)
                         {{ $jadwal->tempat }}
-                    @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
-                        @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                    @elseif (count($jadwalAudit_->unique('tempat')) > 1 && count($jadwalAudit_->unique('tempat')) != 1)
+                        @if ($i < count($jadwalAudit_->unique('tempat')) && $i != count($jadwalAudit_->unique('tempat')))
                             {{ $jadwal->tempat }},
-                        @elseif ($i == count($jadwalAudit_))
+                        @elseif ($i == count($jadwalAudit_->unique('tempat')))
                             {{ $jadwal->tempat }}
                         @endif
                     @endif

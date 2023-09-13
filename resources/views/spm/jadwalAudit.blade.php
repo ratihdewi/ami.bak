@@ -81,7 +81,7 @@
                   <tbody>
                       @php $no = 1; @endphp
                       @foreach ($auditee_ as $auditee)
-                      @foreach ($auditee->jadwalaudit()->get() as $item)
+                      @foreach ($auditee->jadwalaudit()->orderBy('hari_tgl', 'ASC')->get() as $item)
                         <tr>
                           <th scope="row" class="col-1 text-center">{{ $no++ }}</th>
                           <td class="col-2">

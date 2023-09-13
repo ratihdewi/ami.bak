@@ -36,7 +36,7 @@
                         <p class="my-3">
                             Jalan Teuku Nyak Arief, Simprug, <br>
                             Kebayoran Lama, Jakarta Selatan, 12220 <br>
-                            Telp. (021) 29044308
+                            Telp. (021) 50857540
                         </p>
                     </td>
                 </tr>
@@ -100,7 +100,8 @@
                         @endforeach
                     </td>
                     <td class="w-50">Hari/Tanggal : 
-                        <?php $i=1; ?>
+                        {{ $waktu->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}
+                        {{-- <?php $i=1; ?>
                         @foreach ($jadwalAudit_ as $jadwal)
                             @if (count($jadwalAudit_) == 1)
                                 {{ $jadwal->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}
@@ -112,12 +113,13 @@
                                 @endif
                             @endif
                             <?php $i++; ?>
-                        @endforeach
+                        @endforeach --}}
                     </td>
                 </tr>
                 <tr>
                     <td class="w-50">Waktu : 
-                        <?php $i=1; ?>
+                        {{ $waktu->waktu->isoFormat('HH:mm') }} WIB
+                        {{-- <?php $i=1; ?>
                         @foreach ($jadwalAudit_ as $jadwal)
                             @if (count($jadwalAudit_) == 1)
                                 {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
@@ -129,19 +131,19 @@
                                 @endif
                             @endif
                             <?php $i++; ?>
-                        @endforeach 
+                        @endforeach  --}}
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-50">Media : 
+                    <td class="w-50">Tempat : 
                         <?php $i=1; ?>
-                        @foreach ($jadwalAudit_ as $jadwal)
-                            @if (count($jadwalAudit_) == 1)
+                        @foreach ($jadwalAudit_->unique('tempat') as $jadwal)
+                            @if (count($jadwalAudit_->unique('tempat')) == 1)
                                 {{ $jadwal->tempat }}
-                            @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
-                                @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
+                            @elseif (count($jadwalAudit_->unique('tempat')) > 1 && count($jadwalAudit_->unique('tempat')) != 1)
+                                @if ($i < count($jadwalAudit_->unique('tempat')) && $i != count($jadwalAudit_->unique('tempat')))
                                     {{ $jadwal->tempat }},
-                                @elseif ($i == count($jadwalAudit_))
+                                @elseif ($i == count($jadwalAudit_->unique('tempat')))
                                     {{ $jadwal->tempat }}
                                 @endif
                             @endif
@@ -154,7 +156,29 @@
     </div>
 
     <div id="bodydoc" class="bodydoc my-3 mx-4 py-2">
-        <p>1. Pada hari ini telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
+        <p>1. Pada hari 
+            <?php $i=0; ?>
+            @foreach ($jadwalaudit as $jadwal)
+                @if (count($jadwalaudit) == 1)
+                    {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                @elseif (count($jadwalaudit) == 2)
+                    @if ($i < count($jadwalaudit) && $i != count($jadwalaudit))
+                        {{ $jadwal->hari_tgl->translatedFormat('l') }} dan
+                    @elseif ($i == count($jadwalaudit))
+                        {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                    @endif
+                @elseif (count($jadwalaudit) > 2 && count($jadwalaudit) != 1)
+                    @if ($i < count($jadwalaudit) && $i != count($jadwalaudit) && $i != (count($jadwalaudit)-1))
+                        {{ $jadwal->hari_tgl->translatedFormat('l') }},
+                    @elseif ($i == (count($jadwalaudit)-1) && $i != count($jadwalaudit) && $i != count($jadwalaudit))
+                        dan {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                    @elseif ($i == count($jadwalaudit))
+                        {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                    @endif
+                @endif
+                <?php $i++; ?>
+            @endforeach
+            telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
             @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
                 @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
                 {{ $jadwal->th_ajaran1 }}/{{ $jadwal->th_ajaran2 }} 
@@ -164,10 +188,11 @@
         </p>
         <div class="tabledaftarhadir mb-5 px-3">
             {{-- {{ count($eSignAuditee) }} --}}
-            <table class="table table-bordered w-75">
+            <table class="table table-bordered">
                 <thead>
                     <tr class="text-center">
-                        <th colspan="2">Nama</th>
+                        <th>Nama</th>
+                        <th>Peran</th>
                         <th>Tanda Tangan</th>
                     </tr>
                 </thead>
@@ -176,16 +201,16 @@
                     @foreach ($daftarhadir_ as $daftarhadir)
                     @if ($daftarhadir->posisi == 'Ketua Auditor' || $daftarhadir->posisi == 'Anggota Auditor')
                     <tr>
-                        <td rowspan>{{ $daftarhadir->posisi }}</td>
                         <td>{{ $daftarhadir->namapeserta }}</td>
+                        <td>{{ $daftarhadir->posisi }}</td>
                         <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                         
                     </tr>
                     <?php $i++; ?>
                     @elseif ($daftarhadir->posisi == 'Ketua Auditee' || $daftarhadir->posisi == 'Anggota Auditee')
                     <tr>
-                        <td rowspan>{{ $daftarhadir->posisi }}</td>
                         <td>{{ $daftarhadir->namapeserta }}</td>
+                        <td>{{ $daftarhadir->posisi }}</td>
                         <td class="text-center">{{ $eSignAuditee[$j] }}</td>
                     </tr>
                     <?php $j++; ?>
