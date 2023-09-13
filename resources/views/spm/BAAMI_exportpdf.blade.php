@@ -24,7 +24,13 @@
         }
 
         .tablekesesuaian thead { display: table-row-group; }
-        .tablekesesuaian tfoot { display: table-row-group; }
+        .tablekesesuaian tfoot { 
+            display: table-row-group;
+        }
+        .tablekesesuaian tr {
+            border-bottom: 1x solid #000;
+            border-top: 1x solid #000;
+        }
 
 
         /* .tablekesesuaian {
