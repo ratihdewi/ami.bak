@@ -282,10 +282,10 @@
                         <?php $no = 1; ?>
                         @foreach ($pelpeningkatan_ as $pelpeningkatan)
                         <tr style="border: 1px solid #000 !important;">
-                            <td class="text-center">{{ $no++ }}</td>
-                            <td>{{ $pelpeningkatan->aspek }}</td>
-                            <td>{!! $pelpeningkatan->kelebihan !!}</td>
-                            <td>{!! $pelpeningkatan->peningkatan !!}</td>
+                            <td class="text-center" style="border: 1px solid #000 !important;">{{ $no++ }}</td>
+                            <td style="border: 1px solid #000 !important;">{{ $pelpeningkatan->aspek }}</td>
+                            <td style="border: 1px solid #000 !important;">{!! $pelpeningkatan->kelebihan !!}</td>
+                            <td style="border: 1px solid #000 !important;">{!! $pelpeningkatan->peningkatan !!}</td>
                         </tr>
                         @endforeach
                     </tbody>
