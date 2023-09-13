@@ -31,7 +31,7 @@
             border-bottom: 1x solid #000;
             border-top: 1x solid #000;
         }
-        .tablekesesuaian {
+        .tablekesesuaian table {
             border-collapse: collapse;
         }
 
