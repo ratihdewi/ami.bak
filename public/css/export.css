@@ -3,7 +3,7 @@
     font-weight: bold;
 }
 
-@media print {
+/* @media print { */
 
     .tablekesesuaian tbody:first-child {
         border-top: 1px solid #000 !important;
@@ -13,4 +13,4 @@
         border-bottom: 1px solid #000 !important;
     }
 
-}
+/* } */
