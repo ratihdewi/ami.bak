@@ -32,7 +32,7 @@
             border-top: 1x solid #000;
         } */
         .tablekesesuaian table {
-            border-collapse: collapse;
+            border-collapse: separate;
         }
 
         @media print {
