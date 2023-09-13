@@ -23,9 +23,24 @@
             page-break-inside: avoid;
         }
 
-        .tablekesesuaian table {
-            page-break-inside: avoid;
+        .tablekesesuaian {
+            page-break-inside: auto;
+            position: relative;
         }
+
+        .tablekesesuaian::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-bottom: 1px solid #000;
+        }
+
+
+        /* .tablekesesuaian {
+            page-break-inside: avoid;
+        } */
         /* thead {
 >>>>>>> 933c1a9cbf5af26754119bba9b835b8fe477fdea
             display: table-header-group;
