@@ -23,7 +23,7 @@
             page-break-inside: avoid;
         }
 
-        .tablekesesuaian thead { display: table-header-group; }
+        .tablekesesuaian thead { display: table-row-group; }
         .tablekesesuaian tfoot { display: table-row-group; }
 
 
@@ -211,8 +211,8 @@
                         <?php $i++; ?>
                         @elseif ($daftarhadir->posisi == 'Ketua Auditee' || $daftarhadir->posisi == 'Anggota Auditee')
                         <tr>
-                            <td rowspan>{{ $daftarhadir->posisi }}</td>
                             <td>{{ $daftarhadir->namapeserta }}</td>
+                            <td>{{ $daftarhadir->posisi }}</td>
                             <td class="text-center">{{ $eSignAuditee[$j] }}</td>
                         </tr>
                         <?php $j++; ?>
