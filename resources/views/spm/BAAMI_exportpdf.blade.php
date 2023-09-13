@@ -15,7 +15,7 @@
         }
 
         table {
-            display: table-header-group;
+            display: table;
         }
 
         .tabledaftarhadir tr,
