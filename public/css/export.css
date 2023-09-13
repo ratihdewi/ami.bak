@@ -1,15 +1,15 @@
-.tablekesesuaian {
+/* .tablekesesuaian {
     font-size: 20px;
     font-weight: bold;
-}
+} */
 
 /* @media print { */
 
-    .tablekesesuaian tbody:first-child {
+    .tablekesesuaian tr {
         border-top: 1px solid #000 !important;
     }
 
-    .tablekesesuaian tbody:last-child {
+    .tablekesesuaian tr {
         border-bottom: 1px solid #000 !important;
     }
 
