@@ -27,13 +27,25 @@
         .tablekesesuaian tfoot { 
             display: table-row-group;
         }
-        .tablekesesuaian tr {
+        /* .tablekesesuaian tr {
             border-bottom: 1x solid #000;
             border-top: 1x solid #000;
-        }
+        } */
         .tablekesesuaian table {
             border-collapse: collapse;
         }
+
+        @media print {
+            tbody tr:first-child {
+                border-top: 1px solid #000; /* Atur border-top pada baris pertama di setiap halaman */
+            }
+
+            tbody tr:last-child {
+                border-bottom: 1px solid #000; /* Atur border-bottom pada baris terakhir di setiap halaman */
+            }
+
+        }
+
 
 
         /* .tablekesesuaian {
