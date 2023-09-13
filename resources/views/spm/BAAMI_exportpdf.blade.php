@@ -19,12 +19,21 @@
             display: table;
         }
 
-        .tabledaftarhadir tr,
+        /* .tabledaftarhadir tr,
         #ttdpersetujuan table {
             page-break-inside: avoid;
         }
 
+        .tablekesesuaian thead { display: table-row-group; } */
+
+        .tabledaftarhadir tr,
+        #ttdpersetujuan table {
+            page-break-inside: auto;
+        }
+
+        .tabledaftarhadir thead,
         .tablekesesuaian thead { display: table-row-group; }
+
         .tablekesesuaian tfoot { 
             display: table-row-group;
         }
