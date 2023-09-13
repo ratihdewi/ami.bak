@@ -10,7 +10,7 @@
         
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 18px;
+            font-size: 12px;
             letter-spacing: 0.5px;
         }
 
@@ -23,11 +23,9 @@
             page-break-inside: avoid;
         }
 
-        @media print {
-            #tablekesesuaian {
-                display: table-header-group;
-            }
-        }
+        .tablekesesuaian thead { display: table-header-group; }
+        .tablekesesuaian tfoot { display: table-row-group; }
+        .tablekesesuaian tr { page-break-inside: avoid; }
 
 
         /* .tablekesesuaian {
@@ -251,7 +249,7 @@
             <div class="tablekesesuaian mb-5">
                 <p class="ms-3"><b>B. Peluang Peningkatan</b></p>
                 <table class="table table-bordered" id="tablekesesuaian">
-                    <thead class="text-center">
+                    <thead class="text-center" id="headerkesesuaian">
                         <tr>
                             <th>No.</th>
                             <th>Aspek/Bidang</th>
