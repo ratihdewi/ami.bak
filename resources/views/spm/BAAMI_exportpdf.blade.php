@@ -10,7 +10,7 @@
         
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 12px;
+            font-size: 18px;
             letter-spacing: 0.5px;
         }
 
@@ -194,7 +194,8 @@
                 <table class="table table-bordered w-75">
                     <thead>
                         <tr class="text-center">
-                            <th colspan="2">Nama</th>
+                            <th>Nama</th>
+                            <th>Peran</th>
                             <th>Tanda Tangan</th>
                         </tr>
                     </thead>
@@ -203,8 +204,8 @@
                         @foreach ($daftarhadir_ as $daftarhadir)
                         @if ($daftarhadir->posisi == 'Ketua Auditor' || $daftarhadir->posisi == 'Anggota Auditor')
                         <tr>
-                            <td rowspan>{{ $daftarhadir->posisi }}</td>
                             <td>{{ $daftarhadir->namapeserta }}</td>
+                            <td rowspan>{{ $daftarhadir->posisi }}</td>
                             <td class="text-center">{{ $eSignAuditor[$i] }}</td>
                             
                         </tr>
