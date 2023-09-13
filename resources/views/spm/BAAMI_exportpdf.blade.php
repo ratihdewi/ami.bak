@@ -28,10 +28,9 @@
 
         .tabledaftarhadir tr,
         #ttdpersetujuan table {
-            page-break-inside: auto;
+            page-break-inside: avoid;
         }
 
-        .tabledaftarhadir tr,
         .tabledaftarhadir thead,
         .tablekesesuaian thead { display: table-row-group; }
 
