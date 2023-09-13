@@ -13,6 +13,7 @@ use App\Models\BeritaAcara;
 use App\Models\DaftarHadir;
 use App\Models\DaftarTilik;
 use App\Models\DokLampiran;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PersetujuanBA;
 use App\Models\PeluangPeningkatan;
@@ -208,10 +209,12 @@ class DokBAAMIController extends Controller
 
         if ($dataDokumen_->exists()) {
 
+            $upperjudul = Str::upper($request->judulDokumen);
+
             $dataDokumen_->update([
                 'beritaacara_id' => $dataDokumen_->beritaacara_id,
                 'auditee_id' => $dataDokumen_->auditee_id,
-                'judulDokumen' => $request->judulDokumen,
+                'judulDokumen' => $upperjudul,
                 'kodeDokumen' => $request->kodeDokumen,
                 'revisiKe' => $request->revisiKe,
                 'tgl_revisi' => $request->tgl_revisi,
@@ -220,10 +223,13 @@ class DokBAAMIController extends Controller
             $dataDokumen_->save();
 
         } else {
+
+            $upperjudul = Str::upper($request->judulDokumen);
+
             $dataDokumen = new DokBA_AMI;
             $dataDokumen->beritaacara_id = $dataDokumen_->beritaacara_id;
             $dataDokumen->auditee_id = $dataDokumen_->auditee_id;
-            $dataDokumen->judulDokumen = $request->judulDokumen;
+            $dataDokumen->judulDokumen = $upperjudul;
             $dataDokumen->kodeDokumen = $request->kodeDokumen;
             $dataDokumen->revisiKe = $request->revisiKe;
             $dataDokumen->revisiKe = $request->revisiKe;
