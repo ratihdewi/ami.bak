@@ -23,11 +23,11 @@
             page-break-inside: avoid;
         }
 
-        @media print {
+        /* @media print { */
             .tablekesesuaian thead {
                 display: table-header-group !important;
             }
-        }
+        /* } */
 
 
         /* .tablekesesuaian {
