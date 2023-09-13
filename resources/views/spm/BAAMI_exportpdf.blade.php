@@ -184,9 +184,9 @@
                     @if (count($jadwalaudit) == 1)
                         {{ $jadwal->hari_tgl->translatedFormat('l') }}
                     @elseif (count($jadwalaudit) == 2)
-                        @if ($i < count($jadwalaudit) && $i != count($jadwalaudit))
+                        @if ($i < count($jadwalaudit) && $i != (count($jadwalaudit)-1))
                             {{ $jadwal->hari_tgl->translatedFormat('l') }} dan
-                        @elseif ($i == count($jadwalaudit))
+                        @elseif ($i == (count($jadwalaudit)-1))
                             {{ $jadwal->hari_tgl->translatedFormat('l') }}
                         @endif
                     @elseif (count($jadwalaudit) > 2 && count($jadwalaudit) != 1)
