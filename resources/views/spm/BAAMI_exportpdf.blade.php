@@ -14,17 +14,13 @@
             letter-spacing: 0.5px;
         }
 
-        @media print {
-            table {
-                display: table-header-group;
-            }
+        table {
+            display: table-header-group;
+        }
 
-            .tabledaftarhadir tr,
-            #ttdpersetujuan table {
-                display: table-row-group;
-                page-break-inside: avoid;
-            }
-            
+        .tabledaftarhadir tr,
+        #ttdpersetujuan table {
+            page-break-inside: avoid;
         }
         /* thead {
 >>>>>>> 933c1a9cbf5af26754119bba9b835b8fe477fdea
