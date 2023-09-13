@@ -31,6 +31,7 @@
             page-break-inside: auto;
         }
 
+        .tabledaftarhadir tr,
         .tabledaftarhadir thead,
         .tablekesesuaian thead { display: table-row-group; }
 
