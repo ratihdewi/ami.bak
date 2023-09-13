@@ -36,38 +36,15 @@
         }
 
         @media print {
-            tbody tr:first-child {
-                border-top: 1px solid #000 !important;
+            .tablekesesuaian tr:first-child {
+                border-top: 1px solid #000;
             }
 
-            tbody tr:last-child {
-                border-bottom: 1px solid #000 !important;
+            .tablekesesuaian tr:last-child {
+                border-bottom: 1px solid #000;
             }
 
         }
-
-
-
-        /* .tablekesesuaian {
-            page-break-inside: avoid;
-        } */
-        /* thead {
->>>>>>> 933c1a9cbf5af26754119bba9b835b8fe477fdea
-            display: table-header-group;
-=======
-
-        table {
-            display: table;
->>>>>>> ee9ae987decb8d14028e770c396b4db9185ea3ed
-        }
-
-        /* tfoot {
-            display: table-row-group;
-        }
-
-        tr {
-            page-break-inside: auto;
-        } */
     </style>
 </head>
 <body>
@@ -281,11 +258,11 @@
                     <tbody>
                         <?php $no = 1; ?>
                         @foreach ($pelpeningkatan_ as $pelpeningkatan)
-                        <tr style="border: 1px solid #000 !important;">
-                            <td class="text-center" style="border: 1px solid #000 !important;">{{ $no++ }}</td>
-                            <td style="border: 1px solid #000 !important;">{{ $pelpeningkatan->aspek }}</td>
-                            <td style="border: 1px solid #000 !important;">{!! $pelpeningkatan->kelebihan !!}</td>
-                            <td style="border: 1px solid #000 !important;">{!! $pelpeningkatan->peningkatan !!}</td>
+                        <tr>
+                            <td class="text-center">{{ $no++ }}</td>
+                            <td>{{ $pelpeningkatan->aspek }}</td>
+                            <td>{!! $pelpeningkatan->kelebihan !!}</td>
+                            <td>{!! $pelpeningkatan->peningkatan !!}</td>
                         </tr>
                         @endforeach
                     </tbody>
