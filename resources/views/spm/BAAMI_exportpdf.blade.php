@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">z
+    <link rel="stylesheet" href="export.css" media="print">
     <title>Table</title>
     <style type="text/css">
         
@@ -33,18 +34,6 @@
         } */
         .tablekesesuaian table {
             border-collapse: collapse;
-        }
-    </style>
-    <style media="print" type="text/css">
-        @media print {
-            .tablekesesuaian tr:first-child {
-                border-top: 1px solid #000 !important;
-            }
-
-            .tablekesesuaian tr:last-child {
-                border-bottom: 1px solid #000 !important;
-            }
-
         }
     </style>
 </head>
