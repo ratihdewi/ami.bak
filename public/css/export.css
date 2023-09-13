@@ -1,4 +1,9 @@
 @media print {
+
+    .tableketidaksesuaian thead {
+        background-color: aqua;
+    }
+
     .tablekesesuaian tbody:first-child {
         border-top: 1px solid #000 !important;
     }
