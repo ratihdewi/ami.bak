@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">
     <title>Table</title>
-    <style>
+    <style type="text/css">
         
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -37,12 +37,10 @@
 
         @media print {
             tbody tr:first-child {
-                border-collapse: separate;
                 border-top: 1px solid #000; /* Atur border-top pada baris pertama di setiap halaman */
             }
 
             tbody tr:last-child {
-                border-collapse: separate;
                 border-bottom: 1px solid #000; /* Atur border-bottom pada baris terakhir di setiap halaman */
             }
 
