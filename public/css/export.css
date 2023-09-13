@@ -1,7 +1,7 @@
 @media print {
 
     .tableketidaksesuaian thead {
-        background-color: aqua;
+        border: none;
     }
 
     .tablekesesuaian tbody:first-child {
