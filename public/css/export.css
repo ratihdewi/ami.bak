@@ -1,8 +1,8 @@
-@media print {
+.tableketidaksesuaian {
+    font-size: 20px;
+}
 
-    .tableketidaksesuaian {
-        font-size: 20px;
-    }
+@media print {
 
     .tablekesesuaian tbody:first-child {
         border-top: 1px solid #000 !important;
