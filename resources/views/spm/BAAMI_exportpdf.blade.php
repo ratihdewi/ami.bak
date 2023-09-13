@@ -22,6 +22,7 @@
             .tabledaftarhadir tr,
             #ttdpersetujuan table {
                 display: table-row-group;
+                page-break-inside: avoid;
             }
             
         }
