@@ -281,7 +281,7 @@
                     <tbody>
                         <?php $no = 1; ?>
                         @foreach ($pelpeningkatan_ as $pelpeningkatan)
-                        <tr>
+                        <tr style="border: 1px solid #000 !important;">
                             <td class="text-center">{{ $no++ }}</td>
                             <td>{{ $pelpeningkatan->aspek }}</td>
                             <td>{!! $pelpeningkatan->kelebihan !!}</td>
