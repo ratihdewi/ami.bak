@@ -24,7 +24,7 @@
         }
 
         @media print {
-            #tablekesesuaian thead {
+            #tablekesesuaian {
                 display: table-header-group;
             }
         }
