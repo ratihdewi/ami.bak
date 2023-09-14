@@ -48,7 +48,7 @@
           <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">
-                      <label for="auditee_id" class="visually-hidden">Auditee</label>
+                      <label for="auditee_id" class="fw-semibold mb-1 ps-1">Auditee</label>
                       <select
                           id="auditee_id"
                           class="form-select"
@@ -64,7 +64,7 @@
                       </select>
                   </div>
                   <div class="col">
-                      <label for="auditor_id" class="visually-hidden">Auditor</label>
+                      <label for="auditor_id" class="fw-semibold mb-1 ps-1">Auditor</label>
                       <select id="auditor_id" class="form-select" name="auditor_id" disabled>
                           <option selected disabled>{{ $_daftartilik->auditor->nama }}</option>
                           @foreach ($listAuditor as $liAuditor)
@@ -75,6 +75,7 @@
               </div>
               <div class="row g-3 mb-4 mx-3">
                   <div class="col">
+                      <label for="tgl-pelaksanaan" class="fw-semibold mb-1 ps-1">Tanggal Pelaksanaan</label>
                       <input
                           type="text"
                           id="tgl-pelaksanaan"
@@ -88,6 +89,7 @@
                       />
                   </div>
                   <div class="col">
+                      <label for="tempat" class="fw-semibold mb-1 ps-1">Tempat</label>
                       <input
                           type="text"
                           id="tempat"
@@ -101,8 +103,8 @@
                   </div>
               </div>
               <div class="row g-3 mb-4 mx-4">
-                  <label for="area" class="visually-hidden">Area Audit</label>
-                  <select id="area" class="form-select" name="area" disabled>
+                  <label for="area" class="fw-semibold mb-1 ps-1">Area Audit</label>
+                  <select id="area" class="form-select mt-0" name="area" disabled>
                       <option selected disabled>{{ $_daftartilik->area }}</option>
                       <option>Pendidikan</option>
                       <option>Penelitian</option>
@@ -111,13 +113,11 @@
                   </select>
               </div>
               <div class="row g-3 mb-5 mx-4">
-                  <label for="bataspengisianRespon" class="visually-hidden"
-                      >Batas Pengisian Respon</label
-                  >
+                  <label for="bataspengisianRespon" class="fw-semibold mb-1 ps-1">Batas Pengisian Respon</label>
                   <input
                       id="bataspengisianRespon"
                       type="text"
-                      class="form-control"
+                      class="form-control mt-0"
                       placeholder="Berika Batas Pengisian Respon Auditee"
                       onfocus="(this.type='date')"
                       onblur="(this.type='text')"
@@ -177,22 +177,31 @@
           @endforeach
           <div class="row g-3 my-4 mx-3">
             <div class="col">
-              <label for="butirStandar" class="visually-hidden">Butir Standar</label>
+              <label for="butirStandar" class="fw-semibold">Butir Standar <span class="text-danger fw-bold">*</span></label>
               <input id="butirStandar" type="text" class="form-control" placeholder="Masukkan Butir Standar. Contoh: [01 Kompetensi Lulusan]" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}">
             </div>
             <div class="col">
-              <label for="nomorButir" class="visually-hidden">Nomor Butir</label>
+              <label for="nomorButir" class="fw-semibold">Nomor Butir <span class="text-danger fw-bold">*</span></label>
               <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir. Contoh: [A.01.01]" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}">
             </div>
           </div>
+          <div class="form-floating mx-4">
+            <p class="fw-semibold mb-0">Pertanyaan <span class="text-danger fw-bold">*</span></p>
+          </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Ajukan pertanyaan" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}">{{ $datas->pertanyaan }}</textarea>
-            <label for="pertanyaan">Ajukan pertanyaan</label>
+            <label for="pertanyaan">Pertanyaan</label>
+          </div>
+          <div class="form-floating mx-4">
+            <p class="fw-semibold mb-0">Indikator Mutu <span class="text-danger fw-bold">*</span></p>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu">{{ $datas->indikatormutu }}</textarea>
             <label for="indikatorMutu">Masukkan indikator mutu</label>
           </div>        
+          <div class="form-floating mx-4">
+            <p class="fw-semibold mb-0">Target Standar <span class="text-danger fw-bold">*</span></p>
+          </div>     
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar">{{ $datas->targetStandar }}</textarea>
             <label for="targetStandar">Masukkan target standar</label>
@@ -201,11 +210,11 @@
             <div class="col-7 border rounded me-5">
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
-                  <label for="inputButirStandar" class="form-label">Butir Standar</label>
+                  <label for="inputButirStandar" class="form-label fw-semibold">Butir Standar <span class="text-danger fw-bold">*</span></label>
                   <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}">
                 </div>
                 <div class="col inputReferensi">
-                  <label for="inputReferensi" class="form-label">Referensi</label>
+                  <label for="inputReferensi" class="form-label fw-semibold">Referensi</label>
                   <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}">
                 </div>
               </div>
@@ -213,7 +222,7 @@
             <div class="col-4 border rounded ms-5">
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputKeterangan">
-                  <label for="inputKeterangan" class="form-label">Keterangan</label>
+                  <label for="inputKeterangan" class="form-label fw-semibold">Keterangan</label>
                   <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}">
                 </div>
               </div>
@@ -234,13 +243,14 @@
               </div>
             </div>
           </div>
+          <label for="#" class="mb-2 mx-4 fw-semibold">Respon Auditor</label>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor">{{ $datas->responAuditor }}</textarea>
             <label for="responAuditor">Tuliskan respon Auditor <b>**)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
             <div class="col">
-              <label for="kategoriTemuan" class="form-label">Kategori Temuan <b>*)</b></label>
+              <label for="kategoriTemuan" class="form-label fw-semibold">Kategori Temuan <b>*)</b></label>
               <div id="kategoriTemuan" class="border rounded ps-4 py-2">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()" value="{{ $datas->Kategori }}"
@@ -275,7 +285,7 @@
               </div>
             </div>
             <div class="col">
-              <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
+              <label for="fotoKegiatan" class="form-label fw-semibold">Dokumentasi Foto Kegiatan</label>
               <a href="/spm-editfotokegiatan/{{ $datas->auditee_id }}/{{ $datas->auditee->tahunperiode }}/{{ $datas->id }}">
                 <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Foto Kegiatan</b></button>
               </a>
@@ -285,11 +295,11 @@
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
-              <label for="inisialAuditor" class="form-label">Inisial Auditor</label>
+              <label for="inisialAuditor" class="form-label fw-semibold">Inisial Auditor</label>
               <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}">
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
-              <label for="skorAuditor" class="form-label">Skor Auditor</label>
+              <label for="skorAuditor" class="form-label fw-semibold">Skor Auditor</label>
               <input id="skorAuditor" type="number" min="0.00" max="4.00" step="0.01" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}">
             </div>
           </div>

@@ -37,7 +37,7 @@
           <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
               <div class="row g-3 my-4 mx-3">
                   <div class="col">
-                      <label for="auditee_id" class="visually-hidden">Auditee</label>
+                      <label for="auditee_id" class="fw-semibold ps-1 mb-1">Auditee</label>
                       <select
                           id="auditee_id"
                           class="form-select"
@@ -53,7 +53,7 @@
                       </select>
                   </div>
                   <div class="col">
-                      <label for="auditor_id" class="visually-hidden">Auditor</label>
+                      <label for="auditor_id" class="fw-semibold ps-1 mb-1">Auditor</label>
                       <select id="auditor_id" class="form-select" name="auditor_id" disabled>
                           <option selected disabled>{{ $item->auditor->nama }}</option>
                           @foreach ($listAuditor as $liAuditor)
@@ -64,6 +64,7 @@
               </div>
               <div class="row g-3 mb-4 mx-3">
                   <div class="col">
+                      <label for="tgl-pelaksanaan" class="fw-semibold ps-1 mb-1">Tanggal Pelaksanaan</label>
                       <input
                           type="text"
                           id="tgl-pelaksanaan"
@@ -77,6 +78,7 @@
                       />
                   </div>
                   <div class="col">
+                      <label for="tempat" class="fw-semibold ps-1 mb-1">Tempat</label>
                       <input
                           type="text"
                           id="tempat"
@@ -90,8 +92,8 @@
                   </div>
               </div>
               <div class="row g-3 mb-4 mx-4">
-                  <label for="area" class="visually-hidden">Area Audit</label>
-                  <select id="area" class="form-select" name="area" disabled>
+                  <label for="area" class="fw-semibold ps-1 mb-1">Area Audit</label>
+                  <select id="area" class="form-select mt-0" name="area" disabled>
                       <option selected disabled>{{ $item->area }}</option>
                       <option>Pendidikan</option>
                       <option>Penelitian</option>
@@ -100,13 +102,11 @@
                   </select>
               </div>
               <div class="row g-3 mb-5 mx-4">
-                  <label for="bataspengisianRespon" class="visually-hidden"
-                      >Batas Pengisian Respon</label
-                  >
+                  <label for="bataspengisianRespon" class="fw-semibold ps-1 mb-1">Batas Pengisian Respon</label>
                   <input
                       id="bataspengisianRespon"
                       type="text"
-                      class="form-control"
+                      class="form-control mt-0"
                       placeholder="Berika Batas Pengisian Respon Auditee"
                       onfocus="(this.type='date')"
                       onblur="(this.type='text')"
@@ -241,13 +241,14 @@
               </div>
             </div>
           </div>
+          <label for="#" class="mb-2 mx-4 fw-semibold">Respon Auditor</label>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor"></textarea>
             <label for="responAuditor">Tuliskan respon Auditor <b>**)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
             <div class="col">
-              <label for="kategoriTemuan" class="form-label">Kategori Temuan <b>*)</b></label>
+              <label for="kategoriTemuan" class="form-label fw-semibold">Kategori Temuan <b>*)</b></label>
               <div id="kategoriTemuan" class="border rounded ps-4 py-2">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" value="KTS" onclick="display()">
@@ -265,18 +266,18 @@
             </div>
             {{-- {{ $pertanyaan_id }} --}}
             <div class="col">
-              <label for="fotoKegiatan" class="form-label">Dokumentasi Foto Kegiatan</label>
+              <label for="fotoKegiatan" class="form-label fw-semibold">Dokumentasi Foto Kegiatan</label>
               <button id="fotoKegiatan" type="button" class="btn btn-outline-secondary w-100"><b>Foto Kegiatan</b></button>
             </div>
           </div>
           <div id="narasiPLOR" class="form-floating mb-4 mx-4"></div>
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
-              <label for="inisialAuditor" class="form-label">Inisial Auditor</label>
+              <label for="inisialAuditor" class="form-label fw-semibold">Inisial Auditor</label>
               <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor">
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
-              <label for="skorAuditor" class="form-label">Skor Auditor</label>
+              <label for="skorAuditor" class="form-label fw-semibold">Skor Auditor</label>
               <input id="skorAuditor" type="number" min="0.00" max="4.00" step="0.01" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor">
             </div>
           </div>
