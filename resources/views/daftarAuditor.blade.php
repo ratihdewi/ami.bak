@@ -65,7 +65,7 @@
                         <td>{{ $item->fakultas }}</td>
                         <td class="text-center">{{ $item->noTelepon }}</td>
                         <td class="text-center">
-                            <a href="/tampilAuditor/{{ $item->id }}"><button class="bg-primary border-0 rounded-1 me-3"><i class="bi bi-pencil-square text-white"></i></button></a>
+                            <a href="/tampilAuditor/{{ $item->id }}"><button class="bg-primary border-0 rounded-1 me-1"><i class="bi bi-pencil-square text-white"></i></button></a>
                             <a href="/deleteAuditor/{{ $item->id }}/{{ $item->tahunperiode }}" onclick="return confirm('Apakah Anda yakin akan menghapus {{ $item->nama }} sebagai Auditor?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                         </td>
                     </tr>

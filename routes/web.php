@@ -117,6 +117,10 @@ Route::get('/auditor-searchAuditor', [AuditorController::class, 'getAuditor'])->
 Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
 Route::get('/tambahauditee-searchAuditor/{tahun}', [AuditeeController::class, 'getAuditor'])->name('searchAuditor');
 Route::get('tambahauditee-searchnipuser/{tahunAwal}/{tahun}', [AuditeeController::class, 'getnipuser'])->name('searchnipuser');
+Route::get('/editperiodeauditee-searchdatamodal/{id}', [AuditeeController::class, 'getdatamodal'])->name('searchdatamodal');
+Route::post('/daftarAuditee-periode-editperiode/{id}', [AuditeeController::class, 'updatedatamodal'])->name('updatedatamodal');
+Route::get('/editperiodeauditor-searchdatamodal/{id}', [AuditorController::class, 'getdatamodal'])->name('auditor-searchdatamodal');
+Route::post('/daftarAuditor-periode-editperiode/{id}', [AuditorController::class, 'updatedatamodal'])->name('auditor-updatedatamodal');
 Route::get('/tambahauditor-searchnipuser/{tahunAwal}/{tahun}', [AuditorController::class, 'getnipuser'])->name('auditor-searchnipuser');
 Route::get('/usercontrol', [UserController::class, 'index'])->name('daftaruser');
 Route::get('/addUser', [UserController::class, 'tambahuser'])->name('tambahuser');

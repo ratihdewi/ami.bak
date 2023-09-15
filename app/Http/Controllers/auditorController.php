@@ -29,6 +29,22 @@ class AuditorController extends Controller
         return view('spm/daftarauditor-tahun', compact('dataAuditor', 'currentYear', 'currentDate'));
     }
 
+    public function getdatamodal($id)
+    {
+        $data = TahunPeriode::find($id);
+
+        return response()->json($data);
+    }
+
+    public function updatedatamodal(Request $request, $id)
+    {
+        $tahunperiode = TahunPeriode::find($id);
+
+        $tahunperiode->update($request->all());
+
+        return redirect()->route('auditee-periode');
+    }
+
     public function getAuditor()
     {
         $users_ = User::with('unitkerja')->get();

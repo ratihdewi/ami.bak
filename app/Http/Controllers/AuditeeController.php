@@ -15,8 +15,9 @@ class AuditeeController extends Controller
     public function index($tahunperiode)
     {
         $data = Auditee::where('tahunperiode', $tahunperiode)->get();
+        $periode = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->first();
         // dd($data);
-        return view('daftarAuditee', compact('data'));
+        return view('daftarAuditee', compact('data', 'periode'));
     }
 
     public function indexpertahun()
@@ -26,6 +27,22 @@ class AuditeeController extends Controller
         $dataAuditee = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->where('keterangan', 'Periode Auditee')->get();
         // dd($data);
         return view('spm/daftarauditee-tahun', compact('dataAuditee', 'currentYear', 'currentDate'));
+    }
+
+    public function getdatamodal($id)
+    {
+        $data = TahunPeriode::find($id);
+
+        return response()->json($data);
+    }
+
+    public function updatedatamodal(Request $request, $id)
+    {
+        $tahunperiode = TahunPeriode::find($id);
+
+        $tahunperiode->update($request->all());
+
+        return redirect()->route('auditee-periode');
     }
 
     public function tambahauditee()
