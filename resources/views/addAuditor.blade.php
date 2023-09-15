@@ -29,7 +29,7 @@
                                     <div class="row">
                                         <label class="fw-semibold" for="tahunperiode" class="form-label">Tahun Periode <span class="text-danger fw-bold">*</span></label>
                                         <div class="col-sm-5">
-                                            <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" max="{{ $currentYear - 1 }}" aria-label="Tahun Akhir" oninput="validateInput()" 
+                                            <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" aria-label="Tahun Akhir" oninput="validateInput()" 
                                             @foreach ($periodes->get() as $periode)
                                                 value="{{ $periode->tahunperiode1 }}"
                                             @endforeach
@@ -117,11 +117,11 @@
                                         name="tgl_mulai"
                                         class="form-control"
                                         id="tanggalmulai"
-                                        onfocus="(this.type='date')"
-                                        onblur="(this.type='text')"
+                                        {{-- onfocus="(this.type='date')"
+                                        onblur="(this.type='text')" --}}
                                         placeholder="{{ $periode->tgl_mulai->translatedFormat('l, d M Y') }}"
                                         aria-label="Tanggal Mulai Tugas"
-                                        aria-valuenow="{{ $periode->tgl_mulai->translatedFormat('l, d M Y') }}"
+                                        value="{{ date('d-m-Y', strtotime($periode->tgl_mulai)) }}"
                                         required
                                     />
                                 </div>
@@ -140,15 +140,15 @@
                                         </div>
                                     </div> --}}
                                     <input
-                                        type="date"
+                                        type="text"
                                         name="tgl_berakhir"
                                         class="form-control"
-                                        onfocus="(this.type='date')"
-                                        onblur="(this.type='text')"
+                                        {{-- onfocus="(this.type='date')"
+                                        onblur="(this.type='text')" --}}
                                         id="tanggalberakhir"
                                         placeholder="{{ $periode->tgl_berakhir->translatedFormat('l, d M Y') }}"
                                         aria-label="Tanggal Berakhir Tugas"
-                                        aria-valuetext="{{ $periode->tgl_berakhir->translatedFormat('Y-m-d') }}"
+                                        value="{{ date('d-m-Y', strtotime($periode->tgl_berakhir)); }}"
                                         required
                                     />
                                 </div>
@@ -182,21 +182,40 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.id.min.js" integrity="sha512-5dCXH+uVhgMJkIOoV1tEejq2voWTEqqh2Q2+Caz6//+6i9dLpfyDmAzKcdbogrXjPLanlDO5pTsBDKzmaJcWFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
 
     <script>
         $(document).ready(function(){
 
-            $('#tglmulai').datepicker({
-                format: 'dd-mm-yyyy',
+            flatpickr("#tanggalmulai", {
+                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+                locale: "id",
+                enableTime: false, // Jangan aktifkan waktu
+                // time_24hr: true, // Gunakan format 24 jam
+                timeZone: "Asia/Jakarta",
             });
-            $('#tglberakhir').datepicker({
-                format: 'dd-mm-yyyy',
+
+            flatpickr("#tanggalberakhir", {
+                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+                locale: "id",
+                enableTime: false, // Jangan aktifkan waktu
+                // time_24hr: true, // Gunakan format 24 jam
+                timeZone: "Asia/Jakarta",
             });
+
+
+            // $('#tglmulai').datepicker({
+            //     format: 'dd-mm-yyyy',
+            // });
+            // $('#tglberakhir').datepicker({
+            //     format: 'dd-mm-yyyy',
+            // });
 
             var tahunAwal = $('#tahunperiode0').val();
             var tahunAkhir = $('#tahunperiode').val();
-            var tglMulai = "{{ $periodes->first()->tgl_mulai }}";
-            var tglAkhir = "{{ $periodes->first()->tgl_berakhir }}";
+            // var tglMulai = "{{ $periodes->first()->tgl_mulai }}";
+            // var tglAkhir = "{{ $periodes->first()->tgl_berakhir }}";
 
             fillNipAuditorOptions(tahunAkhir);
 
@@ -244,93 +263,93 @@
                 });
             });
 
-            $("#tanggalmulai").on("focus", function () {
+            // $("#tanggalmulai").on("focus", function () {
             
-                $('#tanggalmulai').change(function() {
-                    let tglMulai = document.getElementById('tanggalmulai');
-                    let tglberakhir = document.getElementById('tanggalberakhir');
+            //     $('#tanggalmulai').change(function() {
+            //         let tglMulai = document.getElementById('tanggalmulai');
+            //         let tglberakhir = document.getElementById('tanggalberakhir');
 
-                    let thPeriode0 =  document.getElementById('tahunperiode0').value;
-                    let thPeriode1 =  document.getElementById('tahunperiode').value;
+            //         let thPeriode0 =  document.getElementById('tahunperiode0').value;
+            //         let thPeriode1 =  document.getElementById('tahunperiode').value;
 
-                    thPeriode0 = parseInt(thPeriode0);
-                    thPeriode1 = parseInt(thPeriode1);
+            //         thPeriode0 = parseInt(thPeriode0);
+            //         thPeriode1 = parseInt(thPeriode1);
 
-                    console.log(thPeriode0);
+            //         console.log(thPeriode0);
 
-                    let firstDate = new Date(thPeriode0, 0, 1);
-                    let lastDate = new Date(thPeriode1, 11, 31);
+            //         let firstDate = new Date(thPeriode0, 0, 1);
+            //         let lastDate = new Date(thPeriode1, 11, 31);
 
-                    let minfirstDate = firstDate.toISOString().slice(0, 10);
-                    let maxlastDate = lastDate.toISOString().slice(0, 10);
+            //         let minfirstDate = firstDate.toISOString().slice(0, 10);
+            //         let maxlastDate = lastDate.toISOString().slice(0, 10);
 
-                    if (tglMulai) {
-                        tglMulai = new Date(tglMulai.value);
-                        tglMulai = tglMulai.getFullYear();
+            //         if (tglMulai) {
+            //             tglMulai = new Date(tglMulai.value);
+            //             tglMulai = tglMulai.getFullYear();
 
-                        // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggalmulai'
-                        $('#tanggalmulai').attr('min', minfirstDate);
-                        $('#tanggalmulai').attr('max', maxlastDate);
+            //             // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggalmulai'
+            //             $('#tanggalmulai').attr('min', minfirstDate);
+            //             $('#tanggalmulai').attr('max', maxlastDate);
 
-                        console.log('min date : ' + minfirstDate);
-                        console.log('max date : ' + maxlastDate);
+            //             console.log('min date : ' + minfirstDate);
+            //             console.log('max date : ' + maxlastDate);
 
-                        validateDate(tglMulai);
-                    } if (tglberakhir) {
-                        tglberakhir = new Date(tglberakhir.value);
-                        tglberakhir = tglberakhir.getFullYear();
+            //             validateDate(tglMulai);
+            //         } if (tglberakhir) {
+            //             tglberakhir = new Date(tglberakhir.value);
+            //             tglberakhir = tglberakhir.getFullYear();
 
-                        // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggaberakhir'
-                        $('#tanggalberakhir').attr('min', minfirstDate);
-                        $('#tanggalberakhir').attr('max', maxlastDate);
+            //             // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggaberakhir'
+            //             $('#tanggalberakhir').attr('min', minfirstDate);
+            //             $('#tanggalberakhir').attr('max', maxlastDate);
 
-                        console.log('min date : ' + minfirstDate);
-                        console.log('max date : ' + maxlastDate);
+            //             console.log('min date : ' + minfirstDate);
+            //             console.log('max date : ' + maxlastDate);
 
-                        validateDate(tglberakhir);
-                    }
+            //             validateDate(tglberakhir);
+            //         }
 
-                })
-            });
+            //     })
+            // });
 
-            var defaultview = $('#tanggalmulai');
-            var typedate = defaultview.attr("type", "date");
-            var typetext = defaultview.attr("type", "text");
-            var valueawal = $('#tanggalmulai').val();
+            // var defaultview = $('#tanggalmulai');
+            // var typedate = defaultview.attr("type", "date");
+            // var typetext = defaultview.attr("type", "text");
+            // var valueawal = $('#tanggalmulai').val();
 
-            $("#tanggalmulai").on("blur", function () {
+            // $("#tanggalmulai").on("blur", function () {
             
-                if (isValidDate($(this).val())) {
+            //     if (isValidDate($(this).val())) {
 
-                    valueawal = $(this).val();
+            //         valueawal = $(this).val();
 
-                    var formattedDate_ = moment(valueawal, "DD-MM-YYYY").format("dddd, DD MMM YYYY");
+            //         var formattedDate_ = moment(valueawal, "DD-MM-YYYY").format("dddd, DD MMM YYYY");
 
-                    typetext.val(formattedDate_);
-                }
-            });
+            //         typetext.val(formattedDate_);
+            //     }
+            // });
 
             function isValidDate(value) {
                 var date = new Date(value);
                 return !isNaN(date.getTime());
             }
 
-            var defaultview_ = $('#tanggalberakhir');
-            var typedate_ = defaultview_.attr("type", "date");
-            var typetext_ = defaultview_.attr("type", "text");
-            var valueawal_ = $('#tanggakberakhir').val()
+            // var defaultview_ = $('#tanggalberakhir');
+            // var typedate_ = defaultview_.attr("type", "date");
+            // var typetext_ = defaultview_.attr("type", "text");
+            // var valueawal_ = $('#tanggakberakhir').val()
 
-            $("#tanggalberakhir").on("blur", function () {
+            // $("#tanggalberakhir").on("blur", function () {
             
-                if (isValidDate($(this).val())) {
+            //     if (isValidDate($(this).val())) {
 
-                    valueawal_ = $(this).val();
+            //         valueawal_ = $(this).val();
 
-                    var formattedDate = moment(valueawal_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+            //         var formattedDate = moment(valueawal_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
 
-                    typetext_.val(formattedDate);
-                }
-            });
+            //         typetext_.val(formattedDate);
+            //     }
+            // });
 
             $('#addForm').on('submit', function(e) {
                 var firstest = $('#tanggalmulai').val();
@@ -436,7 +455,7 @@
             let maxvalue = parseInt($('#tahunperiode').attr('max'));
             let minvalue = parseInt($('#tahunperiode').attr('min'));
 
-            if (tahun == tahunAwal+1 && (tahunAwal >= minValue && tahunAwal <= maxValue)) {
+            if (tahun == tahunAwal+1 && (tahunAwal >= minValue)) {
                 // console.log('berhasil');
                 $.ajax({
                     url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,

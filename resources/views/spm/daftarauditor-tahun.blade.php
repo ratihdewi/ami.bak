@@ -37,15 +37,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        
+                        <div id="liveAlertPlaceholder"></div>
                         <div class=" row mb-3">
                             <div class="col">
                                 <label for="recipient-name" class="col-form-label">Tahun periode awal <span class="text-danger fw-bold">*</span></label>
-                                <input type="number" min="2016" max="{{ $currentYear - 1 }}" class="form-control" id="thPeriodeAwal" name="tahunperiode1" required>
+                                <input type="number" min="2016" class="form-control" id="thPeriodeAwal" name="tahunperiode1" required>
                             </div>
                             <div class="col">
                                 <label for="recipient-name" class="col-form-label">Tahun periode akhir <span class="text-danger fw-bold">*</span></label>
-                                <input type="number" min="2017" max="{{ $currentYear }}" class="form-control" id="thPeriodeAkhir" name="tahunperiode2" required>
+                                <input type="number" min="2017" class="form-control" id="thPeriodeAkhir" name="tahunperiode2" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -135,7 +135,17 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.id.min.js" integrity="sha512-5dCXH+uVhgMJkIOoV1tEejq2voWTEqqh2Q2+Caz6//+6i9dLpfyDmAzKcdbogrXjPLanlDO5pTsBDKzmaJcWFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
-            $('#tableAuditor').DataTable({ });
+            $('#tableAuditor').DataTable();
+
+            $('#thPeriodeAwal').change(function () {
+                let tahunAwal = parseInt($('#thPeriodeAwal').val());
+                $('#thPeriodeAkhir').val(tahunAwal + 1);
+            });
+
+            $('#thPeriodeAkhir').change(function () {
+                let tahun = $(this).val();
+                $('#thPeriodeAwal').val(tahun - 1);
+            });
 
             $.ajaxSetup({
                 headers:{
@@ -151,6 +161,40 @@
                 $('#tglakhir').datepicker({
                     format: 'dd-mm-yyyy',
                 });
+            });
+
+            const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+            const alert = (message, type) => {
+                const wrapper = document.createElement('div')
+                wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+                ].join('')
+
+                alertPlaceholder.append(wrapper)
+            }
+
+            function falseinput() {
+                alert('Tanggal pelaksanaan tidak sesuai dengan tahun periode!', 'danger');
+            }
+
+            $('#periodeForm').on('submit', function(e) {
+                var periodeawal = $('#thPeriodeAwal').val();
+                var periodeakhir = $('#thPeriodeAkhir').val();
+
+                var tanggalmulai = $('#tglMulai').val();
+                var tanggalselesai = $('#tglAkhir').val();
+
+                tanggalmulai = new Date(tanggalmulai).getFullYear();
+                tanggalselesai = new Date(tanggalselesai).getFullYear();
+
+                if ((tanggalmulai != periodeawal || tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal || tanggalselesai != periodeakhir)) {
+                    falseinput();
+                    e.preventDefault();
+                }
             });
 
             // $('#savePeriode').on('click', function() {

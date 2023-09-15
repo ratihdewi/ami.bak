@@ -126,7 +126,7 @@
                                                 id="waktu"
                                                 placeholder="Tempat Pelaksanaan"
                                                 name="addmore[0][waktu]"
-                                                value="{{ $data->waktu->isoFormat('H:m') }}"
+                                                value="{{ $data->waktu->isoFormat('HH:mm') }}"
                                                 required
                                             />
                                         </div>

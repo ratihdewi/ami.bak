@@ -22,7 +22,7 @@
         <div class="row justify-content-center">
             <div class="col-8">
                 <h5 class="text-center mb-3">Ubah Data Auditor</h5>
-                <form action="/updateAuditor/{{ $data->id }}" method="POST">
+                <form id="addForm" action="/updateAuditor/{{ $data->id }}" method="POST">
                     @csrf
                     <div class="card mb-3">
                         <div class="card-body p-4">
@@ -104,13 +104,13 @@
                                             >Tanggal Mulai</label
                                         >
                                         <input
-                                            type="date"
+                                            type="text"
                                             name="tgl_mulai"
                                             class="form-control"
                                             id="tanggalmulai"
-                                            placeholder="Tanggal Mulai Tugas"
+                                            placeholder="{{ $data->tgl_mulai }}"
                                             aria-label="Tanggal Mulai Tugas"
-                                            value="{{ $data->tgl_mulai }}"
+                                            value="{{ date('d-m-Y', strtotime($data->tgl_mulai)) }}"
                                         />
                                     </div>
                                     <div class="col">
@@ -118,13 +118,13 @@
                                             >Tanggal Berakhir</label
                                         >
                                         <input
-                                            type="date"
+                                            type="text"
                                             name="tgl_berakhir"
                                             class="form-control"
                                             id="tanggalberakhir"
-                                            placeholder="Tanggal Berakhir Tugas"
+                                            placeholder="{{ $data->tgl_berakhir }}"
                                             aria-label="Tanggal Berakhir Tugas"
-                                            value="{{ $data->tgl_berakhir }}"
+                                            value="{{ date('d-m-Y', strtotime($data->tgl_berakhir)) }}"
                                         />
                                     </div>
                                 </div>
@@ -259,16 +259,30 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
 
     <script>
         $(document).ready(function(){
+
+            flatpickr("#tanggalmulai", {
+                dateFormat: "d-m-Y",
+                locale: "id",
+                enableTime: false,
+                timeZone: "Asia/Jakarta",
+            });
+
+            flatpickr("#tanggalberakhir", {
+                dateFormat: "d-m-Y",
+                locale: "id",
+                enableTime: false,
+                timeZone: "Asia/Jakarta",
+            });
 
             let tglMulai = document.getElementById('tanggalmulai');
             let tglberakhir = document.getElementById('tanggalberakhir');
             let tahunAwal = $('#tahunperiode0').val();
             let tahun = $('#tahunperiode').val();
-
-            console.log("tahun periode : " + tahunAwal + "/" + tahun);
 
             $.ajax({
                 url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
@@ -416,6 +430,58 @@
             })
 
             $('#nipAuditor').select2();
+
+            $('#addForm').on('submit', function() {
+                var firstest = $('#tanggalmulai').val();
+                var lasttest = $('#tanggalberakhir').val();
+
+                tglMulai = moment(tglMulai, "YYYY-MM-DD HH:mm:ss").format('yyyy-MM-DD');
+                tglAkhir = moment(tglAkhir, "YYYY-MM-DD HH:mm:ss").format('yyyy-MM-DD');
+
+                if ((firstest == '' || firstest == null) && (lasttest == '' || lasttest == null)) {
+
+                    $('#tanggalmulai').val(tglMulai);
+                    $('#tanggalberakhir').val(tglAkhir);
+
+                    var cek = $('#tanggalmulai').val();
+                    var cek2 = $('#tanggalberakhir').val();
+                    console.log("Tanggal mulai mulai : " + cek);
+                    console.log("Tanggal mulai berakhir : " + cek2);
+
+                } else if ((lasttest == '' || lasttest == null) &&  (firstest != '' || firstest != null)) {
+
+                    $('#tanggalmulai').val(valueawal);
+                    $('#tanggalberakhir').val(tglAkhir);
+
+                    var cek = $('#tanggalmulai').val();
+                    var cek2 = $('#tanggalberakhir').val();
+                    console.log("Tanggal mulai mulai : " + cek);
+                    console.log("Tanggal mulai berakhir : " + cek2);
+
+                } else if ((lasttest != '' || lasttest != null) &&  (firstest == '' || firstest == null)) {
+
+                    $('#tanggalmulai').val(tglMulai);
+                    $('#tanggalberakhir').val(valueawal_);
+
+                    var cek = $('#tanggalmulai').val();
+                    var cek2 = $('#tanggalberakhir').val();
+                    console.log("Tanggal mulai mulai : " + cek);
+                    console.log("Tanggal mulai berakhir : " + cek2);
+
+                } else if ((firstest != '' || firstest != null) && (lasttest != '' || lasttest != null)) {
+
+                    $('#tanggalmulai').val(valueawal);
+                    $('#tanggalberakhir').val(valueawal_);
+
+                    var cek = $('#tanggalmulai').val();
+                    var cek2 = $('#tanggalberakhir').val();
+                    console.log("Tanggal mulai mulai : " + cek);
+                    console.log("Tanggal mulai berakhir : " + cek2); 
+
+                } 
+                // e.preventDefault();
+            });
+
         });
 
         function validateInput() {

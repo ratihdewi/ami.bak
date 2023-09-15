@@ -88,6 +88,7 @@ class AuditorController extends Controller
 
     public function updatedata(Request $request, $id)
     {
+        // dd($request->all());
         $data = Auditor::find($id);
         $dataAuditorUsers = User::where('id', $request->user_id)->first();
 
