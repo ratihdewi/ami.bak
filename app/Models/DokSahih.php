@@ -16,6 +16,7 @@ class DokSahih extends Model
         'dokSahih',
         'pertanyaan_id',
         'namaFile',
+        'link',
     ];
 
     public function pertanyaan()

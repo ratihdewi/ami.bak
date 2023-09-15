@@ -26,8 +26,8 @@ class Pertanyaan extends Model
         'skorAuditor',
         'Kategori',
         'narasiPLOR',
-        'fotoKegiatan',
-        'dokSahih',
+        'approvalAuditee',
+        'approvalAuditor',
     ];
 
     public function daftartilik()

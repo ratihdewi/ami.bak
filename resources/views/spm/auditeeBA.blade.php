@@ -30,6 +30,7 @@
         @endforeach
             <button
                 type="button"
+                onclick="alertBAAMI()"
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
                 style="font-size: 15px"
             >
@@ -38,6 +39,7 @@
         >
         
     </div>
+    <div id="liveAlertPlaceholder"></div>
     <div class="topSection d-flex justify-content-around mx-2 mt-4">
         @if ($message = Session::get('success'))
         <div class="alert alert-success" role="alert">
@@ -67,52 +69,52 @@
             <tbody>
                 @php $no = 1; $i = 0; @endphp
                 @foreach ($pertanyaan_ as $beritaacara)
-                <tr class="listTemuanBA">
-                    <td class="text-center">{{ $no++ }}</td>
-                    <td>
-                        {{ $beritaacara->narasiPLOR }}
-                    </td>
-                    <td class="text-center">
-                        @if ($beritaacara->Kategori == "OB")
-                            <i class="bi bi-check-lg"></i>
-                        @endif
-                    </td>
-                    <td class="text-center">
-                        @if ($beritaacara->Kategori == "KTS")
-                            <i class="bi bi-check-lg"></i>
-                        @endif
-                    </td>
-                    <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
-                    <td  class="text-center">
-                        @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
-                        {{ $qrCodeAuditee[$i] }}
-                        @else
-                            <a
-                                href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
-                                class="btn btn-outline-success"
-                                ><i class="bi bi-pen"></i
+                    <tr class="listTemuanBA">
+                        <td class="text-center">{{ $no++ }}</td>
+                        <td>
+                            {{ $beritaacara->narasiPLOR }}
+                        </td>
+                        <td class="text-center">
+                            @if ($beritaacara->Kategori == "OB")
+                                <i class="bi bi-check-lg"></i>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if ($beritaacara->Kategori == "KTS")
+                                <i class="bi bi-check-lg"></i>
+                            @endif
+                        </td>
+                        <td class="col-2 text-center">{{ $beritaacara->butirStandar }} <br> {{ $beritaacara->nomorButir }}</td>
+                        <td  class="text-center">
+                            @if ($beritaacara->approvalAuditee == 'Disetujui Auditee')
+                            {{ $qrCodeAuditee[$i] }}
+                            @else
+                                <a
+                                    href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
+                                    class="btn btn-outline-success"
+                                    ><i class="bi bi-pen"></i
+                                ></a>
+                            @endif
+                        </td>
+                        <td></td>
+                        <td  class="text-center">
+                            @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
+                            {{ $qrCodeAuditor[$i] }}
+                            @else
+                                <a
+                                    href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
+                                    class="btn btn-outline-success"
+                                    ><i class="bi bi-pen"></i
+                                ></a>
+                            @endif
+                        </td>
+                        <td  class="text-center">
+                            <a href="/spm-fotokegiatanBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
+                                ><i class="bi bi-folder-fill h3 text-warning"></i
                             ></a>
-                        @endif
-                    </td>
-                    <td></td>
-                    <td  class="text-center">
-                        @if ($beritaacara->approvalAuditor == 'Disetujui Auditor')
-                        {{ $qrCodeAuditor[$i] }}
-                        @else
-                            <a
-                                href="/daftartilik-tampilpertanyaandaftartilik/{{ $beritaacara->id }}/#persetujuanAuditorAuditee"
-                                class="btn btn-outline-success"
-                                ><i class="bi bi-pen"></i
-                            ></a>
-                        @endif
-                    </td>
-                    <td  class="text-center">
-                        <a href="/spm-fotokegiatanBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
-                            ><i class="bi bi-folder-fill h3 text-warning"></i
-                        ></a>
-                    </td>
-                </tr>
-                {{ $i++ }}
+                        </td>
+                    </tr>
+                {{-- {{ $i++ }} --}}
                 @endforeach
             </tbody>
         </table>
@@ -139,6 +141,23 @@
         //         });
         //     });
         // });
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        const alert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+        }
+
+        function alertBAAMI() {
+            alert('Tidak terdapat data Audit Lapangan (AL) yang telah disetujui!', 'warning');
+        }
 
         $(document).ready(function() {
             $('#tableTemuanBA').DataTable({ });

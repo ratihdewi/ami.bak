@@ -26,7 +26,7 @@
                                         <label
                                             for="kegiatan"
                                             class="col-sm-3 col-form-label"
-                                            >Kegiatan</label
+                                            >Kegiatan <span class="fw-bold text-danger">*</span></label
                                         >
                                         <div class="col-sm-9">
                                             <input
@@ -42,7 +42,7 @@
                                         <label
                                             for="tgl_mulai"
                                             class="col-sm-3 col-form-label"
-                                            >Tanggal Mulai</label
+                                            >Tanggal Mulai <span class="fw-bold text-danger">*</span></label
                                         >
                                         <div class="col-sm-9">
                                             <input
@@ -59,7 +59,7 @@
                                         <label
                                             for="tgl_berakhir"
                                             class="col-sm-3 col-form-label"
-                                            >Tanggal Berakhir</label
+                                            >Tanggal Berakhir <span class="fw-bold text-danger">*</span></label
                                         >
                                         <div class="col-sm-9">
                                             <input
@@ -201,7 +201,7 @@
                 if (i < max_fields) {
                     i++;
 
-                    $(wrapper).append('<div class="card mb-4 add-new"><div class="body-card px-5 pt-5 pb-4"><div class="row mb-4"><label for="kegiatan'+i+'" class="col-sm-3 col-form-label">Kegiatan</label><div class="col-sm-9"><input type="text" class="form-control" id="kegiatan'+i+'" name="addmore['+i+'][kegiatan]" placeholder="Masukkan kegiatan" required/></div></div><div class="row mb-4"><label for="tgl_mulai'+i+'"class="col-sm-3 col-form-label">Tanggal Mulai</label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_mulai'+i+'" name="addmore['+i+'][tgl_mulai]" required/></div></div><div class="row mb-4"><label  for="tgl_berakhir'+i+'" class="col-sm-3 col-form-label">Tanggal Berakhir</label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_berakhir'+i+'" name="addmore['+i+'][tgl_berakhir]" required /></div></div><button type="button" id="remove-tr" class="remove_tr btn btn-danger btn-sm float-end">Urungkan</button></div></div>')
+                    $(wrapper).append('<div class="card mb-4 add-new"><div class="body-card px-5 pt-5 pb-4"><div class="row mb-4"><label for="kegiatan'+i+'" class="col-sm-3 col-form-label">Kegiatan <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="kegiatan'+i+'" name="addmore['+i+'][kegiatan]" placeholder="Masukkan kegiatan" required/></div></div><div class="row mb-4"><label for="tgl_mulai'+i+'"class="col-sm-3 col-form-label">Tanggal Mulai <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_mulai'+i+'" name="addmore['+i+'][tgl_mulai]" required/></div></div><div class="row mb-4"><label  for="tgl_berakhir'+i+'" class="col-sm-3 col-form-label">Tanggal Berakhir <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_berakhir'+i+'" name="addmore['+i+'][tgl_berakhir]" required /></div></div><button type="button" id="remove-tr" class="remove_tr btn btn-danger btn-sm float-end">Urungkan</button></div></div>')
 
                 }
             });

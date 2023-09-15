@@ -35,7 +35,7 @@
     <div class="tableDaftarTilik mx-3 mb-3">
         <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px;border-bottom: none">
             <thead>
-                <tr class="row header_pertanyaandaftartilik">
+                <tr class="">
                     <th class="col-1 px-3 text-center">No</th>
                     <th class="col-2 px-3 text-center">Auditee</th>
                     <th class="col-2 px-3 text-center">Area</th>
@@ -48,7 +48,7 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($data_ as $d_pertanyaan)
-                    <tr class="row">
+                    <tr class="">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
                         <td class="col-2 px-0">{{ $data->auditee->unit_kerja }}</td>
                         <td class="col-2 px-0 text-center">{{ $data->area }}</td>

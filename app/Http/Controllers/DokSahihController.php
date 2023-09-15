@@ -43,24 +43,37 @@ class DokSahihController extends Controller
 
     public function storedoksahih(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'dokSahih' => 'required|mimes:csv,xlsx,xls,pdf,docx|max:10240',
-        ]);
-
+        // dd($request->hasFile('dokSahih'));
+        
         if ($request->hasFile('dokSahih')) {
+
+            $request->validate([
+                'dokSahih' => 'mimes:csv,xlsx,xls,pdf,docx|max:10240',
+            ]);    
+
             $file = $request->file('dokSahih');
             $fileName = time() . $file->getClientOriginalName();
             $pathFile = $file->storeAs('dokumenSahih', $fileName, 'public');
             $request->dokSahih = '/storage/' . $pathFile;
+
+            $doksahih =new DokSahih([
+                "pertanyaan_id" => $request->pertanyaan_id,
+                "namaFile" => $request->namaFile,
+                "dokSahih" => $request->dokSahih,
+                "link" => $request->link,
+            ]);
+            $doksahih->save();
+        } else {
+            $doksahih =new DokSahih([
+                "pertanyaan_id" => $request->pertanyaan_id,
+                "namaFile" => $request->namaFile,
+                "dokSahih" => null,
+                "link" => $request->link,
+            ]);
+            $doksahih->save();
         }
         
-        $doksahih =new DokSahih([
-            "pertanyaan_id" => $request->pertanyaan_id,
-            "namaFile" => $request->namaFile,
-            "dokSahih" => $request->dokSahih,
-        ]);
-        $doksahih->save();
+        
 
         return redirect()->back()->with('success', 'Dokumen Bukti Sahih berhasil ditambah!');
     }

@@ -44,7 +44,7 @@ class BeritaAcaraController extends Controller
         $auditee_ = Auditee::all();
         $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee->id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
 
         $qrCodeAuditor = [];
         $qrCodeAuditee = [];
@@ -65,7 +65,7 @@ class BeritaAcaraController extends Controller
         $auditee_ = Auditee::all();
         $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
 
         $qrCodeAuditor = [];
         $qrCodeAuditee = [];
@@ -86,7 +86,7 @@ class BeritaAcaraController extends Controller
         $auditee_ = Auditee::all();
         $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
 
         $qrCodeAuditor = [];
         $qrCodeAuditee = [];

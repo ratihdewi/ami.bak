@@ -22,7 +22,7 @@
             style="font-size: 13px;border-bottom: none"
         >
             <thead>
-                <tr class="row header_areadaftartilik mt-3">
+                <tr class="">
                     <th class="col-1 px-0 text-center">No</th>
                     <th class="col-3 px-0 text-center">Auditee</th>
                     <th class="col-2 px-0 text-center">Area</th>
@@ -38,7 +38,7 @@
                 @foreach ($auditees as $item)
                     @foreach ($item->daftartilik()->get() as $dt)
                     {{-- @foreach ($dt->auditee()->get() as $dt_auditee) --}}
-                    <tr class="row">
+                    <tr class="">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
                         <td class="col-3 px-0">{{ $item->unit_kerja }}</td>
                         <td class="col-2 px-0">{{ $dt->area }}</td>

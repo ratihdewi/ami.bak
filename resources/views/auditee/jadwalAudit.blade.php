@@ -129,6 +129,34 @@
       <div class="tab-pane fade w-100" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container mt-3">
             <div id="calendar"></div>
+            <div class="ketColor d-flex mt-3">
+              <div class="form-check me-3 px-0">
+                <span><i class="bi bi-square-fill" style="color: #F57328"></i></span>
+                <label class="form-check-label px-1" for="flexCheckIndeterminateDisabled">
+                  Auditee
+                </label>
+              </div>
+              <div class="form-check me-3 px-0">
+                <span><i class="bi bi-square-fill" style="color: #367E18"></i></span>
+                <label class="form-check-label px-1" for="flexCheckDisabled">
+                  Auditor
+                </label>
+              </div>
+              <div class="form-check me-3 px-0">
+                <span><i class="bi bi-square-fill" style="color: #CC3636"></i></span>
+                <label class="form-check-label px-1" for="flexCheckCheckedDisabled">
+                  SPM
+                </label>
+              </div>
+            </div>
+            <div class="ketSesi mt-3 border rounded">
+              <h5 class="text-center rounded-top py-3 mb-0" style="background: #d8f3d6">Pilihan Sesi</h5>
+              <div class="row px-5 py-3 d-flex">
+                @foreach ($sessions as $session)
+                  <div class="col-4"><p class="my-2"><span><i class="bi bi-circle-fill me-2" style="font-size: 12px; color: #d8f3d6"></i></span> {{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</p></div>
+                @endforeach
+              </div>
+          </div>
         </div>
       </div>
     </div>
