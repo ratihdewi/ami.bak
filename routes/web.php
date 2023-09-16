@@ -147,6 +147,7 @@ Route::get('/dokresmi', function(){
 });
 Route::get('/daftartilik/{tahunperiode}', [DaftarTilikController::class, 'index'])->name('daftartilik');
 Route::get('/daftartilik-searchAuditeeAuditor/{auditee_id}', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
+Route::get('/daftartilik-searchtahunperiode/{auditee_id}', [DaftarTilikController::class, 'getAuditee'])->name('daftartilik-searchtahunperiode');
 Route::get('/daftarTilik-addareadaftartilik/{tahunperiode}', [DaftarTilikController::class, 'tambahDT'])->name('addDT');
 Route::get('/daftartilik-tampildaftartilik/{tahunperiode}/{id}', [DaftarTilikController::class, 'tampildata'])->name('daftartilik-tampildaftartilik');
 Route::post('/daftartilik-updatedataareadaftartilik/{id}', [DaftarTilikController::class, 'updatedata'])->name('daftartilik-updatedataareadaftartilik');

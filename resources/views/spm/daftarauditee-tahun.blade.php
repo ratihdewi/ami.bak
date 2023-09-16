@@ -42,8 +42,8 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Periode AMI</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div id="liveAlertPlaceholder"></div>
                     <div class="modal-body">
+                        <div id="liveAlertPlaceholder"></div>
                         <div class=" row mb-3">
                             <div class="col">
                                 <label for="recipient-name" class="col-form-label">Tahun periode awal <span class="text-danger fw-bold">*</span></label>
@@ -104,8 +104,8 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Periode AMI</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div id="liveAlertPlaceholder"></div>
                     <div class="modal-body">
+                        <div id="errorEdit"></div>
                         <div class=" row mb-3">
                             <div class="col">
                                 <label for="recipient-name" class="col-form-label">Tahun periode awal <span class="text-danger fw-bold">*</span></label>
@@ -210,6 +210,8 @@
                 $('#thPeriodeAwal').val(tahun - 1);
             });
 
+            const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
             const alert = (message, type) => {
                 const wrapper = document.createElement('div')
                 wrapper.innerHTML = [
@@ -236,11 +238,29 @@
                 tanggalmulai = new Date(tanggalmulai).getFullYear();
                 tanggalselesai = new Date(tanggalselesai).getFullYear();
 
-                if ((tanggalmulai != periodeawal || tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal || tanggalselesai != periodeakhir)) {
+                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
                     falseinput();
                     e.preventDefault();
                 }
             });
+
+            const errorEdit = document.getElementById('errorEdit');
+
+            const falseAlert = (message, type) => {
+                const wrapper = document.createElement('div')
+                wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+                ].join('')
+
+                errorEdit.append(wrapper)
+            }
+
+            function falseyear() {
+                falseAlert('Tanggal pelaksanaan tidak sesuai dengan tahun periode!', 'danger');
+            }
 
             $('#editPeriodeForm').on('submit', function(e) {
                 var periodeawal = $('#editthPeriodeAwal').val();
@@ -252,8 +272,10 @@
                 tanggalmulai = new Date(tanggalmulai).getFullYear();
                 tanggalselesai = new Date(tanggalselesai).getFullYear();
 
-                if ((tanggalmulai != periodeawal || tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal || tanggalselesai != periodeakhir)) {
-                    falseinput();
+                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
+                    console.log(periodeawal);
+                    console.log(tanggalmulai);
+                    falseyear();
                     e.preventDefault();
                 }
             });

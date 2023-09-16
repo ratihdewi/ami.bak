@@ -10,6 +10,7 @@ use App\Models\Auditor;
 use App\Models\UnitKerja;
 use App\Models\Pertanyaan;
 use App\Models\DaftarTilik;
+use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
 use App\Exports\DaftarTilikExport;
 use Illuminate\Support\Facades\Auth;
@@ -21,12 +22,13 @@ class DaftarTilikController extends Controller
 {
     public function index($tahunperiode) {
         $data_ = Auditee::where('tahunperiode', $tahunperiode)->get();
+        $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         // dd($data_);
-        return view('spm/daftarTilik', compact('data_'));
+        return view('spm/daftarTilik', compact('data_', 'periodes'));
     }
 
     public function indexpertahun() {
-        $data_ = Auditee::orderBy('tahunperiode0', 'ASC')->get();
+        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->get();
 
         // dd($data_);
         return view('spm/daftarTilik-tahun', compact('data_'));
@@ -38,8 +40,9 @@ class DaftarTilikController extends Controller
         $timeZone = Config::get('app.timezone');
         $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
         $listAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
+        $periode = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->first();
         
-        return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor', 'locale', 'timeZone'));
+        return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor', 'locale', 'timeZone', 'periode'));
     }
 
     public function insertdataArea(Request $request)
@@ -96,6 +99,13 @@ class DaftarTilikController extends Controller
         //dd($data->auditee->unit_kerja);
         
         return view('spm/updateAreaDaftarTilik', compact('data','listAuditee','listAuditor', 'locale', 'timeZone'));
+    }
+
+    public function getAuditee($id)
+    {
+        $data = Auditee::find($id);
+
+        return response()->json($data);
     }
 
     public function updatedata(Request $request, $id)
@@ -169,14 +179,15 @@ class DaftarTilikController extends Controller
     // Role AUDITOR
     public function indexAuditor($tahunperiode) {
         $auditees = Auditee::where('ketua_auditor', Auth::user()->name)->orWhere('anggota_auditor', Auth::user()->name)->orWhere('anggota_auditor2', Auth::user()->name)->get();
+        $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         // $dataAuditor_ = Auditor::where('nama', $namaUser)->where('tahunperiode', $tahunperiode)->get();
         
-        return view('auditor/daftarTilik', compact('auditees'));
+        return view('auditor/daftarTilik', compact('auditees', 'periodes'));
     }
 
     public function indexpertahunauditor()
     {
-        $data_ = Auditee::orderBy('tahunperiode0', 'ASC')->get();
+        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->get();
 
         if (count(Auth::user()->auditor()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditor()->get('user_id')) != 0)) {
             return view('auditor/daftarTilik-tahun', compact('data_'));
@@ -187,14 +198,15 @@ class DaftarTilikController extends Controller
     public function indexAuditee($tahunperiode) {
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
         $data_ = Auditee::where('unit_kerja', $unitkerja->name)->where('tahunperiode', $tahunperiode)->get();
+        $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         
         //dd($datas);
-        return view('auditee/daftarTilik', compact('data_'));
+        return view('auditee/daftarTilik', compact('data_', 'periodes'));
     }
 
     public function indexpertahunauditee()
     {
-        $data_ = Auditee::orderBy('tahunperiode0', 'ASC')->get();
+        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->get();
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
         $dataUser = Auditee::where('unit_kerja', $unitkerja->name)->orderBy('tahunperiode0', 'ASC')->get();
 

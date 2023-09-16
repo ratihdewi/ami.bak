@@ -23,6 +23,7 @@
         @csrf
         <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
             <div class="row g-3 my-4 mx-3">
+                <div id="liveAlertPlaceholder"></div>
                 <div class="col">
                     <label class="fw-semibold" for="auditee_id">Auditee <span class="text-danger fw-semibold">*</span></label>
                     <select
@@ -50,11 +51,11 @@
                         id="tgl-pelaksanaan"
                         class="form-control"
                         placeholder="Masukkan Hari/Tanggal Pelaksanaan"
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
+                        {{-- onfocus="(this.type='date')"
+                        onblur="(this.type='text')" --}}
                         aria-label="Masukkan Hari/Tanggal Pelaksanaan"
                         name="tgl_pelaksanaan"
-                        value="{{ $data->tgl_pelaksanaan->translatedFormat('Y-m-d') }}"
+                        value="{{ date('d-m-Y', strtotime($data->tgl_pelaksanaan)) }}"
                     />
                 </div>
                 <div class="col">
@@ -90,11 +91,11 @@
                         type="text"
                         class="form-control"
                         placeholder="Berikan Batas Pengisian Respon Auditee"
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
+                        {{-- onfocus="(this.type='date')"
+                        onblur="(this.type='text')" --}}
                         aria-label="Berika Batas Pengisian Respon Auditee"
                         name="bataspengisianRespon"
-                        value="{{ $data->bataspengisianRespon->translatedFormat('Y-m-d') }}"
+                        value="{{ date('d-m-Y', strtotime($data->bataspengisianRespon)) }}"
                     />
                 </div>
             </div>
@@ -123,6 +124,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
 <script>
     function display() {
         var plor =
@@ -143,6 +146,20 @@
         var add_btn = $(".moreItems_add");
         var i = 1;
 
+        flatpickr("#tgl-pelaksanaan", {
+            dateFormat: "d-m-Y",
+            locale: "id",
+            enableTime: false,
+            timeZone: "Asia/Jakarta",
+        });
+
+        flatpickr("#bataspengisianRespon", {
+            dateFormat: "d-m-Y",
+            locale: "id",
+            enableTime: false,
+            timeZone: "Asia/Jakarta",
+        });
+
         $(add_btn).click(function (e) {
             e.preventDefault();
             if (i < max_fields) {
@@ -154,84 +171,77 @@
             }
         });
 
-        var defaultView_ = $('#tgl-pelaksanaan');
-        var copyDate_ = defaultView_.attr("type", "date");
-        var copyText_ = defaultView_.attr("type", "text");
-        var valueAwal_ = $('#tgl-pelaksanaan').val()
-        var valueSementara_ = valueAwal_;
-        var valueSementara2 = valueAwal_;
+        // var defaultView_ = $('#tgl-pelaksanaan');
+        // var copyDate_ = defaultView_.attr("type", "date");
+        // var copyText_ = defaultView_.attr("type", "text");
+        // var valueAwal_ = $('#tgl-pelaksanaan').val()
+        // var valueSementara_ = valueAwal_;
+        // var valueSementara2 = valueAwal_;
 
-        var formattedDateDefault_ = moment(valueSementara_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        copyText_.val(formattedDateDefault_);
+        // var formattedDateDefault_ = moment(valueSementara_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        // copyText_.val(formattedDateDefault_);
 
-        $("#tgl-pelaksanaan").on("focus", function () {
+        // $("#tgl-pelaksanaan").on("focus", function () {
             
-            $(this).attr("type", "date");
-            copyDate_.val(formattedDateDefault_);
-        });
+        //     $(this).attr("type", "date");
+        //     copyDate_.val(formattedDateDefault_);
+        // });
 
-        $("#tgl-pelaksanaan").on("blur", function () {
+        // $("#tgl-pelaksanaan").on("blur", function () {
             
-            if (!isValidDate($(this).val())) {
+        //     if (!isValidDate($(this).val())) {
 
-                var value_ = valueSementara2_;
+        //         var value_ = valueSementara2_;
                 
-                var formattedDateBlur_ = moment(value_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-                copyText_.val(formattedDateBlur_);
-            } else {
-                valueAwal_ = $(this).val();
-                var formattedDate_ = moment(valueAwal_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-                copyText_.val(formattedDate_);
-            }
-        });
+        //         var formattedDateBlur_ = moment(value_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        //         copyText_.val(formattedDateBlur_);
+        //     } else {
+        //         valueAwal_ = $(this).val();
+        //         var formattedDate_ = moment(valueAwal_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        //         copyText_.val(formattedDate_);
+        //     }
+        // });
 
-        function isValidDate(value_) {
-            var date = new Date(value_);
-            return !isNaN(date.getTime());
-        }
+        // function isValidDate(value_) {
+        //     var date = new Date(value_);
+        //     return !isNaN(date.getTime());
+        // }
 
-        var defaultView = $('#bataspengisianRespon');
-        var copyDate = defaultView.attr("type", "date");
-        var copyText = defaultView.attr("type", "text");
-        var valueAwal = $('#bataspengisianRespon').val()
-        var valueSementara = valueAwal;
-        var valueSementara2 = valueAwal;
+        // var defaultView = $('#bataspengisianRespon');
+        // var copyDate = defaultView.attr("type", "date");
+        // var copyText = defaultView.attr("type", "text");
+        // var valueAwal = $('#bataspengisianRespon').val()
+        // var valueSementara = valueAwal;
+        // var valueSementara2 = valueAwal;
 
-        var formattedDateDefault = moment(valueSementara, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        copyText.val(formattedDateDefault);
+        // var formattedDateDefault = moment(valueSementara, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        // copyText.val(formattedDateDefault);
 
-        $("#bataspengisianRespon").on("focus", function () {
+        // $("#bataspengisianRespon").on("focus", function () {
             
-            $(this).attr("type", "date");
-            copyDate.val(formattedDateDefault);
-        });
+        //     $(this).attr("type", "date");
+        //     copyDate.val(formattedDateDefault);
+        // });
 
-        $("#bataspengisianRespon").on("blur", function () {
+        // $("#bataspengisianRespon").on("blur", function () {
             
-            if (!isValidDate($(this).val())) {
+        //     if (!isValidDate($(this).val())) {
 
-                var value = valueSementara2;
+        //         var value = valueSementara2;
                 
-                var formattedDateBlur = moment(value, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-                copyText.val(formattedDateBlur);
-            } else {
-                valueAwal = $(this).val();
-                var formattedDate = moment(valueAwal, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-                copyText.val(formattedDate);
-            }
-        });
+        //         var formattedDateBlur = moment(value, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        //         copyText.val(formattedDateBlur);
+        //     } else {
+        //         valueAwal = $(this).val();
+        //         var formattedDate = moment(valueAwal, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
+        //         copyText.val(formattedDate);
+        //     }
+        // });
 
-        function isValidDate(value) {
-            var date = new Date(value);
-            return !isNaN(date.getTime());
-        }
-
-        $('#myForm').on('submit', function(e) {
-            $('#bataspengisianRespon').val(valueAwal);
-            $('#tgl-pelaksanaan').val(valueAwal_);
-            // var con2 = $('#tgl_berakhir').val();
-            // e.preventDefault();
-        })
+        // function isValidDate(value) {
+        //     var date = new Date(value);
+        //     return !isNaN(date.getTime());
+        // }
 
         // flatpickr("#tgl-pelaksanaan", {
         //     locale: "{{ $locale }}",
@@ -315,6 +325,55 @@
                 console.error('Terjadi kesalahan saat memuat data users.');
             }
         });
+
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        const alert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+        }
+
+        function falseinput() {
+            alert('Tanggal pelaksanaan atau batas pengisian respon tidak sesuai dengan tahun periode!', 'danger');
+        }
+
+        $('#myForm').on('submit', function(e) {
+            var batasRespon = $('#bataspengisianRespon').val();
+            var tglPelaksanaan = $('#tgl-pelaksanaan').val();
+            var data = {!! json_encode($data->auditee) !!}
+
+            console.log(batasRespon);
+            console.log(tglPelaksanaan);
+
+            var batasResponArray = batasRespon.split('-');
+            var tglPelaksanaanArray = tglPelaksanaan.split('-');
+
+            // Membuat format yang sesuai dengan objek Date dalam JavaScript
+            var batasResponJS = batasResponArray[1] + '/' + batasResponArray[0] + '/' + batasResponArray[2];
+            var tglPelaksanaanJS = tglPelaksanaanArray[1] + '/' + tglPelaksanaanArray[0] + '/' + tglPelaksanaanArray[2];
+
+            console.log(batasResponJS);
+            console.log(tglPelaksanaanJS);
+
+            // Membuat objek Date dan mendapatkan tahun
+            var thRespon = new Date(batasResponJS).getFullYear();
+            var thPelaksanaan = new Date(tglPelaksanaanJS).getFullYear();
+            
+            console.log(thRespon);
+            console.log(thPelaksanaan);
+
+            if ((thRespon != data.tahunperiode0 && thRespon != data.tahunperiode) || (thPelaksanaan != data.tahunperiode0 && thPelaksanaan != data.tahunperiode)) {
+                falseinput();
+                e.preventDefault();
+            }
+        })
     });
 </script>
 

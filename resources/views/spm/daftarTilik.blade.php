@@ -5,11 +5,11 @@
         Periode Daftar Tilik
     </a>/
 
-    @foreach ($data_->unique('tahunperiode') as $auditee)
-    <a href="/daftartilik/{{ $auditee->tahunperiode }}" class="mx-1">
+    @foreach ($periodes as $auditee)
+    <a href="/daftartilik/{{ $auditee->tahunperiode2 }}" class="mx-1">
     @endforeach    
-    @foreach ($data_->unique('tahunperiode') as $auditee)
-    {{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}
+    @foreach ($periodes as $auditee)
+    {{ $auditee->tahunperiode1 }}/{{ $auditee->tahunperiode2 }}
     @endforeach  
     </a>/
 
@@ -33,7 +33,7 @@
             </button></a
         >
     </div>
-    <div class="topSection d-flex mx-2 mt-4">
+    <div class="row topSection d-flex mx-2 mt-4">
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}
@@ -76,11 +76,11 @@
                             <td class="col px-2">{{ $dt_->nama }}</td>
                         @endforeach
                         <td class="col px-0 text-center">
-                            <a href="/daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}" class="mx-2"
+                            <a href="/daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"
                                 ><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a>
-                            <a href="/daftartilik-tampildaftartilik/{{ $item->tahunperiode }}/{{ $dt->id }}" class="mx-2"
+                            <a href="/daftartilik-tampildaftartilik/{{ $item->tahunperiode }}/{{ $dt->id }}"
                                 ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
-                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}" class="mx-2"><button class="bg-danger border-0 rounded-1" onclick="return confirm('Apakah Anda yakin akan menghapus area {{ $dt->area }} Auditee {{ $dt->auditee->unit_kerja }}?')"><i class="bi bi-trash text-white"></i></button></a>
+                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}"><button class="bg-danger border-0 rounded-1" onclick="return confirm('Apakah Anda yakin akan menghapus area {{ $dt->area }} Auditee {{ $dt->auditee->unit_kerja }}?')"><i class="bi bi-trash text-white"></i></button></a>
                         </td>
                     </tr>
                     

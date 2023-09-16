@@ -27,10 +27,11 @@
 {{-- Form setiap auditee --}}
 <div class="container vh-100 pt-4">
     <h5 class="text-center">Tambah Area Daftar Tilik</h5>
-    <form action="/insertareaDT" method="POST">
+    <form id="myForm" action="/insertareaDT" method="POST">
         @csrf
         <div id="infoDT" class="card mt-3 mb-4 mx-4 px-3">
             <div class="row g-3 my-4 mx-3">
+                <div id="liveAlertPlaceholder"></div>
                 <div class="col">
                     <label class="fw-semibold" for="auditee_id">Auditee <span class="text-danger fw-bold">*</span></label>
                     <select
@@ -60,7 +61,7 @@
                         type="text"
                         id="tgl-pelaksanaan"
                         class="form-control"
-                        placeholder="Hari, Tanggal Bln Tahun"
+                        placeholder="DD/MM/YYYY"
                         aria-label="Masukkan Hari/Tanggal Pelaksanaan"
                         name="tgl_pelaksanaan"
                         required
@@ -98,7 +99,7 @@
                         id="bataspengisianRespon"
                         type="text"
                         class="form-control"
-                        placeholder="Hari, Tanggal Bln Tahun"
+                        placeholder="DD/MM/YYYY"
                         aria-label="Berikan Batas Pengisian Respon Auditee"
                         name="bataspengisianRespon"
                         required
@@ -154,35 +155,35 @@
         var i = 1;
 
         flatpickr("#tgl-pelaksanaan", {
-            locale: "{{ $locale }}",
-            dateFormat: "dddd, D MMM Y",
-            altFormat: "DD-MM-YYYY",
+            locale: "id",
+            dateFormat: "d-m-Y",
+            // altFormat: "DD-MM-YYYY",
             enableTime: false,
             time_24hr: true,
             timeZone: "Asia/Jakarta",
-            parseDate: (datestr, format, locale) => {
-                return moment(datestr, format, true).toDate();
-            },
-            formatDate: (date, format) => {
-                // locale can also be used
-                return moment(date).format(format);
-            }
+            // parseDate: (datestr, format, locale) => {
+            //     return moment(datestr, format, true).toDate();
+            // },
+            // formatDate: (date, format) => {
+            //     // locale can also be used
+            //     return moment(date).format(format);
+            // }
         });
 
         flatpickr("#bataspengisianRespon", {
-            locale: "{{ $locale }}",
-            dateFormat: "dddd, D MMM Y",
-            altFormat: "DD-MM-YYYY",
+            locale: "id",
+            dateFormat: "d-m-Y",
+            // altFormat: "DD-MM-YYYY",
             enableTime: false,
             time_24hr: true,
             timeZone: "Asia/Jakarta",
-            parseDate: (datestr, format, locale) => {
-                return moment(datestr, format, true).toDate();
-            },
-            formatDate: (date, format) => {
-                // locale can also be used
-                return moment(date).format(format);
-            }
+            // parseDate: (datestr, format, locale) => {
+            //     return moment(datestr, format, true).toDate();
+            // },
+            // formatDate: (date, format) => {
+            //     // locale can also be used
+            //     return moment(date).format(format);
+            // }
         });
 
         $(add_btn).click(function (e) {
@@ -197,6 +198,57 @@
         });
         $('#auditee_id').select2();
         $('#area').select2();
+
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        const alert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+        }
+
+        function falseinput() {
+            alert('Tanggal pelaksanaan atau batas pengisian respon tidak sesuai dengan tahun periode!', 'danger');
+        }
+
+        $('#myForm').on('submit', function(e) {
+            var batasRespon = $('#bataspengisianRespon').val();
+            var tglPelaksanaan = $('#tgl-pelaksanaan').val();
+            var periode = {!! json_encode($periode) !!}
+
+            console.log(batasRespon);
+            console.log(tglPelaksanaan);
+
+            var batasResponArray = batasRespon.split('-');
+            var tglPelaksanaanArray = tglPelaksanaan.split('-');
+
+            // Membuat format yang sesuai dengan objek Date dalam JavaScript
+            var batasResponJS = batasResponArray[1] + '/' + batasResponArray[0] + '/' + batasResponArray[2];
+            var tglPelaksanaanJS = tglPelaksanaanArray[1] + '/' + tglPelaksanaanArray[0] + '/' + tglPelaksanaanArray[2];
+
+            console.log(batasResponJS);
+            console.log(tglPelaksanaanJS);
+
+            // Membuat objek Date dan mendapatkan tahun
+            var thRespon = new Date(batasResponJS).getFullYear();
+            var thPelaksanaan = new Date(tglPelaksanaanJS).getFullYear();
+            
+            console.log(thRespon);
+            console.log(thPelaksanaan);
+
+            if ((thRespon != periode.tahunperiode1 && thRespon != periode.tahunperiode2) || (thPelaksanaan != periode.tahunperiode1 && thPelaksanaan != periode.tahunperiode2)) {
+                falseinput();
+                e.preventDefault();
+            }
+            // e.preventDefault();
+        })
+
     });
 
     $('#auditee_id').change(function() {

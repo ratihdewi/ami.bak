@@ -9,11 +9,11 @@
         Periode Auditor
     </a>/
 
-    @foreach ($dataAuditor->unique('tahunperiode') as $item)
-    <a href="/auditee-daftarauditor/{{ $item->tahunperiode }}" class="mx-1">
+    @foreach ($periodes as $item)
+    <a href="/auditee-daftarauditor/{{ $item->tahunperiode2 }}" class="mx-1">
     @endforeach
-    @foreach ($dataAuditor->unique('tahunperiode') as $item)
-    {{ $item->tahunperiode0 }}/{{ $item->tahunperiode }}
+    @foreach ($periodes as $item)
+    {{ $item->tahunperiode1 }}/{{ $item->tahunperiode2 }}
     @endforeach
     </a>/
 @endsection

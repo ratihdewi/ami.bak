@@ -7,11 +7,11 @@
     <a href="/auditor-daftarauditor-periode" class="mx-1">
         Periode Auditor
     </a>/
-    @foreach ($dataAuditor->unique('tahunperiode') as $auditor)
-    <a href="/auditor-daftarauditor/{{ $auditor->tahunperiode }}" class="mx-1">
+    @foreach ($periodes as $auditor)
+    <a href="/auditor-daftarauditor/{{ $auditor->tahunperiode2 }}" class="mx-1">
     @endforeach
-    @foreach ($dataAuditor->unique('tahunperiode') as $auditor)
-    {{ $auditor->tahunperiode0 }}/{{ $auditor->tahunperiode }}
+    @foreach ($periodes as $auditor)
+    {{ $auditor->tahunperiode1 }}/{{ $auditor->tahunperiode2 }}
     @endforeach
     </a>/
 @endsection

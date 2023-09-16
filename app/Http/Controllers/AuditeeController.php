@@ -148,13 +148,14 @@ class AuditeeController extends Controller
     public function indexauditor($tahunperiode)
     {
         $data = Auditee::where('tahunperiode', $tahunperiode)->get();
+        $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         
-        return view('auditor/daftarAuditee', compact('data'));
+        return view('auditor/daftarAuditee', compact('data', 'periodes'));
     }
 
     public function indexauditorpertahun()
     {
-        $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
+        $dataAuditee = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->get();
         
         return view('auditor/daftarauditee-tahun', compact('dataAuditee'));
     }
@@ -164,13 +165,14 @@ class AuditeeController extends Controller
     public function indexauditee($tahunperiode)
     {
         $data = Auditee::where('tahunperiode', $tahunperiode)->get();
+        $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         
-        return view('auditee/daftarAuditee', compact('data'));
+        return view('auditee/daftarAuditee', compact('data', 'periodes'));
     }
 
     public function indexauditeepertahun()
     {
-        $dataAuditee = Auditee::orderBy('tahunperiode0', 'ASC')->get();
+        $dataAuditee = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->get();
         
         return view('auditee/daftarauditee-tahun', compact('dataAuditee'));
     }

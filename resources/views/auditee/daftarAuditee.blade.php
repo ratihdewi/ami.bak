@@ -7,11 +7,11 @@
         Periode Auditee
     </a>/
 
-    @foreach ($data->unique('tahunperiode') as $item)
-    <a href="/auditee-daftarauditee/{{ $item->tahunperiode }}" class="mx-1">
+    @foreach ($periodes as $item)
+    <a href="/auditee-daftarauditee/{{ $item->tahunperiode2 }}" class="mx-1">
     @endforeach
-    @foreach ($data->unique('tahunperiode') as $item)
-    {{ $item->tahunperiode0 }}/{{ $item->tahunperiode }}
+    @foreach ($periodes as $item)
+    {{ $item->tahunperiode1 }}/{{ $item->tahunperiode2 }}
     @endforeach
     </a>/
 @endsection
