@@ -136,7 +136,11 @@ class PertanyaanController extends Controller
         $auditor_ = Auditor::where('id', $datas->auditor_id)->get();
         $auditee_ = Auditee::where('id', $datas->auditee_id)->get();
 
-        return view('auditee/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks', 'currentDate'));
+        $tgl_pelaksanaan = DaftarTilik::find($datas->daftartilik_id);
+        $tglpelaksanaan = Carbon::parse($tgl_pelaksanaan->tgl_pelaksanaan);
+        $tglpelaksanaan->addDays(7);
+
+        return view('auditee/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks', 'currentDate', 'tglpelaksanaan'));
     }
 
     public function auditor_tampildata(Request $request, $id){
@@ -146,8 +150,12 @@ class PertanyaanController extends Controller
         $auditor_ = Auditor::where('id', $datas->auditor_id)->get();
         $auditee_ = Auditee::where('id', $datas->auditee_id)->get();
         $_daftartiliks = DaftarTilik::where('id', $datas->daftartilik_id)->get();
+
+        $tgl_pelaksanaan = DaftarTilik::find($datas->daftartilik_id);
+        $tglpelaksanaan = Carbon::parse($tgl_pelaksanaan->tgl_pelaksanaan);
+        $tglpelaksanaan->addDays(7);
         
-        return view('auditor/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks', 'currentDate'));
+        return view('auditor/updatePertanyaanDaftarTilik', compact('datas', 'auditor_', 'auditee_', 'daftartilik_', '_daftartiliks', 'currentDate', 'tglpelaksanaan'));
     }
 
     public function updatedata(Request $request, $id)
