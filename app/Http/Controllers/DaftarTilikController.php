@@ -208,7 +208,6 @@ class DaftarTilikController extends Controller
     {
         $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->get();
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
-        dd($unitkerja);
         $dataUser = Auditee::where('unit_kerja', $unitkerja->name)->orderBy('tahunperiode0', 'ASC')->get();
 
         if (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
