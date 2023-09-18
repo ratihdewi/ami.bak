@@ -156,8 +156,8 @@ Route::get('/daftarTilik-areadaftartilik/{auditee_id}/{area}', [PertanyaanContro
 Route::get('/daftartilik-pratinjaudaftartilik/{auditee_id}/{area}', [DaftarTilikController::class, 'pratinjaudt'])->name('daftartilik-pratinjaudaftartilik');
 Route::get('/daftartilik-exportdaftartilik/{id}/{auditee_id}', [DaftarTilikController::class, 'exportexcel'])->name('daftartilik-exportdaftartilik');
 Route::get('/daftartilik-adddaftartilik/{auditee_id}/{area}', [PertanyaanController::class, 'tambahdata'])->name('daftartilik-adddaftartilik');
-Route::post('/daftartilik-insertpertanyaan', [PertanyaanController::class, 'insertpertanyaan'])->name('daftartilik-autosavepertanyaan');
-Route::post('/daftartilik-autosavepertanyaan', [PertanyaanController::class, 'saveFormData'])->name('daftartilik-insertpertanyaan');
+Route::post('/daftartilik-insertpertanyaan', [PertanyaanController::class, 'insertpertanyaan'])->name('daftartilik-insertpertanyaan');
+Route::post('/daftartilik-autosavepertanyaan', [PertanyaanController::class, 'saveFormData'])->name('daftartilik-autosavepertanyaan');
 Route::get('/daftartilik-tampilpertanyaandaftartilik/{id}', [PertanyaanController::class, 'tampildata'])->name('daftartilik-tampilpertanyaandaftartilik');
 Route::post('/daftartilik-updatedatapertanyaandaftartilik/{id}', [PertanyaanController::class, 'updatedata'])->name('daftartilik-updatedatapertanyaandaftartilik');
 Route::get('/daftartilik-deletedatapertanyaandaftartilik/{id}', [PertanyaanController::class, 'deletedata'])->name('daftartilik-deletedatapertanyaandaftartilik');
