@@ -44,27 +44,27 @@
                         <input type="text" class="form-control" id="auditee_id" placeholder="Masukkan kode dokumen yang akan dibuat" name="auditee_id" value="{{ $dokBA_->auditee_id }}">
                     </div>
                 <div class="col-12 mb-4">
-                    <label for="inputJudul" class="form-label fw-semibold">Judul Dokumen</label>
+                    <label for="inputJudul" class="form-label fw-semibold">Judul Dokumen <span class="text-danger fw-bold">*</span></label>
                     <input type="text" class="form-control" id="inputJudul" placeholder="Masukkan judul dokumen yang akan dibuat" name="judulDokumen" value="{{ $dokBA_->judulDokumen }}">
                 </div>
                 <div class="col-6 mb-4">
-                    <label for="inputKode" class="form-label fw-semibold">Kode Dokumen</label>
+                    <label for="inputKode" class="form-label fw-semibold">Kode Dokumen <span class="text-danger fw-bold">*</span></label>
                     <input type="text" class="form-control" id="inputKode" placeholder="Masukkan kode dokumen yang akan dibuat" name="kodeDokumen" value="{{ $dokBA_->kodeDokumen }}">
                 </div>
                 <div class="col-6 mb-4">
-                    <label for="inputInfoRevisi" class="form-label fw-semibold">Revisi Ke-</label>
+                    <label for="inputInfoRevisi" class="form-label fw-semibold">Revisi Ke- <span class="text-danger fw-bold">*</span></label>
                     <input type="text" class="form-control" id="inputInfoRevisi" placeholder="Masukkan revisi ke berapa" name="revisiKe" value="{{ $dokBA_->revisiKe }}">
                 </div>
                 @if ($dokBA_->tgl_revisi != null)
                     <div class="col-6 mb-4">
-                        <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
+                        <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi <span class="text-danger fw-bold">*</span></label>
                         <input type="text" 
                         {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
                         aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('d-m-Y') }}">
                     </div>
                 @else
                     <div class="col-6 mb-4">
-                        <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
+                        <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi <span class="text-danger fw-bold">*</span></label>
                         <input type="text" 
                         {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
                         aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi">
@@ -72,7 +72,7 @@
                 @endif
                 
                 <div class="col-6 mb-4">
-                    <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku</label>
+                    <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku <span class="text-danger fw-bold">*</span></label>
                     <input type="text" 
                     {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
                     class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('d-m-Y') }}">

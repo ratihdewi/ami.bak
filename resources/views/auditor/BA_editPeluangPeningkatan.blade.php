@@ -43,19 +43,19 @@
                 </div>
                 <div class="col-12 mb-4">
                     
-                    <label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang</label>
+                    <label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang <span class="text-danger fw-bold">*</span></label>
                     <input type="text" class="form-control" id="inputBidang" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore[0][aspek]" value="{{ $peningkatan_->aspek }}" required>
                     
                 </div>
                 <div class="col-12 form-floating">
-                  <p for="inputKelebihan" class="form-label fw-semibold">Kelebihan</p>
+                  <p for="inputKelebihan" class="form-label fw-semibold">Kelebihan <span class="text-danger fw-bold">*</span></p>
                 </div>
                 <div class="col-12 form-floating mb-4">
                   <textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan" style="height: 100px" name="addmore[0][kelebihan]" value="{{ $peningkatan_->kelebihan }}">{{ $peningkatan_->kelebihan }}</textarea>
                   <div id="error-message" style="color: red;"></div>
                 </div>
                 <div class="col-12 form-floating">
-                  <p for="inputPeluang" class="form-label fw-semibold">Peluang untuk Peningkatan</p>
+                  <p for="inputPeluang" class="form-label fw-semibold">Peluang untuk Peningkatan <span class="text-danger fw-bold">*</span></p>
                 </div>
                 <div class="col-12 form-floating mb-4">
                   <textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang" style="height: 100px" name="addmore[0][peningkatan]" value="{{ $peningkatan_->peningkatan }}">{{ $peningkatan_->peningkatan }}</textarea>

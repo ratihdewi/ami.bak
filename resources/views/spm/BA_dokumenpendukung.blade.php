@@ -45,15 +45,15 @@
             <input type="text" class="form-control" id="auditee_id" placeholder="ID Auditee" name="auditee_id" value="{{ $beritaacara_->auditee_id }}">
           </div>
           <div class="col mb-4">
-            <label for="inputKodeDokumen" class="form-label fw-semibold">Kode Dokumen</label>
+            <label for="inputKodeDokumen" class="form-label fw-semibold">Kode Dokumen <span class="text-danger fw-bold">*</span></label>
             <input type="text" class="form-control" id="inputKodeDokumen" placeholder="Masukkan Kode Dokumen Pendukung" name="kodeDokumen" required>
           </div>
           <div class="col mb-4">
-            <label for="inputNamaDokumen" class="form-label fw-semibold">Nama Dokumen</label>
+            <label for="inputNamaDokumen" class="form-label fw-semibold">Nama Dokumen <span class="text-danger fw-bold">*</span></label>
             <input type="text" class="form-control" id="inputNamaDokumen" placeholder="Masukkan Nama Dokumen Pendukung" name="namaDokumen" required>
           </div>
           <div class="col mb-4">
-            <label for="dokumen" class="form-label fw-semibold">Upload Dokumen</label>
+            <label for="dokumen" class="form-label fw-semibold">Upload Dokumen <span class="text-danger fw-bold">*</span></label>
             <input class="form-control" type="file" id="dokumen" placeholder="Opsional" multiple name="dokumen" accept=".csv, .xlsx, .xls, .pdf, .docx" required>
             <p class="fw-light fst-italic">*.csv, .xlsx, .xls, .pdf, .docx (maks. 10MB)   <span id="error" style="color: red; font-weight: bold"></span></p>
           </div>
