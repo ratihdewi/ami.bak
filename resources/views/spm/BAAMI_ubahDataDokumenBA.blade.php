@@ -58,18 +58,24 @@
                 @if ($dokBA_->tgl_revisi != null)
                     <div class="col-6 mb-4">
                         <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
-                        <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
+                        <input type="text" 
+                        {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
+                        aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('d-m-Y') }}">
                     </div>
                 @else
                     <div class="col-6 mb-4">
                         <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi</label>
-                        <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi">
+                        <input type="text" 
+                        {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
+                        aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi">
                     </div>
                 @endif
                 
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku</label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('Y-m-d') }}">
+                    <input type="text" 
+                    {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
+                    class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('d-m-Y') }}">
                 </div>
             </div>
             {{-- Simpan Perubahan --}}
@@ -82,3 +88,29 @@
     </div>
 
 @endsection
+
+@push('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.id.min.js" integrity="sha512-5dCXH+uVhgMJkIOoV1tEejq2voWTEqqh2Q2+Caz6//+6i9dLpfyDmAzKcdbogrXjPLanlDO5pTsBDKzmaJcWFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
+<script>
+    $(document).ready(function() {
+        flatpickr("#inputTglRevisi", {
+            dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+            locale: "id",
+            enableTime: false, // Jangan aktifkan waktu
+            // time_24hr: true, // Gunakan format 24 jam
+            timeZone: "Asia/Jakarta",
+        });
+
+        flatpickr("#inputTglBerlaku", {
+            dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+            locale: "id",
+            enableTime: false, // Jangan aktifkan waktu
+            // time_24hr: true, // Gunakan format 24 jam
+            timeZone: "Asia/Jakarta",
+        });
+    })
+</script>
+@endpush
