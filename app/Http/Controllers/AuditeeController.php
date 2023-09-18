@@ -45,12 +45,15 @@ class AuditeeController extends Controller
         return redirect()->route('auditee-periode');
     }
 
-    public function tambahauditee()
+    public function tambahauditee($thperiode1, $thperiode2)
     {
         $unitkerjas = UnitKerja::all();
         $currentYear = Carbon::now()->year;
+        $periode = TahunPeriode::where('tahunperiode1', $thperiode1)->where('tahunperiode2', $thperiode2)->where('keterangan', 'Periode Auditee')->first();
 
-        return view('addAuditee', compact('unitkerjas', 'currentYear'));
+        // dd($periode);
+
+        return view('addAuditee', compact('unitkerjas', 'currentYear', 'periode'));
     }
 
     public function getAuditee()

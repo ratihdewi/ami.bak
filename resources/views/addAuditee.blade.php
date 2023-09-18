@@ -9,7 +9,7 @@
         {{ $tahunperiode->tahunperiode0 }}/{{ $tahunperiode->tahunperiode }}
     </a>/ --}}
 
-    <a href="/addAuditee" class="mx-1">
+    <a href="/addAuditee/{{ $periode->tahunperiode1 }}/{{ $periode->tahunperiode1 }}" class="mx-1">
         Tambah Auditee
     </a>/
 
@@ -37,8 +37,10 @@
                                         class="form-control"
                                         placeholder="Tahun Awal"
                                         aria-label="Tahun Awal"
-                                        min="2016" max="{{ $currentYear-1 }}"
+                                        min="2016"
+                                        value="{{ $periode->tahunperiode1 }}"
                                         oninput="validateInput()"
+                                        readonly
                                         required
                                     />
                                 </div>
@@ -53,8 +55,10 @@
                                         id="tahunperiode"
                                         placeholder="Tahun Akhir"
                                         aria-label="Tahun Akhir"
-                                        min="2016" max="{{ $currentYear }}"
+                                        min="2017"
+                                        value="{{ $periode->tahunperiode2 }}"
                                         onchange="validateChange()"
+                                        readonly
                                         required
                                     />
                                 </div>
@@ -225,6 +229,11 @@
         //     });
         // });
 
+        var tahunAwal = $('#tahunperiode0').val();
+        var tahunAkhir = $('#tahunperiode').val();
+
+        fillNipAuditorOptions(tahunAkhir);
+
         $('#tahunperiode0').change(function () {
             let tahunAwal = parseInt($('#tahunperiode0').val());
             $('#tahunperiode').val(tahunAwal + 1);
@@ -248,15 +257,15 @@
             tahunAwal = parseInt(tahunAwal);
 
             let minvalue = $('#tahunperiode').attr('min', tahunAwal+1);
-            let maxvalue = $('#tahunperiode').attr('max', tahunAwal+1);
+            // let maxvalue = $('#tahunperiode').attr('max', tahunAwal+1);
 
             minvalue = parseInt($('#tahunperiode').attr('min'));
             maxvalue = parseInt($('#tahunperiode').attr('max'));
 
             // let tahun = $('#tahunperiode').val();
-            console.log('max th 0 :' + maxvalue);
-            console.log(tahunAwal);
-            console.log(tahun);
+            // console.log('max th 0 :' + maxvalue);
+            // console.log(tahunAwal);
+            // console.log(tahun);
 
             $.ajax({
                 url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -287,7 +296,7 @@
                 }
             });
 
-            if ((tahun > minValue && tahun <= maxvalue)) {
+            if ((tahun > minValue)) {
                 console.log('Gagal');
                 $.ajax({
                     url: "{{url('tambahauditee-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
@@ -566,8 +575,8 @@
         // Validasi input
         if (isNaN(inputValue)) {
             validationMessageElement.textContent = "Input bukan angka. Silakan masukkan angka.";
-        } else if ((inputValue < minValue || inputValue > maxValue)) {
-            validationMessageElement.textContent = "Harap masukkan tahun periode antara " + minValue + " dan " + 2023 + ".";
+        } else if ((inputValue < minValue)) {
+            validationMessageElement.textContent = "Harap masukkan tahun periode dengan benar!";
             validationMessageElement.style.marginTop = '5px';
         } else {
             validationMessageElement.textContent = ""; // Hapus pesan validasi jika input valid
@@ -595,9 +604,9 @@
         // Validasi input
         if (isNaN(inputValue)) {
             validationMessageElement.textContent = "Input bukan angka. Silakan masukkan angka.";
-        } else if ((inputValue < minValue || inputValue > maxValue)) {
+        } else if ((inputValue < minValue)) {
             console.log('gagal');
-            validationMessageElement.textContent = "Harap masukkan tahun periode antara " + minValue + " dan " + maxValue + ".";
+            validationMessageElement.textContent = "Harap masukkan tahun periode dengan benar!";
             validationMessageElement.style.marginTop = '5px';
         } else {
             validationMessageElement.textContent = ""; // Hapus pesan validasi jika input valid

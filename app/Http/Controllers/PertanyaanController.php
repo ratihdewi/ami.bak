@@ -119,7 +119,12 @@ class PertanyaanController extends Controller
         $listAuditor = Auditor::all();
         $role_ = Auth::user()->role;
 
-        return view('spm/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor'));
+        $tgl_pelaksanaan = DaftarTilik::find($datas->daftartilik_id);
+        $tglpelaksanaan = Carbon::parse($tgl_pelaksanaan->tgl_pelaksanaan);
+        $tglpelaksanaan->addDays(7);
+        $currentDate = Carbon::now()->format('Y-m-d');
+
+        return view('spm/updatePertanyaanDaftarTilik', compact('datas','_daftartiliks','listAuditee','listAuditor', 'tglpelaksanaan', 'currentDate'));
     }
 
     public function auditee_tampildata(Request $request, $id){
@@ -171,8 +176,8 @@ class PertanyaanController extends Controller
             "inisialAuditor"=> $request->inisialAuditor,
             "skorAuditor"=> $request->skorAuditor,
             "Kategori"=> $request->Kategori,
-            "approvalAuditee"=> $request->approvalAuditee,
-            "approvalAuditor"=> $request->approvalAuditor,
+            "approvalAuditee"=> $data->approvalAuditee,
+            "approvalAuditor"=> $data->approvalAuditor,
             "narasiPLOR"=> $request->narasiPLOR,
         ]);
 
@@ -292,6 +297,43 @@ class PertanyaanController extends Controller
         }
 
         $approve_->save();
+
+        return redirect()->back();
+    }
+
+    public function autoapprove(Request $request, $id)
+    {
+        $pertanyaan = Pertanyaan::find($id);
+
+        if ($pertanyaan->butirStandar != null && $pertanyaan->nomorButir != null && $pertanyaan->indikatormutu != null && $pertanyaan->targetStandar != null && $pertanyaan->pertanyaan != null && $pertanyaan->responAuditee != null && $pertanyaan->responAuditor != null && $pertanyaan->inisialAuditor != null && $pertanyaan->Kategori != null ) {
+            
+            if ($pertanyaan->approvalAuditee == "Belum disetujui Auditee" && $pertanyaan->approvalAuditor == "Belum disetujui Auditor") {
+                $pertanyaan->update([
+                    "approvalAuditee" => "Disetujui Auditee",
+                    "approvalAuditor" => "Disetujui Auditor",
+                ]);
+                $pertanyaan->save();
+
+                $request->session()->flash('success', 'Audit Lapangan telah disetujui secara otomatis oleh Ketua Auditee dan Ketua Auditor!');
+
+            } elseif ($pertanyaan->approvalAuditee == "Disetujui Auditee" && ($pertanyaan->approvalAuditor == "Belum disetujui Auditor" || $pertanyaan->approvalAuditor == "Menunggu persetujuan Auditee")) {
+                $pertanyaan->update([
+                    "approvalAuditor" => "Disetujui Auditor",
+                ]);
+                $pertanyaan->save();
+
+                $request->session()->flash('success', 'Audit Lapangan telah disetujui secara otomatis oleh Ketua Auditor!');
+            } elseif ($pertanyaan->approvalAuditee == "Belum disetujui Auditee" && $pertanyaan->approvalAuditor == "Disetujui Auditor") {
+                $pertanyaan->update([
+                    "approvalAuditee" => "Disetujui Auditee",
+                ]);
+                $pertanyaan->save();
+
+                $request->session()->flash('success', 'Audit Lapangan telah disetujui secara otomatis oleh Ketua Auditee!');
+            }
+        }
+
+        $pertanyaan->save();
 
         return redirect()->back();
     }

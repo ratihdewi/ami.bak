@@ -27,6 +27,9 @@
         @endforeach
             <button
                 type="button"
+                @if (count($data_) == 0)
+                    onclick="alertaddDT()"
+                @endif
                 class="btn btn-primary btn-sm float-end my-2 px-3"
             >
                 Tambah
@@ -44,7 +47,7 @@
             </div>
         @endif
     </div>
-
+    <div id="liveAlertPlaceholder"></div>
     <div class="tableAreaDaftarTilik mx-3">
         <table
             class="table table-hover my-3 mx-0"
@@ -105,6 +108,23 @@
     src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"
 ></script>
 <script>
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+    const alert = (message, type) => {
+        const wrapper = document.createElement('div')
+        wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+        ].join('')
+
+        alertPlaceholder.append(wrapper)
+    }
+
+    function alertaddDT() {
+        alert('Tidak terdapat Auditee pada tahun periode ini!', 'warning');
+    }
     $(document).ready(function () {
         $("#tableAreaDaftarTilik").DataTable({});
     });

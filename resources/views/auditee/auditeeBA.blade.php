@@ -32,6 +32,7 @@
         @endforeach
             <button
                 type="button"
+                
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
                 style="font-size: 15px"
             >
@@ -47,6 +48,7 @@
         @endif
     </div>
     <div class="temuanBA mx-4">
+        <div id="liveAlertPlaceholder"></div>
         <table class="table table-hover listAuditee display mb-4" id="tableTemuanBA" style="width: 100%">
             <thead>
                 <tr class="text-center">
@@ -143,6 +145,25 @@
         });
 
         $(document).ready(function() {
+
+            const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+            const alert = (message, type) => {
+                const wrapper = document.createElement('div')
+                wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+                ].join('')
+
+                alertPlaceholder.append(wrapper)
+            }
+
+            function alertBAAMI() {
+                alert('Tidak terdapat data Audit Lapangan (AL) yang disetujui!', 'warning');
+            }
+
             $('#tableTemuanBA').DataTable({ });
         });
     </script>

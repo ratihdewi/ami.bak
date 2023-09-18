@@ -30,7 +30,9 @@
         @endforeach
             <button
                 type="button"
+                @if (count($pertanyaan_) == 0)
                 onclick="alertBAAMI()"
+                @endif
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
                 style="font-size: 15px"
             >
@@ -39,7 +41,7 @@
         >
         
     </div>
-    <div id="liveAlertPlaceholder"></div>
+    
     <div class="topSection d-flex justify-content-around mx-2 mt-4">
         @if ($message = Session::get('success'))
         <div class="alert alert-success" role="alert">
@@ -48,6 +50,7 @@
         @endif
     </div>
     <div class="temuanBA mx-4 mb-3">
+        <div id="liveAlertPlaceholder"></div>
         <table class="table table-hover listAuditee display mb-4" id="tableTemuanBA" style="width: 100%">
             <thead>
                 <tr class="text-center">
@@ -156,7 +159,7 @@
         }
 
         function alertBAAMI() {
-            alert('Tidak terdapat data Audit Lapangan (AL) yang telah disetujui!', 'warning');
+            alert('Tidak terdapat data Audit Lapangan (AL) yang disetujui!', 'warning');
         }
 
         $(document).ready(function() {

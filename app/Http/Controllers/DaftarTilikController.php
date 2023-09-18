@@ -23,12 +23,12 @@ class DaftarTilikController extends Controller
     public function index($tahunperiode) {
         $data_ = Auditee::where('tahunperiode', $tahunperiode)->get();
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
-        // dd($data_);
+        // dd(count($data_));
         return view('spm/daftarTilik', compact('data_', 'periodes'));
     }
 
     public function indexpertahun() {
-        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->get();
+        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->get();
 
         // dd($data_);
         return view('spm/daftarTilik-tahun', compact('data_'));
@@ -187,7 +187,7 @@ class DaftarTilikController extends Controller
 
     public function indexpertahunauditor()
     {
-        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->get();
+        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->get();
 
         if (count(Auth::user()->auditor()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditor()->get('user_id')) != 0)) {
             return view('auditor/daftarTilik-tahun', compact('data_'));
@@ -206,7 +206,7 @@ class DaftarTilikController extends Controller
 
     public function indexpertahunauditee()
     {
-        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->get();
+        $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->get();
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
         $dataUser = Auditee::where('unit_kerja', $unitkerja->name)->orderBy('tahunperiode0', 'ASC')->get();
 

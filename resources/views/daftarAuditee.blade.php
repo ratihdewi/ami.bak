@@ -22,7 +22,7 @@
         <div class="row justify-content-center" style="font-size: 15px">
             <div class="row">
                 <a
-                    href="/addAuditee"
+                    href="/addAuditee/{{ $periode->tahunperiode1 }}/{{ $periode->tahunperiode2 }}"
                     class="text-white"
                     style="font-weight: 600; text-decoration: none"
                 >
