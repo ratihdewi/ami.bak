@@ -227,7 +227,8 @@ class PertanyaanController extends Controller
     {
         $data = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('area', $area)->first();
         $daftartilik_id = $data->id;
-        $data_ = Pertanyaan::where('daftartilik_id', $daftartilik_id)->where('butirStandar', '!=', null)->where('nomorButir', '!=', null)->where('indikatormutu', '!=', null)->where('butirStandar', '!=', null)->where('targetStandar', '!=', null)->where('pertanyaan', '!=', null)->get();
+        $data_ = Pertanyaan::all()->where('daftartilik_id', $daftartilik_id);
+        // $data_ = Pertanyaan::where('daftartilik_id', $daftartilik_id)->where('butirStandar', '!=', null)->where('nomorButir', '!=', null)->where('indikatormutu', '!=', null)->where('butirStandar', '!=', null)->where('targetStandar', '!=', null)->where('pertanyaan', '!=', null)->get();
 
         // dd(Auth::user()->role);
 

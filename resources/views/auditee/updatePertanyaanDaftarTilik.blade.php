@@ -165,30 +165,30 @@
           @endforeach
           <div class="row g-3 my-4 mx-3">
             <div class="col" disabled>
-              <label for="butirStandar" class="fw-semibold">Butir Standar <span class="text-danger fw-semibold">*</span></label>
+              <label for="butirStandar" class="fw-semibold">Butir Standar</label>
               <input id="butirStandar" type="text" class="form-control" placeholder="Masukkan Butir Standar. Contoh: [01 Kompetensi Lulusan]" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" readonly>
             </div>
             <div class="col">
-              <label for="nomorButir" class="fw-semibold">Nomor Butir <span class="text-danger fw-semibold">*</span></label>
+              <label for="nomorButir" class="fw-semibold">Nomor Butir</label>
               <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir. Contoh: [A.01.01]" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" readonly>
             </div>
           </div>
           <div class="form-floating mx-4">
-            <p class="fw-semibold mb-0">Pertanyaan <span class="text-danger fw-bold">*</span></p>
+            <p class="fw-semibold mb-0">Pertanyaan</p>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Ajukan pertanyaan" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}" readonly>{{ $datas->pertanyaan }}</textarea>
             <label for="pertanyaan">Ajukan pertanyaan</label>
           </div>
           <div class="form-floating mx-4">
-            <p class="fw-semibold mb-0">Indikator Mutu <span class="text-danger fw-bold">*</span></p>
+            <p class="fw-semibold mb-0">Indikator Mutu</p>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" readonly>{{ $datas->indikatormutu }}</textarea>
             <label for="indikatorMutu">Masukkan indikator mutu</label>
           </div>
           <div class="form-floating mx-4">
-            <p class="fw-semibold mb-0">Target Standar <span class="text-danger fw-bold">*</span></p>
+            <p class="fw-semibold mb-0">Target Standar</p>
           </div>        
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" readonly>{{ $datas->targetStandar }}</textarea>
@@ -198,7 +198,7 @@
             <div class="col-7 border rounded me-5">
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
-                  <label for="inputButirStandar" class="form-label fw-semibold">Butir Standar <span class="text-danger fw-semibold">*</span></label>
+                  <label for="inputButirStandar" class="form-label fw-semibold">Butir Standar</label>
                   <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" readonly>
                 </div>
                 <div class="col inputReferensi">

@@ -200,7 +200,7 @@ class DaftarTilikController extends Controller
         $data_ = Auditee::where('unit_kerja', $unitkerja->name)->where('tahunperiode', $tahunperiode)->get();
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         
-        //dd($datas);
+        // dd($data_);
         return view('auditee/daftarTilik', compact('data_', 'periodes'));
     }
 
