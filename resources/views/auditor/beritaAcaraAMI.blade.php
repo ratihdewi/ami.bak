@@ -157,7 +157,7 @@
                         {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }}
                     @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
                         @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
-                            {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }},
+                            {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }};
                         @elseif ($i == count($jadwalAudit_))
                             {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }}
                         @endif
