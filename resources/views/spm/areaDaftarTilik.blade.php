@@ -75,7 +75,7 @@
                         <td class="col-2 px-0">{{ $d_pertanyaan->butirStandar }}</td>
                         <td class="col-1 px-0 text-center">{{ $d_pertanyaan->nomorButir }}</td>
                         <td class="col-3 px-0">
-                            {{ $d_pertanyaan->pertanyaan }}
+                            {!! $d_pertanyaan->pertanyaan !!}
                         </td>
                         <td class="col-1 px-0 text-center">
                             <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"

@@ -176,7 +176,6 @@ class DaftarTilikController extends Controller
         $data = new DaftarTilikExport($id, $auditee_id); 
         $auditee_ = Auditee::where('id', $auditee_id)->first();
         $filename = 'Rancangan Daftar Tilik - '.$auditee_->unit_kerja.'.xlsx';
-        
 
         return Excel::download($data, $filename);
     }

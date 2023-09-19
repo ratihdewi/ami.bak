@@ -190,21 +190,19 @@
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Ajukan pertanyaan" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}">{{ $datas->pertanyaan }}</textarea>
-            <label for="pertanyaan">Pertanyaan</label>
           </div>
           <div class="form-floating mx-4">
             <p class="fw-semibold mb-0">Indikator Mutu <span class="text-danger fw-bold">*</span></p>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu">{{ $datas->indikatormutu }}</textarea>
-            <label for="indikatorMutu">Masukkan indikator mutu</label>
           </div>        
           <div class="form-floating mx-4">
             <p class="fw-semibold mb-0">Target Standar <span class="text-danger fw-bold">*</span></p>
           </div>     
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar">{{ $datas->targetStandar }}</textarea>
-            <label for="targetStandar">Masukkan target standar</label>
+            <label for="targetStandar" style="font-size: 12px">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
             <div class="col-7 border rounded me-5">
@@ -345,6 +343,7 @@
 
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script type="text/javascript">
   $.ajaxSetup({
       headers: {
@@ -353,6 +352,21 @@
   });
 </script>
 <script>
+
+        tinymce.init({
+          selector: 'textarea#pertanyaan',
+          toolbar: false,
+          menubar: false,
+          height: 150
+        });
+        
+        tinymce.init({
+          selector: 'textarea#indikatorMutu',
+          toolbar: false,
+          menubar: false,
+          height: 100
+        });
+
         var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference) <b>**)</b></label>';
 
         if(document.getElementById('kategoriKTS').checked) {

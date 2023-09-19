@@ -181,21 +181,19 @@
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Ajukan Pertanyaan" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ old('pertanyaan') }}"></textarea>
-            <label for="pertanyaan">Pertanyaan</label>
           </div>
           <div class="form-floating mx-4">
             <p class="fw-semibold mb-0">Indikator Mutu <span class="text-danger fw-bold">*</span></p>
           </div>
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" value="{{ old('indikatormutu') }}"></textarea>
-            <label for="indikatorMutu">Masukkan indikator mutu</label>
           </div>
           <div class="form-floating mx-4">
             <p class="fw-semibold mb-0">Target Standar <span class="text-danger fw-bold">*</span></p>
           </div>        
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" value="{{ old('targetStandar') }}"></textarea>
-            <label for="targetStandar">Masukkan target standar</label>
+            <label for="targetStandar" style="font-size: 12px">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
             <div class="col-7 border rounded me-5">
@@ -283,7 +281,7 @@
           </div>
         </div>
         <div class="keteranganTambahan mx-4 mb-2">
-          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media Line dan mengunggah dokumen bukti sahih yang baru</p>
+          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media lain dan mengunggah dokumen bukti sahih yang baru</p>
           <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
         {{-- <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
@@ -304,7 +302,22 @@
 
 @push('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
+        tinymce.init({
+          selector: 'textarea#pertanyaan',
+          toolbar: false,
+          menubar: false,
+          height: 150
+        });
+
+        tinymce.init({
+          selector: 'textarea#indikatorMutu',
+          toolbar: false,
+          menubar: false,
+          height: 100
+        });
+
         function display() {
             var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR"></textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference) <b>**)</b></label>';
 

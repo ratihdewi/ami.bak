@@ -35,7 +35,30 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
 
     public function collection()
     {
-        return Pertanyaan::select('butirStandar', 'pertanyaan', 'indikatormutu', 'targetStandar', 'referensi', 'inisialAuditor', 'responAuditee', 'responAuditor', 'skorAuditor')->where('daftartilik_id', $this->id)->where('auditee_id', $this->auditee_id)->get();
+        // return Pertanyaan::select('butirStandar', 'pertanyaan', 'indikatormutu', 'targetStandar', 'referensi', 'inisialAuditor', 'responAuditee', 'responAuditor', 'skorAuditor')->where('daftartilik_id', $this->id)->where('auditee_id', $this->auditee_id)->get();
+
+        $pertanyaans = Pertanyaan::select(
+            'butirStandar',
+            'pertanyaan',
+            'indikatormutu',
+            'targetStandar',
+            'referensi',
+            'inisialAuditor',
+            'responAuditee',
+            'responAuditor',
+            'skorAuditor'
+        )
+        ->where('daftartilik_id', $this->id)
+        ->where('auditee_id', $this->auditee_id)
+        ->get();
+    
+        // Loop melalui hasil dan lakukan strip_tags pada kolom "pertanyaan"
+        foreach ($pertanyaans as $pertanyaan) {
+            $pertanyaan->pertanyaan = strip_tags($pertanyaan->pertanyaan);
+            $pertanyaan->indikatormutu = strip_tags($pertanyaan->indikatormutu);
+        }
+    
+        return $pertanyaans;
     }
 
     public function headings() : array
@@ -55,11 +78,30 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
 
     public function styles(Worksheet $sheet)
     {
-        return [
-            8 => [
-                'font' => ['bold' => true],
-            ],
-        ];
+
+        // Atur wrap text untuk kolom A pada baris 1 hingga 1000
+        $sheet->getStyle('B9:B1000')->getAlignment()->setWrapText(true);
+
+        // Atur gaya teks bold untuk baris 8
+        $sheet->getStyle('8')->getFont()->setBold(true);
+
+        // Auto-size kolom sesuai dengan kontennya
+        $sheet->getColumnDimension('A')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(50);
+        $sheet->getColumnDimension('C')->setWidth(30);
+        $sheet->getColumnDimension('D')->setWidth(20);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(20);
+        $sheet->getColumnDimension('G')->setWidth(20);
+        $sheet->getColumnDimension('H')->setWidth(20);
+        $sheet->getColumnDimension('I')->setWidth(20);
+        // return [
+        //     8 => [
+        //         'font' => ['bold' => true],
+        //     ],
+        //     $sheet->wrapText('A1:A1000'),
+        // ];
+        return $sheet;
     }
 
     public function startCell(): string

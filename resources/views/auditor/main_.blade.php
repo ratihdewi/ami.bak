@@ -7,7 +7,7 @@
 
     <body id="body-pd">
         @include('inc.header')
-        <div class="l-navbar" id="nav-bar">
+        <div class="l-navbar show" id="nav-bar">
             @include('auditor.sidebar')
         </div>
         <!--Container Main start-->
