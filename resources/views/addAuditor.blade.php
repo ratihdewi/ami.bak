@@ -33,7 +33,7 @@
                                             @foreach ($periodes->get() as $periode)
                                                 value="{{ $periode->tahunperiode1 }}"
                                             @endforeach
-                                            required/>    
+                                            readonly required/>    
                                         </div>
                                         <div class="col-sm-2 text-center">
                                             <h3 class="">/</h3>
@@ -43,7 +43,7 @@
                                             @foreach ($periodes->get() as $periode)
                                                 value="{{ $periode->tahunperiode2 }}"
                                             @endforeach
-                                            required/>
+                                            readonly required/>
                                         </div>
                                     </div>
                                     <p id="validationMessage" style="color: red; font-size: 10px;"></p>
@@ -122,6 +122,7 @@
                                         placeholder="{{ $periode->tgl_mulai->translatedFormat('l, d M Y') }}"
                                         aria-label="Tanggal Mulai Tugas"
                                         value="{{ date('d-m-Y', strtotime($periode->tgl_mulai)) }}"
+                                        readonly
                                         required
                                     />
                                 </div>
@@ -129,26 +130,15 @@
                                     <label class="fw-semibold" for="tanggalberakhir" class="form-label"
                                         >Tanggal Berakhir</label
                                     >
-                                    {{-- <div class="col">
-                                        <div class="input-group date" id="tglberakhir">
-                                            <input type="text" class="form-control" id="tanggalberakhir" name="tgl_berakhir" placeholder="{{ $periode->tgl_berakhir->translatedFormat('l, d M Y') }}">
-                                            <span class="input-group-append">
-                                            <span class="input-group-text bg-light d-block">
-                                                <i class="bi bi-calendar"></i>
-                                            </span>
-                                            </span>
-                                        </div>
-                                    </div> --}}
                                     <input
                                         type="text"
                                         name="tgl_berakhir"
                                         class="form-control"
-                                        {{-- onfocus="(this.type='date')"
-                                        onblur="(this.type='text')" --}}
                                         id="tanggalberakhir"
                                         placeholder="{{ $periode->tgl_berakhir->translatedFormat('l, d M Y') }}"
                                         aria-label="Tanggal Berakhir Tugas"
                                         value="{{ date('d-m-Y', strtotime($periode->tgl_berakhir)); }}"
+                                        readonly
                                         required
                                     />
                                 </div>
@@ -188,34 +178,24 @@
     <script>
         $(document).ready(function(){
 
-            flatpickr("#tanggalmulai", {
-                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
-                locale: "id",
-                enableTime: false, // Jangan aktifkan waktu
-                // time_24hr: true, // Gunakan format 24 jam
-                timeZone: "Asia/Jakarta",
-            });
-
-            flatpickr("#tanggalberakhir", {
-                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
-                locale: "id",
-                enableTime: false, // Jangan aktifkan waktu
-                // time_24hr: true, // Gunakan format 24 jam
-                timeZone: "Asia/Jakarta",
-            });
-
-
-            // $('#tglmulai').datepicker({
-            //     format: 'dd-mm-yyyy',
+            // flatpickr("#tanggalmulai", {
+            //     dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+            //     locale: "id",
+            //     enableTime: false, // Jangan aktifkan waktu
+            //     // time_24hr: true, // Gunakan format 24 jam
+            //     timeZone: "Asia/Jakarta",
             // });
-            // $('#tglberakhir').datepicker({
-            //     format: 'dd-mm-yyyy',
+
+            // flatpickr("#tanggalberakhir", {
+            //     dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+            //     locale: "id",
+            //     enableTime: false, // Jangan aktifkan waktu
+            //     // time_24hr: true, // Gunakan format 24 jam
+            //     timeZone: "Asia/Jakarta",
             // });
 
             var tahunAwal = $('#tahunperiode0').val();
             var tahunAkhir = $('#tahunperiode').val();
-            // var tglMulai = "{{ $periodes->first()->tgl_mulai }}";
-            // var tglAkhir = "{{ $periodes->first()->tgl_berakhir }}";
 
             fillNipAuditorOptions(tahunAkhir);
 
@@ -263,93 +243,10 @@
                 });
             });
 
-            // $("#tanggalmulai").on("focus", function () {
-            
-            //     $('#tanggalmulai').change(function() {
-            //         let tglMulai = document.getElementById('tanggalmulai');
-            //         let tglberakhir = document.getElementById('tanggalberakhir');
-
-            //         let thPeriode0 =  document.getElementById('tahunperiode0').value;
-            //         let thPeriode1 =  document.getElementById('tahunperiode').value;
-
-            //         thPeriode0 = parseInt(thPeriode0);
-            //         thPeriode1 = parseInt(thPeriode1);
-
-            //         console.log(thPeriode0);
-
-            //         let firstDate = new Date(thPeriode0, 0, 1);
-            //         let lastDate = new Date(thPeriode1, 11, 31);
-
-            //         let minfirstDate = firstDate.toISOString().slice(0, 10);
-            //         let maxlastDate = lastDate.toISOString().slice(0, 10);
-
-            //         if (tglMulai) {
-            //             tglMulai = new Date(tglMulai.value);
-            //             tglMulai = tglMulai.getFullYear();
-
-            //             // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggalmulai'
-            //             $('#tanggalmulai').attr('min', minfirstDate);
-            //             $('#tanggalmulai').attr('max', maxlastDate);
-
-            //             console.log('min date : ' + minfirstDate);
-            //             console.log('max date : ' + maxlastDate);
-
-            //             validateDate(tglMulai);
-            //         } if (tglberakhir) {
-            //             tglberakhir = new Date(tglberakhir.value);
-            //             tglberakhir = tglberakhir.getFullYear();
-
-            //             // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggaberakhir'
-            //             $('#tanggalberakhir').attr('min', minfirstDate);
-            //             $('#tanggalberakhir').attr('max', maxlastDate);
-
-            //             console.log('min date : ' + minfirstDate);
-            //             console.log('max date : ' + maxlastDate);
-
-            //             validateDate(tglberakhir);
-            //         }
-
-            //     })
-            // });
-
-            // var defaultview = $('#tanggalmulai');
-            // var typedate = defaultview.attr("type", "date");
-            // var typetext = defaultview.attr("type", "text");
-            // var valueawal = $('#tanggalmulai').val();
-
-            // $("#tanggalmulai").on("blur", function () {
-            
-            //     if (isValidDate($(this).val())) {
-
-            //         valueawal = $(this).val();
-
-            //         var formattedDate_ = moment(valueawal, "DD-MM-YYYY").format("dddd, DD MMM YYYY");
-
-            //         typetext.val(formattedDate_);
-            //     }
-            // });
-
             function isValidDate(value) {
                 var date = new Date(value);
                 return !isNaN(date.getTime());
             }
-
-            // var defaultview_ = $('#tanggalberakhir');
-            // var typedate_ = defaultview_.attr("type", "date");
-            // var typetext_ = defaultview_.attr("type", "text");
-            // var valueawal_ = $('#tanggakberakhir').val()
-
-            // $("#tanggalberakhir").on("blur", function () {
-            
-            //     if (isValidDate($(this).val())) {
-
-            //         valueawal_ = $(this).val();
-
-            //         var formattedDate = moment(valueawal_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-
-            //         typetext_.val(formattedDate);
-            //     }
-            // });
 
             $('#addForm').on('submit', function(e) {
                 var firstest = $('#tanggalmulai').val();

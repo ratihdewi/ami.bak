@@ -111,9 +111,14 @@ class DaftarTilikController extends Controller
     public function updatedata(Request $request, $id)
     {
         $data = DaftarTilik::find($id);
-        $auditor = Auditor::find($data->auditor_id);
-
-        // dd($request->all());
+        $tahunpelaksanaan = $data->tgl_pelaksanaan;
+        $tahunpelaksanaan = Carbon::parse($tahunpelaksanaan)->year;
+        $auditor = Auditor::where('nama', $request->auditor_id)
+                            ->where(function ($query) use ($tahunpelaksanaan) {
+                                $query->where('tahunperiode0', $tahunpelaksanaan)
+                                    ->orWhere('tahunperiode', $tahunpelaksanaan);
+                            })
+                            ->first();
 
         $data->update([
             'auditor_id' => $auditor->id,
@@ -180,7 +185,6 @@ class DaftarTilikController extends Controller
     public function indexAuditor($tahunperiode) {
         $auditees = Auditee::where('ketua_auditor', Auth::user()->name)->where('tahunperiode', $tahunperiode)->orWhere('anggota_auditor', Auth::user()->name)->orWhere('anggota_auditor2', Auth::user()->name)->get();
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
-        // $dataAuditor_ = Auditor::where('nama', $namaUser)->where('tahunperiode', $tahunperiode)->get();
 
         return view('auditor/daftarTilik', compact('auditees', 'periodes'));
     }

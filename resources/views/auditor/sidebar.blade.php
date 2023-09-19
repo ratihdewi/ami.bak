@@ -30,18 +30,6 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href="/auditor-daftartilik-periode"
-                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-periode') ? 'active' : '' || Request::routeIs('auditor-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditor-dokumensahih') ? 'active' : '' || Request::routeIs('auditor-fotokegiatan') ? 'active' : '' }}"
-            >
-                <i class="bx nav_icon"
-                    ><img
-                        src="/asset/sideBar/daftarTilik.png"
-                        alt="Logo-DaftarTilik"
-                        width="25"
-                /></i>
-                <span class="nav_name"> DaftarTilik </span>
-            </a>
-            <a
                 href="/auditor-jadwalaudit"
                 class="nav_link {{ Request::routeIs('auditor-jadwalaudit') ? 'active' : '' }}"
             >
@@ -52,6 +40,18 @@
                         width="25"
                 /></i>
                 <span class="nav_name"> Jadwal Audit </span>
+            </a>
+            <a
+                href="/auditor-daftartilik-periode"
+                class="nav_link {{ Request::routeIs('auditor-daftartilik') ? 'active' : '' || Request::routeIs('auditor-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-periode') ? 'active' : '' || Request::routeIs('auditor-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditor-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditor-dokumensahih') ? 'active' : '' || Request::routeIs('auditor-fotokegiatan') ? 'active' : '' }}"
+            >
+                <i class="bx nav_icon"
+                    ><img
+                        src="/asset/sideBar/daftarTilik.png"
+                        alt="Logo-DaftarTilik"
+                        width="25"
+                /></i>
+                <span class="nav_name"> DaftarTilik </span>
             </a>
             <a
                 href="/auditor-beritaacara"

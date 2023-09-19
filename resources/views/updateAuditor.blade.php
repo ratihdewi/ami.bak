@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="col">
                                         <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
-                                        <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}" readonly/>
+                                        <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}"/>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -111,6 +111,7 @@
                                             placeholder="{{ $data->tgl_mulai }}"
                                             aria-label="Tanggal Mulai Tugas"
                                             value="{{ date('d-m-Y', strtotime($data->tgl_mulai)) }}"
+                                            readonly
                                         />
                                     </div>
                                     <div class="col">
@@ -125,6 +126,7 @@
                                             placeholder="{{ $data->tgl_berakhir }}"
                                             aria-label="Tanggal Berakhir Tugas"
                                             value="{{ date('d-m-Y', strtotime($data->tgl_berakhir)) }}"
+                                            readonly
                                         />
                                     </div>
                                 </div>
@@ -265,19 +267,19 @@
     <script>
         $(document).ready(function(){
 
-            flatpickr("#tanggalmulai", {
-                dateFormat: "d-m-Y",
-                locale: "id",
-                enableTime: false,
-                timeZone: "Asia/Jakarta",
-            });
+            // flatpickr("#tanggalmulai", {
+            //     dateFormat: "d-m-Y",
+            //     locale: "id",
+            //     enableTime: false,
+            //     timeZone: "Asia/Jakarta",
+            // });
 
-            flatpickr("#tanggalberakhir", {
-                dateFormat: "d-m-Y",
-                locale: "id",
-                enableTime: false,
-                timeZone: "Asia/Jakarta",
-            });
+            // flatpickr("#tanggalberakhir", {
+            //     dateFormat: "d-m-Y",
+            //     locale: "id",
+            //     enableTime: false,
+            //     timeZone: "Asia/Jakarta",
+            // });
 
             let tglMulai = document.getElementById('tanggalmulai');
             let tglberakhir = document.getElementById('tanggalberakhir');

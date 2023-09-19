@@ -30,18 +30,6 @@
                 <span class="nav_name">Daftar Auditee</span>
             </a>
             <a
-                href="/auditee-daftartilik-periode"
-                class="nav_link {{ Request::routeIs('auditee-daftartilik') ? 'active' : '' || Request::routeIs('auditee-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-dokumensahih') ? 'active' : '' || Request::routeIs('auditee-fotokegiatan') ? 'active' : '' }}"
-            >
-                <i class="bx nav_icon"
-                    ><img
-                        src="/asset/sideBar/daftarTilik.png"
-                        alt="Logo-DaftarTilik"
-                        width="25"
-                /></i>
-                <span class="nav_name"> DaftarTilik </span>
-            </a>
-            <a
                 href="/auditee-jadwalaudit"
                 class="nav_link {{ Request::routeIs('auditee-jadwalaudit') ? 'active' : '' || Request::routeIs('tambahjadwal') ? 'active' : '' || Request::routeIs('tambahjadwalaudit') ? 'active' : '' }}"
             >
@@ -52,6 +40,18 @@
                         width="25"
                 /></i>
                 <span class="nav_name"> Jadwal Audit </span>
+            </a>
+            <a
+                href="/auditee-daftartilik-periode"
+                class="nav_link {{ Request::routeIs('auditee-daftartilik') ? 'active' : '' || Request::routeIs('auditee-daftarTilik-areadaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-periode') ? 'active' : '' || Request::routeIs('daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-tampilpertanyaandaftartilik') ? 'active' : '' || Request::routeIs('auditee-daftartilik-pratinjaudaftartilik') ? 'active' : '' || Request::routeIs('auditee-dokumensahih') ? 'active' : '' || Request::routeIs('auditee-fotokegiatan') ? 'active' : '' }}"
+            >
+                <i class="bx nav_icon"
+                    ><img
+                        src="/asset/sideBar/daftarTilik.png"
+                        alt="Logo-DaftarTilik"
+                        width="25"
+                /></i>
+                <span class="nav_name"> DaftarTilik </span>
             </a>
             <a
                 href="/auditee-beritaacara"
