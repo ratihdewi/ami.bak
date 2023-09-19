@@ -16,8 +16,15 @@
 @endsection
 
 @section('container')
-<div class="container vh-100">
-    <div class="container-fluid float-end my-4">
+<div class="container" style="min-height: 100vh">
+    <div class="topSection mx-2 mt-4">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+        @endif
+    </div>
+    <div class="container-fluid float-end mb-4 mt-2">
         <a
             href="/auditor-daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
             class="text-white"

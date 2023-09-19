@@ -14,7 +14,7 @@
 @endsection
 
 @section('container')
-<div class="container vh-100" style="font-size: 15px;">
+<div class="container" style="font-size: 15px; min-height: 100vh">
     <div class="container-fluid d-flex mt-4">
         <div class="input-group w-50 h-25 my-3 ms-4">
             <input

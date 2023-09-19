@@ -33,7 +33,7 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                @foreach ($auditee_->unique('unit_kerja', 'tahunperiode') as $auditee)
+                @foreach ($auditee_ as $auditee)
                 @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="row ListAuditee">
                     <td class="col text-center">{{ $no++ }}</td>

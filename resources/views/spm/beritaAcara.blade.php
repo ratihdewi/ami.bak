@@ -7,20 +7,19 @@
 @endsection
 
 @section('container')
-<div class="container vh-100" style="font-size: 15px">
+<div class="topSection d-flex justify-content-around mx-2 mt-4">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success" role="alert">
+        {{ $message }}
+    </div>
+    @endif
+</div>
+<div class="container" style="font-size: 15px; min-height: 100vh">
     {{-- <div class="container-fluid d-flex justify-content-between mt-4">
         <div class="input-group w-50 h-25 my-3 ms-4">
             <input class="form-control" id="myInput" type="text" style="font-size: 15px" placeholder="Cari berdasarkan Auditee">
         </div>
     </div> --}}
-    <div class="topSection d-flex justify-content-around mx-2 mt-4">
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
-        </div>
-        @endif
-    </div>
-
     <div class="tableBA mx-3 mt-3 mb-4">
         <table class="table table-hover my-5 listAuditee" id="beritaacara">
             <thead class="mt-5">
@@ -33,7 +32,7 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                @foreach ($auditee_->unique('unit_kerja', 'tahunperiode') as $auditee)
+                @foreach ($auditee_ as $auditee)
                 @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="row ListAuditee">
                     <td class="col-1 text-center">{{ $no++ }}</td>

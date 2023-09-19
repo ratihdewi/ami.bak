@@ -244,39 +244,49 @@ class DokBAAMIController extends Controller
     public function approvalAuditee($id)
     {
         $approve_ = DokBA_AMI::find($id);
+
+        if (Auth::user()->peran == "auditee") {
+            $approve_->eSignAuditee = 'Disetujui';
+
+            $persetujuan = new PersetujuanBA;
+            $persetujuan->beritaacara_id = $approve_->beritaacara_id;
+            $persetujuan->posisi = 'Ketua Auditee';
+            $persetujuan->nama = $approve_->auditee->ketua_auditee;
+            $persetujuan->eSign = $approve_->eSignAuditee;
+            $persetujuan->save();
+     
+            $approve_->save();
+    
+            return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditee');
+        } else {
+            return redirect()->back()->with('error', 'Dokumen BA-AMI hanya dapat disetujui oleh role Auditee yang memiliki peran Ketua Auditee!');
+        }
         
-        $approve_->eSignAuditee = 'Disetujui';
-
-        $persetujuan = new PersetujuanBA;
-        $persetujuan->beritaacara_id = $approve_->beritaacara_id;
-        $persetujuan->posisi = 'Ketua Auditee';
-        $persetujuan->nama = $approve_->auditee->ketua_auditee;
-        $persetujuan->eSign = $approve_->eSignAuditee;
-        $persetujuan->save();
- 
-        $approve_->save();
-
-        // dd($approve_);
-        return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditee');
+        
+        
     }
 
     public function approvalAuditor($id)
     {
         $approve_ = DokBA_AMI::find($id);
-        
-        $approve_->eSignAuditor = 'Disetujui';
 
-        $persetujuan = new PersetujuanBA;
-        $persetujuan->beritaacara_id = $approve_->beritaacara_id;
-        $persetujuan->posisi = 'Ketua Auditor';
-        $persetujuan->nama = $approve_->auditee->ketua_auditor;
-        $persetujuan->eSign = $approve_->eSignAuditor;
-        $persetujuan->save();
- 
-        $approve_->save();
+        if (Auth::user()->peran == "auditee") {
+            $approve_->eSignAuditor = 'Disetujui';
 
-        // dd($approve_);
-        return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditor');
+            $persetujuan = new PersetujuanBA;
+            $persetujuan->beritaacara_id = $approve_->beritaacara_id;
+            $persetujuan->posisi = 'Ketua Auditor';
+            $persetujuan->nama = $approve_->auditee->ketua_auditor;
+            $persetujuan->eSign = $approve_->eSignAuditor;
+            $persetujuan->save();
+    
+            $approve_->save();
+
+            // dd($approve_);
+            return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditor');
+        } else {
+            return redirect()->back()->with('error', 'Dokumen BA-AMI hanya dapat disetujui oleh role Auditee yang memiliki peran Ketua Auditee!');
+        }
     }
 
     public function pratinjauba($auditee_id, $tahunperiode)

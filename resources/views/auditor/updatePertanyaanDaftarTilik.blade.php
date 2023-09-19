@@ -216,16 +216,16 @@
               </div>
             </div>
           </div>
-          <label for="#" class="mb-4 mx-4 fw-semibold">Respon Auditee <span class="text-danger fw-bold">*</span></label>
+          <label for="#" class="mb-4 mx-4 fw-semibold">Respon Auditee</label>
           <div class="row g-3 mb-4 mx-4 border rounded">
             <div class="col my-4">
               <div class="row mx-2 mb-4 px-1">
-                <label for="inputDokSahih" class="form-label fw-semibold">Dokumen Bukti Sahih <span class="text-danger fw-bold">*</span></label>
+                <label for="inputDokSahih" class="form-label fw-semibold">Dokumen Bukti Sahih</label>
                 <a href="/auditor-editdokumensahih/{{ $datas->id }}">
                   <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Dokumen Bukti Sahih</b></button>
                 </a>
               </div>
-              <label for="#" class="mb-1 mx-4 fw-semibold">Respon Auditee <span class="text-danger fw-bold">*</span></label>
+              <label for="#" class="mb-1 mx-4 fw-semibold">Respon Auditee</label>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee" id="responAuditee" style="height: 100px" name="responAuditee" readonly>{{ $datas->responAuditee }}</textarea>
                 <label for="responAuditee">Tuliskan respon Auditee</label>

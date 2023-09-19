@@ -16,8 +16,15 @@
 @endsection
 
 @section('container')
-<div class="container vh-100">
-    <div class="container-fluid float-end my-4">
+<div class="container" style="min-height: 100vh">
+    <div class="topSection mx-2 mt-4">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+        @endif
+    </div>
+    <div class="container-fluid float-end mb-4 mt-2">
         {{-- @foreach ($data_ as $item)  --}}
                 <a
                     href="/daftartilik-adddaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
@@ -44,14 +51,6 @@
                 >
         {{-- @endforeach --}}
     </div>
-    <div class="topSection d-flex justify-content-around mx-2 mt-4">
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
-        </div>
-        @endif
-    </div>
-    
     <div class="tableDaftarTilik mx-3 mb-3">
         <table class="table table-hover mb-3" id="tableDaftarTilik" style="font-size: 13px;border-bottom: none">
             <thead>

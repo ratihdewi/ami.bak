@@ -17,7 +17,14 @@
 
 @section('container')
 <div class="container-fluid" style="min-height: 100vh">
-    <div class="container-fluid float-end my-4">
+    <div class="topSection mx-2 mt-4">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+        @endif
+    </div>
+    <div class="container-fluid float-end mb-4 mt-2">
         {{-- @foreach ($data_ as $item)  --}}
                 <a
                     href="/auditee-daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"

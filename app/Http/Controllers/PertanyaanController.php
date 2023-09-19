@@ -189,7 +189,16 @@ class PertanyaanController extends Controller
             "narasiPLOR"=> $request->narasiPLOR,
         ]);
 
-        return redirect()->back()->with('success', 'Data berhasil diupdate');
+        // return redirect()->back()->with('success', 'Data berhasil diupdate');
+        if (Auth::user()->peran == "spm") {
+            return redirect()->route('areadaftartilik', ['auditee_id' => $data->auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate!');
+        } elseif (Auth::user()->peran == "auditor") {
+            return redirect()->route('auditor-daftarTilik-areadaftartilik', ['auditee_id' => $data->auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate!');
+        } elseif (Auth::user()->peran == "auditee") {
+            return redirect()->route('auditee-daftarTilik-areadaftartilik', ['auditee_id' => $data->auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate!');
+        } else {
+            return redirect()->route('auditee-daftarTilik-areadaftartilik', ['auditee_id' => $data->auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate!');
+        }
     }
 
     public function testPDF()
@@ -244,7 +253,9 @@ class PertanyaanController extends Controller
 
         if (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditor == 'Belum disetujui Auditor') {
             $request->session()->flash('error', 'Mohon maaf, Auditor belum mengisi AL atau mengajukan persetujuan! Silahkan tunggu!');
-        } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee' && $auditee_->ketua_auditee == Auth::user()->name) {
+        } elseif (Auth::user()->peran != "auditee") {
+            $request->session()->flash('error', 'Saat ini Anda berada pada role user. Silahkan beralih role terlebih dahulu menjadi Auditee!');
+        } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee' && $auditee_->ketua_auditee == Auth::user()->name && Auth::user()->peran == "auditee") {
 
             $approve_->approvalAuditee = 'Disetujui Auditee';
 
