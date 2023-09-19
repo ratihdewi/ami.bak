@@ -99,9 +99,15 @@ Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, 
     return view('/auditor/AL_qrcode', compact('auditee', 'user', 'persetujuan'));
 });
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Auth::routes();
+route::get('auth/', 'App\Http\Controllers\AuthController@auth');
+route::get('login', 'App\Http\Controllers\AuthController@showLoginForm')->name('login');
+route::get('gettoken/', 'App\Http\Controllers\AuthController@getToken');
+route::post('logout/', 'App\Http\Controllers\AuthController@logout')->name('logout');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/changeroleauditor/{id}', [UserController::class, 'changeroleauditor'])->name('changeroleauditor');
 Route::get('/changeroleauditee/{id}', [UserController::class, 'changeroleauditee'])->name('changeroleauditee');
 Route::get('/changerolespm/{id}', [UserController::class, 'changerolespm'])->name('changerolespm');

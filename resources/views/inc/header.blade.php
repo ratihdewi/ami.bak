@@ -2,10 +2,10 @@
     <div class="header_toggle">
         <i class="bx bx-menu" id="header-toggle"></i>
     </div>
-    <div class="profile_account">
+    <div class="btn-group profile_account">
         <button
             class="btn btn-secondary dropdown-toggle rounded-pill"
-            type="button"
+             
             data-bs-toggle="dropdown"
             aria-expanded="false"
         >
