@@ -29,18 +29,27 @@ class AuthController extends Controller
             $user = User::where('username', $username)->first();
             $user = User::find($user->id);
 
-            if ($user) {
-                session()->put('authUser', $user);
-                return redirect()->intended('/jadwalaudit');
+            if ($user->role_id == 1) {
+                Auth::login($user);
+                $user->update([
+                    'peran' => 'spm',
+                ]);
+                // session()->put('authUser', $user);
+                return redirect()->intended('/daftarAuditor-periode');
+            } elseif ($user->role_id == 2) {
+                Auth::login($user);
+                $user->update([
+                    'peran' => 'user',
+                ]);
+                $user->save();
+                return redirect()->intended('/auditee-daftarauditor-periode');
             } else {
                 // Handle jika user tidak ditemukan
                 // Misalnya, arahkan ke halaman login
-                // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://jdih-dev.universitaspertamina.ac.id/auth';
                 $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
                 return redirect($login_url);
             }
         } else {
-            // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://jdih-dev.universitaspertamina.ac.id/auth';
             $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
             return redirect($login_url);
         }
