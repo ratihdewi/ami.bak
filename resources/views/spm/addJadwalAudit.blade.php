@@ -58,9 +58,9 @@
                             <div class="col-sm-9">
                                 <select id="auditee_id" class="form-select" name="addmore[0][auditee_id]" required>
                                     <option selected disabled>Pilih Auditee yang akan dijadwalkan</option>
-                                    @foreach ($auditee_ as $auditee)
+                                    {{-- @foreach ($auditee_ as $auditee)
                                         <option value="{{ $auditee->id }}">{{ $auditee->unit_kerja }} <b class="fw-bold">({{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }})</b></option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -88,8 +88,6 @@
                                                 type="text"
                                                 class="form-control"
                                                 placeholder="Hari, Tgl Bln Tahun"
-                                                {{-- onfocus="(this.type='date')"
-                                                onblur="(this.type='text')" --}}
                                                 id="hari_tgl"
                                                 name="addmore[0][hari_tgl]"
                                                 required
