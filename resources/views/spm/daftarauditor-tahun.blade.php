@@ -252,23 +252,13 @@
                 var tanggalmulai = $('#tglMulai').val();
                 var tanggalselesai = $('#tglAkhir').val();
 
-                console.log(tanggalmulai);
-                console.log(tanggalselesai);
+                tanggalmulai = new Date(tanggalmulai);
+                tanggalselesai = new Date(tanggalselesai);
 
-                tanggalmulai = new Date(tanggalmulai).getFullYear();
-                tanggalselesai = new Date(tanggalselesai).getFullYear();
+                tanggalmulai = tanggalmulai.getFullYear();
+                tanggalselesai = tanggalselesai.getFullYear();
 
-                console.log(periodeawal);
-                console.log(periodeakhir);
-                console.log(tanggalmulai);
-                console.log(tanggalselesai);
-
-                console.log(tanggalmulai != periodeawal);
-                console.log(tanggalmulai != periodeakhir);
-                console.log(tanggalselesai != periodeawal);
-                console.log(tanggalselesai != periodeakhir);
-
-                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) || (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
+                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir)) {
                     falseinput();
                     e.preventDefault();
                 }

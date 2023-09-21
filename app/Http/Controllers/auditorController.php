@@ -8,6 +8,7 @@ use App\Models\Auditee;
 use App\Models\Auditor;
 use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuditorController extends Controller
 {
@@ -159,7 +160,14 @@ class AuditorController extends Controller
         $dataAuditor = Auditor::all();
         $dataAuditee = Auditee::all();
 
-        return view('spm/detailAuditor', compact('dataAuditor', 'dataAuditee'));
+        if (Auth::user()->peran == "spm") {
+            return view('spm/profile', compact('dataAuditor', 'dataAuditee'));
+        } elseif (Auth::user()->peran == "auditor") {
+            return view('auditor/profile', compact('dataAuditor', 'dataAuditee'));
+        } else {
+            return view('auditee/profile', compact('dataAuditor', 'dataAuditee'));
+        }
+        
     }
     //role auditor end
 

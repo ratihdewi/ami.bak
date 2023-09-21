@@ -13,7 +13,9 @@
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu">
-            <li class="ms-3">Profil</li>
+            <li class="ms-3">
+                <a class="dropdown-item" href="/auditor-detailauditor" style="text-decoration: none; color:black">Profil</a>
+            </li>
             <li 
                 @if (count(Auth::user()->auditor()->get('user_id')) == 0 )
                     hidden

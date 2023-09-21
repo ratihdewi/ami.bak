@@ -8,6 +8,7 @@ use App\Models\Auditor;
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -52,6 +53,7 @@ class UserController extends Controller
 
         $unitkerja2 = UnitKerja::find($data->unitkerja_id2);
         $unitkerja3 = UnitKerja::find($data->unitkerja_id3);
+
         return view('spm/updateUser', compact('data', 'unitkerjas', 'roles', 'unitkerja2', 'unitkerja3'));
     }
 
