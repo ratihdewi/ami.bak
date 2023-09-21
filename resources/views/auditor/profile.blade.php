@@ -12,8 +12,6 @@
 
 @section('container')
     <div class="container py-3" id="detailAuditor">
-      {{-- <div class="card w-75 mx-auto my-5">
-        <div class="card-body my-5"> --}}
       <div class="profile-user my-5">
         <div class="row justify-content-center">
           <div class="col-3 label border py-2 fw-semibold text-start">Nama</div>
@@ -25,11 +23,31 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
-          <div class="col-6 border py-2 text-start">{{ Auth::user()->unit_kerja }}</div>
+          <div class="col-6 border py-2 text-start">
+            {{ $unitkerja1->name }} <br>
+            @if (Auth::user()->unitkerja_id2 != null && Auth::user()->unitkerja_id3 != null)
+                {{ $unitkerja2->name }} <br>
+                {{ $unitkerja3->name }} <br>
+            @elseif (Auth::user()->unitkerja_id2 != null && Auth::user()->unitkerja_id3 == null)
+                {{ $unitkerja2->name }} <br>
+            @elseif (Auth::user()->unitkerja_id2 == null && Auth::user()->unitkerja_id3 != null)
+                {{ $unitkerja3->name }} <br>
+            @endif
+          </div>
         </div>
         <div class="row justify-content-center">
           <div class="col-3 label border py-2 fw-semibold text-start">Fungsi</div>
-          <div class="col-6 border py-2 text-start"></div>
+          <div class="col-6 border py-2 text-start">
+            {{ $unitkerja1->fakultas }} <br>
+            @if (Auth::user()->unitkerja_id2 != null && Auth::user()->unitkerja_id3 != null)
+                {{ $unitkerja2->fakultas }} <br>
+                {{ $unitkerja3->fakultas }} <br>
+            @elseif (Auth::user()->unitkerja_id2 != null && Auth::user()->unitkerja_id3 == null)
+                {{ $unitkerja2->fakultas }} <br>
+            @elseif (Auth::user()->unitkerja_id2 == null && Auth::user()->unitkerja_id3 != null)
+                {{ $unitkerja3->fakultas }} <br>
+            @endif
+          </div>
         </div>
         <div class="row justify-content-center">
           <div class="col-3 label border py-2 fw-semibold text-start">Nomor Telepon</div>
@@ -44,7 +62,5 @@
           <div class="col-6 border py-2 text-start">{{ Auth::user()->status }}</div>
         </div>
       </div>
-        {{-- </div>
-      </div> --}}
     </div>
 @endsection

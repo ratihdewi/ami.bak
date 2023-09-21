@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\UnitKerja;
 use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -160,12 +161,18 @@ class AuditorController extends Controller
         $dataAuditor = Auditor::all();
         $dataAuditee = Auditee::all();
 
+        $unitkerja1 = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
+        $unitkerja2 = UnitKerja::where('id', Auth::user()->unitkerja_id2)->first();
+        $unitkerja3 = UnitKerja::where('id', Auth::user()->unitkerja_id3)->first();
+
+        // dd($unitkerja1);
+
         if (Auth::user()->peran == "spm") {
-            return view('spm/profile', compact('dataAuditor', 'dataAuditee'));
+            return view('spm/profile', compact('dataAuditor', 'dataAuditee', 'unitkerja1', 'unitkerja2', 'unitkerja3'));
         } elseif (Auth::user()->peran == "auditor") {
-            return view('auditor/profile', compact('dataAuditor', 'dataAuditee'));
+            return view('auditor/profile', compact('dataAuditor', 'dataAuditee', 'unitkerja1', 'unitkerja2', 'unitkerja3'));
         } else {
-            return view('auditee/profile', compact('dataAuditor', 'dataAuditee'));
+            return view('auditee/profile', compact('dataAuditor', 'dataAuditee', 'unitkerja1', 'unitkerja2', 'unitkerja3'));
         }
         
     }
