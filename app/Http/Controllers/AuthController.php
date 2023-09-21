@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Session;
-use GuzzleHttp\Client;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
