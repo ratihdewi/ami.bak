@@ -73,3 +73,11 @@
       </div>
     </div>
 @endsection
+
+@push('script')
+  <script>
+    function goBack() {
+        window.history.back();
+    }
+  </script>
+@endpush
