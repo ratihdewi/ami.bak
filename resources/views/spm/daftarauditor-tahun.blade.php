@@ -255,6 +255,16 @@
                 tanggalmulai = new Date(tanggalmulai).getFullYear();
                 tanggalselesai = new Date(tanggalselesai).getFullYear();
 
+                console.log(periodeawal);
+                console.log(periodeakhir);
+                console.log(tanggalmulai);
+                console.log(tanggalselesai);
+
+                console.log(tanggalmulai != periodeawal);
+                console.log(tanggalmulai != periodeakhir);
+                console.log(tanggalselesai != periodeawal);
+                console.log(tanggalselesai != periodeakhir);
+
                 if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) || (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
                     falseinput();
                     e.preventDefault();
