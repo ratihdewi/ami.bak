@@ -13,7 +13,7 @@
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu">
-            <li class="ms-3">
+            <li>
                 <a class="dropdown-item" href="/auditor-detailauditor" style="text-decoration: none; color:black">Profil</a>
             </li>
             <li 
