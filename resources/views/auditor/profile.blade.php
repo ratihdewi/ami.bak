@@ -6,13 +6,16 @@
 
 @section('linking')
     <a href="" class="mx-1">
-        Profil
+        Profil Pengguna
     </a>/
 @endsection
 
 @section('container')
     <div class="container py-3" id="detailAuditor">
       <div class="profile-user my-5">
+        <div class="title-profil text-center mb-4">
+          <h3><b>Profil Pengguna</b></h3>
+        </div>
         <div class="row justify-content-center">
           <div class="col-3 label border py-2 fw-semibold text-start">Nama</div>
           <div class="col-6 border py-2 text-start">{{ Auth::user()->name }}</div>
@@ -61,6 +64,20 @@
           <div class="col-3 label border py-2 fw-semibold text-start">Status</div>
           <div class="col-6 border py-2 text-start">{{ Auth::user()->status }}</div>
         </div>
+        <div class="row justify-content-center">
+          <div class="col-3 label py-2 fw-semibold px-0">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="goBack()">Kembali</button>
+          </div>
+          <div class="col-6 py-2 text-start"></div>
+        </div>
       </div>
     </div>
 @endsection
+
+@push('script')
+  <script>
+    function goBack() {
+        window.history.back();
+    }
+  </script>
+@endpush
