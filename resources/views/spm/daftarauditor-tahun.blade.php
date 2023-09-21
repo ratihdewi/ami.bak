@@ -252,6 +252,9 @@
                 var tanggalmulai = $('#tglMulai').val();
                 var tanggalselesai = $('#tglAkhir').val();
 
+                console.log(tanggalmulai);
+                console.log(tanggalselesai);
+
                 tanggalmulai = new Date(tanggalmulai).getFullYear();
                 tanggalselesai = new Date(tanggalselesai).getFullYear();
 
