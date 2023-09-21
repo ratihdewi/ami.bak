@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
         switch(env('APP_env')){
-            case 'live':
+            case 'local':
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                 break;
             case 'dev':
@@ -62,7 +62,7 @@ class AuthController extends Controller
                 // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
                 // return redirect($login_url);
                 switch(env('APP_env')){
-                    case 'live':
+                    case 'local':
                         return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                         break;
                     case 'dev':
@@ -77,7 +77,7 @@ class AuthController extends Controller
             // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
             // return redirect($login_url);
             switch(env('APP_env')){
-                case 'live':
+                case 'local':
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                     break;
                 case 'dev':
