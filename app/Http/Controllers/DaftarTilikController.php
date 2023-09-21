@@ -192,7 +192,7 @@ class DaftarTilikController extends Controller
     {
         $data_ = TahunPeriode::orderBy('tahunperiode1', 'ASC')->where('keterangan', 'Periode Auditee')->get();
 
-        if (count(Auth::user()->auditor()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditor()->get('user_id')) != 0)) {
+        if (Auth::user()->peran == "auditor") {
             return view('auditor/daftarTilik-tahun', compact('data_'));
         }
     }
@@ -200,7 +200,34 @@ class DaftarTilikController extends Controller
     //Role AUDITEE
     public function indexAuditee($tahunperiode) {
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
-        $data_ = Auditee::where('unit_kerja', $unitkerja->name)->where('tahunperiode', $tahunperiode)->get();
+        $unitkerja2 = UnitKerja::where('id', Auth::user()->unitkerja_id2)->first();
+        $unitkerja3 = UnitKerja::where('id', Auth::user()->unitkerja_id3)->first();
+        if ($unitkerja2 != null) {
+            $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                        ->where(function($query) use ($unitkerja, $unitkerja2) {
+                        $query->where('unit_kerja', $unitkerja->name)
+                            ->orWhere('unit_kerja', $unitkerja2->name);
+                    })
+                    ->get();
+        } elseif ($unitkerja3 != null) {
+            $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                        ->where(function($query) use ($unitkerja, $unitkerja3) {
+                        $query->where('unit_kerja', $unitkerja->name)
+                            ->orWhere('unit_kerja', $unitkerja3->name);
+                    })
+                    ->get();
+        } elseif ($unitkerja2 != null && $unitkerja3 != null) {
+            $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                        ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3) {
+                        $query->where('unit_kerja', $unitkerja->name)
+                            ->orWhere('unit_kerja', $unitkerja2->name)
+                            ->orWhere('unit_kerja', $unitkerja3->name);
+                    })
+                    ->get();
+        } else {
+            $data_ = Auditee::where('unit_kerja', $unitkerja->name)->where('tahunperiode', $tahunperiode)->get();
+        }
+        
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         
         // dd($data_);
@@ -213,11 +240,9 @@ class DaftarTilikController extends Controller
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
         $dataUser = Auditee::where('unit_kerja', $unitkerja->name)->orderBy('tahunperiode0', 'ASC')->get();
 
-        if (count(Auth::user()->auditee()->get('user_id')) != 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
+        if (Auth::user()->peran == "auditee") {
             return view('auditee/daftarTilik-tahun', compact('data_'));
-        } elseif (count(Auth::user()->auditee()->get('user_id')) == 0 || (Auth::user()->role == 'SPM' && count(Auth::user()->auditee()->get('user_id')) != 0)) {
-            return view('auditee/daftarTilik-tahun', compact('data_'));
-        }
+        } 
     }
 
     public function getAuditor($auditee_id)

@@ -13,8 +13,19 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
-        return redirect($login_url);
+        // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
+        switch(env('APP_env')){
+            case 'live':
+                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
+                break;
+            case 'dev':
+                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                break;
+            default:
+                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth')
+        }
+        // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
+        // return redirect($login_url);
     }
 
     public function auth()
@@ -46,12 +57,34 @@ class AuthController extends Controller
             } else {
                 // Handle jika user tidak ditemukan
                 // Misalnya, arahkan ke halaman login
-                $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
-                return redirect($login_url);
+                // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
+                // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
+                // return redirect($login_url);
+                switch(env('APP_env')){
+                    case 'live':
+                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
+                        break;
+                    case 'dev':
+                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                        break;
+                    default:
+                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth')
+                }
             }
         } else {
-            $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
-            return redirect($login_url);
+            // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
+            // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
+            // return redirect($login_url);
+            switch(env('APP_env')){
+                case 'live':
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
+                    break;
+                case 'dev':
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                    break;
+                default:
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth')
+            }
         }
     }
 

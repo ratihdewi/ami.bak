@@ -254,12 +254,16 @@
     var wrapper = $(".luar");
     var add_btn = $(".moreItems_add");
     var unit_kerja = "{{ $beritaacara_->auditee->unit_kerja }}";
+    var auditee_id = "{{ $beritaacara_->auditee_id }}";
+    var auditee_id = "{{ $beritaacara_->auditee_id }}"
+    console.log(auditee_id);
+    
 
     $('#inputPosisi1').change(function(){
       var posisi = $(this).val();
       var auditee_id = "{{ $beritaacara_->auditee_id }}"
+      console.log(auditee_id);
       var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
-      var urlAuditee = '{{ route("BA-daftarhadir-searchAuditee") }}';
       
       if(posisi == "Auditor"){
         $.ajax({
@@ -310,44 +314,23 @@
             console.error('Terjadi kesalahan saat memuat data users.');
             }
         });
-        // $.ajax({
-        //   url: urlAuditor,
-        //   type: 'get',
-        //   dataType: 'json',
-        //   success: function(response){
-        //       $("#inputAbsenNama1").empty();
-        //       if(response != null){
-        //           response.forEach(respon => {
-        //               $('#inputAbsenNama1').append($('<option>', { 
-        //                   value: respon.nama,
-        //                   text : respon.nama, 
-        //               }));
-                      
-        //           });
-                  
-        //       }
-        //   }
-        // });
       } 
       else {
         $.ajax({
-          url: urlAuditee,
+          url: '/BA-daftarhadir-searchAuditee/' + auditee_id,
           type: 'get',
           dataType: 'json',
           success: function(response){
-              $("#inputAbsenNama1").empty();
-              $('#inputAbsenNama1').append('<option value="" selected disabled>Pilih Auditee</option>');
+              $("#inputAbsenNama"+i).empty();
+              $('#inputAbsenNama'+i).append('<option value="" selected disabled>Pilih Auditee</option>');
               if(response != null){
                   response.forEach(respon => {
-
-                    var unitKerja = respon.unitkerja;
-
-                    if (unitKerja.name == unit_kerja) {
-                      $('#inputAbsenNama1').append($('<option>', { 
+                    
+                      $('#inputAbsenNama'+i).append($('<option>', { 
                           value: respon.name,
                           text : respon.name, 
                       }));
-                    }
+                    
                   });
                   
               }
@@ -372,7 +355,6 @@
             var posisi = $(this).val();
             var auditee_id = "{{ $beritaacara_->auditee_id }}"
             var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
-            var urlAuditee = '{{ route("BA-daftarhadir-searchAuditee") }}';
             
             if(posisi == "Auditor"){
               $.ajax({
@@ -426,7 +408,7 @@
             } 
             else {
               $.ajax({
-                url: urlAuditee,
+                url: '/BA-daftarhadir-searchAuditee/' + auditee_id,
                 type: 'get',
                 dataType: 'json',
                 success: function(response){
@@ -434,15 +416,12 @@
                     $('#inputAbsenNama'+i).append('<option value="" selected disabled>Pilih Auditee</option>');
                     if(response != null){
                         response.forEach(respon => {
-                          var unitKerja = respon.unitkerja;
-
-                          if (unitKerja.name == unit_kerja) {
+                          
                             $('#inputAbsenNama'+i).append($('<option>', { 
                                 value: respon.name,
                                 text : respon.name, 
                             }));
-                            $('#inputAbsenNama'+i).select2();
-                          }
+                          
                         });
                         
                     }

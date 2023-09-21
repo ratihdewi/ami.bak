@@ -120,7 +120,17 @@ class BeritaAcaraController extends Controller
     public function indexAuditee()
     {
         $user_unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
-        $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->get();
+        $user_unitkerja2 = UnitKerja::where('id', Auth::user()->unitkerja_id2)->first();
+        $user_unitkerja3 = UnitKerja::where('id', Auth::user()->unitkerja_id3)->first();
+        if ($user_unitkerja2 != null && $user_unitkerja3 != null) {
+            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja2->name)->orWhere('unit_kerja', $user_unitkerja3->name)->get();
+        } elseif ($user_unitkerja2 != null && $user_unitkerja3 == null) {
+            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja2->name)->get();
+        } elseif ($user_unitkerja2 == null && $user_unitkerja3 != null) {
+            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja3->name)->get();
+        } else {
+            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->get();
+        }
         
         $daftartilik_ = DaftarTilik::all();
 

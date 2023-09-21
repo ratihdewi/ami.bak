@@ -15,8 +15,9 @@ class UserController extends Controller
     public function index()
     {
         $data = User::where('status', 'aktif')->get();
+        $unitkerja = UnitKerja::all();
         // dd($data);
-        return view('spm/daftarUser', compact('data'));
+        return view('spm/daftarUser', compact('data', 'unitkerja'));
     }
 
     public function tambahuser()
@@ -48,8 +49,10 @@ class UserController extends Controller
         $data = User::find($id);
         $unitkerjas = UnitKerja::all();
         $roles = Role::all();
-        // dd($data);
-        return view('spm/updateUser', compact('data', 'unitkerjas', 'roles'));
+
+        $unitkerja2 = UnitKerja::find($data->unitkerja_id2);
+        $unitkerja3 = UnitKerja::find($data->unitkerja_id3);
+        return view('spm/updateUser', compact('data', 'unitkerjas', 'roles', 'unitkerja2', 'unitkerja3'));
     }
 
     public function updatedata(Request $request, $id)
@@ -62,9 +65,13 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $data->password,
             'unitkerja_id' => $request->unitkerja_id,
+            'unitkerja_id2' => $request->unitkerja_id2,
+            'unitkerja_id3' => $request->unitkerja_id3,
             'username' => $request->username,
             'role_id' => $request->role_id,
             'jabatan' => $request->jabatan,
+            'jabatan2' => $request->jabatan2,
+            'jabatan3' => $request->jabatan3,
             'noTelepon' => $request->noTelepon,
         ]);
         $data->save();

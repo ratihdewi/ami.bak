@@ -23,21 +23,21 @@
                             <div class="card-body p-4">
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="nip" class="form-label">NIP <span class="text-danger fw-bold">*</span></label>
+                                        <label for="nip" class="form-label fw-semibold">NIP <span class="text-danger fw-bold">*</span></label>
                                         <input type="string" name="nip" class="form-control" id="nip" placeholder="nip" aria-label="nip" required>
                                     </div>
                                     <div class="col">
-                                        <label for="nama" class="form-label">Nama <span class="text-danger fw-bold">*</span></label>
+                                        <label for="nama" class="form-label fw-semibold">Nama <span class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="name" class="form-control" id="nama" placeholder="Nama Auditor" aria-label="Nama" required>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="email" class="form-label">Email <span class="text-danger fw-bold">*</span></label>
+                                        <label for="email" class="form-label fw-semibold">Email <span class="text-danger fw-bold">*</span></label>
                                         <input type="email" name="email" class="form-control" id="email" placeholder="Email" aria-label="Email" required>
                                     </div>
                                     <div class="col">
-                                        <label for="selectRole" class="form-label"
+                                        <label for="selectRole" class="form-label fw-semibold"
                                             >Role <span class="text-danger fw-bold">*</span></label
                                         >
                                         <select
@@ -57,17 +57,17 @@
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="username" class="form-label">Username <span class="text-danger fw-bold">*</span></label>
+                                        <label for="username" class="form-label fw-semibold">Username <span class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="username" class="form-control" id="username" placeholder="Username" aria-label="Username" required>
                                     </div>
                                     <div class="col">
-                                        <label for="pwd" class="form-label">Password <span class="text-danger fw-bold">*</span></label>
+                                        <label for="pwd" class="form-label fw-semibold">Password <span class="text-danger fw-bold">*</span></label>
                                         <input type="password" name="password" class="form-control" id="pwd" placeholder="Password" aria-label="Password" required>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="selectUnitKerja" class="form-label"
+                                        <label for="selectUnitKerja" class="form-label fw-semibold"
                                             >Unit Kerja <span class="text-danger fw-bold">*</span></label
                                         >
                                         <select
@@ -88,14 +88,68 @@
                                     </div>
                                     <div class="col">
                                         <div class="col">
-                                            <label for="jabatan" class="form-label">Jabatan <span class="text-danger fw-bold">*</span></label>
+                                            <label for="jabatan" class="form-label fw-semibold">Jabatan <span class="text-danger fw-bold">*</span></label>
                                             <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" required>
                                         </div>    
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="noTelepon" class="form-label">Nomor Telepon</label>
+                                        <label for="selectUnitKerja2" class="form-label fw-semibold"
+                                            >Unit Kerja (Opsional)</label
+                                        >
+                                        <select
+                                            id="selectUnitKerja2"
+                                            class="form-select"
+                                            name="unitkerja_id2"
+                                        >
+                                            <option value="">
+                                                Pilih unit kerja
+                                            </option>
+                                            @foreach ($unitkerjas as $unitkerja)
+                                            <option value="{{ $unitkerja->id }}">
+                                                {{ $unitkerja->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <label for="jabatan2" class="form-label fw-semibold">Jabatan (Opsional)</label>
+                                            <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Jabatan" aria-label="Jabatan">
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <label for="selectUnitKerja3" class="form-label fw-semibold"
+                                            >Unit Kerja (Opsional)</label
+                                        >
+                                        <select
+                                            id="selectUnitKerja3"
+                                            class="form-select"
+                                            name="unitkerja_id3"
+                                        >
+                                            <option value="">
+                                                Pilih unit kerja
+                                            </option>
+                                            @foreach ($unitkerjas as $unitkerja)
+                                            <option value="{{ $unitkerja->id }}">
+                                                {{ $unitkerja->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <label for="jabatan3" class="form-label fw-semibold">Jabatan (Opsional)</label>
+                                            <input type="text" name="jabatan3" class="form-control" id="jabatan3" placeholder="Jabatan" aria-label="Jabatan">
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <label for="noTelepon" class="form-label fw-semibold">Nomor Telepon</label>
                                         <input type="tel" placeholder="08XXXXXXXXXX" name="noTelepon" class="form-control" id="noTelepon" aria-label="noTelepon">  
                                     </div>
                                 </div>
@@ -124,6 +178,8 @@
         $(document).ready(function(){
             $('#selectUnitKerja').select2();
             $('#selectRole').select2();
+            $('#selectUnitKerja2').select2();
+            $('#selectUnitKerja3').select2();
         })
     </script>
 @endpush

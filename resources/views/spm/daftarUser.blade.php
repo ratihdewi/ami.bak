@@ -8,7 +8,7 @@
 
 @section('container')
 
-<div class="container my-4">
+<div class="container my-4" style="min-height: 100vh">
     <div class="row mx-1">
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
@@ -49,10 +49,18 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->username }}</td>
                 <td class="text-center">{{ $item->role->name }}</td>
-                <td>{{ $item->unitkerja->name }}</td>
+                <td>
+                    {{ $item->unitkerja->name }} <br> 
+                    @foreach ($unitkerja->where('id', $item->unitkerja_id2) as $unitkerja2)
+                    {{ $unitkerja2->name }}
+                    @endforeach
+                    @foreach ($unitkerja->where('id', $item->unitkerja_id3) as $unitkerja3)
+                    {{ $unitkerja3->name }}
+                    @endforeach
+                </td>
                 <td class="text-center">
-                    <a href="tampilUser/{{ $item->id }}" class="mx-2"
-                        ><button class="bg-primary border-0 rounded-1 me-2"><i class="bi bi-pencil-square text-white"></i></button></a>
+                    <a href="tampilUser/{{ $item->id }}" class="mx-1"
+                        ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
                     <a href="deleteUser/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus user {{ $item->name }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                 </td>
             </tr>

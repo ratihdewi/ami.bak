@@ -14,8 +14,8 @@ class UnitKerja extends Model
         'fakultas',
     ];
 
-    public function unitkerja()
+    public function user()
     {
-        return $this->hasMany(UnitKerja::class);
+        return $this->hasMany(User::class);
     }
 }

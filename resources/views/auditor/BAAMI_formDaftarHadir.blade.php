@@ -118,7 +118,6 @@
       var posisi = $(this).val();
       var auditee_id = "{{ $beritaacara_->auditee_id }}"
       var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
-      var urlAuditee = '{{ route("BA-daftarhadir-searchAuditee") }}';
       
       if(posisi == "Auditor"){
         $.ajax({
@@ -169,46 +168,7 @@
             console.error('Terjadi kesalahan saat memuat data users.');
             }
         });
-        // $.ajax({
-        //   url: urlAuditor,
-        //   type: 'get',
-        //   dataType: 'json',
-        //   success: function(response){
-        //       $("#inputAbsenNama1").empty();
-        //       if(response != null){
-        //           response.forEach(respon => {
-        //               $('#inputAbsenNama1').append($('<option>', { 
-        //                   value: respon.nama,
-        //                   text : respon.nama, 
-        //               }));
-                      
-        //           });
-                  
-        //       }
-        //   }
-        // });
       } 
-      else {
-        $.ajax({
-          url: urlAuditee,
-          type: 'get',
-          dataType: 'json',
-          success: function(response){
-              $("#inputAbsenNama1").empty();
-              if(response != null){
-                  response.forEach(respon => {
-                    if (respon.unit_kerja == unit_kerja) {
-                      $('#inputAbsenNama1').append($('<option>', { 
-                          value: respon.name,
-                          text : respon.name, 
-                      }));
-                    }
-                  });
-                  
-              }
-          }
-        });
-      }
       
     });
 
@@ -229,7 +189,6 @@
             var posisi = $(this).val();
             var auditee_id = "{{ $beritaacara_->auditee_id }}"
             var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
-            var urlAuditee = '{{ route("BA-daftarhadir-searchAuditee") }}';
             if(posisi == "Auditor"){
               $.ajax({
                   url: urlAuditor,
@@ -280,26 +239,6 @@
                   }
               });
             } 
-            else {
-              $.ajax({
-                url: urlAuditee,
-                type: 'get',
-                dataType: 'json',
-                success: function(response){
-                    $("#inputAbsenNama"+i).empty();
-                    if(response != null){
-                        response.forEach(respon => {
-                            $('#inputAbsenNama'+i).append($('<option>', { 
-                                value: respon.name,
-                                text : respon.name, 
-                            }));
-                            
-                        });
-                        
-                    }
-                }
-              });
-            }
             
           });
     });
@@ -307,34 +246,6 @@
     $(document).on('click', '#remove-tr', function(){  
       $(this).parents('.add-new').remove();
     });
-
-    // function alifa(params) {
-    //   var urlAuditor = '{{ route("BA-daftarhadir-searchAuditor") }}';
-    //   var test;
-    //   if (params = 'Auditor') {
-    //     $.ajax({
-    //       url: urlAuditor,
-    //       type: 'get',
-    //       async: false,
-    //       dataType: 'json',
-    //       success: function(response){
-    //           $("#inputAbsenNama").empty();
-      
-    //           if(response != null){
-    //               response.forEach(respon => {
-    //                   $('#inputAbsenNama').append($('<option>', { 
-    //                       value: respon.nama,
-    //                       text : respon.nama, 
-    //                   }));
-                      
-    //               });
-                  
-    //           }
-    //       }
-    //     });
-    //   }
-    //   return test;
-    // }
 
   </script>
 @endpush

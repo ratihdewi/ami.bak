@@ -7,6 +7,7 @@ use Redirect;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\UnitKerja;
 use App\Models\BeritaAcara;
 use App\Models\DaftarHadir;
 use Illuminate\Http\Request;
@@ -78,9 +79,61 @@ class DaftarHadirController extends Controller
         }
     }
 
-    public function getAuditee()
+    public function getAuditee($auditee_id)
     {
-        $users = User::with('unitkerja')->get();
+        $auditee = Auditee::find($auditee_id);
+        $unitkerja = UnitKerja::where('name', $auditee->unit_kerja)->first();
+
+        $users = User::where('unitkerja_id', $unitkerja->id)->orWhere('unitkerja_id2', $unitkerja->id)->orWhere('unitkerja_id3', $unitkerja->id)->get();
+        // $unit_kerja1 = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
+        // $unit_kerja2 = UnitKerja::where('id', Auth::user()->unitkerja_id2)->first();
+        // $unit_kerja3 = UnitKerja::where('id', Auth::user()->unitkerja_id3)->first();
+
+        // if ($unit_kerja2 != null && $unit_kerja3 != null) {
+
+        //     $user = User::where('unitkerja_id', $unit_kerja1->id)->orWhere('unitkerja_id2', $unit_kerja2->id)->orWhere('unitkerja_id3', $unit_kerja3->id)->get();
+
+        //     $users = [
+        //         'user' => $user,
+        //         'unit_kerja1' => $unit_kerja1,
+        //         'unit_kerja2' => $unit_kerja2,
+        //         'unit_kerja3' => $unit_kerja3,
+        //     ];
+        
+        //     return response()->json($users);
+
+        // } elseif ($unit_kerja2 != null && $unit_kerja3 == null) {
+
+        //     $user = User::where('unitkerja_id', $unit_kerja1->id)->orWhere('unitkerja_id2', $unit_kerja2->id)->get();
+
+        //     $users = [
+        //         'user' => $user,
+        //         'unit_kerja1' => $unit_kerja1,
+        //         'unit_kerja2' => $unit_kerja2,
+        //     ];
+        
+        //     return response()->json($users);
+
+        // } elseif ($unit_kerja2 == null && $unit_kerja3 != null) {
+            
+        //     $user = User::where('unitkerja_id', $unit_kerja1->id)->orWhere('unitkerja_id3', $unit_kerja3->id)->get();
+
+        //     $users = [
+        //         'user' => $user,
+        //         'unit_kerja1' => $unit_kerja1,
+        //         'unit_kerja3' => $unit_kerja3,
+        //     ];
+        
+        //     return response()->json($users);
+
+        // } else {
+        //     $users = [
+        //         'user' => $user,
+        //         'unit_kerja1' => $unit_kerja1
+        //     ];
+        
+        //     return response()->json($users);
+        // }
 
         return response()->json($users);
     }

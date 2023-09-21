@@ -182,7 +182,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/BA-deletedaftarhadir/{id}', [DaftarHadirController::class, 'deletedaftarhadir'])->name('BA-deletedaftarhadir');
     Route::get('/BA-esignpeserta/{id}', [DaftarHadirController::class, 'esignpeserta'])->name('BA-esignpeserta');
     Route::get('/BA-daftarhadir-searchAuditor', [DaftarHadirController::class, 'getAuditor'])->name('BA-daftarhadir-searchAuditor');
-    Route::get('/BA-daftarhadir-searchAuditee', [DaftarHadirController::class, 'getAuditee'])->name('BA-daftarhadir-searchAuditee');
+    Route::get('/BA-daftarhadir-searchAuditee/{auditee_id}', [DaftarHadirController::class, 'getAuditee'])->name('BA-daftarhadir-searchAuditee');
     Route::get('/BA-peluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'ubahpeluangpeningkatan'])->name('BA-peluangpeningkatan');
     Route::post('/BA-addpeluangpeningkatan/{auditee_id}/{tahunperiode}', [PeluangPeningkatanController::class, 'storePeluangPeningkatan'])->name('BA-addpeluangpeningkatan');
     Route::post('/BA-updatepeluangpeningkatan/{id}', [PeluangPeningkatanController::class, 'updatepeluangpeningkatan'])->name('BA-updatepeluangpeningkatan');
