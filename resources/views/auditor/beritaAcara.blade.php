@@ -22,7 +22,7 @@
     </div>
 
     <div class="tableBA mx-3">
-        <table class="table table-hover listAuditee">
+        <table id="beritaacara" class="table table-hover listAuditee">
             <thead class="mt-5">
                 <tr class="row ListAuditeeHeader">
                     <th class="col text-center">No</th>

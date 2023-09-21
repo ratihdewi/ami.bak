@@ -255,7 +255,7 @@
                 tanggalmulai = new Date(tanggalmulai).getFullYear();
                 tanggalselesai = new Date(tanggalselesai).getFullYear();
 
-                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
+                if ((tanggalmulai != periodeawal || tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal || tanggalselesai != periodeakhir)) {
                     falseinput();
                     e.preventDefault();
                 }
@@ -289,7 +289,7 @@
                 tanggalmulai = new Date(tanggalmulai).getFullYear();
                 tanggalselesai = new Date(tanggalselesai).getFullYear();
 
-                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
+                if ((tanggalmulai != periodeawal || tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal || tanggalselesai != periodeakhir)) {
                     console.log(periodeawal);
                     console.log(tanggalmulai);
                     falseyear();

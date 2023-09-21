@@ -27,9 +27,12 @@
                 placeholder="Cari"
             />
         </div>
-        @foreach ($daftartilik_->unique('auditee_id') as $daftartilik)
-        <a href="/auditee-BA-AMI/{{ $daftartilik->auditee_id }}/{{ $daftartilik->auditee->tahunperiode }}">
+        @foreach ($pertanyaan_ as $beritaacara)
+        <a href="/auditee-BA-AMI/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}">
         @endforeach
+        {{-- @foreach ($daftartilik_->unique('auditee_id') as $daftartilik)
+        <a href="/auditee-BA-AMI/{{ $daftartilik->auditee_id }}/{{ $daftartilik->auditee->tahunperiode }}">
+        @endforeach --}}
             <button
                 type="button"
                 @if (count($pertanyaan_) == 0)
@@ -134,6 +137,24 @@
     {{-- Datatable plugin JS library file --}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script>
+
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        const alert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+        }
+
+        function alertBAAMI() {
+            alert('Tidak terdapat data Audit Lapangan (AL) yang disetujui!', 'warning');
+        }
         $(document).ready(function () {
             $("#myInput").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
@@ -147,24 +168,6 @@
         });
 
         $(document).ready(function() {
-
-            const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-
-            const alert = (message, type) => {
-                const wrapper = document.createElement('div')
-                wrapper.innerHTML = [
-                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-                `   <div>${message}</div>`,
-                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-                ].join('')
-
-                alertPlaceholder.append(wrapper)
-            }
-
-            function alertBAAMI() {
-                alert('Tidak terdapat data Audit Lapangan (AL) yang disetujui!', 'warning');
-            }
 
             $('#tableTemuanBA').DataTable({ });
         });

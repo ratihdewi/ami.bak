@@ -32,7 +32,7 @@
             <button
                 type="button"
                 @if (count($pertanyaan_) == 0)
-                onclick="alertBAAMI()"
+                    onclick="alertBAAMI()"
                 @endif
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
                 style="font-size: 15px"
