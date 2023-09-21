@@ -20,10 +20,10 @@ class AuthController extends Controller
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                 break;
             case 'dev':
-                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                 break;
             default:
-                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
         }
         // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
         // return redirect($login_url);
@@ -66,10 +66,10 @@ class AuthController extends Controller
                         return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                         break;
                     case 'dev':
-                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                         break;
                     default:
-                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                 }
             }
         } else {
@@ -81,10 +81,10 @@ class AuthController extends Controller
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                     break;
                 case 'dev':
-                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                     break;
                 default:
-                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth');
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
             }
         }
     }
