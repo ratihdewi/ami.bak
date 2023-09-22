@@ -352,19 +352,28 @@
   });
 </script>
 <script>
-
         tinymce.init({
           selector: 'textarea#pertanyaan',
           toolbar: false,
           menubar: false,
-          height: 150
+          height: 150,
+          setup: function (editor) {
+              editor.on('change', function () {
+                  saveFormData();
+              });
+          },
         });
         
         tinymce.init({
           selector: 'textarea#indikatorMutu',
           toolbar: false,
           menubar: false,
-          height: 100
+          height: 100,
+          setup: function (editor) {
+              editor.on('change', function () {
+                  saveFormData();
+              });
+          },
         });
 
         var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}">{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference) <b>**)</b></label>';
@@ -397,32 +406,38 @@
             }
         }
 
+        function saveFormData() {
+          let pertanyaan_id = '{{ $datas->id }}';
+          console.log(pertanyaan_id);
+
+          var pertanyaan = tinyMCE.get('pertanyaan').getContent();
+          var indikatorMutu = tinyMCE.get('indikatorMutu').getContent();
+
+          document.getElementById('pertanyaan').value = pertanyaan;
+          document.getElementById('indikatorMutu').value = indikatorMutu;
+
+          var formData = new FormData(document.getElementById('myForm'));
+
+          $.ajax({
+              url: '/daftartilik-updatedatapertanyaandaftartilik/' + pertanyaan_id, // Ganti dengan URL endpoint server Anda
+              method: 'POST',
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(response) {
+                  console.log('Data berhasil disimpan');
+              },
+              error: function(error) {
+                  console.error('Terjadi kesalahan saat menyimpan data');
+              }
+          });
+        }
+
         document.getElementById('myForm').addEventListener('input', function() {
             // Fungsi ini akan dipanggil setiap kali ada perubahan pada form
+            console.log("berhasil");
             saveFormData();
         });
-
-        function saveFormData() {
-            let pertanyaan_id = '{{ $datas->id }}';
-            console.log(pertanyaan_id);
-            // Menggunakan AJAX untuk mengirim data ke server
-            var formData = new FormData(document.getElementById('myForm'));
-            $.ajax({
-                url: '/daftartilik-updatedatapertanyaandaftartilik/' + pertanyaan_id, // Ganti dengan URL endpoint server Anda
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    // Berikan umpan balik ke pengguna jika sukses
-                    console.log('Data berhasil disimpan');
-                },
-                error: function(error) {
-                    // Tangani kesalahan jika terjadi
-                    console.error('Terjadi kesalahan saat menyimpan data');
-                }
-            });
-        }
 
         $(document).ready(function(){
           var max_fields = 50;

@@ -357,14 +357,24 @@
     selector: 'textarea#pertanyaan',
     toolbar: false,
     menubar: false,
-    height: 150
+    height: 150,
+    setup: function (editor) {
+        editor.on('change', function () {
+            saveFormData();
+        });
+    },
   });
 
   tinymce.init({
     selector: 'textarea#indikatorMutu',
     toolbar: false,
     menubar: false,
-    height: 100
+    height: 100,
+    setup: function (editor) {
+        editor.on('change', function () {
+            saveFormData();
+        });
+    },
   });
 
   var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" @if ((Auth::user()->name != $datas->auditee->ketua_auditor && Auth::user()->name != $datas->auditee->anggota_auditor && Auth::user()->name != $datas->auditee->anggota_auditor2) || ($datas->approvalAuditor == "Disetujui Auditor" && $datas->approvalAuditee == "Disetujui Auditee") || ($currentDate > $datas->daftartilik->bataspengisianRespon)){{ "readonly" }}@endif>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b> <span class="text-danger fw-bold">*</span></label>';
@@ -404,8 +414,15 @@
   function saveFormData() {
       let pertanyaan_id = '{{ $datas->id }}';
       console.log(pertanyaan_id);
-      // Menggunakan AJAX untuk mengirim data ke server
+
+      var pertanyaan = tinyMCE.get('pertanyaan').getContent();
+      var indikatorMutu = tinyMCE.get('indikatorMutu').getContent();
+
+      document.getElementById('pertanyaan').value = pertanyaan;
+      document.getElementById('indikatorMutu').value = indikatorMutu;
+
       var formData = new FormData(document.getElementById('myForm'));
+
       $.ajax({
           url: '/daftartilik-updatedatapertanyaandaftartilik/' + pertanyaan_id, // Ganti dengan URL endpoint server Anda
           method: 'POST',

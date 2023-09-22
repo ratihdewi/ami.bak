@@ -351,6 +351,10 @@
                 var thperiodeakhir = $('#th_ajaran2').val();
                 haritgl = new Date(haritgl).getFullYear();
 
+                console.log(thperiodeawal);
+                console.log(thperiodeakhir);
+                console.log(haritgl);
+
                 if (haritgl != thperiodeawal && haritgl != thperiodeakhir) {
                     console.log("Tanggal tidak sesuai dengan tahun ajaran");
                     $('#validationMessage').text("Gagal - Tanggal tidak sesuai");

@@ -304,111 +304,111 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-        tinymce.init({
-          selector: 'textarea#pertanyaan',
-          toolbar: false,
-          menubar: false,
-          height: 150
-        });
+  tinymce.init({
+    selector: 'textarea#pertanyaan',
+    toolbar: false,
+    menubar: false,
+    height: 150
+  });
 
-        tinymce.init({
-          selector: 'textarea#indikatorMutu',
-          toolbar: false,
-          menubar: false,
-          height: 100
-        });
+  tinymce.init({
+    selector: 'textarea#indikatorMutu',
+    toolbar: false,
+    menubar: false,
+    height: 100
+  });
 
-        function display() {
-            var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR"></textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference) <b>**)</b></label>';
+  function display() {
+      var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR"></textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference) <b>**)</b></label>';
 
-            if(document.getElementById('kategoriKTS').checked) {
-                document.getElementById("narasiPLOR").innerHTML
-                    = plor;
+      if(document.getElementById('kategoriKTS').checked) {
+          document.getElementById("narasiPLOR").innerHTML
+              = plor;
+      }
+      else if(document.getElementById('kategoriOB').checked) {
+          document.getElementById("narasiPLOR").innerHTML
+              = plor; 
+      } else {
+          document.getElementById("narasiPLOR").innerHTML
+                = ''; 
+      }
+  }
+
+  var isInputPending = false; // Menyimpan status input yang tertunda
+  var questionId = null; // Menyimpan ID pertanyaan yang sudah ada
+  var idPertanyaan = null;
+
+  var inputElements = document.querySelectorAll('input, textarea, select');
+
+  // Tambahkan event listener ke setiap elemen input untuk mengatur isInputPending menjadi true saat ada perubahan
+  inputElements.forEach(function(input) {
+      input.addEventListener('input', function() {
+          isInputPending = true;
+      });
+  });
+
+  window.addEventListener('beforeunload', function(event) {
+    if (isInputPending) {
+      
+      var confirmationMessage = 'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman? Data yang belum disimpan akan hilang.';
+      var userConfirmed = window.confirm(confirmationMessage);
+      
+      // Jika pengguna memilih "Batal," cegah perubahan halaman
+      if (!userConfirmed) {
+          event.preventDefault();
+          event.returnValue = '';
+      }
+      
+      // Jika pengguna memilih "OK," panggil fungsi saveFormData
+      if (userConfirmed) {
+          saveFormData();
+      }
+    }
+  });
+
+  function saveFormData() {
+    // Menggunakan AJAX untuk mengirim data ke server
+    var formData = new FormData(document.getElementById('myForm'));
+    idPertanyaan = null;
+
+    // Jika ada ID pertanyaan yang sudah ada, kirimkan ID tersebut bersama data form
+    if (questionId !== null) {
+        formData.append('question_id', questionId);
+    }
+
+    // Mengembalikan promise
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: '/daftartilik-autosavepertanyaan', // Ganti dengan URL endpoint server Anda
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Jika server mengembalikan ID pertanyaan, simpan ID tersebut
+                if (response.hasOwnProperty('question_id')) {
+                    questionId = response.question_id;
+                }
+                // Berikan umpan balik ke pengguna jika sukses
+                console.log('Data berhasil disimpan');
+                console.log(response);
+                idPertanyaan = response.data.id;
+                console.log("ID Pertanyaan = " + idPertanyaan);
+                
+                // Setelah penyimpanan berhasil, atur isInputPending menjadi false
+                isInputPending = false;
+                resolve(response); // Mengembalikan response
+            },
+            error: function(error) {
+                // Tangani kesalahan jika terjadi
+                console.error('Terjadi kesalahan saat menyimpan data');
+                // Setelah terjadi kesalahan, atur isInputPending menjadi false untuk mencegah autosave terus-menerus
+                isInputPending = false;
+                reject(error); // Mengembalikan error
             }
-            else if(document.getElementById('kategoriOB').checked) {
-                document.getElementById("narasiPLOR").innerHTML
-                    = plor; 
-            } else {
-                document.getElementById("narasiPLOR").innerHTML
-                      = ''; 
-            }
-        }
-
-        var isInputPending = false; // Menyimpan status input yang tertunda
-        var questionId = null; // Menyimpan ID pertanyaan yang sudah ada
-        var idPertanyaan = null;
-
-        var inputElements = document.querySelectorAll('input, textarea, select');
-
-        // Tambahkan event listener ke setiap elemen input untuk mengatur isInputPending menjadi true saat ada perubahan
-        inputElements.forEach(function(input) {
-            input.addEventListener('input', function() {
-                isInputPending = true;
-            });
         });
-
-        window.addEventListener('beforeunload', function(event) {
-          if (isInputPending) {
-            
-            var confirmationMessage = 'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman? Data yang belum disimpan akan hilang.';
-            var userConfirmed = window.confirm(confirmationMessage);
-            
-            // Jika pengguna memilih "Batal," cegah perubahan halaman
-            if (!userConfirmed) {
-                event.preventDefault();
-                event.returnValue = '';
-            }
-            
-            // Jika pengguna memilih "OK," panggil fungsi saveFormData
-            if (userConfirmed) {
-                saveFormData();
-            }
-        }
-        });
-
-        function saveFormData() {
-          // Menggunakan AJAX untuk mengirim data ke server
-          var formData = new FormData(document.getElementById('myForm'));
-          idPertanyaan = null;
-
-          // Jika ada ID pertanyaan yang sudah ada, kirimkan ID tersebut bersama data form
-          if (questionId !== null) {
-              formData.append('question_id', questionId);
-          }
-
-          // Mengembalikan promise
-          return new Promise(function(resolve, reject) {
-              $.ajax({
-                  url: '/daftartilik-autosavepertanyaan', // Ganti dengan URL endpoint server Anda
-                  method: 'POST',
-                  data: formData,
-                  processData: false,
-                  contentType: false,
-                  success: function(response) {
-                      // Jika server mengembalikan ID pertanyaan, simpan ID tersebut
-                      if (response.hasOwnProperty('question_id')) {
-                          questionId = response.question_id;
-                      }
-                      // Berikan umpan balik ke pengguna jika sukses
-                      console.log('Data berhasil disimpan');
-                      console.log(response);
-                      idPertanyaan = response.data.id;
-                      console.log("ID Pertanyaan = " + idPertanyaan);
-                      
-                      // Setelah penyimpanan berhasil, atur isInputPending menjadi false
-                      isInputPending = false;
-                      resolve(response); // Mengembalikan response
-                  },
-                  error: function(error) {
-                      // Tangani kesalahan jika terjadi
-                      console.error('Terjadi kesalahan saat menyimpan data');
-                      // Setelah terjadi kesalahan, atur isInputPending menjadi false untuk mencegah autosave terus-menerus
-                      isInputPending = false;
-                      reject(error); // Mengembalikan error
-                  }
-              });
-          });
-        }
+    });
+  }
 
   $(document).ready(function(){
     var max_fields = 50;
