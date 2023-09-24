@@ -240,9 +240,7 @@ class DaftarTilikController extends Controller
         $unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
         $dataUser = Auditee::where('unit_kerja', $unitkerja->name)->orderBy('tahunperiode0', 'ASC')->get();
 
-        if (Auth::user()->peran == "auditee") {
-            return view('auditee/daftarTilik-tahun', compact('data_'));
-        } 
+        return view('auditee/daftarTilik-tahun', compact('data_'));
     }
 
     public function getAuditor($auditee_id)

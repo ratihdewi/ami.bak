@@ -227,11 +227,14 @@
                     </div>
                 @endif
               </div>
-              <div class="row mx-2 mb-4 px-1">
-                <label for="inputDokSahih" class="form-label">Dokumen Bukti Sahih</label>
-                <a href="/dokumensahih">
-                  <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100"><b>Dokumen Bukti Sahih</b></button>
-                </a>
+              <div class="row mt-2 mx-4">
+                <div id="liveAlertPlaceholder" class="px-0"></div>
+              </div>
+              <div class="row mx-4 mb-4 px-1">
+                <label for="inputDokSahih" class="form-label px-0">Dokumen Bukti Sahih</label>
+                {{-- <a href="/dokumensahih"> --}}
+                <button id="inputDokSahih" type="button" class="btn btn-outline-secondary w-100" onclick="alertdoksahih()"><b>Dokumen Bukti Sahih</b></button>
+                {{-- </a> --}}
               </div>
               <div class="form-floating mb-3 mx-4">
                 <textarea class="form-control" placeholder="Tuliskan respon Auditee disini" id="responAuditee" style="height: 100px" name="responAuditee"></textarea>
@@ -304,6 +307,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
+
+  const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+  const alert = (message, type) => {
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>'
+      ].join('')
+
+      alertPlaceholder.append(wrapper)
+  }
+
+  function alertdoksahih() {
+      alert('Dokumen Bukti Sahih tidak dapat diisi ketika perencanaan daftar tilik! Silahkan isi saat pengisian daftar tilik (edit).', 'warning');
+  }
+
   tinymce.init({
     selector: 'textarea#pertanyaan',
     toolbar: false,
@@ -404,7 +426,7 @@
                 console.error('Terjadi kesalahan saat menyimpan data');
                 // Setelah terjadi kesalahan, atur isInputPending menjadi false untuk mencegah autosave terus-menerus
                 isInputPending = false;
-                reject(error); // Mengembalikan error
+                // reject(error); // Mengembalikan error
             }
         });
     });
@@ -468,7 +490,6 @@
 
       
       if (butirStandar == '' && nomorButir == '' && pertanyaan == '' && indikatorMutu == '' && targetStandar == '' && referensi == '' && keterangan == '' && responAuditee == '' && responAuditor == '' && kategori == '' && narasiPLOR == '' && inisialAuditor == '' && skorAuditor == '') {
-        console.log("Gagal");
         $.ajax({
           url: '/fotokegiatan/' + auditee_id,
           method: 'GET',

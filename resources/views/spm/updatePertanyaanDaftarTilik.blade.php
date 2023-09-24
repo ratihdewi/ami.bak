@@ -419,7 +419,7 @@
           var formData = new FormData(document.getElementById('myForm'));
 
           $.ajax({
-              url: '/daftartilik-updatedatapertanyaandaftartilik/' + pertanyaan_id, // Ganti dengan URL endpoint server Anda
+              url: '/daftartilik-updatedatapertanyaandaftartilik/' + pertanyaan_id,
               method: 'POST',
               data: formData,
               processData: false,
