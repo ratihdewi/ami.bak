@@ -113,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/daftarAuditor-periode-addperiode', [TahunPeriodeController::class, 'store'])->name('addperiode');
     Route::post('/daftarAuditee-periode-addperiode', [TahunPeriodeController::class, 'storeauditee'])->name('auditee.addperiode');
     Route::get('/daftarauditor-deleteperiode/{id}', [TahunPeriodeController::class, 'delete'])->name('auditor-deleteperiode');
+    Route::get('/daftarauditee-deleteperiode/{id}', [TahunPeriodeController::class, 'deleteperiodeauditee'])->name('auditor-deleteperiode');
     // Route::get('/daftarAuditor-periode', [AuditorController::class, 'indexpertahun'])->name('auditor-periode');
     Route::get('/daftarAuditee-periode', [AuditeeController::class, 'indexpertahun'])->name('auditee-periode');
     Route::get('/daftartilik-periode', [DaftarTilikController::class, 'indexpertahun'])->name('daftartilik-periode');

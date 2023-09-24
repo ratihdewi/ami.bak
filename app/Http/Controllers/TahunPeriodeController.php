@@ -49,8 +49,6 @@ class TahunPeriodeController extends Controller
         $tahunselesai = $tanggalselesai->year;
         $pengurangantahun = $tahunselesai - $tahunmulai;
 
-        dd($pengurangantahun);
-
         $exist = TahunPeriode::where('tahunperiode1', $request->tahunperiode1)->where('tahunperiode2', $request->tahunperiode2)->where('keterangan', 'Periode Auditee')->exists();
 
         if (!$exist) {
@@ -79,5 +77,13 @@ class TahunPeriodeController extends Controller
 
         $data->delete();
         return redirect()->route('auditor-periode')->with('success', 'Tahun periode berhasil dihapus!');
+    }
+
+    public function deleteperiodeauditee($id)
+    {
+        $data = TahunPeriode::find($id);
+
+        $data->delete();
+        return redirect()->route('auditee-periode')->with('success', 'Tahun periode berhasil dihapus!');
     }
 }

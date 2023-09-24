@@ -40,11 +40,21 @@ class AuditorController extends Controller
 
     public function updatedatamodal(Request $request, $id)
     {
+        // dd($request->all());
+        $tanggalmulai = Carbon::parse($request->tgl_mulai);
+        $tanggalselesai = Carbon::parse($request->tgl_berakhir);
+        $tahunmulai = $tanggalmulai->year;
+        $tahunselesai = $tanggalselesai->year;
+        $pengurangantahun = $tahunselesai - $tahunmulai;
         $tahunperiode = TahunPeriode::find($id);
 
-        $tahunperiode->update($request->all());
+        if ((($tahunmulai == $request->tahunperiode1 || $tahunmulai == $request->tahunperiode2) && ($tahunselesai == $request->tahunperiode1 || $tahunselesai == $request->tahunperiode2)) && ($pengurangantahun == 1 || $pengurangantahun == 0)) {
+            $tahunperiode->update($request->all());
 
-        return redirect()->route('auditor-periode');
+            return redirect()->route('auditor-periode')->with('success', 'Tahun periode berhasil ditambahkan!');
+        } else {
+            return redirect()->route('auditor-periode')->with('error', 'Tanggal tidak sesuai dengan tahun periode. Silahkan masukkan data kembali!');
+        }
     }
 
     public function getAuditor()

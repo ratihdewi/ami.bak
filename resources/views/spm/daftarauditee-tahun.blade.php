@@ -109,11 +109,11 @@
                         <div class=" row mb-3">
                             <div class="col">
                                 <label for="recipient-name" class="col-form-label">Tahun periode awal <span class="text-danger fw-bold">*</span></label>
-                                <input type="number" min="2016" class="form-control" id="editthPeriodeAwal" name="tahunperiode1" required>
+                                <input type="number" min="2016" class="form-control" id="editthPeriodeAwal" name="tahunperiode1" readonly required>
                             </div>
                             <div class="col">
                                 <label for="recipient-name" class="col-form-label">Tahun periode akhir <span class="text-danger fw-bold">*</span></label>
-                                <input type="number" min="2017" class="form-control" id="editthPeriodeAkhir" name="tahunperiode2" required>
+                                <input type="number" min="2017" class="form-control" id="editthPeriodeAkhir" name="tahunperiode2" readonly required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -176,7 +176,7 @@
                         <th class="col-2 text-center">
                             <button class="border-0 rounded bg-primary" data-bs-toggle="modal" data-bs-target="#editPeriodeModal" onclick="editmodal({{ $item->id }})"><i class="bi bi-pencil-square text-white"></i></button>
                             <a href="/daftarAuditee/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></i>
-                            <a href="/daftarauditor-deleteperiode/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus periode ini?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                            <a href="/daftarauditee-deleteperiode/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus periode ini?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
                         </th>
                     </tr>
                 @endforeach
@@ -240,42 +240,6 @@
 
                 if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
                     falseinput();
-                    e.preventDefault();
-                }
-            });
-
-            const errorEdit = document.getElementById('errorEdit');
-
-            const falseAlert = (message, type) => {
-                const wrapper = document.createElement('div')
-                wrapper.innerHTML = [
-                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-                `   <div>${message}</div>`,
-                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                '</div>'
-                ].join('')
-
-                errorEdit.append(wrapper)
-            }
-
-            function falseyear() {
-                falseAlert('Tanggal pelaksanaan tidak sesuai dengan tahun periode!', 'danger');
-            }
-
-            $('#editPeriodeForm').on('submit', function(e) {
-                var periodeawal = $('#editthPeriodeAwal').val();
-                var periodeakhir = $('#editthPeriodeAkhir').val();
-
-                var tanggalmulai = $('#edittglMulai').val();
-                var tanggalselesai = $('#edittglAkhir').val();
-
-                tanggalmulai = new Date(tanggalmulai).getFullYear();
-                tanggalselesai = new Date(tanggalselesai).getFullYear();
-
-                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) && (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
-                    console.log(periodeawal);
-                    console.log(tanggalmulai);
-                    falseyear();
                     e.preventDefault();
                 }
             });

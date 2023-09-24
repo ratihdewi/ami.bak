@@ -96,7 +96,7 @@
 
     <div class="modal fade" id="editPeriodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog">
-            <form id="editPeriodeForm" action="/daftarAuditee-periode-editperiode" method="POST">
+            <form id="editPeriodeForm" action="/daftarAuditor-periode-editperiode" method="POST">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,11 +108,11 @@
                     <div class=" row mb-3">
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Tahun periode awal <span class="text-danger fw-bold">*</span></label>
-                            <input type="number" min="2016" class="form-control" id="editthPeriodeAwal" name="tahunperiode1" required>
+                            <input type="number" min="2016" class="form-control" id="editthPeriodeAwal" name="tahunperiode1" readonly required>
                         </div>
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Tahun periode akhir <span class="text-danger fw-bold">*</span></label>
-                            <input type="number" min="2017" class="form-control" id="editthPeriodeAkhir" name="tahunperiode2" required>
+                            <input type="number" min="2017" class="form-control" id="editthPeriodeAkhir" name="tahunperiode2" readonly required>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -281,24 +281,6 @@
             function falseyear() {
                 falseAlert('Tanggal pelaksanaan tidak sesuai dengan tahun periode!', 'danger');
             }
-
-            $('#editPeriodeForm').on('submit', function(e) {
-                var periodeawal = $('#editthPeriodeAwal').val();
-                var periodeakhir = $('#editthPeriodeAkhir').val();
-
-                var tanggalmulai = $('#edittglMulai').val();
-                var tanggalselesai = $('#edittglAkhir').val();
-
-                tanggalmulai = new Date(tanggalmulai).getFullYear();
-                tanggalselesai = new Date(tanggalselesai).getFullYear();
-
-                if ((tanggalmulai != periodeawal && tanggalmulai != periodeakhir) || (tanggalselesai != periodeawal && tanggalselesai != periodeakhir)) {
-                    console.log(periodeawal);
-                    console.log(tanggalmulai);
-                    falseyear();
-                    e.preventDefault();
-                }
-            });
 
             // $('#savePeriode').on('click', function() {
 

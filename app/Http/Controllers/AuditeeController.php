@@ -38,11 +38,20 @@ class AuditeeController extends Controller
 
     public function updatedatamodal(Request $request, $id)
     {
+        $tanggalmulai = Carbon::parse($request->tgl_mulai);
+        $tanggalselesai = Carbon::parse($request->tgl_berakhir);
+        $tahunmulai = $tanggalmulai->year;
+        $tahunselesai = $tanggalselesai->year;
+        $pengurangantahun = $tahunselesai - $tahunmulai;
         $tahunperiode = TahunPeriode::find($id);
 
-        $tahunperiode->update($request->all());
+        if ((($tahunmulai == $request->tahunperiode1 || $tahunmulai == $request->tahunperiode2) && ($tahunselesai == $request->tahunperiode1 || $tahunselesai == $request->tahunperiode2)) && ($pengurangantahun == 1 || $pengurangantahun == 0)) {
+            $tahunperiode->update($request->all());
 
-        return redirect()->route('auditee-periode');
+            return redirect()->route('auditee-periode')->with('success', 'Tahun periode berhasil ditambahkan!');
+        } else {
+            return redirect()->route('auditee-periode')->with('error', 'Tanggal tidak sesuai dengan tahun periode. Silahkan masukkan data kembali!');
+        }
     }
 
     public function tambahauditee($thperiode1, $thperiode2)
