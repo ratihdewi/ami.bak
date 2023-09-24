@@ -108,7 +108,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/changeroleauditor/{id}', [UserController::class, 'changeroleauditor'])->name('changeroleauditor');
     Route::get('/changeroleauditee/{id}', [UserController::class, 'changeroleauditee'])->name('changeroleauditee');
     Route::get('/changerolespm/{id}', [UserController::class, 'changerolespm'])->name('changerolespm');
-
+    Route::get('/changeroleuser/{id}', [UserController::class, 'changeroleuser'])->name('changeroleuser');
     //Route Role SPM
     Route::post('/daftarAuditor-periode-addperiode', [TahunPeriodeController::class, 'store'])->name('addperiode');
     Route::post('/daftarAuditee-periode-addperiode', [TahunPeriodeController::class, 'storeauditee'])->name('auditee.addperiode');

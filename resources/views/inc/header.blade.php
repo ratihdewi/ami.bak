@@ -16,6 +16,16 @@
             <li>
                 <a class="dropdown-item" href="/auditor-detailauditor" style="text-decoration: none; color:black">Profil</a>
             </li>
+            <li
+                @if (Auth::user()->role_id != '1')
+                    hidden
+                @endif
+                @if (Auth::user()->peran == 'spm')
+                    class="roleSPM disabled"
+                @endif
+            >
+                <a class="dropdown-item" href="/changerolespm/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (SPM)</a>
+            </li>
             <li 
                 @if (count(Auth::user()->auditor()->get('user_id')) == 0 )
                     hidden
@@ -37,14 +47,14 @@
                 <a class="dropdown-item" href="/changeroleauditee/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Auditee)</a>
             </li>
             <li
-                @if (Auth::user()->role_id != '1')
+                @if (Auth::user()->role_id == 1)
                     hidden
                 @endif
-                @if (Auth::user()->peran == 'spm')
-                    class="roleSPM disabled"
+                @if (Auth::user()->peran == 'user')
+                    class="roleAuditee disabled"
                 @endif
             >
-                <a class="dropdown-item" href="/changerolespm/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (SPM)</a>
+                <a class="dropdown-item" href="/changeroleuser/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (User)</a>
             </li>
             <li>
                 <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

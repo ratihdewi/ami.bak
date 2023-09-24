@@ -131,6 +131,19 @@ class UserController extends Controller
         }
     }
 
+    public function changeroleuser($id)
+    {
+        $user = User::find($id);
+
+        $user->update([
+            'peran' => 'user',
+        ]);
+        $user->save();
+        
+        return redirect()->route('auditee-daftarauditor-periode')->with('success', 'Selamat datang di halaman User!');
+        
+    }
+
     public function changerolespm($id)
     {
         $user_ = User::where('id', $id)->where('role_id', '1')->exists();
