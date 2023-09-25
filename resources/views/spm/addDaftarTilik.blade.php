@@ -399,11 +399,11 @@
   });
 
   function saveFormData() {
-    var pertanyaan = tinyMCE.get('pertanyaan').getContent();
-    var indikatorMutu = tinyMCE.get('indikatorMutu').getContent();
+    // var pertanyaan = tinyMCE.get('pertanyaan').getContent();
+    // var indikatorMutu = tinyMCE.get('indikatorMutu').getContent();
 
-    document.getElementById('pertanyaan').value = pertanyaan;
-    document.getElementById('indikatorMutu').value = indikatorMutu;
+    // document.getElementById('pertanyaan').value = pertanyaan;
+    // document.getElementById('indikatorMutu').value = indikatorMutu;
 
     // Menggunakan AJAX untuk mengirim data ke server
     var formData = new FormData(document.getElementById('myForm'));
