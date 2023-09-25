@@ -57,12 +57,16 @@
                 </div>
                     <div class="col-6 mb-4">
                         <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi <span class="text-danger fw-bold">*</span></label>
-                        <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi">
+                        <input type="text"
+                        {{-- onfocus="(this.type='date')" onblur="(this.type='text')" --}}
+                        aria-label="Masukkan tanggal revisi" class="form-control" id="inputTglRevisi" placeholder="DD/MM/YYYY" name="tgl_revisi">
                     </div>
                 
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku <span class="text-danger fw-bold">*</span></label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku">
+                    <input type="text" 
+                    {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
+                    class="form-control" id="inputTglBerlaku" placeholder="DD/MM/YYYY" name="tgl_berlaku">
                 </div>
             </div>
             {{-- Simpan Perubahan --}}
@@ -75,3 +79,34 @@
     </div>
 
 @endsection
+
+@push('script')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
+    <script>
+        $(document).ready(function() {
+            flatpickr("#inputTglRevisi", {
+                locale: "id",
+                dateFormat: "d-m-Y",
+                // altFormat: "DD-MM-YYYY",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+            });
+
+            flatpickr("#inputTglBerlaku", {
+                locale: "id",
+                dateFormat: "d-m-Y",
+                // altFormat: "DD-MM-YYYY",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+            });
+        })
+    </script>
+@endpush
