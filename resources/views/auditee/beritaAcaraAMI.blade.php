@@ -150,7 +150,7 @@
                         {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
                     @elseif (count($jadwalAudit_) > 1 && count($jadwalAudit_) != 1)
                         @if ($i < count($jadwalAudit_) && $i != count($jadwalAudit_))
-                            {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB,
+                            {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB;
                         @elseif ($i == count($jadwalAudit_))
                         {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
                         @endif
