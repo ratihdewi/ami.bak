@@ -270,7 +270,7 @@ class DokBAAMIController extends Controller
     {
         $approve_ = DokBA_AMI::find($id);
 
-        if (Auth::user()->peran == "auditee") {
+        if (Auth::user()->peran == "auditor") {
             $approve_->eSignAuditor = 'Disetujui';
 
             $persetujuan = new PersetujuanBA;
@@ -285,7 +285,7 @@ class DokBAAMIController extends Controller
             // dd($approve_);
             return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditor');
         } else {
-            return redirect()->back()->with('error', 'Dokumen BA-AMI hanya dapat disetujui oleh role Auditee yang memiliki peran Ketua Auditee!');
+            return redirect()->back()->with('error', 'Dokumen BA-AMI hanya dapat disetujui oleh role Auditee yang memiliki peran Ketua Auditor!');
         }
     }
 
