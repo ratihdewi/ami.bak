@@ -330,14 +330,24 @@
     selector: 'textarea#pertanyaan',
     toolbar: false,
     menubar: false,
-    height: 150
+    height: 150,
+    setup: function (editor) {
+      editor.on('change', function () {
+          saveFormData();
+      });
+    },
   });
 
   tinymce.init({
     selector: 'textarea#indikatorMutu',
     toolbar: false,
     menubar: false,
-    height: 100
+    height: 100,
+    setup: function (editor) {
+      editor.on('change', function () {
+          saveFormData();
+      });
+    },
   });
 
   function display() {
@@ -389,6 +399,12 @@
   });
 
   function saveFormData() {
+    var pertanyaan = tinyMCE.get('pertanyaan').getContent();
+    var indikatorMutu = tinyMCE.get('indikatorMutu').getContent();
+
+    document.getElementById('pertanyaan').value = pertanyaan;
+    document.getElementById('indikatorMutu').value = indikatorMutu;
+
     // Menggunakan AJAX untuk mengirim data ke server
     var formData = new FormData(document.getElementById('myForm'));
     idPertanyaan = null;
@@ -401,7 +417,7 @@
     // Mengembalikan promise
     return new Promise(function(resolve, reject) {
         $.ajax({
-            url: '/daftartilik-autosavepertanyaan', // Ganti dengan URL endpoint server Anda
+            url: '/daftartilik-autosavepertanyaan',
             method: 'POST',
             data: formData,
             processData: false,
