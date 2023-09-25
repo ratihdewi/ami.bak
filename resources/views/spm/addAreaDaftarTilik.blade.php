@@ -161,12 +161,6 @@
             enableTime: false,
             time_24hr: true,
             timeZone: "Asia/Jakarta",
-            // parseDate: (datestr, format, locale) => {
-            //     return moment(datestr, format, true).toDate();
-            // },
-            // formatDate: (date, format) => {
-            //     // locale can also be used
-            //     return moment(date).format(format);
             // }
         });
 
@@ -177,13 +171,6 @@
             enableTime: false,
             time_24hr: true,
             timeZone: "Asia/Jakarta",
-            // parseDate: (datestr, format, locale) => {
-            //     return moment(datestr, format, true).toDate();
-            // },
-            // formatDate: (date, format) => {
-            //     // locale can also be used
-            //     return moment(date).format(format);
-            // }
         });
 
         $(add_btn).click(function (e) {
