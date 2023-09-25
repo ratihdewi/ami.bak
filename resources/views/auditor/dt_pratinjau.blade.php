@@ -76,7 +76,7 @@
       </div>
       <div class="buttongrup d-flex justify-content-end">
         <div class="btn-group btn-group-sm my-3" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-success">.xlsx</button>
+            <button type="button" class="btn btn-outline-success" disabled>.xlsx</button>
             @foreach ($daftartilik_ as $daftartilik)
             <a href="/daftartilik-exportdaftartilik/{{ $daftartilik->id }}/{{ $daftartilik->auditee_id }}">
             @endforeach
