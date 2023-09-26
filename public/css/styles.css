@@ -37,7 +37,7 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-    background-color: #fefff4;
+    background-color: #F8FCFB;
     z-index: var(--z-fixed);
     transition: 0.5s;
 }
@@ -63,7 +63,7 @@ a {
     font-weight: 600px !important;
     
 }
-.l-navbar:hover {
+/* .l-navbar:hover {
     position: fixed;
     top: 0;
     width: calc(var(--nav-width) + 156px);
@@ -71,14 +71,15 @@ a {
     background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%);
     transition: 0.5s;
     z-index: var(--z-fixed);
-}
+} */
 .l-navbar {
     position: fixed;
     top: 0;
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
-    background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%);
+    background-color: #bfe9df;
+    /* background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%); */
     padding: 0.5rem 1rem 0 0;
     transition: 0.5s;
     z-index: var(--z-fixed);
@@ -453,6 +454,15 @@ tr.row.header_pertanyaandaftartilik {
 
 @media screen and (min-width: 320px) and (max-width: 425px)
 {
+    /* body {
+        left: 25%;
+        overflow-x: hidden;
+    } */
+
+    /* .l-navbar {
+        display: none;
+    } */
+
     .formTindakanKoreksi {
         overflow-x: auto;
     }
