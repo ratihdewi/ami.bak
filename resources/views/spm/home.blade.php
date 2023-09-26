@@ -1,6 +1,6 @@
 @extends('layout.main')
 
-@section('title') AMI - Selamat Datang! @endsection
+@section('title') AMI - Home @endsection
 
 @section('linking')
     <a class="mx-1" style="color: black; text-decoration: none">
