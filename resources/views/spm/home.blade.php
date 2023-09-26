@@ -19,9 +19,9 @@
             {{ $message }}
         </div>
     @endif
-    <div class="row mx-4">
+    {{-- <div class="row mx-4">
         <a href="" style="text-decoration: none">Edit</a>
-    </div>
+    </div> --}}
     <div class="home-landingpage d-flex justify-content-center pt-5" style="min-height: 100vh">
         <div class="card border border-0 w-75 d-flex justify-content-center pt-5">
             <img src="/asset/ami.png" class="card-img-top img-fluid mx-auto w-75" alt="ami">
