@@ -47,19 +47,17 @@ class AuthController extends Controller
                     'peran' => 'spm',
                 ]);
                 // session()->put('authUser', $user);
-                return redirect()->intended('/daftarAuditor-periode');
+                return redirect()->intended('/landingpage-home');
             } elseif ($user->role_id == 2) {
                 Auth::login($user);
                 $user->update([
                     'peran' => 'user',
                 ]);
                 $user->save();
-                return redirect()->intended('/auditee-daftarauditor-periode');
+                return redirect()->intended('/auditee-landingpage-home');
             } else {
                 // Handle jika user tidak ditemukan
                 // Misalnya, arahkan ke halaman login
-                // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
-                // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
                 // return redirect($login_url);
                 switch(env('APP_env')){
                     case 'local':
@@ -73,7 +71,6 @@ class AuthController extends Controller
                 }
             }
         } else {
-            // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
             // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
             // return redirect($login_url);
             switch(env('APP_env')){

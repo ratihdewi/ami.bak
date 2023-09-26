@@ -58,14 +58,14 @@ class LoginController extends Controller
                 'peran' => 'spm',
             ]);
             $user->save();
-            return redirect()->route('auditor-periode');
+            return redirect()->route('home.spm');
         }
         elseif ($user->hasRole(2)) {
             $user->update([
                 'peran' => 'user',
             ]);
             $user->save();
-            return redirect()->route('auditee-daftarauditor-periode');
+            return redirect()->route('home.auditee');
         } 
     }
 }

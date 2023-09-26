@@ -6,6 +6,13 @@
         </a>
         <div class="nav_list">
             <a
+                href="/landingpage-home"
+                class="nav_link {{ Request::routeIs('home.spm') ? 'active' : '' }}"
+            >
+                <i class="bi bi-house h3"></i>
+                <span class="nav_name"> Home </span>
+            </a>
+            <a
                 href="/daftarAuditor-periode"
                 class="nav_link {{ Request::routeIs('auditor') ? 'active' : '' || Request::routeIs('tambahauditor') ? 'active' : '' || Request::routeIs('tampilauditor') ? 'active' : '' || Request::routeIs('auditor-periode') ? 'active' : '' || Request::routeIs('tambahauditor_') ? 'active' : '' }}"
             >

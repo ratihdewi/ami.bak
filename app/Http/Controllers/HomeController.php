@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\LandingpageLink;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,26 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    function indexspm()
+    {
+        $links = LandingpageLink::where('status', '1')->get();
+
+        return view('spm/home', compact('links'));
+    }
+
+    function indexauditor()
+    {
+        $links = LandingpageLink::where('status', '1')->get();
+
+        return view('auditor/home', compact('links'));
+    }
+
+    function indexauditee()
+    {
+        $links = LandingpageLink::where('status', '1')->get();
+
+        return view('auditee/home', compact('links'));
     }
 }

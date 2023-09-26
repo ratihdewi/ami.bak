@@ -104,6 +104,7 @@ Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, 
 Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudit');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/landingpage-home', [HomeController::class, 'indexspm'])->name('home.spm');
     Route::get('/daftarAuditor-periode', [AuditorController::class, 'indexpertahun'])->name('auditor-periode');
     Route::get('/changeroleauditor/{id}', [UserController::class, 'changeroleauditor'])->name('changeroleauditor');
     Route::get('/changeroleauditee/{id}', [UserController::class, 'changeroleauditee'])->name('changeroleauditee');
@@ -251,6 +252,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/auditor-BA-AMI-updatedataBAAMI/{auditee_id}', [DokBAAMIController::class, 'updatedataBAAMI'])->name('auditor-BA-AMI-updatedataBAAMI');
     Route::get('/auditor_searchjadwal', [JadwalController::class, 'auditor_search'])->name('auditor_searchjadwal');
     Route::get('/auditor_ketersediaan-jadwal', [FullCalenderController::class, 'auditor_index']);
+    Route::get('/auditor-landingpage-home', [HomeController::class, 'indexauditor'])->name('home.auditor');
 
     //Role Auditee
     Route::get('/auditee-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditee'])->name('auditee-daftarauditee');
@@ -274,6 +276,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/auditee-BA-daftarhadir/{auditee_id}', [DaftarHadirController::class, 'auditee_editdaftarhadir'])->name('auditee-BA-daftarhadir');
     Route::get('/auditee_searchjadwal', [JadwalController::class, 'auditee_search'])->name('auditee_searchjadwal');
     Route::get('/auditee_ketersediaan-jadwal', [FullCalenderController::class, 'auditee_index']);
+    Route::get('/auditee-landingpage-home', [HomeController::class, 'indexauditee'])->name('home.auditee');
 
 
     Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
