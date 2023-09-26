@@ -108,7 +108,7 @@ class UserController extends Controller
         $user->save();
 
         if ($auditor_) {
-            return redirect()->route('auditor-daftarauditor-periode')->with('success', 'Selamat datang di halaman Auditor!');
+            return redirect()->route('home.auditor')->with('success', 'Selamat datang di halaman Auditor!');
         } else {
             return redirect()->back();
         }
@@ -125,7 +125,7 @@ class UserController extends Controller
         $user->save();
 
         if ($auditee_) {
-            return redirect()->route('auditee-daftarauditor-periode')->with('success', 'Selamat datang di halaman Auditee!');
+            return redirect()->route('home.auditee')->with('success', 'Selamat datang di halaman Auditee!');
         } else {
             return redirect()->back();
         }
@@ -140,7 +140,7 @@ class UserController extends Controller
         ]);
         $user->save();
         
-        return redirect()->route('auditee-daftarauditor-periode')->with('success', 'Selamat datang di halaman User!');
+        return redirect()->route('home.auditee')->with('success', 'Selamat datang di halaman User!');
         
     }
 
@@ -155,7 +155,7 @@ class UserController extends Controller
         $user->save();
 
         if ($user_) {
-            return redirect()->route('auditor-periode')->with('success', 'Selamat datang di halaman SPM!');
+            return redirect()->route('home.spm')->with('success', 'Selamat datang di halaman SPM!');
         } else {
             return redirect()->back();
         }

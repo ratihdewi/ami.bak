@@ -10,6 +10,15 @@
 @endsection
 
 @section('container')
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+    @elseif ($message = Session::get('error'))
+        <div class="alert alert-danger" role="alert">
+            {{ $message }}
+        </div>
+    @endif
     <div class="home-landingpage d-flex justify-content-center pt-5" style="min-height: 100vh">
         <div class="card border border-0 w-75 d-flex justify-content-center pt-5">
             <img src="/asset/ami.png" class="card-img-top img-fluid mx-auto w-75" alt="ami">
