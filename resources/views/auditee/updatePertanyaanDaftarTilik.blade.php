@@ -297,7 +297,7 @@
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label fw-semibold">Skor Auditor</label>
-              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}" readonly>
+              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor. Contoh: [4.00]" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}" readonly>
             </div>
           </div>
         </div>

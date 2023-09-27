@@ -193,7 +193,6 @@
                     return moment(date).format(format);
                 }
             });
-
             
             $(add_btn).click(function(e){
                 
@@ -203,6 +202,38 @@
 
                     $(wrapper).append('<div class="card mb-4 add-new"><div class="body-card px-5 pt-5 pb-4"><div class="row mb-4"><label for="kegiatan'+i+'" class="col-sm-3 col-form-label">Kegiatan <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="kegiatan'+i+'" name="addmore['+i+'][kegiatan]" placeholder="Masukkan kegiatan" required/></div></div><div class="row mb-4"><label for="tgl_mulai'+i+'"class="col-sm-3 col-form-label">Tanggal Mulai <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_mulai'+i+'" name="addmore['+i+'][tgl_mulai]" required/></div></div><div class="row mb-4"><label  for="tgl_berakhir'+i+'" class="col-sm-3 col-form-label">Tanggal Berakhir <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_berakhir'+i+'" name="addmore['+i+'][tgl_berakhir]" required /></div></div><button type="button" id="remove-tr" class="remove_tr btn btn-danger btn-sm float-end">Urungkan</button></div></div>')
 
+                }
+            });
+
+            flatpickr("#tgl_mulai"+i, {
+                locale: "{{ $locale }}",
+                dateFormat: "dddd, D MMM Y",
+                altFormat: "DD-MM-YYYY",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+                parseDate: (datestr, format, locale) => {
+                    return moment(datestr, format, true).toDate();
+                },
+                formatDate: (date, format) => {
+                    // locale can also be used
+                    return moment(date).format(format);
+                }
+            });
+
+            flatpickr("#tgl_berakhir"+i, {
+                dateFormat: "dddd, D MMM Y",
+                altFormat: "DD-MM-YYYY",
+                locale: "id",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+                parseDate: (datestr, format) => {
+                    return moment(datestr, format, true).toDate();
+                },
+                formatDate: (date, format, locale) => {
+                    // locale can also be used
+                    return moment(date).format(format);
                 }
             });
 
