@@ -16,7 +16,7 @@
 @endsection
 
 @section('container')
-<div class="container vh-100 pb-3">
+<div class="container pb-3" style="min-height: 100vh">
     <div class="container-fluid float-end my-3">
         @foreach ($data_ as $auditee)
         <a
@@ -55,7 +55,7 @@
             style="font-size: 13px;border-bottom: none"
         >
             <thead>
-                <tr class="row header_areadaftartilik d-flex justify-content-center mt-4">
+                <tr class="">
                     <th class="col-1 px-2 text-center">No</th>
                     <th class="col px-2 text-center">Auditee</th>
                     <th class="col px-2 text-center">Area</th>
@@ -70,7 +70,7 @@
                 @php $no = 1; @endphp
                 @foreach ($data_ as $item)
                     @foreach ($item->daftartilik()->get() as $dt)
-                    <tr class="row header_areadaftartilik d-flex justify-content-center">
+                    <tr class="">
                         <td class="col-1 px-0 text-center">{{ $no++ }}</td>
                         <td class="col px-1">{{ $item->unit_kerja }}</td>
                         <td class="col px-2">{{ $dt->area }}</td>
