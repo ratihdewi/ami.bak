@@ -178,10 +178,13 @@ class DokBAAMIController extends Controller
         //     $dataDokumen_->save();
 
         // } else {
+
+            $upperjudul = Str::upper($request->judulDokumen);
+
             $dataDokumen = new DokBA_AMI;
             $dataDokumen->beritaacara_id = $beritaacara_->id;
             $dataDokumen->auditee_id = $auditee_id;
-            $dataDokumen->judulDokumen = $request->judulDokumen;
+            $dataDokumen->judulDokumen = $upperjudul;
             $dataDokumen->kodeDokumen = $request->kodeDokumen;
             $dataDokumen->revisiKe = $request->revisiKe;
             $dataDokumen->tgl_revisi = $request->tgl_revisi;
