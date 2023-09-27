@@ -24,7 +24,7 @@
     <div class="tableBA mx-3 mt-3 mb-4">
         <table class="table table-hover my-5 listAuditee" id="beritaacara">
             <thead class="mt-5">
-                <tr class="row ListAuditeeHeader">
+                <tr class="">
                     <th class="col text-center">No</th>
                     <th class="col-6 text-center">Auditee</th>
                     <th class="col text-center">Tahun Pelaksanaan</th>
@@ -35,7 +35,7 @@
                 @php $no = 1; @endphp
                 @foreach ($auditee_ as $auditee)
                 @foreach ($auditee->beritaacara()->get() as $item)
-                <tr class="row ListAuditee">
+                <tr class="">
                     <td class="col text-center">{{ $no++ }}</td>
                     <td class="col-6">{{ $item->auditee->unit_kerja }}</td>
                     <td class="col text-center">{{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}</td>

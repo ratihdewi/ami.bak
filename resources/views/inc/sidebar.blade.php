@@ -1,10 +1,11 @@
-<nav class="nav">
-    <div id="sidebarspm">
-        <a href="#" class="nav_logo mb-4">
-            <img src="/asset/Logo-Up.png" alt="Logo-UPer" width="50" />
-            <span class="nav_logo-name"> SRIKANDI </span>
+<nav class="nav mt-5">
+    <div id="sidebarspm mt-5">
+        <a href="/landingpage-home" class="nav_logo my-4">
+            {{-- <img src="/asset/Logo-Up.png" alt="Logo-UPer" width="50" /> --}}
+            {{-- <span class="nav_logo-name"> SRIKANDI </span> --}}
+            <img src="/asset/SRIKANDI.png" alt="logo_aplikasi">
         </a>
-        <div class="nav_list">
+        <div class="nav_list mt-3">
             <a
                 href="/landingpage-home"
                 class="nav_link py-1 {{ Request::routeIs('home.spm') ? 'active' : '' }}"

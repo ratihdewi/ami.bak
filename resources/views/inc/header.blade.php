@@ -1,6 +1,11 @@
 <header class="header" id="header">
-    <div class="header_toggle">
-        <i class="bx bx-menu" id="header-toggle"></i>
+    <div class="logo">
+        <img src="/asset/logo_modified.png" alt="Logo-UPer" width="225"/>
+    </div>
+    <div class="sidebarToggle">
+        <button type="button" id="sidebarToggle" class="btn border border-0">
+            <i class="bx bx-menu h4"></i>
+        </button>
     </div>
     <div class="btn-group profile_account">
         <button
@@ -67,3 +72,16 @@
         </ul>
     </div>
 </header>
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            // $("#nav-bar").toggleClass("");
+            $("#sidebarToggle").on("click", function() {
+                $("#nav-bar").toggleClass("active");
+                $("#body-pd").toggleClass("body-pd");
+                $(this).toggleClass("active");
+            });
+        });
+    </script>
+@endpush

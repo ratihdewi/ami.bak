@@ -1,10 +1,11 @@
-<nav class="nav">
+<nav class="nav mt-5">
     <div>
-        <a href="#" class="nav_logo">
-            <img src="/asset/Logo-Up.png" alt="Logo-UPer" width="50" />
-            <span class="nav_logo-name"> SRIKANDI </span>
+        <a href="/auditee-landingpage-home" class="nav_logo my-4">
+            {{-- <img src="/asset/Logo-Up.png" alt="Logo-UPer" width="50" />
+            <span class="nav_logo-name"> SRIKANDI </span> --}}
+            <img src="/asset/SRIKANDI.png" alt="logo_aplikasi">
         </a>
-        <div class="nav_list">
+        <div class="nav_list mt-3">
             <a
                 href="/auditee-landingpage-home"
                 class="nav_link {{ Request::routeIs('home.auditee') ? 'active' : '' }}"

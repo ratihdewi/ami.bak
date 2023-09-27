@@ -74,10 +74,11 @@ a {
 } */
 .l-navbar {
     position: fixed;
-    top: 0;
+    top: 5%;
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
+    /* background-color: #bfe9df !important; */
     background-color: #bfe9df !important;
     /* background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%); */
     padding: 0.5rem 1rem 0 0;
@@ -145,9 +146,9 @@ a {
 .show {
     left: 0;
 }
-.body-pd {
+/* .body-pd {
     padding-left: calc(var(--nav-width) + 1rem);
-}
+} */
 nav .active {
     color: var(--medBlack-color);
     background-color: #ffffff;
@@ -259,8 +260,12 @@ span.fc-title {
         padding-left: calc(var(--nav-width) + 11rem);
     }
     .header {
-        height: calc(var(--header-height) + 1rem);
-        padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+        height: calc(var(--header-height) + 3.1rem);
+        padding: 0 2rem 0 0;
+        justify-content: space-between;
+    }
+    .sidebarToggle {
+        display: none;
     }
     .header_img {
         width: 40px;
@@ -276,9 +281,9 @@ span.fc-title {
     .show {
         width: calc(var(--nav-width) + 156px);
     }
-    .body-pd {
+    /* .body-pd {
         padding-left: calc(var(--nav-width) + 188px);
-    }
+    } */
 
     /*Form Auditee*/
     #main-container input .saveAddAuditee {
@@ -288,6 +293,17 @@ span.fc-title {
         width: 55% !important;
         margin-top: 22% !important;
         margin-bottom: 8% !important;
+    }
+
+    #tableAuditor_wrapper,
+    #tableAuditee_wrapper,
+    #tablejadwalaudit_wrapper,
+    #tableDaftarTilik_wrapper,
+    #tableTemuanBA_wrapper,
+    .container-pratinjau,
+    #jadwalaudit_wrapper,
+    #tableareaDT_wrapper {
+        overflow-x: auto;
     }
 }
 
@@ -338,6 +354,8 @@ span.fc-title {
         margin-top: 8% !important;
         margin-bottom: 8% !important;
     }
+
+
     /* table#tableAreaDaftarTilik,
     table#tableDaftarTilik {
         font-size: 12px !important  ;
@@ -450,19 +468,47 @@ tr.row.header_pertanyaandaftartilik {
     .btn-formTindakanKoreksi {
         width: 250%;
     }
+
+    .logo {
+        display: none;
+    }
+
+    .l-navbar.show {
+        left: -30%;
+    }
+
+    .header {
+        padding: 2rem 1rem;
+    }
+
+    .l-navbar.show.active {
+        margin-left: 30%;
+        width: auto;
+        height: 100%;
+        overflow-y: auto !important;
+    }
+
+    #tableAuditor_wrapper,
+    #tableAuditee_wrapper,
+    #tablejadwalaudit_wrapper,
+    #tableDaftarTilik_wrapper,
+    #tableTemuanBA_wrapper,
+    .container-pratinjau,
+    #tablejadwalkeseluruhanami_wrapper,
+    #tableAreaDaftarTilik_wrapper,
+    #headerPratinjau,
+    #beritaacara_wrapper,
+    #jadwalaudit_wrapper,
+    #tableareaDT_wrapper {
+        overflow-x: auto;
+    }
 }
 
 @media screen and (min-width: 320px) and (max-width: 425px)
 {
     /* body {
         left: 25%;
-        overflow-x: hidden;
     } */
-
-    /* .l-navbar {
-        display: none;
-    } */
-
     .formTindakanKoreksi {
         overflow-x: auto;
     }

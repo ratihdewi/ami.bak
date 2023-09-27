@@ -52,7 +52,7 @@
         <div class="dataDokBA mt-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Data Dokumen BA</button>
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Data Dokumen BA</button>
             </li>
             <li>
               @foreach ($auditee_ as $ba)
@@ -111,7 +111,7 @@
         <div class="dataDokBA mt-5">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Berita Acara AMI</button>
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Berita Acara AMI</button>
             </li>
           </ul>
         </div>
@@ -190,7 +190,7 @@
         <div class="dataDokBA mt-5 mx-3 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Berita Acara AMI - Daftar Hadir</button>
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Berita Acara AMI - Daftar Hadir</button>
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
@@ -239,7 +239,7 @@
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Temuan Audit</button>
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Temuan Audit</button>
             </li>
           </ul>
         </div>
@@ -272,7 +272,7 @@
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Peluang Peningkatan</button>
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Peluang Peningkatan</button>
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
@@ -317,7 +317,7 @@
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dokumen Pendukung</button>
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Dokumen Pendukung</button>
             </li>
             <li>
               @foreach ($auditee_ as $auditee)
@@ -357,7 +357,7 @@
         <div class="dataDokBA mt-5 mx-3">
           <ul class="nav nav-tabs flex-row justify-content-between" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Persetujuan</button>
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Persetujuan</button>
             </li>
           </ul>
         </div>

@@ -31,7 +31,7 @@
 @endsection
 
 @section('container')
-  <div class="container vh-100 mb-4">
+  <div class="container mb-4" style="min-height: 100vh">
       <div id="headerPratinjau" class="headerpratinjau my-4 mx-2">
         <div class="row">
             <div class="col-3 label py-2 fw-semibold text-start">Auditee</div>

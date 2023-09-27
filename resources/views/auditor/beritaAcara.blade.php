@@ -24,7 +24,7 @@
     <div class="tableBA mx-3">
         <table id="beritaacara" class="table table-hover listAuditee">
             <thead class="mt-5">
-                <tr class="row ListAuditeeHeader">
+                <tr class="">
                     <th class="col text-center">No</th>
                     <th class="col-6 text-center">Auditee</th>
                     <th class="col text-center">Tahun Pelaksanaan</th>
@@ -35,7 +35,7 @@
                 @php $no = 1; @endphp
                 @foreach ($auditees->unique('unit_kerja', 'tahunperiode') as $auditee)
                 {{-- @foreach ($auditee->daftartilik()->get() as $item) --}}
-                <tr class="row ListAuditee">
+                <tr class="">
                     <td class="col text-center">{{ $no++ }}</td>
                     <td class="col-6">{{ $auditee->unit_kerja }}</td>
                     <td class="col text-center">{{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}</td>
