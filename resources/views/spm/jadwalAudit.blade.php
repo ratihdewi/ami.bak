@@ -385,7 +385,7 @@
     });
 
     $('#profile-tab').on('click', function() {
-      $('#tambahJadwalAudit')..attr('hidden', true);
+      $('#tambahJadwalAudit').attr('hidden', true);
     });
 
     var sortedEvents;
