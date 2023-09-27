@@ -57,7 +57,7 @@
           <button class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1">Ketersediaan Jadwal Auditor dan Auditee</button>
         </li>
         <a href="jadwalaudit-tambahjadwal" class="ms-auto">
-          <button type="button" class="btn btn-primary btn-sm my-2">Tambah Jadwal</button>
+          <button type="button" id="tambahJadwalAudit" class="btn btn-primary btn-sm my-2">Tambah Jadwal</button>
         </a>
       </ul>
       <div class="tab-content" id="myTabContent">
@@ -382,6 +382,10 @@
         headers:{
             'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
         }
+    });
+
+    $('#profile-tab').on('click', function() {
+      $('#tambahJadwalAudit')..attr('hidden', true);
     });
 
     var sortedEvents;
