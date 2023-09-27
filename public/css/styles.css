@@ -176,6 +176,16 @@ li.roleSPM.disabled {
     font-size: 15px;
 }
 
+.btn.btn-outline-info.pedomanApp {
+    color: #419197;
+    border-color: #419197;
+}
+
+.btn.btn-outline-info.pedomanApp:hover {
+    color: #ffff;
+    background-color: #419197;
+}
+
 /* Jadwal Audit */
 .search {
     background: #b1e3e5;

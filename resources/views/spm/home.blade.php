@@ -27,9 +27,9 @@
             <img src="/asset/ami.png" class="card-img-top img-fluid mx-auto w-75" alt="ami">
             <div class="card-body py-2 text-center">
                 <h3 class="card-title">Selamat Datang di <b>SRIKANDI</b>!</h3>
-                <h4 class="card-text">(Sistem Informasi Akreditasi, Rekognisi, dan Audit)</h4>
+                <h4 class="card-text">(Sistem Informasi Akreditasi, Rekognisi, dan Audit Mutu Akademik)</h4>
                 <div class="button-group pt-5">
-                    <a href="#" target="_blank" class="btn btn-outline-info fw-semibold mx-3 my-2">Pedoman SRIKANDI</a>
+                    <a href="#" target="_blank" class="btn btn-outline-info pedomanApp fw-semibold mx-3 my-2">Pedoman SRIKANDI</a>
                     @foreach ($links->where('keterangan', '1') as $link)
                     <a href="{{ $link->link }}" target="_blank" class="btn btn-outline-primary fw-semibold mx-3 my-2">
                     @endforeach
