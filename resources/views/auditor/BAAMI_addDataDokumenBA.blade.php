@@ -56,11 +56,15 @@
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi <span class="text-danger fw-bold">*</span></label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan Hari/Tanggal Pelaksanaan" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi">
+                    <input type="text" 
+                    {{-- onfocus="(this.type='date')" onblur="(this.type='text')" --}}
+                    aria-label="Masukkan Hari/Tanggal Pelaksanaan" class="form-control" id="inputTglRevisi" placeholder="DD/MM/YYYY" name="tgl_revisi">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku <span class="text-danger fw-bold">*</span></label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku">
+                    <input type="text" 
+                    {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
+                    class="form-control" id="inputTglBerlaku" placeholder="DD/MM/YYYY" name="tgl_berlaku">
                 </div>
             </div>
             {{-- Simpan Perubahan --}}

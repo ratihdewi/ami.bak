@@ -57,11 +57,15 @@
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi <span class="text-danger fw-bold">*</span></label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" aria-label="Masukkan Hari/Tanggal Pelaksanaan" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
+                    <input type="text" 
+                    {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
+                    aria-label="Masukkan Hari/Tanggal Pelaksanaan" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku <span class="text-danger fw-bold">*</span></label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('Y-m-d') }}">
+                    <input type="text" 
+                    {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
+                    class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('Y-m-d') }}">
                 </div>
             </div>
             {{-- Simpan Perubahan --}}
