@@ -36,7 +36,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row">
-                                            <label for="tahunperiode" class="form-label">Tahun Periode</label>
+                                            <label for="tahunperiode" class="form-label fw-semibold">Tahun Periode <span class="text-danger fw-bold">*</span></label>
                                             <div class="col-sm-5">
                                                 <input type="number" id="tahunperiode0" name="tahunperiode0" class="form-control" placeholder="Tahun Awal" min="2016" max="{{ $currentYear }}" aria-label="Tahun Akhir" value="{{ $data->tahunperiode0 }}" oninput="validateInput()" required readonly/>
                                             </div>
@@ -50,7 +50,7 @@
                                         <p id="validationMessage" style="color: red; font-size: 10px;"></p>
                                     </div> 
                                     <div class="col">
-                                        <label for="nipAuditor" class="form-label">NIP</label>
+                                        <label for="nipAuditor" class="form-label fw-semibold">NIP <span class="text-danger fw-bold">*</span></label>
                                         <select id="nipAuditor" class="form-select" aria-label="Default select example" name="nip" required>
                                             <option selected>{{ $data->nip }}</option>
                                         </select>
@@ -58,18 +58,18 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <label for="namaAuditor" class="form-label">Nama</label>
+                                        <label for="namaAuditor" class="form-label fw-semibold">Nama <span class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="nama" class="form-control" id="namaAuditor" placeholder="Nama Auditor" aria-label="Nama Auditor" value="{{ $data->nama }}" readonly/>
                                     </div>
                                     <div class="col">
-                                        <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
+                                        <label for="nomorTelepon" class="form-label fw-semibold">Nomor Telepon</label>
                                         <input type="tel" name="noTelepon" class="form-control" id="nomorTelepon" placeholder="Nomor Telepon" aria-label="Nomor Telepon" value="{{ $data->noTelepon }}"/>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <label for="fakultas" class="form-label"
-                                            >Fakultas</label
+                                        <label for="fakultas" class="form-label fw-semibold"
+                                            >Fakultas/Direktorat <span class="text-danger fw-bold">*</span></label
                                         >
                                         <input
                                             type="text"
@@ -83,8 +83,8 @@
                                         />
                                     </div>
                                     <div class="col">
-                                        <label for="programstudi" class="form-label"
-                                            >Program Studi</label
+                                        <label for="programstudi" class="form-label fw-semibold"
+                                            >Program Studi/Fungsi <span class="text-danger fw-bold">*</span></label
                                         >
                                         <input
                                             type="text"
@@ -100,8 +100,8 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col">
-                                        <label for="tanggalmulai" class="form-label"
-                                            >Tanggal Mulai</label
+                                        <label for="tanggalmulai" class="form-label fw-semibold"
+                                            >Tanggal Mulai <span class="text-danger fw-bold">*</span></label
                                         >
                                         <input
                                             type="text"
@@ -115,8 +115,8 @@
                                         />
                                     </div>
                                     <div class="col">
-                                        <label for="tanggalberakhir" class="form-label"
-                                            >Tanggal Berakhir</label
+                                        <label for="tanggalberakhir" class="form-label fw-semibold"
+                                            >Tanggal Berakhir <span class="text-danger fw-bold">*</span></label
                                         >
                                         <input
                                             type="text"

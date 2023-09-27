@@ -28,8 +28,8 @@
                     <th class="col-1 text-center">No</th>
                     <th class="col-2 text-center">Nama</th>
                     <th class="col-1 text-center">NIP</th>
-                    <th class="col-2 text-center">Program Studi</th>
-                    <th class="col-2 text-center">Fakultas</th>
+                    <th class="col-2 text-center">Program Studi/Fungsi</th>
+                    <th class="col-2 text-center">Fakultas/Direktorat</th>
                     <th class="col-2 text-center">Nomor Telepon</th>
                 </tr>
             </thead>

@@ -72,7 +72,7 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label class="fw-semibold" for="fakultas" class="form-label"
-                                        >Fakultas <span class="text-danger fw-bold">*</span></label
+                                        >Fakultas/Direktorat <span class="text-danger fw-bold">*</span></label
                                     >
                                     <input
                                         type="text"
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="col">
                                     <label class="fw-semibold" for="programstudi" class="form-label"
-                                        >Program Studi <span class="text-danger fw-bold">*</span></label
+                                        >Program Studi/Fungsi <span class="text-danger fw-bold">*</span></label
                                     >
                                     <input
                                         type="text"
@@ -362,7 +362,7 @@
                     success: function(data) {
                         console.log(data);
                         $('#nipAuditor').empty();
-                        $('#nipAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
+                        $('#nipAuditor').append('<option value="" selected disabled>Pilih NIP Auditor</option>');
                         if (Array.isArray(data)) {
                             var mappedData = data.map(function(item) {
                                 return {
