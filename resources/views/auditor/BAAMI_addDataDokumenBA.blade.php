@@ -1,6 +1,25 @@
 @extends('auditor.main_') 
 @section('title') AMI - Temuan Berita Acara @endsection
 
+@section('linking')
+    <a href="auditor-beritaacara" class="mx-1">
+        Berita Acara
+    </a>/
+
+    <a href="/auditor-auditeeBA/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
+    {{ $ba_->auditee->unit_kerja }}
+    </a>/
+
+    <a href="/auditor-BA-AMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
+    BA - AMI
+    </a>/
+
+    <a href="/auditor-BA-ubahdataDokumenBAAMI/{{ $ba_->auditee_id }}/{{ $ba_->tahunperiode }}" class="mx-1">
+    Data Dokumen AMI
+    </a>/
+    
+@endsection
+
 @section('container')
     <div class="container vh-100 my-5">
         @if ($message = Session::get('success'))
@@ -53,3 +72,34 @@
     </div>
 
 @endsection
+
+@push('script')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
+    <script>
+        $(document).ready(function() {
+            flatpickr("#inputTglRevisi", {
+                locale: "id",
+                dateFormat: "d-m-Y",
+                // altFormat: "DD-MM-YYYY",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+            });
+
+            flatpickr("#inputTglBerlaku", {
+                locale: "id",
+                dateFormat: "d-m-Y",
+                // altFormat: "DD-MM-YYYY",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+            });
+        })
+    </script>
+@endpush
