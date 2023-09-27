@@ -388,6 +388,10 @@
       $('#tambahJadwalAudit').attr('hidden', true);
     });
 
+    $('#home-tab').on('click', function() {
+      $('#tambahJadwalAudit').removeAttr('hidden');
+    });
+
     var sortedEvents;
     var calendar = $('#calendar').fullCalendar({
 
