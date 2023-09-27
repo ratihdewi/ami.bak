@@ -548,3 +548,8 @@ tr.row.header_pertanyaandaftartilik {
     }
 }
 
+/* Daftar Tilik */
+
+.tox .tox-statusbar {
+    display: none !important;
+}
