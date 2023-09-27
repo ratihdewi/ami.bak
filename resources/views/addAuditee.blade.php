@@ -306,7 +306,7 @@
                     success: function(data) {
                         console.log(data);
                         $('#nipAuditee').empty();
-                        $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
+                        $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Auditee</option>');
                         if (Array.isArray(data)) {
                             var mappedData = data.map(function(item) {
                                 return {
