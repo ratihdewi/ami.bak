@@ -40,12 +40,11 @@
   <div class="jadwalAudit mb-5">
     <ul class="nav nav-tabs flex-row justify-content-start" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jadwal Audit</button>
+        <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Jadwal Auditor dan Auditee</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1">Ketersediaan Jadwal Auditor dan Auditee</button>
+        <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false" tabindex="-1">Jadwal Audit</button>
       </li>
-      
     </ul>
     @if ($message = Session::get('success'))
       <div class="alert alert-success" role="alert">
@@ -53,7 +52,7 @@
       </div>
     @endif
     <div class="tab-content my-3" id="myTabContent">
-      <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-pane fade w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
             <table class="table table-hover mb-3 mt-3" id="jadwalaudit">
               <thead>
@@ -126,12 +125,12 @@
         </div>
       </div>
 
-      <div class="tab-pane fade w-100" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="tab-pane fade show active w-100" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container mt-3">
             <div id="calendar"></div>
             <div class="ketColor d-flex mt-3">
               <div class="form-check me-3 px-0">
-                <span><i class="bi bi-square-fill" style="color: #F57328"></i></span>
+                <span><i class="bi bi-square-fill" style="color: #187498"></i></span>
                 <label class="form-check-label px-1" for="flexCheckIndeterminateDisabled">
                   Auditee
                 </label>
@@ -149,14 +148,14 @@
                 </label>
               </div>
             </div>
-            <div class="ketSesi mt-3 border rounded">
-              <h5 class="text-center rounded-top py-3 mb-0" style="background: #d8f3d6">Pilihan Sesi</h5>
-              <div class="row px-5 py-3 d-flex">
+            {{-- <div class="ketSesi mt-3 border rounded"> --}}
+              {{-- <h5 class="text-center rounded-top py-3 mb-0" style="background: #d8f3d6">Pilihan Sesi</h5> --}}
+              <div class="row px-0 py-3 d-flex">
                 @foreach ($sessions as $session)
-                  <div class="col-4"><p class="my-2"><span><i class="bi bi-circle-fill me-2" style="font-size: 12px; color: #d8f3d6"></i></span> {{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</p></div>
+                  <div class="col-4"><p class="my-2"><span><i class="bi bi-circle-fill me-2" style="font-size: 12px; color: #bfe9df"></i></span> {{ $session->sesiKe }} ({{ $session->waktuMulai->isoFormat('HH:mm') }} - {{ $session->waktuSelesai->isoFormat('HH:mm') }} WIB)</p></div>
                 @endforeach
               </div>
-          </div>
+            {{-- </div> --}}
         </div>
       </div>
     </div>
@@ -166,7 +165,7 @@
   <div class="jadwalKeseluruhan" style="margin-top: 100px">
     <ul class="nav nav-tabs flex-row justify-content-start jadwalAudit mt-5" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jadwal Audit Mutu Internal</button>
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Linimasa</button>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -242,7 +241,7 @@
             } else if (event.peran == 'spm') {
               $(element).find('.fc-content').css('background-color', '#CC3636');
             } else if (event.peran == 'auditee') {
-              $(element).find('.fc-content').css('background-color', '#F57328');
+              $(element).find('.fc-content').css('background-color', '#187498');
             }
 
             $(element).find('.fc-title').append(' - ' + event.session);
