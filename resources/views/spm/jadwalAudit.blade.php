@@ -408,60 +408,37 @@
         events: {
             url: '/ketersediaan-jadwal',
             success: function (events) {
-              // console.log(events);
-              
-              events.sort(function (a, b) {
-                console.log(a);
-                var titleA = a.session.toLowerCase();
-                var titleB = b.session.toLowerCase();
-                if (titleA < titleB) return -1;
-                if (titleA > titleB) return 1;
-                return 0;
-              });
+              function compareSession(a, b) {
+                // Potong session hingga kurung buka pertama
+                var sessionA = a.session.split("(")[0].trim();
+                var sessionB = b.session.split("(")[0].trim();
+
+                // Bandingkan sesuai dengan session yang telah dipotong
+                return sessionA.localeCompare(sessionB);
+              }
+
+              // Urutkan array events menggunakan fungsi pembanding kustom
+              events.sort(compareSession);
+
+              console.log(events);
+
               sortedEvents = events;
-              // console.log(sortedEvents);
-            }
 
+              // calendar.fullCalendar('renderEvents', events);
+              // callback(events);
+            }
         },
-        // eventRender: function(event, element, view) {
-        //   // Dapatkan ID event yang akan dirender
-        //   var eventId = event.id;
-
-        //   // Cari event yang sesuai dalam sortedEvents berdasarkan ID
-        //   var sortedEvent = sortedEvents.find(function(sortedEvent) {
-        //     return sortedEvent.id === eventId;
-        //   });
-
-        //   if (sortedEvent) {
-        //     // Gunakan data dari sortedEvent yang sudah diurutkan
-        //     console.log(sortedEvent);
-
-        //     // Contoh penggunaan data sortedEvent
-        //     console.log(sortedEvent.session);
-
-        //     // Selanjutnya, Anda dapat menggunakan data dari sortedEvent sesuai kebutuhan
-        //     // Misalnya, untuk mengatur warna latar belakang atau menambahkan informasi ke judul event.
-        //   }
-        // },
         eventRender: function(event, element) {
-          // console.log(event);
-          // console.log(sortedEvent);
-
-          var sortedEvent = sortedEvents.find(function(sortedEvent) {
-            return event.id === sortedEvent.id;
-          });
-
-          if (sortedEvent) {
-            if (sortedEvent.peran == 'auditor') {
-              $(element).find('.fc-content').css('background-color', '#367E18');
-            } else if (sortedEvent.peran == 'spm') {
-              $(element).find('.fc-content').css('background-color', '#CC3636');
-            } else if (sortedEvent.peran == 'auditee') {
-              $(element).find('.fc-content').css('background-color', '#187498');
-            }
-
-            $(element).find('.fc-title').append(' - ' + sortedEvent.session);
+          console.log(event.session);
+          if (event.peran == 'auditor') {
+            $(element).find('.fc-content').css('background-color', '#367E18');
+          } else if (event.peran == 'spm') {
+            $(element).find('.fc-content').css('background-color', '#CC3636');
+          } else if (event.peran == 'auditee') {
+            $(element).find('.fc-content').css('background-color', '#187498');
           }
+
+          $(element).find('.fc-title').append(' - ' + event.session);
         },
         selectable:true,
         selectHelper: true,
@@ -600,6 +577,7 @@
         }
     });
 
+
     $('#createSession').click(function() {
       $('#sessionModal').modal('toggle');
     });
@@ -616,25 +594,6 @@
         $(wrapper).append('<div class="row add-new"><div class="col"><label for="namasesi'+i+'">Sesi Ke-1</label><input type="text" class="form-control" id="namasesi'+i+'" placeholder="contoh: Sesi 1" name="addmore['+i+'][sesiKe]"></div><div class="col"><label for="waktuMulai'+i+'">Waktu Mulai</label><input type="time" class="form-control" id="waktuMulai'+i+'" placeholder="Waktu Mulai (WIB)" name="addmore['+i+'][waktuMulai]"></div><div class="col"><label for="waktuSelesai'+i+'">Waktu Selesai</label><input type="time" class="form-control" id="waktuSelesai'+i+'" placeholder="Waktu Selesai (WIB)" name="addmore['+i+'][waktuSelesai]"></div><div class="col-1 my-3 py-2"><button id="remove-tr" class="remove_tr btn btn-danger float-end" type="button"><i class="bi bi-x h5" style="color: #ffff"></i></button></div></div>')
       }
     });
-
-    // $('#search-form').on('submit', function (e) {
-    //     console.log("cari");
-    //     e.preventDefault(); // Mencegah submit form default
-
-    //     // Ambil data dari formulir
-    //     var formData = $(this).serialize();
-
-    //     // Lakukan permintaan AJAX ke controller 'search'
-    //     $.ajax({
-    //         type: 'POST', // Metode HTTP
-    //         url: '/searchjadwal', // Ganti dengan URL controller Anda
-    //         data: formData, // Data yang dikirim dalam permintaan
-    //         success: function (data) {
-    //             // Update div 'search-results' dengan hasil pencarian
-    //             $('#search-results').html(data);
-    //         }
-    //     });
-    // });
   });
 
   $(document).on('click', '#remove-tr', function(){  
