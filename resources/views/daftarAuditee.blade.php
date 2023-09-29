@@ -66,8 +66,8 @@
                                     <td>{{ $item->anggota_auditor }}</td>
                                 @endif
                                 <td class="text-center">
-                                    <a href="/tampilAuditee/{{ $item->id }}" class="me-2"><button class="bg-primary border-0 rounded-1 me-3"><i class="bi bi-pencil-square text-white"></i></button></a>
-                                    <a href="/deleteAuditee/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus {{ $item->unit_kerja }} ({{ $item->ketua_auditee }}) sebagai Auditee?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                                    <a href="/tampilAuditee/{{ $item->id }}" class="me-2"><button class="bg-primary border-0 rounded-1 me-3"><i class="bi bi-pencil-square text-white" title="Edit"></i></button></a>
+                                    <a href="/deleteAuditee/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus {{ $item->unit_kerja }} ({{ $item->ketua_auditee }}) sebagai Auditee?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" title="Hapus"></i></button></a>
                                 </td>
                             </tr>
                         @endforeach

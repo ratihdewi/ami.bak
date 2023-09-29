@@ -93,8 +93,8 @@
                             <td class="col-1 text-center">{{ $item->waktu->isoFormat('HH:mm') }} WIB</td>
                             <td class="col-1">{{ $item->kegiatan }}</td>
                             <td class="col-1 text-center">
-                              <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white h7"></i></button></a>
-                              <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus jadwal pada tanggal {{ $item->hari_tgl->translatedFormat('l, d M Y') }} pukul {{ $item->waktu->isoFormat('HH:mm') }} WIB')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white h7"></i></button></a>
+                              <a href="/jadwalaudit-tampiljadwalaudit/{{ $item->id }}" class="mx-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white h7" title="Edit"></i></button></a>
+                              <a href="/jadwalaudit-deletejadwalaudit/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus jadwal pada tanggal {{ $item->hari_tgl->translatedFormat('l, d M Y') }} pukul {{ $item->waktu->isoFormat('HH:mm') }} WIB')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white h7" title="Hapus"></i></button></a>
                             </td>
                         </tr>
                         @endforeach
@@ -332,8 +332,8 @@
                           @endif
                         </td>
                         <td class="text-center">
-                          <a href="/editjadwalami-keseluruhan/{{ $jdami->id }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
-                          <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus jadwal AMI kegiatan {{ $jdami->kegiatan }}')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                          <a href="/editjadwalami-keseluruhan/{{ $jdami->id }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white" title="Edit"></i></button></a>
+                          <a href="/deletejadwalami-keseluruhan/{{ $jdami->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus jadwal AMI kegiatan {{ $jdami->kegiatan }}')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" title="Hapus"></i></button></a>
                         </td>
                       </tr>
                       @endforeach

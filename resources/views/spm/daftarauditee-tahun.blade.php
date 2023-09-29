@@ -174,9 +174,9 @@
                         <th scope="row" class=" col-2 text-center">{{ $no++ }}</th>
                         <th class="col-8">Periode {{ $item->tahunperiode1 }}/{{ $item->tahunperiode2 }}</th>
                         <th class="col-2 text-center">
-                            <button class="border-0 rounded bg-primary" data-bs-toggle="modal" data-bs-target="#editPeriodeModal" onclick="editmodal({{ $item->id }})"><i class="bi bi-pencil-square text-white"></i></button>
-                            <a href="/daftarAuditee/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill"></i></button></i>
-                            <a href="/daftarauditee-deleteperiode/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus periode ini?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                            <button class="border-0 rounded bg-primary" data-bs-toggle="modal" data-bs-target="#editPeriodeModal" onclick="editmodal({{ $item->id }})"><i class="bi bi-pencil-square text-white" title="Edit"></i></button>
+                            <a href="/daftarAuditee/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill" title="Buka"></i></button></i>
+                            <a href="/daftarauditee-deleteperiode/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus periode ini?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" title="Hapus"></i></button></a>
                         </th>
                     </tr>
                 @endforeach
