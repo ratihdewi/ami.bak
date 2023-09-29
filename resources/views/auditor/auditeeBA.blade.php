@@ -113,7 +113,7 @@
                     </td>
                     <td  class="text-center">
                         <a href="/auditor-fotokegiatanBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
-                            ><i class="bi bi-folder-fill text-warning h3"></i
+                            ><i class="bi bi-folder-fill text-warning h3" title="Foto Kegiatan"></i
                         ></a>
                     </td>
                 </tr>

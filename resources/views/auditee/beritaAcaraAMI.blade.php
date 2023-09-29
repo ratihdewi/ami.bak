@@ -240,7 +240,7 @@
                       @endif
                     </td>
                     <td class="col-2 text-center">
-                      <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                      <a href="/BA-deletedaftarhadir/{{ $daftarhadir->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus data peserta {{ $daftarhadir->namapeserta }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" title="Hapus"></i></button></a>
                     </td>
                   </tr>
                   <?php $i++; ?>
@@ -355,7 +355,7 @@
                     <td scope="row" class="text-center">{{ $no++ }}</td>
                     <td class="col-2">{{ $dokpendukung->namaDokumen }}</td>
                     <td class="col-3">{{ $dokpendukung->kodeDokumen }}</td>
-                    <td class="col-2 text-center"><a href="/BA-lihatdokumenpendukung/{{ $dokpendukung->id }}" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></td>
+                    <td class="col-2 text-center"><a href="/BA-lihatdokumenpendukung/{{ $dokpendukung->id }}" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill" title="Lihat"></i></button></a></td>
                   </tr>
                   @endforeach
               </tbody>

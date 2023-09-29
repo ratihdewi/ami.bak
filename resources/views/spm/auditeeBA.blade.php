@@ -113,7 +113,7 @@
                         </td>
                         <td  class="text-center">
                             <a href="/spm-fotokegiatanBA/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}"
-                                ><i class="bi bi-folder-fill h3 text-warning"></i
+                                ><i class="bi bi-folder-fill h3 text-warning" title="Foto Kegiatan"></i
                             ></a>
                         </td>
                     </tr>

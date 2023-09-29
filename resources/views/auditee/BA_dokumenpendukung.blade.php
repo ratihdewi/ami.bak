@@ -84,7 +84,7 @@
               <td class="col-2">{{ $dokumenpendukung->kodeDokumen }}</td>
               <td class="col-3">{{ $dokumenpendukung->namaDokumen }}</td>
               <td class="col-2 text-center">
-                <a href="/BA-deletedokumenpendukung/{{ $dokumenpendukung->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $dokumenpendukung->namaDokumen }} ?')"><button class="btn btn-danger btn-sm"><i class="bi bi-trash text-white h7"></i></button></a>
+                <a href="/BA-deletedokumenpendukung/{{ $dokumenpendukung->id }}" class="mx-2" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $dokumenpendukung->namaDokumen }} ?')"><button class="btn btn-danger btn-sm" title="Hapus"><i class="bi bi-trash text-white h7"></i></button></a>
               </td>
             </tr>
             @endforeach
