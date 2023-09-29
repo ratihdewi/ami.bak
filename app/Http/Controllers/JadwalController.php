@@ -10,6 +10,7 @@ use App\Models\Auditor;
 use App\Models\Session;
 use App\Models\JadwalAMI;
 use App\Models\UnitKerja;
+use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -39,14 +40,15 @@ class JadwalController extends Controller
                                 ->get();
             $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->whereYear('tgl_mulai', $currentYear)->get();
         } elseif ($filterTahun) {
+            // dd($filterTahun);
             $auditee_ = Auditee::where('tahunperiode0', 'LIKE', "%$filterTahun%")->get();
-            $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->whereYear('tgl_mulai', 'LIKE', "%$filterTahun%")->orWhereYear('tgl_berakhir', 'LIKE', "%$filterTahun%")->orWhereYear('tgl_berakhir', 'LIKE', '%' . ($filterTahun + 1) . '%')->orWhereYear('tgl_berakhir', 'LIKE', '%' . ($filterTahun + 1) . '%')->get();
+            $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->where('th_ajaran1', 'LIKE', "%$filterTahun%")->Where('th_ajaran2', 'LIKE', '%' . ($filterTahun + 1) . '%')->get();
         } elseif ($filterUnitKerja) {
             $auditee_ = Auditee::where('unit_kerja', 'LIKE', "%$filterUnitKerja%")->get();
-            $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->whereYear('tgl_mulai', $currentYear)->get();
+            $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->where('th_ajaran1', $currentYear-1)->where('th_ajaran2', $currentYear)->get();
         } else {
             $auditee_ = Auditee::all();
-            $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->whereYear('tgl_mulai', $currentYear)->get();
+            $jadwalami = JadwalAMI::orderBy('tgl_mulai', 'ASC')->where('th_ajaran1', $currentYear-1)->where('th_ajaran2', $currentYear)->get();
         }
 
         return view('spm/jadwalAudit', compact('auditee_', 'jadwalami', 'unitkerjas', 'sessions', 'currentTime', 'searches'));

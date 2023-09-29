@@ -11,9 +11,9 @@
 @endsection
 
 @section('container')
-<div class="container vh-100 mt-5">
+<div class="container mt-5" style="min-height: 100vh">
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-8 card-jadwalami">
             <h5 class="text-center mb-3">Tambah Jadwal AMI</h5>
             <div class="card mb-5">
                 <div class="card-body p-4">
@@ -21,7 +21,37 @@
                         @csrf
                         <div id="detailjadwal">
                             <div class="card mb-4">
-                                <div class="body-card px-5 pt-5 pb-4">
+                                <div class="body-card bc-jadwalami px-5 pt-5 pb-4">
+                                    <div class="row mb-4">
+                                        <label for="auditor" class="col-sm-3 col-form-label"
+                                            >Tahun Ajaran <span class="fw-bold text-danger">*</span></label
+                                        >
+                                        <div class="col-sm-4">
+                                            <input
+                                                type="number"
+                                                class="form-control"
+                                                id="th_ajaran1"
+                                                name="addmore[0][th_ajaran1]"
+                                                min="2016"
+                                                placeholder="Tahun ajaran mulai"
+                                                required
+                                            />
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <h3>/</h3>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input
+                                                type="number"
+                                                class="form-control"
+                                                id="th_ajaran2"
+                                                name="addmore[0][th_ajaran2]"
+                                                min="2017"
+                                                placeholder="Tahun ajaran selesai"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                     <div class="row mb-4">
                                         <label
                                             for="kegiatan"
@@ -101,6 +131,22 @@
             var add_btn = $("#moreItems_add");
             var i = 1;
 
+            $('#th_ajaran1').change(function() {
+                thperiodeawal = $(this).val();
+                thperiodeawal = parseInt(thperiodeawal);
+                $('#th_ajaran2').val(thperiodeawal+1);
+
+                // fillUnitKerja(thperiodeawal);
+            });
+
+            $('#th_ajaran2').change(function() {
+                thperiodeakhir = $(this).val();
+                thperiodeakhir = parseInt(thperiodeakhir);
+                $('#th_ajaran1').val(thperiodeakhir-1);
+
+                // fillUnitKerja(thperiodeawal);
+            });
+
             // flatpickr("#tgl_mulai", {
             //     dateFormat: "l, d M Y", // Format tampilan
             //     altFormat: "Y-m-d", // Format yang akan digunakan saat mengirimkan data
@@ -163,35 +209,35 @@
             // });
 
             flatpickr("#tgl_mulai", {
-                locale: "{{ $locale }}",
-                dateFormat: "dddd, D MMM Y",
+                locale: "id",
+                dateFormat: "d-m-Y",
                 altFormat: "DD-MM-YYYY",
                 enableTime: false,
                 time_24hr: true,
                 timeZone: "Asia/Jakarta",
-                parseDate: (datestr, format, locale) => {
-                    return moment(datestr, format, true).toDate();
-                },
-                formatDate: (date, format) => {
-                    // locale can also be used
-                    return moment(date).format(format);
-                }
+                // parseDate: (datestr, format, locale) => {
+                //     return moment(datestr, format, true).toDate();
+                // },
+                // formatDate: (date, format) => {
+                //     // locale can also be used
+                //     return moment(date).format(format);
+                // }
             });
 
             flatpickr("#tgl_berakhir", {
-                dateFormat: "dddd, D MMM Y",
+                dateFormat: "d-m-Y",
                 altFormat: "DD-MM-YYYY",
                 locale: "id",
                 enableTime: false,
                 time_24hr: true,
                 timeZone: "Asia/Jakarta",
-                parseDate: (datestr, format) => {
-                    return moment(datestr, format, true).toDate();
-                },
-                formatDate: (date, format, locale) => {
-                    // locale can also be used
-                    return moment(date).format(format);
-                }
+                // parseDate: (datestr, format) => {
+                //     return moment(datestr, format, true).toDate();
+                // },
+                // formatDate: (date, format, locale) => {
+                //     // locale can also be used
+                //     return moment(date).format(format);
+                // }
             });
             
             $(add_btn).click(function(e){
@@ -200,46 +246,53 @@
                 if (i < max_fields) {
                     i++;
 
-                    $(wrapper).append('<div class="card mb-4 add-new"><div class="body-card px-5 pt-5 pb-4"><div class="row mb-4"><label for="kegiatan'+i+'" class="col-sm-3 col-form-label">Kegiatan <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="kegiatan'+i+'" name="addmore['+i+'][kegiatan]" placeholder="Masukkan kegiatan" required/></div></div><div class="row mb-4"><label for="tgl_mulai'+i+'"class="col-sm-3 col-form-label">Tanggal Mulai <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_mulai'+i+'" name="addmore['+i+'][tgl_mulai]" required/></div></div><div class="row mb-4"><label  for="tgl_berakhir'+i+'" class="col-sm-3 col-form-label">Tanggal Berakhir <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="date" class="form-control" id="tgl_berakhir'+i+'" name="addmore['+i+'][tgl_berakhir]" required /></div></div><button type="button" id="remove-tr" class="remove_tr btn btn-danger btn-sm float-end">Urungkan</button></div></div>')
+                    $(wrapper).append('<div class="card mb-4 add-new"><div class="body-card px-5 pt-5 pb-4"><div class="row mb-4"><label for="kegiatan'+i+'" class="col-sm-3 col-form-label">Kegiatan <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="kegiatan'+i+'" name="addmore['+i+'][kegiatan]" placeholder="Masukkan kegiatan" required/></div></div><div class="row mb-4"><label for="tgl_mulai'+i+'"class="col-sm-3 col-form-label">Tanggal Mulai <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="tgl_mulai'+i+'" name="addmore['+i+'][tgl_mulai]" required/></div></div><div class="row mb-4"><label  for="tgl_berakhir'+i+'" class="col-sm-3 col-form-label">Tanggal Berakhir <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="tgl_berakhir'+i+'" name="addmore['+i+'][tgl_berakhir]" required /></div></div><button type="button" id="remove-tr" class="remove_tr btn btn-danger btn-sm float-end">Urungkan</button></div></div>')
 
                 }
             });
 
-            flatpickr("#tgl_mulai"+i, {
-                locale: "{{ $locale }}",
-                dateFormat: "dddd, D MMM Y",
-                altFormat: "DD-MM-YYYY",
-                enableTime: false,
-                time_24hr: true,
-                timeZone: "Asia/Jakarta",
-                parseDate: (datestr, format, locale) => {
-                    return moment(datestr, format, true).toDate();
-                },
-                formatDate: (date, format) => {
-                    // locale can also be used
-                    return moment(date).format(format);
-                }
-            });
-
-            flatpickr("#tgl_berakhir"+i, {
-                dateFormat: "dddd, D MMM Y",
-                altFormat: "DD-MM-YYYY",
-                locale: "id",
-                enableTime: false,
-                time_24hr: true,
-                timeZone: "Asia/Jakarta",
-                parseDate: (datestr, format) => {
-                    return moment(datestr, format, true).toDate();
-                },
-                formatDate: (date, format, locale) => {
-                    // locale can also be used
-                    return moment(date).format(format);
-                }
+            $(document).on('click', '#moreItems_add', function() {
+                gettanggal(i);
             });
 
             $(document).on('click', '#remove-tr', function(){  
                 $(this).parents('.add-new').remove();
             });
         });
+
+        function gettanggal(i)
+        {
+            flatpickr("#tgl_mulai"+i, {
+                locale: "id",
+                dateFormat: "d-m-Y",
+                altFormat: "DD-MM-YYYY",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+                // parseDate: (datestr, format, locale) => {
+                //     return moment(datestr, format, true).toDate();
+                // },
+                // formatDate: (date, format) => {
+                //     // locale can also be used
+                //     return moment(date).format(format);
+                // }
+            });
+
+            flatpickr("#tgl_berakhir"+i, {
+                dateFormat: "d-m-Y",
+                altFormat: "DD-MM-YYYY",
+                locale: "id",
+                enableTime: false,
+                time_24hr: true,
+                timeZone: "Asia/Jakarta",
+                // parseDate: (datestr, format) => {
+                //     return moment(datestr, format, true).toDate();
+                // },
+                // formatDate: (date, format, locale) => {
+                //     // locale can also be used
+                //     return moment(date).format(format);
+                // }
+            });
+        }
     </script>
 @endpush

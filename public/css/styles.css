@@ -531,6 +531,15 @@ tr.row.header_pertanyaandaftartilik {
         
         width: 300%;
     }
+
+    .col-8.card-jadwalami {
+        width: 100%;
+    }
+    
+    .body-card.bc-jadwalami {
+        padding-left: 1rem !important; 
+        padding-right: 1rem !important;
+    }
 }
 
 @media screen and (max-width: 320px)

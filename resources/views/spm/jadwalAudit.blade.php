@@ -69,7 +69,7 @@
                           <th class="col-1 text-center">No</th>
                           <th class="col-2 text-center">Auditee</th>
                           <th class="col-1 text-center">Auditor</th>
-                          <th class="col-1 text-center">Tahun Ajaran</th>
+                          <th class="col-1 text-center">Tahun Periode</th>
                           <th class="col-1 text-center">Tempat</th>
                           <th class="col-2 text-center">Hari/Tanggal</th>
                           <th class="col-1 text-center">Waktu</th>
@@ -311,7 +311,8 @@
                   <thead>
                       <tr class="mt-3">
                           <th class="col-1 text-center">No</th>
-                          <th class="col-6 text-center">Kegiatan</th>
+                          <th class="col-5 text-center">Kegiatan</th>
+                          <th class="col-1 text-center">Tahun Periode</th>
                           <th class="col-3 text-center">Waktu</th>
                           <th class="col-2 text-center">Aksi</th>
                       </tr>
@@ -322,6 +323,7 @@
                       <tr>
                         <th scope="row" class="text-center">{{ $no_++ }}</th>
                         <td>{{ $jdami->kegiatan }}</td>
+                        <td class="col-1">{{ $jdami->th_ajaran1 }}/{{ $jdami->th_ajaran2 }}</td>
                         <td class="col-3 text-center">
                           @if ($jdami->tgl_mulai == $jdami->tgl_berakhir)
                             {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }}

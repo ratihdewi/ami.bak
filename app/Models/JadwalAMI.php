@@ -10,6 +10,8 @@ class JadwalAMI extends Model
     use HasFactory;
 
     protected $fillable = [
+        'th_ajaran1',
+        'th_ajaran2',
         'kegiatan',
         'subkegiatan',
         'tgl_mulai',

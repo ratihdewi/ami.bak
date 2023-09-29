@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\JadwalAMI;
+use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
@@ -27,29 +28,56 @@ class JadwalAMIController extends Controller
 
     public function storejadwalami(Request $request)
     {
-        // dd($request->all());
+
         foreach ($request->addmore as $key => $value) {
 
-            $dateStart = $value['tgl_mulai'];
-            $dateFinish = $value['tgl_berakhir'];
-            
-            // dd($dateStart);
-            // dd($dateFinish);
-            
-            // if ($dateStart < $dateFinish) {
-                $jadwalami = new JadwalAMI([
-                    "kegiatan" => $value['kegiatan'],
-                    "tgl_mulai" =>$dateStart,
-                    "tgl_berakhir" => $dateFinish,
-                ]);
-                $jadwalami->save();
+            $thperiode = TahunPeriode::where('tahunperiode1', $value['th_ajaran1'])->where('tahunperiode2', $value['th_ajaran2'])->where('keterangan', 'Periode Auditee');
 
-                return redirect()->route('jadwalaudit')->with('addsuccess', 'Jadwal Keseluruhan AMI berhasil ditambahkan!');
+            // dd($value['tgl_mulai']);
+            
+            if ($thperiode->exists()) {
+                if (($value['tgl_mulai'] >= $thperiode->first()->tgl_mulai) || ($value['tgl_berakhir'] <= $thperiode->first()->tgl_berakhir)) {
+
+                    $dateStart = $value['tgl_mulai'];
+                    $dateFinish = $value['tgl_berakhir'];
+
+                    $jadwalami = new JadwalAMI([
+                        "th_ajaran1" => $value['th_ajaran1'],
+                        "th_ajaran2" => $value['th_ajaran2'],
+                        "kegiatan" => $value['kegiatan'],
+                        "tgl_mulai" =>$dateStart,
+                        "tgl_berakhir" => $dateFinish,
+                    ]);
+                    $jadwalami->save();
+    
+                    $return = redirect()->route('jadwalaudit')->with('addsuccess', 'Jadwal Keseluruhan AMI berhasil ditambahkan!');
+                } else {
+                    $return = redirect()->route('jadwalaudit')->with('adderror', 'Tanggal yang dimasukkan tidak sesuai dengan tahun periode!');
+                }
+            }
+
+            // $tanggalmulai = Carbon::parse($value['tgl_mulai'])->year;
+            // $tanggalselesai = Carbon::parse($value['tgl_berakhir'])->year;
+
+            // if (($value['th_ajaran1'] == $tanggalmulai || $value['th_ajaran2'] == $tanggalmulai) && ($value['th_ajaran1'] == $tanggalselesai || $value['th_ajaran2'] == $tanggalselesai)) {
+            //     $dateStart = $value['tgl_mulai'];
+            //     $dateFinish = $value['tgl_berakhir'];
+
+            //     $jadwalami = new JadwalAMI([
+            //         "th_ajaran1" => $value['th_ajaran1'],
+            //         "th_ajaran2" => $value['th_ajaran2'],
+            //         "kegiatan" => $value['kegiatan'],
+            //         "tgl_mulai" =>$dateStart,
+            //         "tgl_berakhir" => $dateFinish,
+            //     ]);
+            //     $jadwalami->save();
+
+            //     $return = redirect()->route('jadwalaudit')->with('addsuccess', 'Jadwal Keseluruhan AMI berhasil ditambahkan!');
             // } else {
-            //     return redirect()->route('jadwalaudit')->with('adderror', 'Jadwal Keseluruhan AMI gagal ditambahkan. Silahkan masukkan data dengan benar!');
+            //     $return = redirect()->route('jadwalaudit')->with('adderror', 'Tahun periode dengan tanggal yang diinputkan tidak sesuai. Silahkan masukkan kembali data dengan benar!');
             // }
-
         }
+        return $return;
     }
 
     public function editjadwalami($id)

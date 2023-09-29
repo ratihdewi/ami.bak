@@ -15,6 +15,8 @@ class CreateJadwalAMISTable extends Migration
     {
         Schema::create('jadwal_a_m_i_s', function (Blueprint $table) {
             $table->id();
+            $table->integer('th_ajaran1')->nullable();
+            $table->integer('th_ajaran2')->nullable();
             $table->String('kegiatan');
             $table->String('subkegiatan')->nullable();
             $table->date('tgl_mulai');
