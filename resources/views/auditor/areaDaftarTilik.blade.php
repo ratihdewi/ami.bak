@@ -67,7 +67,7 @@
                         </td>
                         <td class="col-1 px-0 text-center">
                             <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
-                                ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></i
+                                ><button class="bg-primary border-0 rounded-1" title="Edit"><i class="bi bi-pencil-square text-white"></i></button></i
                             ></a>
                         </td>
                     </tr>

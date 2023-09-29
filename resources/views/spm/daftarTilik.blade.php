@@ -80,10 +80,10 @@
                         @endforeach
                         <td class="col px-0 text-center">
                             <a href="/daftarTilik-areadaftartilik/{{ $dt->auditee_id }}/{{ $dt->area }}"
-                                ><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a>
+                                ><button class="bg-warning border-0 rounded-1" title="Buka"><i class="bi bi-folder2-open text-white"></i></button></a>
                             <a href="/daftartilik-tampildaftartilik/{{ $item->tahunperiode }}/{{ $dt->id }}"
-                                ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white"></i></button></a>
-                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}"><button class="bg-danger border-0 rounded-1" onclick="return confirm('Apakah Anda yakin akan menghapus area {{ $dt->area }} Auditee {{ $dt->auditee->unit_kerja }}?')"><i class="bi bi-trash text-white"></i></button></a>
+                                ><button class="bg-primary border-0 rounded-1" title="Edit"><i class="bi bi-pencil-square text-white"></i></button></a>
+                            <a href="/daftartilik-deletedataareadaftartilik/{{ $dt->id }}"><button class="bg-danger border-0 rounded-1" title="Hapus" onclick="return confirm('Apakah Anda yakin akan menghapus area {{ $dt->area }} Auditee {{ $dt->auditee->unit_kerja }}?')"><i class="bi bi-trash text-white"></i></button></a>
                         </td>
                     </tr>
                     
