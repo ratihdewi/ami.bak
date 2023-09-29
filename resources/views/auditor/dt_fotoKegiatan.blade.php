@@ -73,8 +73,8 @@
                 <td class="col">{{ $fotokegiatan->namaFile }}</td>
                 <td class="col text-center">{{ $fotokegiatan->updated_at }}</td>
                 <td class="col text-center">
-                  <a href="/lihatfotokegiatan/{{ $fotokegiatan->id }}" class="me-md-2" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a>
-                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white"></i></button></a>
+                  <a href="/lihatfotokegiatan/{{ $fotokegiatan->id }}" class="me-md-2" target="_blank"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill" title="Buka"></i></button></a>
+                  <a href="/deletefotokegiatan/{{ $fotokegiatan->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus dokumen {{ $fotokegiatan->namaFile }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" title="Hapus"></i></button></a>
                 </td>
               </tr>
               @endforeach

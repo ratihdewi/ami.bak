@@ -37,7 +37,7 @@
                     <tr>
                         <th scope="row" class=" col-2 text-center">{{ $no++ }}</th>
                         <th class="col-8">Periode {{ $item->tahunperiode1 }}/{{ $item->tahunperiode2 }}</th>
-                        <th class="col-2 text-center"><a href="/auditor-daftarauditor/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill"></i></button></a></th>
+                        <th class="col-2 text-center"><a href="/auditor-daftarauditor/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="bg-warning border-0 rounded-1"><i class="bi bi-eye-fill" title="Buka"></i></button></a></th>
                     </tr>
                 @endforeach
             </tbody>
