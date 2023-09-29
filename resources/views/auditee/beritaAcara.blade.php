@@ -40,7 +40,7 @@
                     <td class="col-6">{{ $item->auditee->unit_kerja }}</td>
                     <td class="col text-center">{{ $item->auditee->tahunperiode0 }}/{{ $item->auditee->tahunperiode }}</td>
                     <td class="col text-center">
-                        <a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill" title="Lihat"></i></button></a>
+                        <a href="/auditee-auditeeBA/{{ $item->auditee_id }}/{{ $item->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill" title="Buka"></i></button></a>
                     </td>
                 </tr>
                 @endforeach
