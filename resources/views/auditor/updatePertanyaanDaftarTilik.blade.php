@@ -309,7 +309,7 @@
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label fw-semibold">Skor Auditor</label>
-              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor. Contoh: [4.00]" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}"
+              <input id="skorAuditor" type="number" class="form-control" min="0.00" max="4.00" step="0.01" placeholder="Masukkan Skor Auditor. Contoh: [4.00]" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}"
               @if ((Auth::user()->name != $datas->auditee->ketua_auditor && Auth::user()->name != $datas->auditee->anggota_auditor && Auth::user()->name != $datas->auditee->anggota_auditor2) || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee') || ($currentDate > $datas->daftartilik->bataspengisianRespon)){{ "readonly" }}@endif
               >
             </div>
