@@ -45,6 +45,7 @@ class BeritaAcaraController extends Controller
         $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee->id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
+        $pertanyaanall = Pertanyaan::where('auditee_id', $auditee_id)->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
 
         $qrCodeAuditor = [];
         $qrCodeAuditee = [];
@@ -57,7 +58,7 @@ class BeritaAcaraController extends Controller
             array_push($qrCodeAuditee, QrCode::generate($urlAuditee));
         } 
 
-        return view('spm/auditeeBA', compact('auditee', 'auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('spm/auditeeBA', compact('auditee', 'auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee', 'pertanyaanall'));
     }
 
     public function auditor_tampiltemuanBA($auditee_id, $tahunperiode)
@@ -66,6 +67,7 @@ class BeritaAcaraController extends Controller
         $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
+        $pertanyaanall = Pertanyaan::where('auditee_id', $auditee_id)->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
 
         $qrCodeAuditor = [];
         $qrCodeAuditee = [];
@@ -78,7 +80,7 @@ class BeritaAcaraController extends Controller
             array_push($qrCodeAuditee, QrCode::generate($urlAuditee));
         } 
 
-        return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('auditor/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee', 'pertanyaanall'));
     }
 
     public function auditee_tampiltemuanBA($auditee_id, $tahunperiode)
@@ -87,6 +89,7 @@ class BeritaAcaraController extends Controller
         $auditee = Auditee::find($auditee_id);
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
+        $pertanyaanall = Pertanyaan::where('auditee_id', $auditee_id)->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
 
         $qrCodeAuditor = [];
         $qrCodeAuditee = [];
@@ -99,7 +102,7 @@ class BeritaAcaraController extends Controller
             array_push($qrCodeAuditee, QrCode::generate($urlAuditee));
         } 
 
-        return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('auditee/auditeeBA', compact('auditee_', 'daftartilik_', 'pertanyaan_', 'qrCodeAuditor', 'qrCodeAuditee', 'pertanyaanall'));
     }
 
     // DOkumen BA AMI

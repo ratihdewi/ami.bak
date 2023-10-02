@@ -48,7 +48,7 @@ class DokBAAMIController extends Controller
         
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
@@ -85,7 +85,7 @@ class DokBAAMIController extends Controller
 
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();
@@ -122,7 +122,7 @@ class DokBAAMIController extends Controller
 
         $auditee_ = Auditee::where('id', $auditee_id)->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->get();
-        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->get();
+        $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
         $beritaacara_ = BeritaAcara::where('auditee_id', $auditee_id)->first();
         $ba_ami = DokBA_AMI::where('auditee_id', $auditee_id);
         $jadwalAudit_ = Jadwal::where('auditee_id', $auditee_id)->get();

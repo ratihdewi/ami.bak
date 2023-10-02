@@ -25,12 +25,12 @@
                 placeholder="Cari berdasarkan Auditee"
             />
         </div>
-        @foreach ($pertanyaan_ as $beritaacara)
+        @foreach ($pertanyaanall as $beritaacara)
         <a href="/BA-AMI/{{ $beritaacara->auditee_id }}/{{ $beritaacara->auditee->tahunperiode }}">
         @endforeach
             <button
                 type="button"
-                @if (count($pertanyaan_) == 0)
+                @if (count($pertanyaanall) == 0)
                 onclick="alertBAAMI()"
                 @endif
                 class="btn btn-outline-warning ms-4 my-3 text-black fw-bold"
