@@ -22,8 +22,9 @@ class JadwalAMIController extends Controller
     {
         $locale = Config::get('app.locale');
         $timeZone = Config::get('app.timezone');
+        $currentDate = Carbon::now()->format('l, d M Y');
         
-        return view('spm/addJadwal', compact('locale', 'timeZone'));
+        return view('spm/addJadwal', compact('locale', 'timeZone', 'currentDate'));
     }
 
     public function storejadwalami(Request $request)

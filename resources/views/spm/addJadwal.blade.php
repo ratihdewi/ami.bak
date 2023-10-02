@@ -17,11 +17,12 @@
             <h5 class="text-center mb-3">Tambah Jadwal AMI</h5>
             <div class="card mb-5">
                 <div class="card-body p-4">
-                    <form action="/storejadwalami" method="POST">
+                    <form id="formJadwal" action="/storejadwalami" method="POST">
                         @csrf
                         <div id="detailjadwal">
                             <div class="card mb-4">
                                 <div class="body-card bc-jadwalami px-5 pt-5 pb-4">
+                                    <div id="liveAlertPlaceholder"></div>
                                     <div class="row mb-4">
                                         <label for="auditor" class="col-sm-3 col-form-label"
                                             >Tahun Ajaran <span class="fw-bold text-danger">*</span></label
@@ -80,7 +81,7 @@
                                                 class="form-control"
                                                 id="tgl_mulai"
                                                 name="addmore[0][tgl_mulai]"
-                                                placeholder="Hari, Tanggal Bln Tahun"
+                                                placeholder="{{ $currentDate }}"
                                                 required
                                             />
                                         </div>
@@ -97,7 +98,7 @@
                                                 class="form-control"
                                                 id="tgl_berakhir"
                                                 name="addmore[0][tgl_berakhir]"
-                                                placeholder="Hari, Tanggal Bln Tahun"
+                                                placeholder="{{ $currentDate }}"
                                                 required
                                             />
                                         </div>
@@ -215,13 +216,6 @@
                 enableTime: false,
                 time_24hr: true,
                 timeZone: "Asia/Jakarta",
-                // parseDate: (datestr, format, locale) => {
-                //     return moment(datestr, format, true).toDate();
-                // },
-                // formatDate: (date, format) => {
-                //     // locale can also be used
-                //     return moment(date).format(format);
-                // }
             });
 
             flatpickr("#tgl_berakhir", {
@@ -231,28 +225,49 @@
                 enableTime: false,
                 time_24hr: true,
                 timeZone: "Asia/Jakarta",
-                // parseDate: (datestr, format) => {
-                //     return moment(datestr, format, true).toDate();
-                // },
-                // formatDate: (date, format, locale) => {
-                //     // locale can also be used
-                //     return moment(date).format(format);
-                // }
             });
+
+            const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+            const alert = (message, type) => {
+                const wrapper_ = document.createElement('div')
+                wrapper_.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+                ].join('')
+
+                alertPlaceholder.append(wrapper_)
+            }
             
             $(add_btn).click(function(e){
                 
                 e.preventDefault();
-                if (i < max_fields) {
-                    i++;
+                var thAjaran1 = $('#th_ajaran1').val();
+                var thAjaran2 = $('#th_ajaran2').val();
 
-                    $(wrapper).append('<div class="card mb-4 add-new"><div class="body-card px-5 pt-5 pb-4"><div class="row mb-4"><label for="kegiatan'+i+'" class="col-sm-3 col-form-label">Kegiatan <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="kegiatan'+i+'" name="addmore['+i+'][kegiatan]" placeholder="Masukkan kegiatan" required/></div></div><div class="row mb-4"><label for="tgl_mulai'+i+'"class="col-sm-3 col-form-label">Tanggal Mulai <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="tgl_mulai'+i+'" name="addmore['+i+'][tgl_mulai]" required/></div></div><div class="row mb-4"><label  for="tgl_berakhir'+i+'" class="col-sm-3 col-form-label">Tanggal Berakhir <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="tgl_berakhir'+i+'" name="addmore['+i+'][tgl_berakhir]" required /></div></div><button type="button" id="remove-tr" class="remove_tr btn btn-danger btn-sm float-end">Urungkan</button></div></div>')
+                console.log(thAjaran1);
+                if (thAjaran1 != '' || thAjaran2 != '') {
+                    if (i < max_fields) {
+                        i++;
+                        $(wrapper).append('<div class="card mb-4 add-new"><div class="body-card px-5 pt-5 pb-4"><div class="row mb-4" hidden><label for="auditor" class="col-sm-3 col-form-label">Tahun Ajaran <span class="fw-bold text-danger">*</span></label><div class="col-sm-4"><input type="number" class="form-control" id="th_ajaran1'+i+'" name="addmore['+i+'][th_ajaran1]" min="2016" placeholder="Tahun ajaran mulai" required/></div><div class="col-sm-1"><h3>/</h3></div><div class="col-sm-4"><input type="number" class="form-control" id="th_ajaran2'+i+'" name="addmore['+i+'][th_ajaran2]" min="2017" placeholder="Tahun ajaran selesai"- required/></div></div><div class="row mb-4"><label for="kegiatan'+i+'" class="col-sm-3 col-form-label">Kegiatan <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="kegiatan'+i+'" name="addmore['+i+'][kegiatan]" placeholder="Masukkan kegiatan" required/></div></div><div class="row mb-4"><label for="tgl_mulai'+i+'"class="col-sm-3 col-form-label">Tanggal Mulai <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="tgl_mulai'+i+'" name="addmore['+i+'][tgl_mulai]" placeholder="{{ $currentDate }}" required/></div></div><div class="row mb-4"><label  for="tgl_berakhir'+i+'" class="col-sm-3 col-form-label">Tanggal Berakhir <span class="fw-bold text-danger">*</span></label><div class="col-sm-9"><input type="text" class="form-control" id="tgl_berakhir'+i+'" name="addmore['+i+'][tgl_berakhir]" placeholder="{{ $currentDate }}" required /></div></div><button type="button" id="remove-tr" class="remove_tr btn btn-danger btn-sm float-end">Urungkan</button></div></div>')
 
+                    }
+                } else {
+                    alert('Harap mengisi tahun ajaran terlebih dahulu.', 'warning');
                 }
+                
             });
 
             $(document).on('click', '#moreItems_add', function() {
                 gettanggal(i);
+
+                var thAjaran1 = $('#th_ajaran1').val();
+                var thAjaran2 = $('#th_ajaran2').val();
+
+                $('#th_ajaran1'+i).val(thAjaran1);
+                $('#th_ajaran2'+i).val(thAjaran2);
             });
 
             $(document).on('click', '#remove-tr', function(){  
@@ -269,13 +284,6 @@
                 enableTime: false,
                 time_24hr: true,
                 timeZone: "Asia/Jakarta",
-                // parseDate: (datestr, format, locale) => {
-                //     return moment(datestr, format, true).toDate();
-                // },
-                // formatDate: (date, format) => {
-                //     // locale can also be used
-                //     return moment(date).format(format);
-                // }
             });
 
             flatpickr("#tgl_berakhir"+i, {
@@ -285,13 +293,6 @@
                 enableTime: false,
                 time_24hr: true,
                 timeZone: "Asia/Jakarta",
-                // parseDate: (datestr, format) => {
-                //     return moment(datestr, format, true).toDate();
-                // },
-                // formatDate: (date, format, locale) => {
-                //     // locale can also be used
-                //     return moment(date).format(format);
-                // }
             });
         }
     </script>

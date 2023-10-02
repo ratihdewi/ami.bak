@@ -386,6 +386,8 @@
         }
     });
 
+    $('#tambahJadwalAudit').attr('hidden', true);
+
     $('#profile-tab').on('click', function() {
       $('#tambahJadwalAudit').attr('hidden', true);
     });
