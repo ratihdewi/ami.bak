@@ -9,7 +9,7 @@
         {{ $data->auditee->tahunperiode0 }}/{{ $data->auditee->tahunperiode }}
     </a>/
 
-    <a href="/daftartilik-tampildaftartilik/{{ $data->auditee_id }}/{{ $data->area }}" class="mx-1">
+    <a href="/daftartilik-tampildaftartilik/{{ $data->auditee->tahunperiode }}/{{ $data->id }}" class="mx-1">
     Edit Area
     </a>/  
 
