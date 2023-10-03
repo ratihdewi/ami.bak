@@ -81,38 +81,57 @@
 @push('script')
   {{-- ck editor --}}
   <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
-    ClassicEditor
-        .create( document.querySelector( '#inputKelebihan' ) )
-        .catch( error => {
-            console.error( error );
-        } );
+    // ClassicEditor
+    //     .create( document.querySelector( '#inputKelebihan' ) )
+    //     .catch( error => {
+    //         console.error( error );
+    //     } );
 
-    ClassicEditor
-        .create( document.querySelector( '#inputPeluang' ) )
-        .catch( error => {
-            console.error( error );
-        } );
+    // ClassicEditor
+    //     .create( document.querySelector( '#inputPeluang' ) )
+    //     .catch( error => {
+    //         console.error( error );
+    //     } );
+
+    tinymce.init({
+      selector: 'textarea#inputKelebihan',
+      toolbar: false,
+      menubar: false,
+      height: 150,
+    });
+    
+    tinymce.init({
+      selector: 'textarea#inputPeluang',
+      toolbar: false,
+      menubar: false,
+      height: 100,
+    });
   </script>
   <script>
     document.getElementById("myForm").addEventListener("submit", function(event) {
-      var kelebihanTextarea = document.getElementById("inputKelebihan");
-      var peluangTextarea = document.getElementById("inputPeluang");
+      var kelebihanTextarea = tinyMCE.get('inputKelebihan').getContent();
+      var peluangTextarea = tinyMCE.get('inputPeluang').getContent();
+
+      document.getElementById("inputKelebihan").value = kelebihanTextarea;
+      document.getElementById("inputPeluang").value = peluangTextarea;
       var errorMessage = document.getElementById("error-message");
       var errorMessagePeluang = document.getElementById("error-message-peluang");
 
       if (kelebihanTextarea.value === "") {
         errorMessage.textContent = "Kolom kelebihan harus diisi!";
-        event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+        event.preventDefault();
       } else {
-        errorMessage.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+        errorMessage.textContent = ""; 
       }
 
       if (peluangTextarea.value === "") {
         errorMessagePeluang.textContent = "Kolom peluang untuk peningkatan harus diisi!";
-        event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+        event.preventDefault();
       } else {
-        errorMessagePeluang.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+        errorMessagePeluang.textContent = ""; 
       }
     });
   </script>

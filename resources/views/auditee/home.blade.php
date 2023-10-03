@@ -26,7 +26,11 @@
                 <h3 class="card-title">Selamat Datang di <b>SRIKANDI</b>!</h3>
                 <h4 class="card-text">(Sistem Informasi Akreditasi, Rekognisi, dan Audit Mutu Akademik)</h4>
                 <div class="button-group pt-5">
-                    <a href="#" target="_blank" class="btn btn-outline-info fw-semibold pedomanApp mx-3 my-2">Pedoman SRIKANDI</a>
+                    @foreach ($links->where('keterangan', '0') as $link)
+                    <a href="{{ $link->link }}" target="_blank" class="btn btn-outline-info pedomanApp fw-semibold mx-3 my-2">
+                    @endforeach
+                        Pedoman SRIKANDI
+                    </a>
                     @foreach ($links->where('keterangan', '1') as $link)
                     <a href="{{ $link->link }}" target="_blank" class="btn btn-outline-primary fw-semibold mx-3 my-2">
                     @endforeach
