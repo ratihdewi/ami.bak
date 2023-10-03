@@ -563,7 +563,7 @@ tr.row.header_pertanyaandaftartilik {
     display: none !important;
 }
 
-#auditeeindikatorMutu_ifr,
-#auditeepertanyaan_ifr {
-    background-color: #e9ecef;
+iframe#auditeeindikatorMutu_ifr,
+iframe#auditeepertanyaan_ifr {
+    background-color: #e9ecef !important;
 }
