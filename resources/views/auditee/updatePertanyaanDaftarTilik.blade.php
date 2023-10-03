@@ -351,6 +351,7 @@
     menubar: false,
     height: 150,
     readonly: true,
+    content_css: 'styles.css',
   });
 
   tinymce.init({
@@ -359,6 +360,7 @@
     menubar: false,
     height: 100,
     readonly: true,
+    content_css: 'styles.css',
   });
 
   var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" disabled>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
