@@ -351,7 +351,7 @@
     menubar: false,
     height: 150,
     readonly: true,
-    content_style: '.tox .tox-edit-area__iframe { background-color: #e9ecef !important; }',
+    content_css: '/css/tinyAuditee.css',
   });
 
   tinymce.init({
@@ -360,7 +360,7 @@
     menubar: false,
     height: 100,
     readonly: true,
-    content_style: '.tox .tox-edit-area__iframe { background-color: #e9ecef !important; }',
+    content_style: '/css/tinyAuditee.css',
   });
 
   var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" disabled>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
