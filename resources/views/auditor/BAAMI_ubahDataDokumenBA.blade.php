@@ -59,13 +59,13 @@
                     <label for="inputTglRevisi" class="form-label fw-semibold">Tanggal Revisi <span class="text-danger fw-bold">*</span></label>
                     <input type="text" 
                     {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
-                    aria-label="Masukkan Hari/Tanggal Pelaksanaan" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('Y-m-d') }}">
+                    aria-label="Masukkan Hari/Tanggal Pelaksanaan" class="form-control" id="inputTglRevisi" placeholder="Masukkan tanggal revisi dokumen" name="tgl_revisi" value="{{ $dokBA_->tgl_revisi->translatedFormat('d-m-Y') }}">
                 </div>
                 <div class="col-6 mb-4">
                     <label for="inputTglBerlaku" class="form-label fw-semibold">Tanggal Berlaku <span class="text-danger fw-bold">*</span></label>
                     <input type="text" 
                     {{-- onfocus="(this.type='date')" onblur="(this.type='text')"  --}}
-                    class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('Y-m-d') }}">
+                    class="form-control" id="inputTglBerlaku" placeholder="Masukkan tanggal berlaku dokumen" name="tgl_berlaku" value="{{ $dokBA_->tgl_berlaku->translatedFormat('d-m-Y') }}">
                 </div>
             </div>
             {{-- Simpan Perubahan --}}
@@ -86,18 +86,18 @@
     <script>
         $(document).ready(function() {
             flatpickr("#inputTglRevisi", {
-                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+                dateFormat: "d-m-Y",
                 locale: "id",
-                enableTime: false, // Jangan aktifkan waktu
-                // time_24hr: true, // Gunakan format 24 jam
+                enableTime: false,
+                // time_24hr: true,
                 timeZone: "Asia/Jakarta",
             });
 
             flatpickr("#inputTglBerlaku", {
-                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+                dateFormat: "d-m-Y",
                 locale: "id",
-                enableTime: false, // Jangan aktifkan waktu
-                // time_24hr: true, // Gunakan format 24 jam
+                enableTime: false,
+                // time_24hr: true,
                 timeZone: "Asia/Jakarta",
             });
         })

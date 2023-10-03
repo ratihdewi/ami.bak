@@ -504,9 +504,8 @@ class DokBAAMIController extends Controller
         // $pelpeningkatan_ = PeluangPeningkatan::where('beritaacara_id', $beritaacara_->id)->get();
         // $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         // $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
-
         
-        if (count($ba_ami->get()) == 0) {
+        if (count($ba_ami->get()) == 0 || count($jadwalAudit_)==0 || count($daftarhadir_)==0 || count($pelpeningkatan_)==0 || count($dokumenpendukung_)==0) {
             return redirect()->back()->with('warning', 'Harap lengkapi data terlebih pada BA AMI');
         } else {
             $baami = DokBA_AMI::where('auditee_id', $auditee_id)->first();
