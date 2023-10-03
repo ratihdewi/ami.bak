@@ -361,7 +361,7 @@
     readonly: true,
   });
 
-  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" readonly>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
+  var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" disabled>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';
 
   if(document.getElementById('kategoriKTS').checked) {
       document.getElementById("narasiPLOR").innerHTML

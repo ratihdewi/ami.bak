@@ -45,30 +45,35 @@ class PertanyaanController extends Controller
         $auditee_id = $request->get('auditee_id');
         $daftartilik_id = $request->get('daftartilik_id');
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('id', $daftartilik_id)->first();
+        $existNoButir = Pertanyaan::where('daftartilik_id', $request->daftartilik_id)->where('auditee_id', $request->auditee_id)->where('auditor_id', $request->auditor_id)->where('butirStandar', $request->butirStandar)->where('nomorButir', $request->nomorButir)->exists();
 
         // $requestData = $request->all();
-        $pertanyaan =new Pertanyaan([
-            "daftartilik_id" => $request->daftartilik_id,
-            "auditee_id"=> $request->auditee_id,
-            "auditor_id"=> $request->auditor_id,
-            "butirStandar" => $request->butirStandar,
-            "nomorButir"=> $request->nomorButir,
-            "indikatormutu"=> $request->indikatormutu,
-            "targetStandar"=> $request->targetStandar,
-            "referensi"=> $request->referensi,
-            "keterangan"=> $request->keterangan,
-            "pertanyaan"=> $request->pertanyaan,
-            "responAuditee"=> $request->responAuditee,
-            "responAuditor"=> $request->responAuditor,
-            "inisialAuditor"=> $request->inisialAuditor,
-            "skorAuditor"=> $request->skorAuditor,
-            "Kategori"=> $request->Kategori,
-            // "approvalAuditee"=> $request->approvalAuditee,
-            // "approvalAuditor"=> $request->approvalAuditor,
-            "narasiPLOR"=> $request->narasiPLOR,
-        ]);
+        if (!$existNoButir) {
+            $pertanyaan =new Pertanyaan([
+                "daftartilik_id" => $request->daftartilik_id,
+                "auditee_id"=> $request->auditee_id,
+                "auditor_id"=> $request->auditor_id,
+                "butirStandar" => $request->butirStandar,
+                "nomorButir"=> $request->nomorButir,
+                "indikatormutu"=> $request->indikatormutu,
+                "targetStandar"=> $request->targetStandar,
+                "referensi"=> $request->referensi,
+                "keterangan"=> $request->keterangan,
+                "pertanyaan"=> $request->pertanyaan,
+                "responAuditee"=> $request->responAuditee,
+                "responAuditor"=> $request->responAuditor,
+                "inisialAuditor"=> $request->inisialAuditor,
+                "skorAuditor"=> $request->skorAuditor,
+                "Kategori"=> $request->Kategori,
+                // "approvalAuditee"=> $request->approvalAuditee,
+                // "approvalAuditor"=> $request->approvalAuditor,
+                "narasiPLOR"=> $request->narasiPLOR,
+            ]);
+            $pertanyaan->save();
+        } elseif ($existNoButir) {
+            return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('error', 'Nomor butir sudah tersedia!');
+        }
         
-        $pertanyaan->save();
 
         if ($request->hasFile('dok_sahihs')) {
 
