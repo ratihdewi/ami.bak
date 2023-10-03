@@ -225,7 +225,7 @@
               </div>
               <label for="#" class="mb-1 mx-4 fw-semibold">Respon Auditee</label>
               <div class="form-floating mb-3 mx-4">
-                <textarea class="form-control" placeholder="Tuliskan respon Auditee" id="responAuditee" style="height: 100px" name="responAuditee" readonly>{{ $datas->responAuditee }}</textarea>
+                <textarea class="form-control" placeholder="Tuliskan respon Auditee" id="responAuditee" style="height: 100px" name="responAuditee" disabled>{{ $datas->responAuditee }}</textarea>
                 <label for="responAuditee">Tuliskan respon Auditee</label>
               </div>
             </div>
@@ -316,8 +316,8 @@
           </div>
         </div>
         <div class="keteranganTambahan mx-4 mb-2">
-          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media lain dan mengunggah dokumen bukti sahih yang baru</p>
-          <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
+          <p class="mb-0"><b>*)</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media lain dan mengunggah dokumen bukti sahih yang baru</p>
+          <p class="mb-0"><b>**)</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
         <div id="persetujuanAuditorAuditee" class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           @foreach ($_daftartiliks as $item)

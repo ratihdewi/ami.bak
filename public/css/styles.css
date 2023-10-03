@@ -562,3 +562,8 @@ tr.row.header_pertanyaandaftartilik {
 .tox .tox-statusbar {
     display: none !important;
 }
+
+#auditeeindikatorMutu_ifr,
+#auditeepertanyaan_ifr {
+    background-color: #e9ecef;
+}

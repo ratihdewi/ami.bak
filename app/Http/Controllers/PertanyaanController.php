@@ -171,41 +171,124 @@ class PertanyaanController extends Controller
         }
 
         if ($request->skorAuditor < 4.00 && $request->skorAuditor > 0.00) {
-            $data->update([
-                "butirStandar" => $request->butirStandar,
-                "nomorButir"=> $request->nomorButir,
-                "indikatormutu"=> $request->indikatormutu,
-                "targetStandar"=> $request->targetStandar,
-                "referensi"=> $request->referensi,
-                "keterangan"=> $request->keterangan,
-                "pertanyaan"=> $request->pertanyaan,
-                "responAuditee"=> $request->responAuditee,
-                "responAuditor"=> $request->responAuditor,
-                "inisialAuditor"=> $request->inisialAuditor,
-                "skorAuditor"=> $request->skorAuditor,
-                "Kategori"=> $request->Kategori,
-                "approvalAuditee"=> $data->approvalAuditee,
-                "approvalAuditor"=> $data->approvalAuditor,
-                "narasiPLOR"=> $request->narasiPLOR,
-            ]);
+            if (Auth::user()->peran == "spm") {
+                $data->update([
+                    "butirStandar" => $request->butirStandar,
+                    "nomorButir"=> $request->nomorButir,
+                    "indikatormutu"=> $request->indikatormutu,
+                    "targetStandar"=> $request->targetStandar,
+                    "referensi"=> $request->referensi,
+                    "keterangan"=> $request->keterangan,
+                    "pertanyaan"=> $request->pertanyaan,
+                    "responAuditee"=> $request->responAuditee,
+                    "responAuditor"=> $request->responAuditor,
+                    "inisialAuditor"=> $request->inisialAuditor,
+                    "skorAuditor"=> $request->skorAuditor,
+                    "Kategori"=> $request->Kategori,
+                    "approvalAuditee"=> $data->approvalAuditee,
+                    "approvalAuditor"=> $data->approvalAuditor,
+                    "narasiPLOR"=> $request->narasiPLOR,
+                ]);
+                $data->save();
+            } elseif (Auth::user()->peran == "auditor") {
+                $data->update([
+                    "butirStandar" => $request->butirStandar,
+                    "nomorButir"=> $request->nomorButir,
+                    "indikatormutu"=> $request->indikatormutu,
+                    "targetStandar"=> $request->targetStandar,
+                    "referensi"=> $request->referensi,
+                    "keterangan"=> $request->keterangan,
+                    "pertanyaan"=> $request->pertanyaan,
+                    "responAuditee"=> $data->responAuditee,
+                    "responAuditor"=> $request->responAuditor,
+                    "inisialAuditor"=> $request->inisialAuditor,
+                    "skorAuditor"=> $request->skorAuditor,
+                    "Kategori"=> $request->Kategori,
+                    "approvalAuditee"=> $data->approvalAuditee,
+                    "approvalAuditor"=> $data->approvalAuditor,
+                    "narasiPLOR"=> $request->narasiPLOR,
+                ]);
+                $data->save();
+            } else {
+                $data->update([
+                    "butirStandar" => $data->butirStandar,
+                    "nomorButir"=> $data->nomorButir,
+                    "indikatormutu"=> $data->indikatormutu,
+                    "targetStandar"=> $data->targetStandar,
+                    "referensi"=> $data->referensi,
+                    "keterangan"=> $data->keterangan,
+                    "pertanyaan"=> $data->pertanyaan,
+                    "responAuditee"=> $request->responAuditee,
+                    "responAuditor"=> $data->responAuditor,
+                    "inisialAuditor"=> $data->inisialAuditor,
+                    "skorAuditor"=> $data->skorAuditor,
+                    "Kategori"=> $data->Kategori,
+                    "approvalAuditee"=> $data->approvalAuditee,
+                    "approvalAuditor"=> $data->approvalAuditor,
+                    "narasiPLOR"=> $data->narasiPLOR,
+                ]);
+                $data->save();
+            }
+            
         } else {
-            $data->update([
-                "butirStandar" => $request->butirStandar,
-                "nomorButir"=> $request->nomorButir,
-                "indikatormutu"=> $request->indikatormutu,
-                "targetStandar"=> $request->targetStandar,
-                "referensi"=> $request->referensi,
-                "keterangan"=> $request->keterangan,
-                "pertanyaan"=> $request->pertanyaan,
-                "responAuditee"=> $request->responAuditee,
-                "responAuditor"=> $request->responAuditor,
-                "inisialAuditor"=> $request->inisialAuditor,
-                "skorAuditor"=> $data->skorAuditor,
-                "Kategori"=> $request->Kategori,
-                "approvalAuditee"=> $data->approvalAuditee,
-                "approvalAuditor"=> $data->approvalAuditor,
-                "narasiPLOR"=> $request->narasiPLOR,
-            ]);
+            if (Auth::user()->peran == "spm") {
+                $data->update([
+                    "butirStandar" => $request->butirStandar,
+                    "nomorButir"=> $request->nomorButir,
+                    "indikatormutu"=> $request->indikatormutu,
+                    "targetStandar"=> $request->targetStandar,
+                    "referensi"=> $request->referensi,
+                    "keterangan"=> $request->keterangan,
+                    "pertanyaan"=> $request->pertanyaan,
+                    "responAuditee"=> $request->responAuditee,
+                    "responAuditor"=> $request->responAuditor,
+                    "inisialAuditor"=> $request->inisialAuditor,
+                    "skorAuditor"=> $request->skorAuditor,
+                    "Kategori"=> $request->Kategori,
+                    "approvalAuditee"=> $data->approvalAuditee,
+                    "approvalAuditor"=> $data->approvalAuditor,
+                    "narasiPLOR"=> $request->narasiPLOR,
+                ]);
+                $data->save();
+            } elseif (Auth::user()->peran == "auditor") {
+                $data->update([
+                    "butirStandar" => $request->butirStandar,
+                    "nomorButir"=> $request->nomorButir,
+                    "indikatormutu"=> $request->indikatormutu,
+                    "targetStandar"=> $request->targetStandar,
+                    "referensi"=> $request->referensi,
+                    "keterangan"=> $request->keterangan,
+                    "pertanyaan"=> $request->pertanyaan,
+                    "responAuditee"=> $data->responAuditee,
+                    "responAuditor"=> $request->responAuditor,
+                    "inisialAuditor"=> $request->inisialAuditor,
+                    "skorAuditor"=> $request->skorAuditor,
+                    "Kategori"=> $request->Kategori,
+                    "approvalAuditee"=> $data->approvalAuditee,
+                    "approvalAuditor"=> $data->approvalAuditor,
+                    "narasiPLOR"=> $request->narasiPLOR,
+                ]);
+                $data->save();
+            } else {
+                $data->update([
+                    "butirStandar" => $data->butirStandar,
+                    "nomorButir"=> $data->nomorButir,
+                    "indikatormutu"=> $data->indikatormutu,
+                    "targetStandar"=> $data->targetStandar,
+                    "referensi"=> $data->referensi,
+                    "keterangan"=> $data->keterangan,
+                    "pertanyaan"=> $data->pertanyaan,
+                    "responAuditee"=> $request->responAuditee,
+                    "responAuditor"=> $data->responAuditor,
+                    "inisialAuditor"=> $data->inisialAuditor,
+                    "skorAuditor"=> $data->skorAuditor,
+                    "Kategori"=> $data->Kategori,
+                    "approvalAuditee"=> $data->approvalAuditee,
+                    "approvalAuditor"=> $data->approvalAuditor,
+                    "narasiPLOR"=> $data->narasiPLOR,
+                ]);
+                $data->save();
+            }
         }
 
         

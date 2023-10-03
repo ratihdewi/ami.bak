@@ -67,7 +67,7 @@
                             {!! $d_pertanyaan->pertanyaan !!}
                         </td>
                         <td class="col-1 px-0 text-center">
-                            <a href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2">
+                            <a href="/auditee-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}/#inputGrupOpsional" class="mx-2">
                                 <button class="border-0 rounded-1 bg-primary" title="Edit"><i class="bi bi-pencil-square text-white"></i></i></button>
                             </a>
                         </td>

@@ -303,8 +303,8 @@
           </div>
         </div>
         <div class="keteranganTambahan mx-4 mb-2">
-          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media lain dan mengunggah dokumen bukti sahih yang baru</p>
-          <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
+          <p class="mb-0"><b>*)</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media lain dan mengunggah dokumen bukti sahih yang baru</p>
+          <p class="mb-0"><b>**)</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
         {{-- <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4">
           <button class="moreItems_add btn btn-primary float-end" type="button">Tambah Pertanyaan</button>

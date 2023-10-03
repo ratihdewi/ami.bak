@@ -166,42 +166,42 @@
           <div class="row g-3 my-4 mx-3">
             <div class="col" disabled>
               <label for="butirStandar" class="fw-semibold">Butir Standar</label>
-              <input id="butirStandar" type="text" class="form-control" placeholder="Masukkan Butir Standar. Contoh: [01 Kompetensi Lulusan]" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" readonly>
+              <input id="butirStandar" type="text" class="form-control" placeholder="Masukkan Butir Standar. Contoh: [01 Kompetensi Lulusan]" aria-label="Butir Standar" name="butirStandar" value="{{ $datas->butirStandar }}" disabled>
             </div>
             <div class="col">
               <label for="nomorButir" class="fw-semibold">Nomor Butir</label>
-              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir. Contoh: [A.01.01]" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" readonly>
+              <input id="nomorButir" type="text" class="form-control" placeholder="Masukkan Nomor Butir. Contoh: [A.01.01]" aria-label="Masukkan Nomor Butir" name="nomorButir" value="{{ $datas->nomorButir }}" disabled>
             </div>
           </div>
           <div class="form-floating mx-4">
             <p class="fw-semibold mb-0">Pertanyaan</p>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Ajukan pertanyaan" id="pertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}">{{ $datas->pertanyaan }}</textarea>
+            <textarea class="form-control" placeholder="Ajukan pertanyaan" id="auditeepertanyaan" style="height: 100px" name="pertanyaan" value="{{ $datas->pertanyaan }}">{{ $datas->pertanyaan }}</textarea>
           </div>
           <div class="form-floating mx-4">
             <p class="fw-semibold mb-0">Indikator Mutu</p>
           </div>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="indikatorMutu" name="indikatormutu" readonly>{{ $datas->indikatormutu }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan indikator mutu" id="auditeeindikatorMutu" name="indikatormutu" disabled>{{ $datas->indikatormutu }}</textarea>
           </div>
           <div class="form-floating mx-4">
             <p class="fw-semibold mb-0">Target Standar</p>
           </div>        
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" readonly>{{ $datas->targetStandar }}</textarea>
+            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" disabled>{{ $datas->targetStandar }}</textarea>
             <label for="targetStandar" style="font-size: 12px">Masukkan target standar</label>
           </div>
-          <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
+          <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4" id="inputGrupOpsional">
             <div class="col-7 border rounded me-5">
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputButirStandar">
                   <label for="inputButirStandar" class="form-label fw-semibold">Butir Standar</label>
-                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" readonly>
+                  <input type="text" class="form-control" id="inputButirStandar" value="{{ $datas->butirStandar }}" disabled>
                 </div>
                 <div class="col inputReferensi">
                   <label for="inputReferensi" class="form-label fw-semibold">Referensi</label>
-                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}" readonly>
+                  <input type="text" class="form-control" id="inputReferensi" name="referensi" value="{{ $datas->referensi }}" disabled>
                 </div>
               </div>
             </div>
@@ -209,7 +209,7 @@
               <div class="row g-3 my-4 mx-3">
                 <div class="col inputKeterangan">
                   <label for="inputKeterangan" class="form-label fw-semibold">Keterangan</label>
-                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}" readonly>
+                  <input type="text" class="form-control" id="inputKeterangan" name="keterangan" value="{{ $datas->keterangan }}" disabled>
                 </div>
               </div>
             </div>
@@ -240,13 +240,13 @@
           </div>
           <label for="#" class="mb-2 mx-4 fw-semibold">Respon Auditor</label>
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor" readonly>{{ $datas->responAuditor }}</textarea>
+            <textarea class="form-control" placeholder="Tuliskan respon Auditor disini" id="responAuditor" style="height: 100px" name="responAuditor" disabled>{{ $datas->responAuditor }}</textarea>
             <label for="responAuditor">Tuliskan respon Auditor<b> **)</b></label>
           </div>
           <div class="row g-3 mb-4 mx-3">
             <div class="col">
               <label for="kategoriTemuan" class="form-label fw-semibold">Kategori Temuan<b> *)</b></label>
-              <div id="kategoriTemuan" class="border rounded ps-4 py-2">
+              <div id="kategoriTemuan" class="border rounded ps-4 py-2" style="background-color: #e9ecef">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Kategori" id="kategoriKTS" onclick="display()" value="{{ $datas->Kategori }}" 
                   
@@ -293,17 +293,17 @@
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
               <label for="inisialAuditor" class="form-label fw-semibold">Inisial Auditor</label>
-              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}" readonly>
+              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}" disabled>
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label fw-semibold">Skor Auditor</label>
-              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor. Contoh: [4.00]" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}" readonly>
+              <input id="skorAuditor" type="number" class="form-control" placeholder="Masukkan Skor Auditor. Contoh: [4.00]" aria-label="Masukkan Skor Auditor" name="skorAuditor" value="{{ $datas->skorAuditor }}" disabled>
             </div>
           </div>
         </div>
         <div class="keteranganTambahan mx-4 mb-2">
-          <p class="mb-0"><b>*</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media lain dan mengunggah dokumen bukti sahih yang baru</p>
-          <p class="mb-0"><b>**</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
+          <p class="mb-0"><b>*)</b> Jika Auditee tidak dapat menyetujui status temuan, maka Auditee harus menunjukkan dokumen bukti sahih melalui media lain dan mengunggah dokumen bukti sahih yang baru</p>
+          <p class="mb-0"><b>**)</b> Pernyataan Auditor dianggap valid hingga 7 hari terhitung setelah audit dilaksanakan</p>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end me-4 mb-4 mt-3">
           @foreach ($_daftartiliks as $item)
@@ -346,7 +346,7 @@
 <script>
 
   tinymce.init({
-    selector: 'textarea#pertanyaan',
+    selector: 'textarea#auditeepertanyaan',
     toolbar: false,
     menubar: false,
     height: 150,
@@ -354,7 +354,7 @@
   });
 
   tinymce.init({
-    selector: 'textarea#indikatorMutu',
+    selector: 'textarea#auditeeindikatorMutu',
     toolbar: false,
     menubar: false,
     height: 100,
