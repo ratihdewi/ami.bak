@@ -82,7 +82,7 @@
 @push('script')
   <script>
     $(document).ready(function(){
-      var max_fields = 50;
+      var max_fields = 100;
       var wrapper = $(".pelpeningkatan");
       var add_btn = $(".moreItems_add");
       var i = 1;
@@ -92,7 +92,7 @@
           i++;
 
           // $(wrapper).append('<div class="row inputPeluangPeningkatan add-new my-4 mx-5"><div class="col-12 mb-4" hidden><label for="getBeritaAcaraID" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="getBeritaAcaraID'+i+'" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div><div class="col-12 mb-4"><label for="inputBidang'+i+'" class="form-label fw-semibold">Aspek/Bidang <span class="text-danger fw-bold">*</span></label><input type="text" class="form-control" id="inputBidang'+i+'" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][aspek]" required></div><div class="col-12 form-floating"><p for="inputKelebihan'+i+'" class="form-label fw-semibold">Kelebihan <span class="text-danger fw-bold">*</span></p></div><div class="col-12 form-floating mb-4"><textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan'+i+'" style="height: 100px" name="addmore['+i+'][kelebihan]" required></textarea></div><div class="col-12 form-floating"><p for="inputPeluang'+i+'" class="form-label fw-semibold">Peluang untuk Peningkatan <span class="text-danger fw-bold">*</span></p></div><div class="col-12 form-floating mb-4"><textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang'+i+'" style="height: 100px" name="addmore['+i+'][peningkatan]"></textarea></div><div class="row justify-content-end px-0"><div class="col-4 my-4 px-0"><button class="btn btn-danger float-end my-1 px-3 remove-tr" type="button">Urungkan</button></div></div></div>')
-          $(wrapper).append('<div class="row inputPeluangPeningkatan add-new my-4 mx-5"><div class="col-12 mb-4" hidden><label for="getBeritaAcaraID" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="getBeritaAcaraID'+i+'" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div><div class="col-12 mb-4"><label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang <span class="text-danger fw-bold">*</span></label><input type="text" class="form-control" id="inputBidang'+i+'" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][aspek]"></div><div class="col-12 form-floating"><p for="inputKelebihan" class="form-label fw-semibold">Kelebihan <span class="text-danger fw-bold">*</span></p></div><div class="col-12 form-floating mb-4"><textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan'+i+'" style="height: 100px" name="addmore['+i+'][kelebihan]"></textarea>\</div>\<div class="col-12 form-floating"><p for="inputPeluang" class="form-label fw-semibold">Peluang untuk Peningkatan <span class="text-danger fw-bold">*</span></p></div><div class="col-12 form-floating mb-4">\<textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang'+i+'" style="height: 100px" name="addmore['+i+'][peningkatan]"></textarea></div><div class="row justify-content-end px-0"><div class="col-4 my-4 px-0"><button class="btn btn-danger float-end my-1 px-3 remove-tr" type="button">Urungkan</button></div></div></div>')
+          $(wrapper).append('<div class="row inputPeluangPeningkatan add-new my-4 mx-5"><div class="col-12 mb-4" hidden><label for="getBeritaAcaraID" class="form-label fw-semibold">ID Berita Acara</label><input type="text" class="form-control" id="getBeritaAcaraID'+i+'" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][beritaacara_id]" value="{{ $beritaacara_->id }}"></div><div class="col-12 mb-4"><label for="inputBidang" class="form-label fw-semibold">Aspek/Bidang <span class="text-danger fw-bold">*</span></label><input type="text" class="form-control" id="inputBidang'+i+'" placeholder="Masukkan aspek/bidang atau nomor butir mutu" name="addmore['+i+'][aspek]"></div><div class="col-12 form-floating"><p for="inputKelebihan" class="form-label fw-semibold">Kelebihan <span class="text-danger fw-bold">*</span></p></div><div class="col-12 form-floating mb-4"><textarea class="form-control" placeholder="Tuliskan hal yang menjadi kelebihan" id="inputKelebihan'+i+'" style="height: 100px" name="addmore['+i+'][kelebihan]"></textarea>\<div id="error-message'+i+'" style="color: red;"></div></div>\<div class="col-12 form-floating"><p for="inputPeluang" class="form-label fw-semibold">Peluang untuk Peningkatan <span class="text-danger fw-bold">*</span></p></div><div class="col-12 form-floating mb-4">\<textarea class="form-control" placeholder="Tuliskan hal yang menjadi peluang untuk peningkatan" id="inputPeluang'+i+'" style="height: 100px" name="addmore['+i+'][peningkatan]"></textarea><div id="error-message-peluang'+i+'" style="color: red;"></div></div><div class="row justify-content-end px-0"><div class="col-4 my-4 px-0"><button class="btn btn-danger float-end my-1 px-3 remove-tr" type="button">Urungkan</button></div></div></div>')
           tinymce.init({
             selector: 'textarea#inputKelebihan'+i,
             toolbar: false,
@@ -107,6 +107,60 @@
             height: 100,
           });
         }
+      });
+
+      document.getElementById("myForm").addEventListener("submit", function(event) {
+        var kelebihanTextarea = tinyMCE.get('inputKelebihan').getContent();
+        var peluangTextarea = tinyMCE.get('inputPeluang').getContent();
+
+        document.getElementById("inputKelebihan").value = kelebihanTextarea;
+        document.getElementById("inputPeluang").value = peluangTextarea;
+        var errorMessage = document.getElementById("error-message");
+        var errorMessagePeluang = document.getElementById("error-message-peluang");
+
+        if (kelebihanTextarea === "") {
+          errorMessage.textContent = "Kolom kelebihan harus diisi!";
+          event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+        } else {
+          errorMessage.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+        }
+
+        if (peluangTextarea === "") {
+          errorMessagePeluang.textContent = "Kolom peluang untuk peningkatan harus diisi!";
+          event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+        } else {
+          errorMessagePeluang.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+        }
+
+        for (let index = 2; index <= i; index++) {
+
+          var kelebihanTextareaindex = [];
+          var peluangTextareaindex = [];
+
+          kelebihanTextareaindex[index] = tinyMCE.get('inputKelebihan'+index).getContent();
+          peluangTextareaindex[index] = tinyMCE.get('inputPeluang'+index).getContent();
+
+          document.getElementById("inputKelebihan"+index).value = kelebihanTextareaindex[index];
+          document.getElementById("inputPeluang"+index).value = peluangTextareaindex[index];
+
+          var errorMessageindex = document.getElementById("error-message"+index);
+          var errorMessagePeluangindex = document.getElementById("error-message-peluang"+index);
+
+          if (kelebihanTextareaindex[index] === "") {
+            errorMessageindex.textContent = "Kolom kelebihan harus diisi!";
+            event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+          } else {
+            errorMessageindex.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+          }
+
+          if (peluangTextareaindex[index] === "") {
+            errorMessagePeluangindex.textContent = "Kolom peluang untuk peningkatan harus diisi!";
+            event.preventDefault(); // Menghentikan pengiriman formulir jika ada kesalahan.
+          } else {
+            errorMessagePeluangindex.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
+          }
+
+          }
       });
 
       $(document).on('click', '.remove-tr', function(){  
@@ -146,7 +200,7 @@
       height: 100,
     });
   </script>
-  <script>
+  {{-- <script>
     document.getElementById("myForm").addEventListener("submit", function(event) {
       var kelebihanTextarea = tinyMCE.get('inputKelebihan').getContent();
       var peluangTextarea = tinyMCE.get('inputPeluang').getContent();
@@ -170,5 +224,5 @@
         errorMessagePeluang.textContent = ""; // Menghapus pesan kesalahan jika bidang diisi dengan benar.
       }
     });
-  </script>
+  </script> --}}
 @endpush
