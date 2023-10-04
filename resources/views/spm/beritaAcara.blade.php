@@ -33,7 +33,7 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($auditee_ as $auditee)
-                @foreach ($auditee->beritaacara()->get() as $item)
+                @foreach ($auditee->beritaacara()->get()->orderBy('tahunperiode') as $item)
                 <tr class="">
                     <td class="col-1 text-center">{{ $no++ }}</td>
                     <td class="col auditee">{{ $item->auditee->unit_kerja }}</td>
