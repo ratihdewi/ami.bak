@@ -58,7 +58,7 @@
                     <th class="align-middle" rowspan="2">Deskripsi/Uraian Temuan</th>
                     <th class="border border-0" colspan="2">Kategori Temuan</th>
                     <th class="align-middle" rowspan="2">Nomor Butir Mutu</th>
-                    <th class="border border-0" colspan="3">eSign</th>
+                    <th class="border border-0" colspan="3">eSign Penyetuju Audit Lapangan</th>
                     <th class="align-middle" rowspan="2">Dokumentasi</th>
                 </tr>
                 <tr class="text-center">
