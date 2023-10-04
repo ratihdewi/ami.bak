@@ -286,6 +286,7 @@ span.fc-title {
     .l-navbar {
         left: 0;
         padding: 1rem 1rem 0 0;
+        overflow-y: auto;
     }
     .show {
         width: calc(var(--nav-width) + 156px);
