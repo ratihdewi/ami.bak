@@ -383,7 +383,6 @@ class PertanyaanController extends Controller
         } elseif ($approve_->approvalAuditee == 'Disetujui Auditee') {
             $request->session()->flash('success', 'Anda sudah menyetujui Audit Lapangan!');
         } elseif ($auditee_->ketua_auditee != Auth::user()->name) {
-            dd(Auth::user()->name);
             $request->session()->flash('error', 'Persetujuan AL hanya dilakukan oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
         }
         // dd($approve_);
