@@ -13,38 +13,38 @@
         border-bottom: 1px solid #000 !important;
     }
 
-    body {
-        font-family: 'Times New Roman', sans-serif;
-        font-size: 18px;
-        letter-spacing: 0.5px;
-    }
-
-    table {
-        display: table;
-    }
-
-    /* .tabledaftarhadir tr,
-    #ttdpersetujuan table {
-        page-break-inside: avoid;
-    }
-
-    .tablekesesuaian thead { display: table-row-group; } */
-
-    .tabledaftarhadir tr,
-    #ttdpersetujuan table {
-        page-break-inside: avoid;
-    }
-
-    .tabletemuan thead,
-    .tabledaftarhadir thead,
-    .tablekesesuaian thead { display: table-row-group; }
-
-    .tablekesesuaian tfoot { 
-        display: table-row-group;
-    }
-    
-    .tablekesesuaian table {
-        border-collapse: collapse;
-    }
-
 /* } */
+
+body {
+    font-family: 'Times New Roman', sans-serif !important;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+table {
+    display: table;
+}
+
+/* .tabledaftarhadir tr,
+#ttdpersetujuan table {
+    page-break-inside: avoid;
+}
+
+.tablekesesuaian thead { display: table-row-group; } */
+
+.tabledaftarhadir tr,
+#ttdpersetujuan table {
+    page-break-inside: avoid;
+}
+
+.tabletemuan thead,
+.tabledaftarhadir thead,
+.tablekesesuaian thead { display: table-row-group; }
+
+.tablekesesuaian tfoot { 
+    display: table-row-group;
+}
+
+.tablekesesuaian table {
+    border-collapse: collapse;
+}
