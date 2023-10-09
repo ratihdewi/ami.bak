@@ -4,9 +4,9 @@
 } */
 
 body {
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Times New Roman", Times, serif, Arial, Helvetica, sans-serif, Georgia;
     font-size: 18px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 table {
