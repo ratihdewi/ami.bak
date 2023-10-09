@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ public_path('bootstrap.min.css') }}">
-    <link rel="stylesheet" media="all" href="{{ public_path('css/export.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ public_path('bootstrap.min.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="all" href="{{ public_path('css/export.css') }}">
     <title>Table</title>
-    <style type="text/css">
+    <style>
         
         body {
             font-family: 'Times New Roman', Times, serif;
