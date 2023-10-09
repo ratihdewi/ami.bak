@@ -3,20 +3,8 @@
     font-weight: bold;
 } */
 
-/* @media print { */
-
-    .tablekesesuaian tr {
-        border-top: 1px solid #000 !important;
-    }
-
-    .tablekesesuaian tr {
-        border-bottom: 1px solid #000 !important;
-    }
-
-/* } */
-
 body {
-    font-family: 'Times New Roman', sans-serif !important;
+    font-family: "Times New Roman", Times, serif;
     font-size: 18px;
     letter-spacing: 0.5px;
 }
@@ -48,3 +36,15 @@ table {
 .tablekesesuaian table {
     border-collapse: collapse;
 }
+
+/* @media print { */
+
+    .tablekesesuaian tr {
+        border-top: 1px solid #000 !important;
+    }
+
+    .tablekesesuaian tr {
+        border-bottom: 1px solid #000 !important;
+    }
+
+/* } */
