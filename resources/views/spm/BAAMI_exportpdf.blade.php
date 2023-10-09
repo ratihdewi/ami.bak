@@ -179,7 +179,9 @@
         </div>
 
         <div id="bodydoc" class="bodydoc my-3 mx-4 py-2">
-            <p style="text-align: justify">1. Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
+            <p>1. 
+            <span style="text-align: justify">
+                Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
                 {{-- <?php $i=0; ?>
                 @foreach ($jadwalaudit as $jadwal)
                     @if (count($jadwalaudit) == 1)
@@ -208,6 +210,7 @@
                     @endif
                 @endforeach
                 oleh:
+            </span>
             </p>
             <div class="tabledaftarhadir mb-5 px-3">
                 <table class="table table-bordered">
