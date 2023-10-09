@@ -65,7 +65,7 @@
                     </tr>
                     @if (count($ba_ami->get()) > 0)
                         @foreach ($ba_ami->get() as $ba)
-                        <tr class="fw-bold">
+                        <tr class="secondrow fw-bold">
                             <td rowspan="2" class="text-center align-middle">FORMULIR</td>
                             <td>KODE</td>
                             <td>{{ $ba->kodeDokumen }}</td>
@@ -77,7 +77,7 @@
                             @endif
                             
                         </tr>
-                        <tr class="fw-bold">
+                        <tr class="secondrow fw-bold">
                             <td>REVISI KE-</td>
                             <td>{{ $ba->revisiKe }}</td>
                             <td>TGL. REVISI</td>
@@ -92,7 +92,7 @@
                         </tr>
                         @endforeach
                     @else
-                        <tr class="fw-bold">
+                        <tr class="secondrow fw-bold">
                             <td rowspan="2" class="text-center align-middle col-2">FORMULIR</td>
                             <td class="col-md-2">KODE</td>
                             <td class="col-md-2"></td>
