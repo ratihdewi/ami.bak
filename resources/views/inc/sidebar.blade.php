@@ -79,8 +79,8 @@
                 <span class="nav_name"> Berita Acara </span>
             </a>
             <a
-                href=""
-                {{-- href="/tindakankoreksi" --}}
+                {{-- href="" --}}
+                href="/tindakankoreksi"
                 class="nav_link py-1 {{ Request::routeIs('tindakankoreksi') ? 'active' : '' || Request::routeIs('tindakankoreksi-temuan') ? 'active' : '' || Request::routeIs('tindakankoreksi-formtemuan') ? 'active' : '' }}"
             >
                 {{-- <i class="bx nav_icon"

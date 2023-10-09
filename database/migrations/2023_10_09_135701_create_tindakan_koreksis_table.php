@@ -17,9 +17,13 @@ class CreateTindakanKoreksisTable extends Migration
             $table->id();
             $table->integer('noPTK');
             $table->text('akarPenyebab')->nullable();
-            $table->date('batasPengisian0')->nullable();
-            $table->date('batasPengisian1')->nullable();
-            $table->String('auditor')->nullable();
+            $table->boolean('statusakarpenyebab')->default(false);
+            $table->text('rencanaTindakan')->nullable();
+            $table->boolean('statusrencanatindakan')->default(false);
+            $table->text('tinjauanEfektivitas')->nullable();
+            $table->boolean('statustinjauan')->default(false);
+            $table->integer('persentaseSelesai')->nullable();
+            $table->boolean('statusPenyelesaian')->default(false);
             $table->unsignedBigInteger('pertanyaan_id');
             $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onUpdate('cascade')
             ->onDelete('cascade');

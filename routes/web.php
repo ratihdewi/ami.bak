@@ -218,7 +218,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tindakankoreksi-signakarpenyebab/{noPTK}', [TindakanKoreksiController::class, 'signakarpenyebab'])->name('tindakankoreksi-signakarpenyebab');
     Route::get('/auditlapangan-autoapprove/{id}', [PertanyaanController::class, 'autoapprove'])->name('auditlapangan-autoapprove');
     Route::get('/tindakankoreksi-signrencanatindakan/{noPTK}', [TindakanKoreksiController::class, 'signrencanatindakan'])->name('tindakankoreksi-signrencanatindakan');
-    // Route::get('/create-batasan-akses-auditor', [TindakanKoreksiController::class, 'store'])->name('create-batasan-akses-auditor');
+    Route::post('/update-batasan-akses-auditor/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('update-batasan-akses-auditor');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

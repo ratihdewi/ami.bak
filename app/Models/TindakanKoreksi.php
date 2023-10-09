@@ -13,18 +13,22 @@ class TindakanKoreksi extends Model
         'pertanyaan_id',
         'noPTK',
         'akarPenyebab',
-        'batasPengisian0',
-        'batasPengisian1',
-        'auditor',
-    ];
-
-    protected $dates = [
-        'batasPengisian0',
-        'batasPengisian1'
+        'statusakarpenyebab',
+        'rencanaTindakan',
+        'statusrencanatindakan',
+        'tinjauanEfektivitas',
+        'statustinjauan',
+        'persentaseSelesai',
+        'statusPenyelesaian',
     ];
 
     public function pertanyaan()
     {
         return $this->belongsTo(Pertanyaan::class);
+    }
+
+    public function deadlineptk()
+    {
+        return $this->hasMany(DeadlineTindakanKoreksi::class);
     }
 }
