@@ -179,30 +179,7 @@
         </div>
 
         <div id="bodydoc" class="bodydoc my-3 mx-4 py-2">
-            <p>1. 
-            <span style="text-align: justify !important">
-                Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
-                {{-- <?php $i=0; ?>
-                @foreach ($jadwalaudit as $jadwal)
-                    @if (count($jadwalaudit) == 1)
-                        {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                    @elseif (count($jadwalaudit) == 2)
-                        @if ($i < count($jadwalaudit) && $i != (count($jadwalaudit)-1))
-                            {{ $jadwal->hari_tgl->translatedFormat('l') }} dan
-                        @elseif ($i == (count($jadwalaudit)-1))
-                            {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                        @endif
-                    @elseif (count($jadwalaudit) > 2 && count($jadwalaudit) != 1)
-                        @if ($i < count($jadwalaudit) && $i != count($jadwalaudit) && $i != (count($jadwalaudit)-1))
-                            {{ $jadwal->hari_tgl->translatedFormat('l') }},
-                        @elseif ($i == (count($jadwalaudit)-1) && $i != count($jadwalaudit) && $i != count($jadwalaudit))
-                            dan {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                        @elseif ($i == count($jadwalaudit))
-                            {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                        @endif
-                    @endif
-                    <?php $i++; ?>
-                @endforeach --}}
+            {{-- <p style="text-align: justify">1. Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
                 telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
                 @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
                     @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
@@ -210,8 +187,40 @@
                     @endif
                 @endforeach
                 oleh:
-            </span>
-            </p>
+            </p> --}}
+            <div class="first-text d-flex">
+                <p style="display: inline">1. </p>
+                <p style="display: inline; text-align: justify">Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
+                    {{-- <?php $i=0; ?>
+                    @foreach ($jadwalaudit as $jadwal)
+                        @if (count($jadwalaudit) == 1)
+                            {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                        @elseif (count($jadwalaudit) == 2)
+                            @if ($i < count($jadwalaudit) && $i != (count($jadwalaudit)-1))
+                                {{ $jadwal->hari_tgl->translatedFormat('l') }} dan
+                            @elseif ($i == (count($jadwalaudit)-1))
+                                {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                            @endif
+                        @elseif (count($jadwalaudit) > 2 && count($jadwalaudit) != 1)
+                            @if ($i < count($jadwalaudit) && $i != count($jadwalaudit) && $i != (count($jadwalaudit)-1))
+                                {{ $jadwal->hari_tgl->translatedFormat('l') }},
+                            @elseif ($i == (count($jadwalaudit)-1) && $i != count($jadwalaudit) && $i != count($jadwalaudit))
+                                dan {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                            @elseif ($i == count($jadwalaudit))
+                                {{ $jadwal->hari_tgl->translatedFormat('l') }}
+                            @endif
+                        @endif
+                        <?php $i++; ?>
+                    @endforeach --}}
+                    telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
+                    @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
+                        @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
+                        {{ $jadwal->th_ajaran1 }}/{{ $jadwal->th_ajaran2 }} 
+                        @endif
+                    @endforeach
+                    oleh:
+                </p>
+            </div>
             <div class="tabledaftarhadir mb-5 px-3">
                 <table class="table table-bordered">
                     <thead>
