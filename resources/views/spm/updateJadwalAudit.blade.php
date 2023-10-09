@@ -89,7 +89,7 @@
                                                 placeholder="Hari, Tgl Bln Tahun"
                                                 id="hari_tgl"
                                                 name="addmore[0][hari_tgl]"
-                                                value="{{ $data->hari_tgl->translatedFormat('l, d M Y') }}"
+                                                value="{{ $data->hari_tgl->translatedFormat('d-m-Y') }}"
                                                 required
                                             />
                                             <p id="validationMessage" style="color: red; font-size: 12px;"></p>
@@ -176,7 +176,7 @@
             console.log($('#hari_tgl').val());
 
             flatpickr("#hari_tgl", {
-                dateFormat: "l, d M Y", // Sesuaikan dengan format yang Anda inginkan
+                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
                 locale: "id",
                 enableTime: false, // Jangan aktifkan waktu
                 // time_24hr: true, // Gunakan format 24 jam
