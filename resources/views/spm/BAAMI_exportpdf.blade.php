@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ public_path('bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" media="all" href="{{ public_path('css/export.css') }}">
     <title>Table</title>
-    <style>
+    {{-- <style>
         
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -43,7 +43,7 @@
         .tablekesesuaian table {
             border-collapse: collapse;
         }
-    </style>
+    </style> --}}
 </head>
 <body>
     <div class="container-pratinjau mx-4 my-5">
