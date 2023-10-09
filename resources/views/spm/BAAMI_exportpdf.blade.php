@@ -188,9 +188,9 @@
                 @endforeach
                 oleh:
             </p> --}}
-            <div class="first-text d-flex">
-                <p style="display: inline">1. </p>
-                <p style="display: inline; text-align: justify">Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
+            <div class="first-text">
+                <p style="">1. </p>
+                <p style="; text-align: justify">Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
                     {{-- <?php $i=0; ?>
                     @foreach ($jadwalaudit as $jadwal)
                         @if (count($jadwalaudit) == 1)
