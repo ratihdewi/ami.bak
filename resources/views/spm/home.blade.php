@@ -42,7 +42,7 @@
                     @foreach ($links->where('keterangan', '2') as $link)
                     <a href="{{ $link->link }}" target="_blank" class="btn btn-outline-danger fw-semibold mx-3 my-2">
                     @endforeach
-                        Standar UPer
+                        Standar UPER
                     </a>
                     @foreach ($links->where('keterangan', '3') as $link)
                     <a href="https://upertamina.sharepoint.com/sites/spm_up/SitePages/AMI-2022.aspx" target="_blank" class="btn btn-outline-dark fw-semibold mx-3 my-2">
