@@ -9,8 +9,8 @@ body {
     letter-spacing: 0.5px;
 }
 
-tr .secondrow {
-    font-size: 12px;
+.secondrow {
+    font-size: 12px !important;
 }
 
 table {
