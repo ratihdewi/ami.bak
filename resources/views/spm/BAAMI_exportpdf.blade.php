@@ -179,8 +179,8 @@
         </div>
 
         <div id="bodydoc" class="bodydoc my-3 mx-4 py-2">
-            <p>1. Pada hari 
-                <?php $i=0; ?>
+            <p>1. Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
+                {{-- <?php $i=0; ?>
                 @foreach ($jadwalaudit as $jadwal)
                     @if (count($jadwalaudit) == 1)
                         {{ $jadwal->hari_tgl->translatedFormat('l') }}
@@ -200,7 +200,7 @@
                         @endif
                     @endif
                     <?php $i++; ?>
-                @endforeach
+                @endforeach --}}
                 telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
                 @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
                     @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
