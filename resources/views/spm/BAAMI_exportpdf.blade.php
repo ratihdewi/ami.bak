@@ -7,7 +7,6 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{ public_path('bootstrap.min.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ public_path('bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" media="all" href="{{ public_path('css/export.css') }}">
-    <link href="https://fonts.cdnfonts.com/css/times-new-roman" rel="stylesheet">
     <title>Table</title>
     {{-- <style>
         
