@@ -221,7 +221,7 @@
                     oleh:
                 </p>
             </div> --}}
-            <div class="tabledaftarhadir mb-5 px-3">
+            <div class="tabledaftarhadir mb-5">
                 <table class="table table-bordered">
                     <thead>
                         <tr class="text-center">
