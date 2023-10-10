@@ -110,10 +110,10 @@ class AuthController extends Controller
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username);
                     break;
                 case 'dev':
-                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;);
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username);
                     break;
                 default:
-                    return Redirect::to('https://sso.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;);
+                    return Redirect::to('https://sso.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username);
             }
         }
         //     // $username = $_COOKIE["username"];
