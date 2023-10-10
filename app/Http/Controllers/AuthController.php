@@ -23,7 +23,7 @@ class AuthController extends Controller
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                 break;
             default:
-                return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
+                return Redirect::to('https://sso.universitaspertamina.ac.id/sso-login?redirect_url=https://srikandi.universitaspertamina.ac.id/auth');
         }
         // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
         // return redirect($login_url);
@@ -67,7 +67,7 @@ class AuthController extends Controller
                         return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                         break;
                     default:
-                        return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
+                        return Redirect::to('https://sso.universitaspertamina.ac.id/sso-login?redirect_url=https://srikandi.universitaspertamina.ac.id/auth');
                 }
             }
         } else {
@@ -81,7 +81,7 @@ class AuthController extends Controller
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                     break;
                 default:
-                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
+                    return Redirect::to('https://sso.universitaspertamina.ac.id/sso-login?redirect_url=https://srikandi.universitaspertamina.ac.id/auth');
             }
         }
     }
@@ -101,8 +101,20 @@ class AuthController extends Controller
                     setcookie($name, '', time() - 1000, '/');
                 }
             }
-            $logout_url = 'https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;
-            return redirect($logout_url);
+
+            // $logout_url = 'https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;
+            // return redirect($logout_url);
+
+            switch(env('APP_env')){
+                case 'local':
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username);
+                    break;
+                case 'dev':
+                    return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;);
+                    break;
+                default:
+                    return Redirect::to('https://sso.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;);
+            }
         }
         //     // $username = $_COOKIE["username"];
         //     // $token_login = $_COOKIE["token_login"];
