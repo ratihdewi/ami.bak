@@ -147,20 +147,23 @@ class UserController extends Controller
     public function changerolespm($id)
     {
         $user_ = User::where('id', $id)->where('role_id', '1')->exists();
-        $user = User::find($id);
-
-        $user->update([
-            'peran' => 'spm',
-        ]);
-        $user->save();
-
         $admin_ = User::where('id', $id)->where('role_id', '3')->exists();
-        $admin = User::find($id);
 
-        $admin->update([
-            'peran' => 'superadmin',
-        ]);
-        $admin->save();
+        if ($user) {
+            $user = User::find($id);
+
+            $user->update([
+                'peran' => 'spm',
+            ]);
+            $user->save();
+        } elseif ($amin_) {
+            $admin = User::find($id);
+
+            $admin->update([
+                'peran' => 'superadmin',
+            ]);
+            $admin->save();
+        }
 
         if ($user_) {
             return redirect()->route('home.spm')->with('success', 'Selamat datang di halaman SPM!');
