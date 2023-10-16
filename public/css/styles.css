@@ -77,7 +77,7 @@ a {
     top: 5%;
     left: -30%;
     width: var(--nav-width);
-    height: 100vh;
+    min-height: 100vh;
     /* background-color: #bfe9df !important; */
     background-color: #bfe9df !important;
     /* background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%); */
@@ -86,7 +86,7 @@ a {
     z-index: var(--z-fixed);
 }
 .nav {
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -95,6 +95,7 @@ a {
 
 .nav-list {
     position: fixed;
+    overflow-y: auto;
 }
 
 .nav a {
@@ -288,7 +289,7 @@ span.fc-title {
     .l-navbar {
         left: 0;
         padding: 1rem 1rem 0 0;
-        /* overflow-y: auto; */
+        overflow-y: auto;
     }
     .show {
         width: calc(var(--nav-width) + 156px);
