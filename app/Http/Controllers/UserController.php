@@ -157,6 +157,11 @@ class UserController extends Controller
         $admin_ = User::where('id', $id)->where('role_id', '3')->exists();
         $admin = User::find($id);
 
+        $admin->update([
+            'peran' => 'superadmin',
+        ]);
+        $admin->save();
+
         if ($user_) {
             return redirect()->route('home.spm')->with('success', 'Selamat datang di halaman SPM!');
         } elseif ($admin_) {
