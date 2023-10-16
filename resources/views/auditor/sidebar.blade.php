@@ -119,7 +119,7 @@
             </a>
             <a
                 href="/dokumenresmiAMI-auditor-folderall"
-                class="nav_link py-1 {{ Request::routeIs('dokumenresmiAMI.auditor.folderall') ? 'active' : '' }}"
+                class="nav_link py-1 {{ Request::routeIs('dokumenresmiAMI.auditor.folderall') ? 'active' : '' || Request::routeIs('dokumenresmiAMI.auditor.folderall.detail') ? 'active' : '' }}"
             >
                 {{-- <i class="bx nav_icon"
                     ><img

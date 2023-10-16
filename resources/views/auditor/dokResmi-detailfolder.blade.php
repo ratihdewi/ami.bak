@@ -104,14 +104,14 @@
           <div class="modal-body">
 
             <input class="form-control mb-3" type="text" placeholder="folder_id" aria-label="folder_id" name="folderdokresmi_id" value="{{ $folders->id }}" hidden>
-            <input id="fileName" class="form-control" type="text" placeholder="Nama file" aria-label="Nama file example" name="fileName">
+            <input id="fileName" class="form-control mb-3" type="text" placeholder="Nama file" aria-label="Nama file example" name="fileName">
 
-            {{-- <input class="form-control btn-sm" type="file" id="formEditFileMultipleDokResmi" name="file" accept=".csv, .xlsx, .xls, .pdf, .docx" required multiple hidden>
+            <input class="form-control btn-sm" type="file" id="formEditFileMultipleDokResmi" name="file" accept=".csv, .xlsx, .xls, .pdf, .docx" required multiple hidden>
 
             <div class="labelspan-newfile py-2 rounded px-2 border">
                 <label class="label-uploaddokresmi bg-secondary mt-0" for="formEditFileMultipleDokResmi">Upload File</label>
                 <span id="editfile-chosen">No file chosen</span>
-            </div> --}}
+            </div>
           </div>
           <div class="modal-footer border border-top-0">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
@@ -152,8 +152,21 @@
           dataType: 'json',
           data: { q: '' },
           success: function(data) {
-              console.log(data);
               $('#fileName').val(data.fileName);
+
+              var string = data.file;
+              var explode = string.split('/');
+              var filename = explode[explode.length - 1];
+
+              $('#editfile-chosen').text(filename);
+
+              const actualBtnEdit = document.getElementById('formEditFileMultipleDokResmi');
+      
+              const editFileChosen = document.getElementById('editfile-chosen');
+              
+              actualBtnEdit.addEventListener('change', function(){
+                editFileChosen.textContent = this.files[0].name
+              });
 
               var modified = '/dokumenresmiAMI-spm-folderdetail-update/'+data.id;
               $('#renameEditFile').attr('action', modified);
