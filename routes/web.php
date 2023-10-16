@@ -293,6 +293,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/auditee_searchjadwal', [JadwalController::class, 'auditee_search'])->name('auditee_searchjadwal');
     Route::get('/auditee_ketersediaan-jadwal', [FullCalenderController::class, 'auditee_index']);
     Route::get('/auditee-landingpage-home', [HomeController::class, 'indexauditee'])->name('home.auditee');
+    Route::get('/dokumenresmiAMI-auditee-folderall', [FolderDokumenResmiController::class, 'index'])->name('dokumenresmiAMI.auditee.folderall');
+    Route::get('/dokumenresmiAMI-auditee-folderall-detail/{id}', [DokumenResmiController::class, 'index'])->name('dokumenresmiAMI.auditee.folderall.detail');
 
 
     Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');

@@ -21,7 +21,7 @@
             {{ $message }}
         </div>
     @endif
-    <div class="buton-addFolder" id="button-addFolder">
+    <div class="buton-addFolder" id="button-addFolder" hidden>
       <button type="button" class="btn btn-primary btn-sm float-end mb-3" data-bs-toggle="modal" data-bs-target="#newFolder">Tambah Folder</button>
     </div>
     <div class="table-folder mb-5" id="table-folder">
@@ -42,9 +42,9 @@
               <td class="fw-semibold">{{ $folder->folderName }}</td>
               <td class="text-center">{{ $folder->updated_at->translatedFormat('d M Y H:m:s') }}</td>
               <td class="text-center">
-                <button type="button" id="editmodalfolder" class="btn btn-primary btn-sm p-0"data-bs-toggle="modal" data-bs-target="#editFolder" onclick="editmodal({{ $folder->id }})" title="Rename"><i class="bi bi-pencil-square text-white mx-1 my-2 h5"></i></button>
-                <a href="/dokumenresmiAMI-auditor-folderall-detail/{{ $folder->id }}"><button class="btn btn-warning btn-sm p-0" title="Buka"><i class="bi bi-folder-fill text-white mx-1 my-2 h5"></i></button></a>
-                <a href="/dokumenresmiAMI-spm-folderall-delete/{{ $folder->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus folder {{ $folder->folderName }} ?')"><button class="btn btn-danger btn-sm p-0" title="Hapus"><i class="bi bi-trash-fill text-white mx-1 my-2 h5"></i></button></a>
+                <button type="button" id="editmodalfolder" class="btn btn-primary btn-sm p-0"data-bs-toggle="modal" data-bs-target="#editFolder" onclick="editmodal({{ $folder->id }})" title="Rename" disabled><i class="bi bi-pencil-square text-white mx-1 my-2 h5"></i></button>
+                <a href="/dokumenresmiAMI-auditee-folderall-detail/{{ $folder->id }}"><button class="btn btn-warning btn-sm p-0" title="Buka"><i class="bi bi-folder-fill text-white mx-1 my-2 h5"></i></button></a>
+                <a href="/dokumenresmiAMI-spm-folderall-delete/{{ $folder->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus folder {{ $folder->folderName }} ?')" hidden><button class="btn btn-danger btn-sm p-0" title="Hapus" disabled><i class="bi bi-trash-fill text-white mx-1 my-2 h5"></i></button></a>
               </td>
             </tr>
           @endforeach
