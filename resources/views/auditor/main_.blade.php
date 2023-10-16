@@ -21,7 +21,7 @@
                                 @if (Auth::user()->peran == 'user')
                                     <a href="" style="text-decoration: none;"><i class="bi bi-person-square me-2"></i><span><b>User/</b></span></a>
                                 @elseif (Auth::user()->peran == 'auditor')
-                                    <a href="" style="text-decoration: none;"><i class="bi bi-person-square me-2"></i><span><b>Auditor/</b></span></a>
+                                    <a href="" style="text-decoration: none;"><i class="bi bi-person-square me-2"></i><span><b>Auditor</b></span></a>/
                                 @endif
                                 @yield('linking')
                             </div>

@@ -12,7 +12,16 @@ class FolderDokumenResmiController extends Controller
     {
         $dokFolder = FolderDokumenResmi::all();
 
-        return view('spm/dokResmi', compact('dokFolder'));
+        if (Auth::user()->peran == 'spm') {
+            return view('spm/dokResmi', compact('dokFolder'));
+        } elseif (Auth::user()->peran == 'auditor') {
+            return view('auditor/dokResmi', compact('dokFolder'));
+        } elseif (Auth::user()->peran == 'auditee') {
+            return view('auditee/dokResmi', compact('dokFolder'));
+        } else {
+            return view('auditee/dokResmi', compact('dokFolder'));
+        }
+
     }
 
     public function store(Request $request)

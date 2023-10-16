@@ -118,8 +118,8 @@
                 <span class="nav_name"> RTM </span>
             </a>
             <a
-                href="#"
-                class="nav_link py-1 {{ Request::is('dokresmi') ? 'active' : '' }}"
+                href="/dokumenresmiAMI-auditor-folderall"
+                class="nav_link py-1 {{ Request::routeIs('dokumenresmiAMI.auditor.folderall') ? 'active' : '' }}"
             >
                 {{-- <i class="bx nav_icon"
                     ><img

@@ -14,7 +14,15 @@ class DokumenResmiController extends Controller
         $folders = FolderDokumenResmi::find($id);
         $files = DokumenResmi::where('folderdokresmi_id', $folders->id)->get();
 
-        return view('spm/dokResmi-detailfolder', compact('folders', 'files'));
+        if (Auth::user()->peran == 'spm') {
+            return view('spm/dokResmi-detailfolder', compact('folders', 'files'));
+        } elseif (Auth::user()->peran == 'auditor') {
+            return view('auditor/dokResmi-detailfolder', compact('folders', 'files'));
+        } elseif (Auth::user()->peran == 'auditee') {
+            return view('auditee/dokResmi-detailfolder', compact('folders', 'files'));
+        } else {
+            return view('auditee/dokResmi-detailfolder', compact('folders', 'files'));
+        }
     }
 
     public function store(Request $request)
