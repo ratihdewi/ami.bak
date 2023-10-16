@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
-        switch(env('APP_env')){
+        switch(env('APP_ENV')){
             case 'local':
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                 break;
@@ -66,7 +66,7 @@ class AuthController extends Controller
                 // Handle jika user tidak ditemukan
                 // Misalnya, arahkan ke halaman login
                 // return redirect($login_url);
-                switch(env('APP_env')){
+                switch(env('APP_ENV')){
                     case 'local':
                         return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                         break;
@@ -80,7 +80,7 @@ class AuthController extends Controller
         } else {
             // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
             // return redirect($login_url);
-            switch(env('APP_env')){
+            switch(env('APP_ENV')){
                 case 'local':
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                     break;
@@ -112,7 +112,7 @@ class AuthController extends Controller
             // $logout_url = 'https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;
             // return redirect($logout_url);
 
-            switch(env('APP_env')){
+            switch(env('APP_ENV')){
                 case 'local':
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username);
                     break;
