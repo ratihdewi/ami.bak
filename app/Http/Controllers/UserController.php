@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function tambahuser()
     {
-        $roles = Role::all();
+        $roles = Role::where('name', '!=', 'Super Admin')->get();
         $unitkerjas = UnitKerja::all();
 
         return view('spm/addUser', compact('roles', 'unitkerjas'));
@@ -49,7 +49,7 @@ class UserController extends Controller
     public function tampildata($id){
         $data = User::find($id);
         $unitkerjas = UnitKerja::all();
-        $roles = Role::all();
+        $roles = Role::where('name', '!=', 'Super Admin')->get();
 
         $unitkerja2 = UnitKerja::find($data->unitkerja_id2);
         $unitkerja3 = UnitKerja::find($data->unitkerja_id3);
@@ -154,8 +154,13 @@ class UserController extends Controller
         ]);
         $user->save();
 
+        $admin_ = User::where('id', $id)->where('role_id', '3')->exists();
+        $admin = User::find($id);
+
         if ($user_) {
             return redirect()->route('home.spm')->with('success', 'Selamat datang di halaman SPM!');
+        } elseif ($admin_) {
+            return redirect()->route('home.spm')->with('success', 'Selamat datang di halaman Super Admin!');
         } else {
             return redirect()->back();
         }

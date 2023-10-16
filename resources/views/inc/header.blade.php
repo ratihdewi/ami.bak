@@ -22,6 +22,16 @@
                 <a class="dropdown-item" href="/auditor-detailauditor" style="text-decoration: none; color:black">Profil</a>
             </li>
             <li
+                @if (Auth::user()->role_id != '3')
+                    hidden
+                @endif
+                @if (Auth::user()->peran == 'superadmin')
+                    class="roleSuperAdmin disabled"
+                @endif
+            >
+                <a class="dropdown-item" href="/changerolespm/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Super Admin)</a>
+            </li>
+            <li
                 @if (Auth::user()->role_id != '1')
                     hidden
                 @endif

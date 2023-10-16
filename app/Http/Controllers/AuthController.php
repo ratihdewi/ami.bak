@@ -55,6 +55,13 @@ class AuthController extends Controller
                 ]);
                 $user->save();
                 return redirect()->intended('/auditee-landingpage-home');
+            } elseif ($user->role_id == 3) {
+                Auth::login($user);
+                $user->update([
+                    'peran' => 'superadmin',
+                ]);
+                $user->save();
+                return redirect()->intended('/landingpage-home');
             } else {
                 // Handle jika user tidak ditemukan
                 // Misalnya, arahkan ke halaman login

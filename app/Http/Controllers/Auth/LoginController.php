@@ -49,7 +49,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $user->assignRole($user->role);
+        $user->assignRole($user->role_id);
         $userAuditor = Auditor::where('user_id', $user->id)->get();
         $userAuditee = Auditee::where('user_id', $user->id)->get();
         // dd($user);
@@ -66,6 +66,12 @@ class LoginController extends Controller
             ]);
             $user->save();
             return redirect()->route('home.auditee');
-        } 
+        } elseif ($user->hasRole(3)) {
+            $user->update([
+                'peran' => 'superadmin',
+            ]);
+            $user->save();
+            return redirect()->route('home.spm');
+        }
     }
 }

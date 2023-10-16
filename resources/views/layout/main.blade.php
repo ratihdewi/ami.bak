@@ -24,6 +24,10 @@
                                     <a href="" style="text-decoration: none;">
                                         <i class="bi bi-person-square me-2 h87"></i><span><b>SPM</b></span>
                                     </a>/
+                                @elseif (Auth::user()->peran == 'superadmin')
+                                    <a href="" style="text-decoration: none;">
+                                        <i class="bi bi-person-square me-2 h87"></i><span><b>Super Admin</b></span>
+                                    </a>/
                                 @endif
                                 @yield('linking')
                             </div>
