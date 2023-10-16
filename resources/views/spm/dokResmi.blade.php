@@ -4,134 +4,132 @@
     AMI - Dokumen Resmi
 @endsection
 
+@section('linking')
+    {{-- <a href="/daftarAuditor-periode" class="mx-1"> --}}
+        Dokumen Resmi AMI
+    {{-- </a> --}}
+@endsection
+
 @section('container')
-  <div class="container vh-100">
-    <div class="card w-75 mx-auto mt-5">
-      <div class="body-card text-center py-4 dokresmi">
-        <h4 class="fw-bold">Dokumen Resmi Audit Muti Internal (AMI)</h4>
-        <h5>Surat Keputusan (SK) dan Pedoman Audit Mutu Internal (AMI)</h5>
-        <form class="mx-auto" action="" method="get">
+  <div class="container pt-5" style="min-height: 100vh">
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            {{ $message }}
+        </div>
+    @elseif ($message = Session::get('error'))
+        <div class="alert alert-danger" role="alert">
+            {{ $message }}
+        </div>
+    @endif
+    <div class="buton-addFolder" id="button-addFolder">
+      <button type="button" class="btn btn-primary btn-sm float-end mb-3" data-bs-toggle="modal" data-bs-target="#newFolder">Tambah Folder</button>
+    </div>
+    <div class="table-folder mb-5" id="table-folder">
+      <table class="table table-hover my-3" id="table-folders">
+        <thead>
+          <tr>
+            <th class="col-1 text-center">No</th>
+            <th class="text-center">Nama</th>
+            <th class="col-3 text-center">Terakhir diedit</th>
+            <th class="col-2 text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $no = 1; ?>
+          @foreach ($dokFolder as $folder)
+            <tr>
+              <td class="text-center fw-semibold">{{ $no++ }}</td>
+              <td class="fw-semibold">{{ $folder->folderName }}</td>
+              <td class="text-center">{{ $folder->updated_at->translatedFormat('d M Y H:m:s') }}</td>
+              <td class="text-center">
+                <button type="button" id="editmodalfolder" class="btn btn-primary btn-sm p-0"data-bs-toggle="modal" data-bs-target="#editFolder" onclick="editmodal({{ $folder->id }})" title="Rename"><i class="bi bi-pencil-square text-white mx-1 my-2 h5"></i></button>
+                <a href="/dokumenresmiAMI-spm-folderall-detail/{{ $folder->id }}"><button class="btn btn-warning btn-sm p-0" title="Buka"><i class="bi bi-folder-fill text-white mx-1 my-2 h5"></i></button></a>
+                <a href="/dokumenresmiAMI-spm-folderall-delete/{{ $folder->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus folder {{ $folder->folderName }} ?')"><button class="btn btn-danger btn-sm p-0" title="Hapus"><i class="bi bi-trash-fill text-white mx-1 my-2 h5"></i></button></a>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="newFolder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newFolderLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form action="/dokumenresmiAMI-addnewfolder" method="POST">
           @csrf
-          <div class="row d-flex justify-content-center mx-auto w-75 mt-4">
-          <div class="col-5">
-            <select class="form-select my-3 py-2" id="floatingSelectGrid" name="hari_tgl">
-                <option selected>Saring Tahun</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-              </select>
+          <div class="modal-header border border-bottom-0">
+            <h1 class="modal-title fs-5" id="newFolderLabel">Folder Baru</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="col-3">
-            <button class="btn btn-primary my-3 py-2 px-4" type="submit">Cari</button>
+          <div class="modal-body">
+            <input class="form-control" type="text" id="addNewFolder" placeholder="Folder baru" name="folderName" aria-label="default input example">
+          </div>
+          <div class="modal-footer border border-top-0">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Buat</button>
           </div>
         </form>
-        
-        </div>
       </div>
     </div>
-    <div class="dokumenResmi mx-3" style="margin-top: 50px">
-      <ul class="nav nav-tabs flex-row justify-content-between jadwalAudit mt-5" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">SK dan Pedoman</button>
-        </li>
-        <button type="button" class="btn btn-primary btn-sm my-2" data-bs-toggle="modal" data-bs-target="#unggahDokumen">Tambah File</button>
-        
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active w-100" id="home" role="tabpanel" aria-labelledby="home-tab">
-          <div class="row px-3">
-            <table class="table table-hover mt-2">
-                <thead>
-                    <tr>
-                        <th class="col-1 text-center">No</th>
-                        <th class="col-2 text-center">Nama File</th>
-                        <th class="col-2 text-center">Jenis</th>
-                        <th class="col-2 text-center">Diedit</th>
-                        <th class="col-2 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $no = 1; @endphp
-                    <tr>
-                        <td scope="row" class="text-center">{{ $no++ }}</td>
-                        <td class="">SK AMI 2023</td>
-                        <td class="text-center">SK</td>
-                        <td class="text-center">28/03/2023 12:34</td>
-                        <td class="text-center">
-                          <a href="/auditor-dokresmi"><i class="bi bi-eye"></i></a>
-                          <a href="#" class="mx-2"><i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    {{-- @foreach ($data as $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $no++ }}</th>
-                        <td class="text-center">{{ $item->auditee }}</td>
-                        <td class="text-center">{{ $item->auditor }}</td>
-                        <td class="text-center">{{ $item->tempat }}</td>
-                        <td class="text-center">{{ $item->hari_tgl->translatedFormat('l, d M Y') }}</td>
-                        <td class="text-center">{{ $item->waktu }}</td>
-                        <td class="text-center">{{ $item->kegiatan }}</td>
-                    </tr>
-                    @endforeach --}}
-                </tbody>
-            </table>
+  </div>
+
+  <!-- Modal Edit -->
+  <div class="modal" id="editFolder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newFolderLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="renameFolderForm" action="/dokumenresmiAMI-updatefolder" method="POST">
+          @csrf
+          <div class="modal-header border border-bottom-0">
+            <h1 class="modal-title fs-5" id="newFolderLabel">Rename</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </div>
-      </div>
-      <div class="modal fade" id="unggahDokumen" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header" style="background: rgba(177, 227, 229, 0.37);">
-              <h5 class="modal-title">Unggah Dokumen SK / Pedoman AMI</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="inputTglPelaksanaanAMI" class="col-form-label">Peruntukan tahun pelaksanaan AMI:</label>
-                  <input type="text" class="form-control" id="inputTglPelaksanaanAMI" placeholder="Tanggal pelaksanaan AMI">
-                </div>
-                <div class="mb-3">
-                  <label for="inputJenisDok" class="col-form-label">Jenis Dokumen:</label>
-                  <select id="inputJenisDok" class="form-select" aria-label="Default select example">
-                    <option selected disabled>Pilih jenis dokumen</option>
-                    <option value="SK">SK</option>
-                    <option value="Pedoman AMI">Pedoman AMI</option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="formFileMultiple" class="form-label">Dokumen:</label>
-                  <input class="form-control" type="file" id="formFileMultiple" multiple>
-                </div>
-              </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer" style="background: rgba(177, 227, 229, 0.37);">
-              <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Simpan</button>
-            </div>
+          <div class="modal-body">
+            <input class="form-control" type="text" id="renameFolder" placeholder="Folder baru" name="folderName" aria-label="default input example">
           </div>
-        </div>
+          <div class="modal-footer border border-top-0">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Buat</button>
+          </div>
+        </form>
       </div>
     </div>
-      {{-- <div class="preview" id="previewDokResmi">
-        <embed src="/dokumen/example.pdf" type="application/pdf" width="300" height="200">
-        <object data="/dokumen/example.pdf" type="application/pdf" width="300" height="200">
-          
-        </object>
-        <iframe src="/dokumen/example.pdf"
-          width="250"
-          height="200">
-      </div>     --}}
-  
   </div>
 @endsection
 
 @push('script')
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#table-folders').DataTable();
+
+      $('#button-addFolder').on('click', function() {
+        console.clear();
+      });
+      
+    });
+
+    function editmodal(id) {
+      console.clear();      
+      $.ajax({
+          url: "{{url('/dokumenresmiAMI-spm-folderall-edit')}}/"+ id,
+          type: 'GET',
+          dataType: 'json',
+          data: { q: '' },
+          success: function(data) {
+              console.log(data);
+              $('#renameFolder').val(data.folderName);
+
+              var modified = '/dokumenresmiAMI-updatefolder/'+data.id;
+              $('#renameFolderForm').attr('action', modified);
+              
+          },
+          error: function() {
+              console.error('Terjadi kesalahan saat memuat data users.');
+          }
+      });
+    }
+  </script>
 @endpush

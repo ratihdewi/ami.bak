@@ -243,6 +243,18 @@ span.fc-title {
     background: #bfe9df;
 }
 
+.label-uploaddokresmi
+{
+    /* background-color: indigo; */
+    color: white;
+    font-size: 15px;
+    padding: 0.3rem 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
 .dokumenResmi {
     font-size: 14px;
 }
@@ -466,6 +478,10 @@ tr.row.header_pertanyaandaftartilik {
 }
 
 /* Tindakan Koreksi */
+span.select2.select2-container.select2-container--default {
+    width: 100% !important;
+}
+
 @media screen and (max-width: 768px)
 {
     .formTindakanKoreksi {
@@ -510,7 +526,9 @@ tr.row.header_pertanyaandaftartilik {
     #headerPratinjau,
     #beritaacara_wrapper,
     #jadwalaudit_wrapper,
-    #tableareaDT_wrapper {
+    #tableareaDT_wrapper,
+    div#table-folders_wrapper
+    {
         overflow-x: auto;
     }
 }

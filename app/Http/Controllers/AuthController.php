@@ -15,6 +15,7 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
+        
         switch(env('APP_env')){
             case 'local':
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');

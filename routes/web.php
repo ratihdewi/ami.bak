@@ -29,11 +29,14 @@ use App\Http\Controllers\BeritaAcaraController;
 use App\Http\Controllers\DaftarHadirController;
 use App\Http\Controllers\DaftarTilikController;
 use App\Http\Controllers\DokLampiranController;
+use App\Http\Controllers\DokumenResmiController;
 use App\Http\Controllers\FotoKegiatanController;
 use App\Http\Controllers\FullCalenderController;
 use App\Http\Controllers\TahunPeriodeController;
 use App\Http\Controllers\TindakanKoreksiController;
+use App\Http\Controllers\FolderDokumenResmiController;
 use App\Http\Controllers\PeluangPeningkatanController;
+use App\Http\Controllers\PersetujuanTindakanKoreksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,9 +150,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tambahjadwal-getauditor/{auditee_id}', [JadwalController::class, 'getAuditor'])->name('tambahjadwal-getauditor');
     Route::post('/searchjadwal', [JadwalController::class, 'search'])->name('searchjadwal');
     Route::get('/jadwalaudit-searchauditee/{tahunperiode0}/{tahunperiode}', [JadwalController::class, 'getUnitKerja'])->name('jadwalaudit-searchauditee');
-    Route::get('/dokresmi', function(){
-        return view('spm/dokResmi');
-    });
+    Route::get('/dokumenresmiAMI-spm-folderall', [FolderDokumenResmiController::class, 'index'])->name('dokumenresmiAMI.spm.folderall');
+    Route::get('/dokumenresmiAMI-spm-folderall-detail/{id}', [DokumenResmiController::class, 'index'])->name('dokumenresmiAMI.spm.folderall.detail');
     Route::get('/daftartilik/{tahunperiode}', [DaftarTilikController::class, 'index'])->name('daftartilik');
     Route::get('/daftartilik-searchAuditeeAuditor/{auditee_id}', [DaftarTilikController::class, 'getAuditor'])->name('daftartilik-searchAuditeeAuditor');
     Route::get('/daftartilik-searchtahunperiode/{auditee_id}', [DaftarTilikController::class, 'getAuditee'])->name('daftartilik-searchtahunperiode');
@@ -212,13 +214,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editjadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'editjadwalami'])->name('editjadwalami-keseluruhan');
     Route::post('/updatejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'updatejadwalami'])->name('updatejadwalami-keseluruhan');
     Route::get('/deletejadwalami-keseluruhan/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
-    // Route::get('/generateqrcode/{id}', [JadwalAMIController::class, 'deletejadwalami'])->name('deletejadwalami-keseluruhan');
     Route::post('/tindakankoreksi-store/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('tindakankoreksi-store');
     // Route::get('/tindakankoreksi-storerencanatindakan/{noPTK}', [TindakanKoreksiController::class, 'storerencanatindakan'])->name('tindakankoreksi-storerencanatindakan');
     Route::get('/tindakankoreksi-signakarpenyebab/{noPTK}', [TindakanKoreksiController::class, 'signakarpenyebab'])->name('tindakankoreksi-signakarpenyebab');
     Route::get('/auditlapangan-autoapprove/{id}', [PertanyaanController::class, 'autoapprove'])->name('auditlapangan-autoapprove');
     Route::get('/tindakankoreksi-signrencanatindakan/{noPTK}', [TindakanKoreksiController::class, 'signrencanatindakan'])->name('tindakankoreksi-signrencanatindakan');
-    Route::post('/update-batasan-akses-auditor/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('update-batasan-akses-auditor');
+    Route::post('/update-batasan-akses-auditor/{noPTK}', [TindakanKoreksiController::class, 'edit_deadlineAkarPenyebab'])->name('update-batasan-akses-auditor');
+    Route::post('/update-batasan-rencana-tindakan/{noPTK}', [TindakanKoreksiController::class, 'edit_deadlineRencanaTindakan'])->name('update.batasan.rencana.tindakan');
+    Route::get('/tindakankoreksi-akarpenyebab-getauditor/{id}', [TindakanKoreksiController::class, 'get_auditor'])->name('akarpenyebab.get.auditor');
+    Route::get('/tindakankoreksi-akarpenyebab-approvalketuaauditor/{id}', [PersetujuanTindakanKoreksiController::class, 'approvalAuditor'])->name('tindakankoreksi.akarpenyebab.approvalketuaauditor');
+    Route::get('/tindakankoreksi-persetujuan-auditor/{id}', [PersetujuanTindakanKoreksiController::class, 'index'])->name('tindakankoreksi.persetujuan.auditor');
+    Route::post('/dokumenresmiAMI-addnewfolder', [FolderDokumenResmiController::class, 'store'])->name('dokumenresmiAMI.addnewfolder');
+    Route::post('/dokumenresmiAMI-updatefolder/{id}', [FolderDokumenResmiController::class, 'update'])->name('dokumenresmiAMI.updatefolder');
+    Route::post('/dokumenresmiAMI-addnewfile', [DokumenResmiController::class, 'store'])->name('dokumenresmiAMI.addnewfile');
+    Route::get('/dokumenresmiAMI-readfile/{id}', [DokumenResmiController::class, 'read'])->name('dokumenresmiAMI.readfile');
+    Route::get('/dokumenresmiAMI-spm-folderall-delete/{id}', [FolderDokumenResmiController::class, 'delete'])->name('dokumenresmiAMI.spm.folderall.delete');
+    Route::get('/dokumenresmiAMI-spm-folderall-edit/{id}', [FolderDokumenResmiController::class, 'getdatamodal'])->name('dokumenresmiAMI.spm.folderall.edit');
+    Route::get('/dokumenresmiAMI-spm-folderdetail-edit/{id}', [DokumenResmiController::class, 'getdatamodal'])->name('dokumenresmiAMI.spm.folderdetail.edit');
+    Route::post('/dokumenresmiAMI-spm-folderdetail-update/{id}', [DokumenResmiController::class, 'update'])->name('dokumenresmiAMI.spm.folderdetail.update');
+    Route::get('/dokumenresmiAMI-spm-folderdetail-delete/{id}', [DokumenResmiController::class, 'delete'])->name('dokumenresmiAMI.spm.folderdetail.delete');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
