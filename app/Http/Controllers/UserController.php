@@ -149,14 +149,14 @@ class UserController extends Controller
         $user_ = User::where('id', $id)->where('role_id', '1')->exists();
         $admin_ = User::where('id', $id)->where('role_id', '3')->exists();
 
-        if ($user) {
+        if ($user_) {
             $user = User::find($id);
 
             $user->update([
                 'peran' => 'spm',
             ]);
             $user->save();
-        } elseif ($amin_) {
+        } elseif ($admin_) {
             $admin = User::find($id);
 
             $admin->update([
