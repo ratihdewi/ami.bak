@@ -19,7 +19,7 @@ class AuthController extends Controller
             case 'local':
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                 break;
-            case 'dev':
+            case 'development':
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                 break;
             default:
