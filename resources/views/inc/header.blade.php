@@ -26,7 +26,7 @@
                     hidden
                 @endif
                 @if (Auth::user()->peran == 'superadmin')
-                    class="roleSuperAdmin disabled"
+                    class="roleSuperAdmin opacity-50 disabled"
                 @endif
             >
                 <a class="dropdown-item" href="/changerolespm/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Super Admin)</a>
