@@ -77,7 +77,7 @@ a {
     top: 5%;
     left: -30%;
     width: var(--nav-width);
-    height: 100vh;
+    min-height: 100vh;
     /* background-color: #bfe9df !important; */
     background-color: #bfe9df !important;
     /* background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%); */
@@ -85,8 +85,8 @@ a {
     transition: 0.5s;
     z-index: var(--z-fixed);
 }
-.nav {
-    height: 100%;
+.nav.nav-sidebar {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -294,7 +294,7 @@ span.fc-title {
     .l-navbar {
         left: 0;
         padding: 1rem 1rem 0 0;
-        /* overflow-y: auto; */
+        overflow-y: auto;
     }
     .show {
         width: calc(var(--nav-width) + 156px);
@@ -341,6 +341,7 @@ span.fc-title {
         margin-top: 12% !important;
         margin-bottom: 8% !important;
     }
+    
     /* table#tableAreaDaftarTilik td,
     table#tableDaftarTilik td {
         margin-left: 0px;
