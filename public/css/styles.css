@@ -78,7 +78,6 @@ a {
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
-    /* min-height: 100vh; */
     /* background-color: #bfe9df !important; */
     background-color: #bfe9df !important;
     /* background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%); */
@@ -88,7 +87,6 @@ a {
 }
 .nav {
     height: 100%;
-    /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

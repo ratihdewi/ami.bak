@@ -98,11 +98,6 @@
                                                 <option value="">
                                                     Pilih Jabatan
                                                 </option>
-                                                @foreach ($unitkerjas as $unitkerja)
-                                                <option value="{{ $unitkerja->id }}">
-                                                    {{ $unitkerja->name }}
-                                                </option>
-                                                @endforeach
                                             </select>
                                             {{-- <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" required> --}}
                                         </div>    
@@ -139,11 +134,6 @@
                                                 <option value="">
                                                     Pilih Jabatan
                                                 </option>
-                                                @foreach ($unitkerjas as $unitkerja)
-                                                <option value="{{ $unitkerja->id }}">
-                                                    {{ $unitkerja->name }}
-                                                </option>
-                                                @endforeach
                                             </select>
                                             {{-- <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Jabatan" aria-label="Jabatan"> --}}
                                         </div>    
@@ -180,11 +170,6 @@
                                                 <option value="">
                                                     Pilih Jabatan
                                                 </option>
-                                                @foreach ($unitkerjas as $unitkerja)
-                                                <option value="{{ $unitkerja->id }}">
-                                                    {{ $unitkerja->name }}
-                                                </option>
-                                                @endforeach
                                             </select>
                                             {{-- <input type="text" name="jabatan3" class="form-control" id="jabatan3" placeholder="Jabatan" aria-label="Jabatan"> --}}
                                         </div>    
