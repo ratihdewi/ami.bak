@@ -7,13 +7,13 @@
 
     <body id="body-pd">
         <div id="wrapper" class="d-flex">
-            <div class="l-navbar show" id="nav-bar">@include('inc.sidebar')</div>
+            <div class="l-navbar show-sidebar" id="nav-bar">@include('inc.sidebar')</div>
             <div id="content" class="w-100 mt-5 pt-3">
                 @include('inc.header')
-                <div class="container">
+                <div class="container-fluid">
                     <div
                         id="main-container"
-                        class="container border rounded mb-5"
+                        class="container-fluid border rounded mb-5"
                         style="min-height: 100"
                     >   
                         <div class="row mb-2 mt-3 me-2" style="font-size: 14px">

@@ -24,6 +24,7 @@ use App\Http\Controllers\DokBAAMIController;
 use App\Http\Controllers\DokSahihController;
 use App\Http\Controllers\JadwalAMIController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DokLaporanController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\BeritaAcaraController;
 use App\Http\Controllers\DaftarHadirController;
@@ -233,6 +234,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dokumenresmiAMI-spm-folderdetail-edit/{id}', [DokumenResmiController::class, 'getdatamodal'])->name('dokumenresmiAMI.spm.folderdetail.edit');
     Route::post('/dokumenresmiAMI-spm-folderdetail-update/{id}', [DokumenResmiController::class, 'update'])->name('dokumenresmiAMI.spm.folderdetail.update');
     Route::get('/dokumenresmiAMI-spm-folderdetail-delete/{id}', [DokumenResmiController::class, 'delete'])->name('dokumenresmiAMI.spm.folderdetail.delete');
+    Route::get('/laporan-spm-index', [DokLaporanController::class, 'index'])->name('laporan.spm.index');
+    Route::get('/laporan-spm-index-list', [DokLaporanController::class, 'bodyindex'])->name('laporan.spm.index.list');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal', [DokLaporanController::class, 'showlaporanami'])->name('laporan.spm.laporan.audit.mutu.internal');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-daftarisi', [DokLaporanController::class, 'showlaporanamidaftarisi'])->name('laporan.spm.laporan.audit.mutu.internal.daftarisi');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

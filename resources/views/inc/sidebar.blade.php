@@ -1,4 +1,4 @@
-<nav class="nav mt-5">
+<nav class="nav nav-sidebar mt-5">
     <div id="sidebarspm mt-5">
         <a href="/landingpage-home" class="nav_logo my-4">
             {{-- <img src="/asset/Logo-Up.png" alt="Logo-UPer" width="50" /> --}}
@@ -92,7 +92,9 @@
                 <i class="bi bi-files h4"></i>
                 <span class="nav_name"> Tindakan Koreksi </span>
             </a>
-            <a href="#" class="nav_link py-1">
+            <a 
+                href="/laporan-spm-index"
+                class="nav_link py-1 {{  Request::routeIs('laporan.spm.index') ? 'active' : '' || Request::routeIs('laporan.spm.index.list') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.daftarisi') ? 'active' : '' }}">
                 {{-- <i class="bx nav_icon"
                     ><img
                         src="/asset/sideBar/laporan.png"

@@ -85,7 +85,7 @@ a {
     transition: 0.5s;
     z-index: var(--z-fixed);
 }
-.nav {
+.nav.nav-sidebar {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -143,13 +143,14 @@ a {
 .nav_icon {
     font-size: 1.25rem;
 }
-.show {
+.show-sidebar {
     left: 0;
 }
+
 /* .body-pd {
     padding-left: calc(var(--nav-width) + 1rem);
 } */
-nav .active {
+nav.nav-sidebar .active {
     color: var(--medBlack-color);
     background-color: #ffffff;
     border-radius: 10px;
@@ -301,7 +302,7 @@ span.fc-title {
         padding: 1rem 1rem 0 0;
         /* overflow-y: auto; */
     }
-    .show {
+    .show-sidebar {
         width: calc(var(--nav-width) + 156px);
     }
     /* .body-pd {
@@ -500,7 +501,7 @@ span.select2.select2-container.select2-container--default {
         display: none;
     }
 
-    .l-navbar.show {
+    .l-navbar.show-sidebar {
         left: -30%;
     }
 
@@ -508,7 +509,7 @@ span.select2.select2-container.select2-container--default {
         padding: 2rem 1rem;
     }
 
-    .l-navbar.show.active {
+    .l-navbar.show-sidebar.active {
         margin-left: 30%;
         width: auto;
         height: 100%;
@@ -585,4 +586,14 @@ span.select2.select2-container.select2-container--default {
 iframe#auditeeindikatorMutu_ifr,
 iframe#auditeepertanyaan_ifr {
     background-color: #e9ecef !important;
+}
+
+button.tab-laporanami a {
+    color: grey;
+}
+
+button.tab-laporanami a:hover,
+button.tab-laporanami.active a {
+    color: rgb(0, 0, 0);
+    font-weight: 500;
 }
