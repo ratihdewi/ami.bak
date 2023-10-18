@@ -12,10 +12,10 @@
 
 <div class="container mt-4" style="font-size: 13px">
   {{-- Search Jadwal --}}
-    <div class="search my-5 p-5 mx-5 text-white rounded">
+    <div class="search my-5 p-5 mx-5 text-white rounded searchjadwalaudit">
       <form id="search-form" action="/jadwalaudit" method="GET">
         @csrf
-        <div class="input-group d-flex justify-content-around">
+        <div class="input-group">
           <select class="form-select mx-3 border border-secondary rounded" id="inputauditee" aria-label="Example select with button addon" name="select_auditee" value="{{ request('select_auditee') }}">
             <option selected disabled>Filter Auditee</option>
             @foreach ($unitkerjas as $unitkerja)
@@ -226,31 +226,6 @@
               </div>
             </div>
             <div id="calendar"></div>
-            {{-- <div id="inputKetersediaan" class="inputKetersediaan mt-3 p-3 border rounded">
-              <h5 class="fw-bold">Ketersediaan Jadwal</h5>
-              <p id="dateInfo"></p>
-              <form id="form">
-                <input id="inputinisial" type="text" placeholder="Silahkan masukkan sesi menrut ketersediaan dan kesediaan Anda" class="w-100 border rounded">
-                <div class="row" id="inputketersediaanjadwal">
-                  <div class="col">
-                    <label for="inisialnama">Inisial Nama:</label>
-                    <input type="text" class="form-control" id="inisialnama" placeholder="contoh: AN" name="title">
-                  </div>
-                  <div class="col mx-auto">
-                    <label for="session" class="fw-bold" class="form-label">Sesi:</label><br>
-                    <select id="session" class="form-select">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                </div>
-
-                <button type="button" id="saveBtn" class="btn btn-success btn-sm float-end mt-3 mx-1">Simpan</button>
-                <button type="button" id="cancelBtn" class="btn btn-secondary btn-sm float-end mt-3 mx-1">Batal</button>
-              </form>
-            </div> --}}
             <div class="ketColor d-flex mt-3">
               <div class="form-check me-3 px-0">
                 <span><i class="bi bi-square-fill" style="color: #187498"></i></span>

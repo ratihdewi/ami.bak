@@ -77,7 +77,8 @@ a {
     top: 5%;
     left: -30%;
     width: var(--nav-width);
-    min-height: 100vh;
+    height: 100vh;
+    /* min-height: 100vh; */
     /* background-color: #bfe9df !important; */
     background-color: #bfe9df !important;
     /* background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%); */
@@ -86,7 +87,8 @@ a {
     z-index: var(--z-fixed);
 }
 .nav {
-    min-height: 100vh;
+    height: 100%;
+    /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -189,6 +191,11 @@ li.roleSuperAdmin.disabled {
 }
 
 /* Jadwal Audit */
+.searchjadwalaudit span.select2.select2-container.select2-container--default {
+    width: 44% !important;
+    margin-right: 5px;
+}
+
 .search {
     background: #b1e3e5;
     border: 1px solid #ababab;
@@ -289,7 +296,7 @@ span.fc-title {
     .l-navbar {
         left: 0;
         padding: 1rem 1rem 0 0;
-        overflow-y: auto;
+        /* overflow-y: auto; */
     }
     .show {
         width: calc(var(--nav-width) + 156px);

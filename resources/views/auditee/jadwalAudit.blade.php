@@ -12,7 +12,7 @@
 
 <div class="container-fluid mt-4" style="font-size: 13px; min-height: 100vh">
   {{-- Search Jadwal --}}
-  <div class="search my-5 p-5 mx-5 text-white rounded">
+  <div class="search my-5 p-5 mx-5 text-white rounded searchjadwalaudit">
     <form action="auditee_searchjadwal" method="get">
       @csrf
       <div class="input-group d-flex justify-content-around">
