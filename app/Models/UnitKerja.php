@@ -18,4 +18,9 @@ class UnitKerja extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function positions()
+    {
+        return $this->hasMany(Position::class);
+    }
 }

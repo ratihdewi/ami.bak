@@ -90,7 +90,22 @@
                                 </div>
                                 <div class="col">
                                     <label for="jabatan" class="form-label fw-semibold">Jabatan</label>
-                                    <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan }}">
+                                    <select
+                                        id="jabatan"
+                                        class="form-select"
+                                        name="jabatan"
+                                        required
+                                    >
+                                        <option value="{{ $data->jabatan }}" selected>
+                                            {{ $data->jabatan }}
+                                        </option>
+                                        {{-- @foreach ($unitkerjas as $unitkerja)
+                                        <option value="{{ $unitkerja->id }}">
+                                            {{ $unitkerja->name }}
+                                        </option>
+                                        @endforeach --}}
+                                    </select>
+                                    {{-- <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan }}"> --}}
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -121,7 +136,21 @@
                                 </div>
                                 <div class="col">
                                     <label for="jabatan2" class="form-label fw-semibold">Jabatan (Opsional)</label>
-                                    <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan2 }}">
+                                    <select
+                                        id="jabatan2"
+                                        class="form-select"
+                                        name="jabatan2"
+                                    >
+                                        <option value="{{ $data->jabatan2 }}" selected>
+                                            {{ $data->jabatan2 }}
+                                        </option>
+                                        {{-- @foreach ($unitkerjas as $unitkerja)
+                                        <option value="{{ $unitkerja->id }}">
+                                            {{ $unitkerja->name }}
+                                        </option>
+                                        @endforeach --}}
+                                    </select>
+                                    {{-- <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan2 }}"> --}}
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -151,7 +180,21 @@
                                 </div>
                                 <div class="col">
                                     <label for="jabatan3" class="form-label fw-semibold">Jabatan (Opsional)</label>
-                                    <input type="text" name="jabatan3" class="form-control" id="jabatan3" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan3 }}">
+                                    <select
+                                        id="jabatan3"
+                                        class="form-select"
+                                        name="jabatan3"
+                                    >
+                                        <option value="{{ $data->jabatan3 }}" selected>
+                                            {{ $data->jabatan3 }}
+                                        </option>
+                                        {{-- @foreach ($unitkerjas as $unitkerja)
+                                        <option value="{{ $unitkerja->id }}">
+                                            {{ $unitkerja->name }}
+                                        </option>
+                                        @endforeach --}}
+                                    </select>
+                                    {{-- <input type="text" name="jabatan3" class="form-control" id="jabatan3" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan3 }}"> --}}
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -184,9 +227,202 @@
 
 <script>
     $(document).ready(function(){
+
+        var unitkerja_id = $('#selectUnitKerja').val();
+            
+        $.ajax({
+            url: "{{url('/tambahuser-getposition')}}/"+ unitkerja_id,
+            type: 'GET',
+            dataType: 'json',
+            data: { q: '' },
+            success: function(data) {
+                console.log(data);
+                // $('#jabatan').append('<option value="" selected disabled>Pilih Jabatan</option>');
+                if (Array.isArray(data)) {
+                    var mappedData = data.map(function(item) {
+                        return {
+                            id: item.position,
+                            text: item.position,
+                        };
+                    });
+
+                    $('#jabatan').select2({
+                        data: mappedData,
+                    });
+                } else {
+                    console.error('Data yang diterima dari server bukan array yang valid.');
+                }
+            },
+            error: function() {
+            console.error('Terjadi kesalahan saat memuat data users.');
+            }
+        });
+
+        var unitkerja_id2 = $('#selectUnitKerja2').val();
+            
+        $.ajax({
+            url: "{{url('/tambahuser-getposition')}}/"+ unitkerja_id2,
+            type: 'GET',
+            dataType: 'json',
+            data: { q: '' },
+            success: function(data) {
+                console.log(data);
+                // $('#jabatan2').append('<option value="" selected disabled>Pilih Jabatan</option>');
+                if (Array.isArray(data)) {
+                    var mappedData = data.map(function(item) {
+                        return {
+                            id: item.position,
+                            text: item.position,
+                        };
+                    });
+
+                    $('#jabatan2').select2({
+                        data: mappedData,
+                    });
+                } else {
+                    console.error('Data yang diterima dari server bukan array yang valid.');
+                }
+            },
+            error: function() {
+            console.error('Terjadi kesalahan saat memuat data users.');
+            }
+        });
+
+        var unitkerja_id3 = $('#selectUnitKerja3').val();
+            
+        $.ajax({
+            url: "{{url('/tambahuser-getposition')}}/"+ unitkerja_id3,
+            type: 'GET',
+            dataType: 'json',
+            data: { q: '' },
+            success: function(data) {
+                console.log(data);
+                // $('#jabatan3').append('<option value="" selected disabled>Pilih Jabatan</option>');
+                if (Array.isArray(data)) {
+                    var mappedData = data.map(function(item) {
+                        return {
+                            id: item.position,
+                            text: item.position,
+                        };
+                    });
+
+                    $('#jabatan3').select2({
+                        data: mappedData,
+                    });
+                } else {
+                    console.error('Data yang diterima dari server bukan array yang valid.');
+                }
+            },
+            error: function() {
+            console.error('Terjadi kesalahan saat memuat data users.');
+            }
+        });
+
+        $('#selectUnitKerja').change(function() {
+            var unitkerja_id = $('#selectUnitKerja').val();
+            
+            $.ajax({
+                url: "{{url('/tambahuser-getposition')}}/"+ unitkerja_id,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    console.log(data);
+                    $('#jabatan').empty();
+                    $('#jabatan').append('<option value="" selected disabled>Pilih Jabatan</option>');
+                    if (Array.isArray(data)) {
+                        var mappedData = data.map(function(item) {
+                            return {
+                                id: item.position,
+                                text: item.position,
+                            };
+                        });
+
+                        $('#jabatan').select2({
+                            data: mappedData,
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                },
+                error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
+        });
+
+        $('#selectUnitKerja2').change(function() {
+            var unitkerja_id2 = $('#selectUnitKerja2').val();
+            
+            $.ajax({
+                url: "{{url('/tambahuser-getposition')}}/"+ unitkerja_id2,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    console.log(data);
+                    $('#jabatan2').empty();
+                    $('#jabatan2').append('<option value="" selected disabled>Pilih Jabatan</option>');
+                    if (Array.isArray(data)) {
+                        var mappedData = data.map(function(item) {
+                            return {
+                                id: item.position,
+                                text: item.position,
+                            };
+                        });
+
+                        $('#jabatan2').select2({
+                            data: mappedData,
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                },
+                error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
+        });
+
+        $('#selectUnitKerja3').change(function() {
+            var unitkerja_id3 = $('#selectUnitKerja3').val();
+            
+            $.ajax({
+                url: "{{url('/tambahuser-getposition')}}/"+ unitkerja_id3,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    console.log(data);
+                    $('#jabatan3').empty();
+                    $('#jabatan3').append('<option value="" selected disabled>Pilih Jabatan</option>');
+                    if (Array.isArray(data)) {
+                        var mappedData = data.map(function(item) {
+                            return {
+                                id: item.position,
+                                text: item.position,
+                            };
+                        });
+
+                        $('#jabatan3').select2({
+                            data: mappedData,
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                },
+                error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
+        });
+
         $('#selectUnitKerja').select2();
         $('#selectUnitKerja2').select2();
         $('#selectUnitKerja3').select2();
+        $('#jabatan').select2();
+        $('#jabatan2').select2();
+        $('#jabatan3').select2();
         $('#selectRole').select2();
     })
 </script>

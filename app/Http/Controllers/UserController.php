@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
+use App\Models\Position;
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;

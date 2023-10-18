@@ -22,6 +22,7 @@ use App\Http\Controllers\AuditeeController;
 use App\Http\Controllers\AuditorController;
 use App\Http\Controllers\DokBAAMIController;
 use App\Http\Controllers\DokSahihController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\JadwalAMIController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PertanyaanController;
@@ -110,6 +111,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/changeroleauditee/{id}', [UserController::class, 'changeroleauditee'])->name('changeroleauditee');
     Route::get('/changerolespm/{id}', [UserController::class, 'changerolespm'])->name('changerolespm');
     Route::get('/changeroleuser/{id}', [UserController::class, 'changeroleuser'])->name('changeroleuser');
+    Route::get('/tambahuser-getposition/{unitkerja_id}', [PositionController::class, 'getposition'])->name('tambahuser.getposition');
+    
     //Route Role SPM
     Route::post('/daftarAuditor-periode-addperiode', [TahunPeriodeController::class, 'store'])->name('addperiode');
     Route::post('/daftarAuditee-periode-addperiode', [TahunPeriodeController::class, 'storeauditee'])->name('auditee.addperiode');

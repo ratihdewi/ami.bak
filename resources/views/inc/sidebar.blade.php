@@ -113,7 +113,8 @@
                 <span class="nav_name"> RTM </span>
             </a>
             <a
-                href="/dokresmi"
+                {{-- href="/dokresmi" --}}
+                href="#"
                 class="nav_link py-1 {{ Request::is('dokresmi') ? 'active' : '' }}"
             >
                 {{-- <i class="bx nav_icon"
