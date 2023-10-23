@@ -94,7 +94,15 @@
             </a>
             <a 
                 href="/laporan-spm-index"
-                class="nav_link py-1 {{  Request::routeIs('laporan.spm.index') ? 'active' : '' || Request::routeIs('laporan.spm.index.list') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.daftarisi') ? 'active' : '' }}">
+                class="nav_link py-1 {{  Request::routeIs('laporan.spm.index') ? 'active' : '' || Request::routeIs('laporan.spm.index.list') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.daftarisi') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.editdaftarisi') ? 'active' : '' ||
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.katapengantar') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.editkatapengantar') ? 'active' : '' || 
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.pendahuluan') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.editpendahuluan') ? 'active' : '' || 
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.tujuanaudit') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.tujuanaudit') ? 'active' : '' || 
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.lingkupaudit') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.lingkupaudit') ? 'active' : '' || 
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.jadwalaudit') ? 'active' : '' || 
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.temuanpositif') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.temuanpositif') ? 'active' : '' ||
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.rta') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.rta') ? 'active' : '' ||
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.peluangpeningkatan') ? 'active' : '' }}">
                 {{-- <i class="bx nav_icon"
                     ><img
                         src="/asset/sideBar/laporan.png"

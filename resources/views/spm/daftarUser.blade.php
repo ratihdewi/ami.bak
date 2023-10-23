@@ -8,7 +8,7 @@
 
 @section('container')
 
-<div class="container my-4" style="min-height: 100vh">
+<div class="container-fluid my-4" style="min-height: 100vh">
     <div class="row mx-1">
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">

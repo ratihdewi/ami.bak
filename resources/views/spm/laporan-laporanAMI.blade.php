@@ -20,7 +20,7 @@
             </div>
           </div>
         <div class="previewcover text-center">
-            <embed src="https://lldikti6.kemdikbud.go.id/wp-content/uploads/2022/06/1-MATERI-PENGERTIAN-AMI.pdf" type="application/pdf" width="90%" height="600px">
+            <embed src="https://media-public.canva.com/URTsI/MAEFkQURTsI/1/s.jpg">
         </div>
     </div>
 @endsection
