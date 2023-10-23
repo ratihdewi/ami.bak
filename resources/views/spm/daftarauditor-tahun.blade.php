@@ -10,7 +10,7 @@
 @endsection
 
 @section('container')
-<div class="container my-4"  style="font-size: 15px; min-height: 100vh">
+<div class="container-fluid my-4"  style="font-size: 15px; min-height: 100vh">
     <div class="row">
         @if ($message = Session::get('succes'))
             <div class="alert alert-success" role="alert">

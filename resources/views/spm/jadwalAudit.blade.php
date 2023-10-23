@@ -10,9 +10,9 @@
 
 @section('container')
 
-<div class="container mt-4" style="font-size: 13px">
+<div class="containe-fluidr mt-4" style="font-size: 13px">
   {{-- Search Jadwal --}}
-    <div class="search my-5 p-5 mx-5 text-white rounded">
+    <div class="search my-5 p-5 mx-5 text-white rounded searchjadwalaudit">
       <form id="search-form" action="/jadwalaudit" method="GET">
         @csrf
         <div class="input-group d-flex justify-content-around">
@@ -218,7 +218,7 @@
         </div>
 
         <div class="tab-pane fade show active w-100 ketersediaan" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          <div class="container mt-3">
+          <div class="container-fluid px-5 mt-3">
             <div class="row d-flex justify-content-start mb-3">
               <div class="col-2">
                 <button type="button" id="createSession" class="btn btn-primary btn-sm">Buat Sesi</button>

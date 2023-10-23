@@ -188,6 +188,11 @@ li.roleSPM.disabled {
 }
 
 /* Jadwal Audit */
+.searchjadwalaudit span.select2.select2-container.select2-container--default {
+    width: 44% !important;
+    margin-right: 5px;
+}
+
 .search {
     background: #b1e3e5;
     border: 1px solid #ababab;

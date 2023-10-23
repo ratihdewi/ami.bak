@@ -13,9 +13,9 @@
 @endsection
 
 @section('container')
-    <div class="container vh-100 mt-5">
+    <div class="container-fluid mt-5" style="min-height: 100vh">
               <div class="row justify-content-center">
-                  <div class="col-8 mb-3">
+                  <div class="col-10 mb-3">
                     <h5 class="text-center mb-3"> Tambah User</h5>
                     <form action="/insertUser" method="POST">
                         @csrf

@@ -14,20 +14,16 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth';
-        
-        switch(env('APP_env')){
+        switch(env('APP_ENV')){
             case 'local':
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                 break;
-            case 'dev':
+            case 'development':
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                 break;
             default:
                 return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
         }
-        // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
-        // return redirect($login_url);
     }
 
     public function auth()
@@ -47,7 +43,6 @@ class AuthController extends Controller
                 $user->update([
                     'peran' => 'spm',
                 ]);
-                // session()->put('authUser', $user);
                 return redirect()->intended('/landingpage-home');
             } elseif ($user->role_id == 2) {
                 Auth::login($user);
@@ -56,15 +51,19 @@ class AuthController extends Controller
                 ]);
                 $user->save();
                 return redirect()->intended('/auditee-landingpage-home');
+            } elseif ($user->role_id == 3) {
+                Auth::login($user);
+                $user->update([
+                    'peran' => 'superadmin',
+                ]);
+                $user->save();
+                return redirect()->intended('/landingpage-home');
             } else {
-                // Handle jika user tidak ditemukan
-                // Misalnya, arahkan ke halaman login
-                // return redirect($login_url);
-                switch(env('APP_env')){
+                switch(env('APP_ENV')){
                     case 'local':
                         return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                         break;
-                    case 'dev':
+                    case 'development':
                         return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                         break;
                     default:
@@ -72,13 +71,11 @@ class AuthController extends Controller
                 }
             }
         } else {
-            // $login_url = 'https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://ami-dev.universitaspertamina.ac.id/auth';
-            // return redirect($login_url);
-            switch(env('APP_env')){
+            switch(env('APP_ENV')){
                 case 'local':
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=http://localhost:8000/auth');
                     break;
-                case 'dev':
+                case 'development':
                     return Redirect::to('https://sso-dev.universitaspertamina.ac.id/sso-login?redirect_url=https://ami-dev.universitaspertamina.ac.id/auth');
                     break;
                 default:
@@ -105,18 +102,6 @@ class AuthController extends Controller
             $logout_url = 'https://sso-dev.universitaspertamina.ac.id/sso-logout?token=' . $token_login . '&username=' . $username;
             return redirect($logout_url);
         }
-        //     // $username = $_COOKIE["username"];
-        //     // $token_login = $_COOKIE["token_login"];
-
-        //     // Auth::logout();
-        //     // $request->session()->invalidate();
-        //     // $request->session()->regenerateToken();
-
-        //     // setcookie('username', $username, time() - 3600, '/');
-        //     // setcookie('token_login', $token_login, time() - 3600, '/');
-
-        //     // $logout_url = 'https://sso.universitaspertamina.ac.id/sso-logout?token='.$token_login.'&username='.$username;
-        //     // return \Redirect::to($logout_url);
     }
 
     public function getToken()
@@ -124,10 +109,8 @@ class AuthController extends Controller
         $username = $_COOKIE["username"];
         $token_login = $_COOKIE["token_login"];
 
-        //memo
         $client = new Client([
             'base_uri' => 'https://sso-dev.universitaspertamina.ac.id/',
-            // 'base_uri' => 'https://sso.universitaspertamina.ac.id/',
             'headers' => ['Content-Type' => 'application/json']
         ]);
 

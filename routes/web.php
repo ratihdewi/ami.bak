@@ -15,6 +15,7 @@ use App\Models\PersetujuanBA;
 use App\Models\PeluangPeningkatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\APIController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JadwalController;
@@ -108,7 +109,10 @@ Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, 
 Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudit');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/landingpage-home', [HomeController::class, 'indexspm'])->name('home.spm');
+
+    // Route::get('/test-guzzle', [APIController::class, 'syncmasayu'])->name('');
+
+    Route::get('/landingpage-home', [APIController::class, 'syncmasayu'])->name('home.spm');
     Route::get('/daftarAuditor-periode', [AuditorController::class, 'indexpertahun'])->name('auditor-periode');
     Route::get('/changeroleauditor/{id}', [UserController::class, 'changeroleauditor'])->name('changeroleauditor');
     Route::get('/changeroleauditee/{id}', [UserController::class, 'changeroleauditee'])->name('changeroleauditee');
@@ -238,6 +242,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan-spm-index-list', [DokLaporanController::class, 'bodyindex'])->name('laporan.spm.index.list');
     Route::get('/laporan-spm-laporan-audit-mutu-internal', [DokLaporanController::class, 'showlaporanami'])->name('laporan.spm.laporan.audit.mutu.internal');
     Route::get('/laporan-spm-laporan-audit-mutu-internal-daftarisi', [DokLaporanController::class, 'showlaporanamidaftarisi'])->name('laporan.spm.laporan.audit.mutu.internal.daftarisi');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-editdaftarisi', [DokLaporanController::class, 'editlaporanamidaftarisi'])->name('laporan.spm.laporan.audit.mutu.internal.editdaftarisi');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-katapengantar', [DokLaporanController::class, 'showlaporanamikatapengantar'])->name('laporan.spm.laporan.audit.mutu.internal.katapengantar');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-editkatapengantar', [DokLaporanController::class, 'editlaporanamikatapengantar'])->name('laporan.spm.laporan.audit.mutu.internal.editkatapengantar');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-pendahuluan', [DokLaporanController::class, 'showlaporanamipendahuluan'])->name('laporan.spm.laporan.audit.mutu.internal.pendahuluan');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-editpendahuluan', [DokLaporanController::class, 'editlaporanamipendahuluan'])->name('laporan.spm.laporan.audit.mutu.internal.editpendahuluan');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

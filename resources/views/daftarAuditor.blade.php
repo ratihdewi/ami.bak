@@ -19,7 +19,7 @@
 @section('container')
 
 
-<div class="container vh-100"  style="font-size: 15px">
+<div class="container-fluid"  style="font-size: 15px; min-height: 100vh">
     <div class="row my-4">
         <div class="col float-end">
             @foreach ($periodes as $periode)

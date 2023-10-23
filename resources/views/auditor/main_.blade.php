@@ -7,7 +7,7 @@
 
     <body id="body-pd">
         <div id="wrapper" class="d-flex">
-            <div class="l-navbar show" id="nav-bar">@include('auditor.sidebar')</div>
+            <div class="l-navbar show-sidebar" id="nav-bar">@include('auditor.sidebar')</div>
             <div id="content" class="w-100 mt-5 pt-3">
                 @include('inc.header')
                 <div class="container">

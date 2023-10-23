@@ -1,5 +1,5 @@
-<nav class="nav mt-5">
-    <div class="sidebarauditor">
+<nav class="nav nav-sidebar mt-5">
+    <div id="sidebarauditor">
         <a href="/auditor-landingpage-home" class="nav_logo my-4">
             {{-- <img src="/asset/Logo-Up.png" alt="Logo-UPer" width="50" />
             <span class="nav_logo-name"> SRIKANDI </span> --}}
