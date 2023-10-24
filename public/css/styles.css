@@ -585,5 +585,5 @@ iframe#auditeepertanyaan_ifr {
 .btn.btn-sinkron-data,
 .btn.btn-sinkron-data:hover,
 .bg-sinkron-data {
-    background-color: #00d215;
+    background-color: #00d215 !important;
 }
