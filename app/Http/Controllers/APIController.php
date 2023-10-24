@@ -120,17 +120,15 @@ class APIController extends Controller
     {
         $client = new Client();
         $users = User::all();
-        $tokenData = [];
-        $i = 0;
 
         foreach ($users as $key => $user) {
             $tokenResponse = $client->get('https://masayu.universitaspertamina.ac.id/api/Data/Masayu?nip=' . $user->nip);
 
-            $tokenData[$i] = json_decode($tokenResponse->getBody()->getContents(), true);
+            $tokenData = json_decode($tokenResponse->getBody()->getContents(), true);
 
-            if ($tokenData[$i]['error'] === false) {
-                $token = $tokenData[$i]['data'];
-                $data = $token[0];
+            if ($tokenData['error'] === false && (count($tokenData['data']) != 0)) {
+                $data = $tokenData['data'][0];
+                // dd($data);
     
                 $userData = User::find($user->id);
                 $userData->update([
@@ -213,12 +211,12 @@ class APIController extends Controller
                     ]);
                     $userData->save();
                 }
+                $result = redirect()->back()->with('success','Data telah berhasil disinkronkan!');
             } else {
-                return response()->json(['error' => 'Gagal mengambil token dari API'], 500);
+                $result = response()->json(['error' => 'Gagal mengambil token dari API'], 500);
             }
-            $i++;
         }
-        return redirect()->back()->with('success','Data telah berhasil disinkronkan!');
+        return $result;
     }
 
     public function test()

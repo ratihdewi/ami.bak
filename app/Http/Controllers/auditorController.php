@@ -18,8 +18,9 @@ class AuditorController extends Controller
     {
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->get();
         $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
+        $unitkerja = UnitKerja::all();
         // dd($data);
-        return view('daftarAuditor', compact('dataAuditor', 'periodes'));
+        return view('daftarAuditor', compact('dataAuditor', 'periodes', 'unitkerja'));
     }
 
     public function indexpertahun()
