@@ -44,7 +44,7 @@ class APIController extends Controller
                 } 
 
                 if ($data['positions'][1]['position'] != null && $data['positions'][1]['unit_kerja'] != null) {
-                    $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
+                    $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->orWhere('fakultas', $data['positions'][1]['unit_kerja'])->first();
                     $userData->update([
                         'jabatan2' => $data['positions'][1]['position'],
                         'unitkerja_id2' => $unitKerja->id,
@@ -79,14 +79,11 @@ class APIController extends Controller
                     $userData->save();
                 }
 
-                // if ($data['positions'][2]['position'] == null && $data['positions'][2]['unit_kerja'] == null) {
-                    // $unitKerja = UnitKerja::where('name', $data['positions'][2]['unit_kerja'])->first();
-                    $userData->update([
-                        'jabatan3' => null,
-                        'unitkerja_id3' => null,
-                    ]);
-                    $userData->save();
-                // }
+                $userData->update([
+                    'jabatan3' => null,
+                    'unitkerja_id3' => null,
+                ]);
+                $userData->save();
 
             } elseif (count($data['positions']) == 1) {
                 if ($data['positions'][0]['position'] != null && $data['positions'][0]['unit_kerja'] != null) {
@@ -98,16 +95,13 @@ class APIController extends Controller
                     $userData->save();
                 } 
 
-                // if ($data['positions'][1]['position'] == null && $data['positions'][1]['unit_kerja'] == null) {
-                    // $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
-                    $userData->update([
-                        'jabatan2' => null,
-                        'unitkerja_id2' => null,
-                        'jabatan3' => null,
-                        'unitkerja_id3' => null,
-                    ]);
-                    $userData->save();
-                // }
+                $userData->update([
+                    'jabatan2' => null,
+                    'unitkerja_id2' => null,
+                    'jabatan3' => null,
+                    'unitkerja_id3' => null,
+                ]);
+                $userData->save();
             }
 
             return redirect()->back()->with('success','Data telah berhasil disinkronkan!');
