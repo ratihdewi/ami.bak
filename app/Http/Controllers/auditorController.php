@@ -59,9 +59,15 @@ class AuditorController extends Controller
 
     public function getAuditor()
     {
-        $users_ = User::with('unitkerja')->get();
+        $users = User::with('unitkerja')->get();
+        $unitkerja = UnitKerja::all();
 
-        return response()->json($users_);
+        $data = [
+            "users" => $users,
+            "unitkerja" => $unitkerja,
+        ];
+
+        return response()->json($data);
     }
 
     public function tambahauditor($tahunperiode)
@@ -110,8 +116,12 @@ class AuditorController extends Controller
     public function tampildata($id){
         $data = Auditor::find($id);
         $currentYear = Carbon::now()->year;
+        $user = User::find($data->user_id);
+
+        $unitkerja2 = UnitKerja::find($user->unitkerja_id2);
+        $unitkerja3 = UnitKerja::find($user->unitkerja_id3);
         
-        return view('updateAuditor', compact('data', 'currentYear'));
+        return view('updateAuditor', compact('data', 'currentYear', 'unitkerja2', 'unitkerja3', 'user'));
     }
 
     public function updatedata(Request $request, $id)

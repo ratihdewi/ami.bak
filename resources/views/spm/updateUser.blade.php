@@ -1,6 +1,6 @@
 @extends('layout.main') 
 
-@section('title') AMI - Tambah Auditee @endsection
+@section('title') AMI - Edit User @endsection
 
 @section('linking')
     <a href="/usercontrol" class="mx-1">
@@ -13,7 +13,7 @@
 @endsection
 
 @section('container')
-    <div class="container vh-100 mt-5">
+    <div class="container mt-5" style="min-height: 100vh">
         <div class="row justify-content-center">
             <div class="col-8">
                 <h5 class="text-center mb-3"> Ubah User</h5>
@@ -141,14 +141,15 @@
                                         class="form-select"
                                         name="jabatan2"
                                     >
-                                        <option value="{{ $data->jabatan2 }}" selected>
-                                            {{ $data->jabatan2 }}
-                                        </option>
-                                        {{-- @foreach ($unitkerjas as $unitkerja)
-                                        <option value="{{ $unitkerja->id }}">
-                                            {{ $unitkerja->name }}
-                                        </option>
-                                        @endforeach --}}
+                                        @if ($data->jabatan2 != null)
+                                            <option value="{{ $data->jabatan2 }}" selected>
+                                                {{ $data->jabatan2 }}
+                                            </option>
+                                        @else
+                                            <option value="">
+                                                Pilih jabatan
+                                            </option>
+                                        @endif
                                     </select>
                                     {{-- <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan2 }}"> --}}
                                 </div>
@@ -185,14 +186,15 @@
                                         class="form-select"
                                         name="jabatan3"
                                     >
-                                        <option value="{{ $data->jabatan3 }}" selected>
-                                            {{ $data->jabatan3 }}
-                                        </option>
-                                        {{-- @foreach ($unitkerjas as $unitkerja)
-                                        <option value="{{ $unitkerja->id }}">
-                                            {{ $unitkerja->name }}
-                                        </option>
-                                        @endforeach --}}
+                                        @if ($data->jabatan3 != null)
+                                            <option value="{{ $data->jabatan3 }}" selected>
+                                                {{ $data->jabatan3 }}
+                                            </option>
+                                        @else
+                                            <option value="">
+                                                Pilih jabatan
+                                            </option>
+                                        @endif
                                     </select>
                                     {{-- <input type="text" name="jabatan3" class="form-control" id="jabatan3" placeholder="Jabatan" aria-label="Jabatan" value="{{ $data->jabatan3 }}"> --}}
                                 </div>
@@ -207,7 +209,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="button d-flex justify-content-end">
+                    <div class="button d-flex justify-content-end mb-3">
                         <a href="/usercontrol">
                             <button type="button" class="btn btn-secondary me-md-2">
                                 Kembali

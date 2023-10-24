@@ -1,4 +1,4 @@
-@extends('layout.main') @section('title') AMI - Tambah Auditee @endsection
+@extends('layout.main') @section('title') AMI - Edit Auditee @endsection
 
 @section('linking')
     <a href="/daftarAuditee-periode" class="mx-1">

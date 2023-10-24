@@ -98,6 +98,66 @@
                                         />
                                     </div>
                                 </div>
+                                <div class="row mb-3" id="fakultasprodi2">
+                                    <div class="col">
+                                        <input
+                                            type="text"
+                                            name="fakultas"
+                                            class="form-control"
+                                            id="fakultas2"
+                                            placeholder="Fakultas"
+                                            aria-label="Fakultas"
+                                            @if ($user->unitkerja_id2 != null)
+                                                value="{{ $unitkerja2->fakultas }}"
+                                            @endif
+                                            readonly
+                                        />
+                                    </div>
+                                    <div class="col">
+                                        <input
+                                            type="text"
+                                            name="program_studi"
+                                            class="form-control"
+                                            id="programstudi2"
+                                            placeholder="Program Studi"
+                                            aria-label="Program Studi"
+                                            @if ($user->unitkerja_id2 != null)
+                                                value="{{ $unitkerja2->name }}"
+                                            @endif
+                                            readonly
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row mb-3" id="fakultasprodi3">
+                                    <div class="col">
+                                        <input
+                                            type="text"
+                                            name="fakultas"
+                                            class="form-control"
+                                            id="fakultas3"
+                                            placeholder="Fakultas"
+                                            aria-label="Fakultas"
+                                            @if ($user->unitkerja_id3 != null)
+                                                value="{{ $unitkerja3->fakultas }}"
+                                            @endif
+                                            readonly
+                                        />
+                                    </div>
+                                    <div class="col">
+                                        <input
+                                            type="text"
+                                            name="program_studi"
+                                            class="form-control"
+                                            id="programstudi3"
+                                            placeholder="Program Studi"
+                                            aria-label="Program Studi"
+                                            @if ($user->unitkerja_id3 != null)
+                                                value="{{ $unitkerja3->name }}"
+                                            @endif
+                                            readonly
+                                        />
+                                    </div>
+                                </div>
                                 <div class="row mb-2">
                                     <div class="col">
                                         <label for="tanggalmulai" class="form-label fw-semibold"
@@ -281,6 +341,19 @@
             //     timeZone: "Asia/Jakarta",
             // });
 
+            var user_unitkerja2 = "{{ $user->unitkerja_id2 }}";
+            var user_unitkerja3 = "{{ $user->unitkerja_id3 }}";
+
+            if (user_unitkerja2 == '') {
+                $('#fakultasprodi2').hide();
+                $('#fakultasprodi2').css('margin-bottom', '0');
+            } 
+
+            if (user_unitkerja3 == '') {
+                $('#fakultasprodi3').hide();
+                $('#fakultasprodi3').css('margin-bottom', '0');
+            }
+
             let tglMulai = document.getElementById('tanggalmulai');
             let tglberakhir = document.getElementById('tanggalberakhir');
             let tahunAwal = $('#tahunperiode0').val();
@@ -292,7 +365,6 @@
                 dataType: 'json',
                 data: { q: '' },
                 success: function(data) {
-                    console.log(data);
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             return {
@@ -363,6 +435,35 @@
                 fillNipAuditorOptions(tahun);
             });
 
+            // $('#nipAuditor').change(function(){
+            //     var id = $(this).val();
+            //     var url = '{{ route("auditor-searchAuditor") }}';
+                
+            //     $.ajax({
+            //         url: url,
+            //         type: 'get',
+            //         dataType: 'json',
+            //         success: function(response){
+                        
+            //             if(response != null){
+            //                 response.forEach(respon => {
+            //                     if (respon.nip == id) {
+            //                         $('#user_id').val(respon.id);
+            //                         $('#namaAuditor').val(respon.name);
+
+            //                         var unitKerja = respon.unitkerja;
+
+            //                         $('#fakultas').val(unitKerja.fakultas);
+            //                         $('#programstudi').val(unitKerja.name);
+            //                         $('#nomorTelepon').val(respon.noTelepon);
+            //                     }
+            //                 });
+                            
+            //             }
+            //         }
+            //     });
+            // });
+
             $('#nipAuditor').change(function(){
                 var id = $(this).val();
                 var url = '{{ route("auditor-searchAuditor") }}';
@@ -372,9 +473,8 @@
                     type: 'get',
                     dataType: 'json',
                     success: function(response){
-                        
                         if(response != null){
-                            response.forEach(respon => {
+                            response.users.forEach(respon => {
                                 if (respon.nip == id) {
                                     $('#user_id').val(respon.id);
                                     $('#namaAuditor').val(respon.name);
@@ -384,6 +484,39 @@
                                     $('#fakultas').val(unitKerja.fakultas);
                                     $('#programstudi').val(unitKerja.name);
                                     $('#nomorTelepon').val(respon.noTelepon);
+                                    $('#fakultasprodi2').css('margin-bottom', '0');
+
+                                    if (respon.unitkerja_id2 != null) {
+                                        response.unitkerja.forEach(unitkerja => {
+                                            if (respon.unitkerja_id2 == unitkerja.id) {
+                                                console.log($('#programstudi2').val());
+                                                $('#fakultas2').val(unitkerja.fakultas);
+                                                $('#programstudi2').val(unitkerja.name);
+                                            }
+                                        });
+                                        $('#fakultasprodi2').show();
+                                        $('#fakultasprodi3').css('margin-bottom', '0');
+                                        $('#fakultas2').show();
+                                        $('#programstudi2').show();
+                                    } else {
+                                        $('#fakultasprodi2').hide();
+                                        $('#fakultasprodi3').hide();
+                                    }
+
+                                    if (respon.unitkerja_id3 != null) {
+                                        response.unitkerja.forEach(unitkerja => {
+                                            console.log("Not null" + respon.unitkerja_id3);
+                                            if (respon.unitkerja_id3 == unitkerja.id) {
+                                                $('#fakultas3').val(unitkerja.fakultas);
+                                                $('#programstudi3').val(unitkerja.name);
+                                            }
+                                        });
+                                        $('#fakultasprodi3').show();
+                                        $('#fakultas3').show();
+                                        $('#programstudi3').show();
+                                    } else {
+                                        $('#fakultasprodi3').hide();
+                                    }
                                 }
                             });
                             
@@ -393,7 +526,6 @@
             });
 
             $('#tanggalmulai').change(function() {
-                // console.log('test');
                 let tglMulai = document.getElementById('tanggalmulai');
                 let tglberakhir = document.getElementById('tanggalberakhir');
 
@@ -489,7 +621,6 @@
         function validateInput() {
             minValue = parseInt($('#tahunperiode0').attr('min'));
             maxValue = parseInt($('#tahunperiode0').attr('max'));
-            // console.log(maxValue);
 
             let inputElement = document.getElementById('tahunperiode0');
             let validationMessageElement = document.getElementById('validationMessage');
@@ -497,8 +628,6 @@
             // Dapatkan nilai input
             let inputValue = parseInt(inputElement.value);
             let currentYear = {{ $currentYear; }}
-
-            // console.log('0 : ' + inputValue);
 
             // Validasi input
             if (isNaN(inputValue)) {
@@ -519,7 +648,6 @@
             let inputValue = parseInt(inputElement.value);
             
             let currentYear = {{ $currentYear; }};
-            // console.log(currentYear);
 
             let minValue = $('#tahunperiode').attr('min', 2016);
             let maxValue = $('#tahunperiode').attr('max', currentYear);
@@ -527,13 +655,10 @@
             minValue = parseInt($('#tahunperiode').attr('min'));
             maxValue = parseInt($('#tahunperiode').attr('max'));
 
-            // console.log('0 : ' + inputValue);
-
             // Validasi input
             if (isNaN(inputValue)) {
                 validationMessageElement.textContent = "Input bukan angka. Silakan masukkan angka.";
             } else if ((inputValue < minValue || inputValue > maxValue)) {
-                // console.log('gagal');
                 validationMessageElement.textContent = "Harap masukkan tahun periode antara " + minValue + " dan " + maxValue + ".";
                 validationMessageElement.style.marginTop = '5px';
             } else {
@@ -574,24 +699,16 @@
                 tglMulai = new Date(tglMulai.value);
                 tglMulai = tglMulai.getFullYear();
 
-                // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggalmulai'
                 $('#tanggalmulai').attr('min', minfirstDate);
                 $('#tanggalmulai').attr('max', maxlastDate);
-
-                // console.log('min date : ' + minfirstDate);
-                // console.log('max date : ' + maxlastDate);
 
                 validateDate(tglMulai);
             } if (tglberakhir) {
                 tglberakhir = new Date(tglberakhir.value);
                 tglberakhir = tglberakhir.getFullYear();
 
-                // Mengatur atribut 'min' dan 'max' pada elemen input dengan ID 'tanggaberakhir'
                 $('#tanggalberakhir').attr('min', minfirstDate);
                 $('#tanggalberakhir').attr('max', maxlastDate);
-
-                // console.log('min date : ' + minfirstDate);
-                // console.log('max date : ' + maxlastDate);
 
                 validateDate(tglberakhir);
             }

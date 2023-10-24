@@ -1,4 +1,4 @@
-@extends('layout.main') @section('title') AMI - Daftar Auditor @endsection
+@extends('layout.main') @section('title') AMI - Tambah Auditor @endsection
 
 @section('linking')
     <a href="/daftarAuditor-periode" class="mx-1">
@@ -93,6 +93,50 @@
                                         name="program_studi"
                                         class="form-control"
                                         id="programstudi"
+                                        placeholder="Program Studi"
+                                        aria-label="Program Studi"
+                                        readonly
+                                    />
+                                </div>
+                            </div>
+                            <div class="row mb-3" id="fakultasprodi2">
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="fakultas2"
+                                        placeholder="Fakultas"
+                                        aria-label="Fakultas"
+                                        readonly
+                                    />
+                                </div>
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="programstudi2"
+                                        placeholder="Program Studi"
+                                        aria-label="Program Studi"
+                                        readonly
+                                    />
+                                </div>
+                            </div>
+                            <div class="row mb-3" id="fakultasprodi3">
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="fakultas3"
+                                        placeholder="Fakultas"
+                                        aria-label="Fakultas"
+                                        readonly
+                                    />
+                                </div>
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="programstudi3"
                                         placeholder="Program Studi"
                                         aria-label="Program Studi"
                                         readonly
@@ -214,6 +258,9 @@
                 fillNipAuditorOptions(tahun);
             });
 
+            $('#fakultasprodi2').hide();
+            $('#fakultasprodi3').hide();
+
             $('#nipAuditor').change(function(){
                 var id = $(this).val();
                 var url = '{{ route("auditor-searchAuditor") }}';
@@ -223,9 +270,8 @@
                     type: 'get',
                     dataType: 'json',
                     success: function(response){
-                        
                         if(response != null){
-                            response.forEach(respon => {
+                            response.users.forEach(respon => {
                                 if (respon.nip == id) {
                                     $('#user_id').val(respon.id);
                                     $('#namaAuditor').val(respon.name);
@@ -235,6 +281,39 @@
                                     $('#fakultas').val(unitKerja.fakultas);
                                     $('#programstudi').val(unitKerja.name);
                                     $('#nomorTelepon').val(respon.noTelepon);
+                                    $('#fakultasprodi2').css('margin-bottom', '0');
+
+                                    if (respon.unitkerja_id2 != null) {
+                                        response.unitkerja.forEach(unitkerja => {
+                                            if (respon.unitkerja_id2 == unitkerja.id) {
+                                                console.log($('#fakultas2').val());
+                                                $('#fakultas2').val(unitkerja.fakultas);
+                                                $('#programstudi2').val(unitkerja.name);
+                                            }
+                                        });
+                                        $('#fakultasprodi2').show();
+                                        $('#fakultasprodi3').css('margin-bottom', '0');
+                                        $('#fakultas2').show();
+                                        $('#programstudi2').show();
+                                    } else {
+                                        $('#fakultasprodi2').hide();
+                                        $('#fakultasprodi3').hide();
+                                    }
+
+                                    if (respon.unitkerja_id3 != null) {
+                                        response.unitkerja.forEach(unitkerja => {
+                                            if (respon.unitkerja_id3 == unitkerja.id) {
+                                                console.log($('#fakultas2').val());
+                                                $('#fakultas3').val(unitkerja.fakultas);
+                                                $('#programstudi3').val(unitkerja.name);
+                                            }
+                                        });
+                                        $('#fakultasprodi3').show();
+                                        $('#fakultas3').show();
+                                        $('#programstudi3').show();
+                                    } else {
+                                        $('#fakultasprodi3').hide();
+                                    }
                                 }
                             });
                             
