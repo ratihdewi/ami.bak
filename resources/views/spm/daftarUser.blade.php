@@ -31,6 +31,11 @@
             Tambah
         </button></a
     >
+    <a href="/user-sinkronisasi-sdm">
+        <button type="button" class="btn btn-sinkron-data btn-sm float-end mb-3 mt-2 fw-semibold mx-2 text-white">
+            <i class="bi bi-arrow-repeat text-white h6"></i> Sinkron Data
+        </button>
+    </a>
     <table class="table table-hover my-2" id="tableUser">
         <thead>
             <tr class="">
@@ -59,8 +64,9 @@
                     @endforeach
                 </td>
                 <td class="text-center">
-                    <a href="tampilUser/{{ $item->id }}" class="mx-1"
+                    <a href="tampilUser/{{ $item->id }}"
                         ><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white" title="Edit"></i></button></a>
+                        <a href="/user-sinkronisasi-sdm-user/{{ $item->nip }}" onclick="return confirm('Apakah Anda yakin sinkronisasi data user {{ $item->name }} ?')"><button class="bg-sinkron-data border-0 rounded-1"><i class="bi bi-arrow-repeat text-white" title="Sinkron Data"></i></button></a>
                     <a href="deleteUser/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus user {{ $item->name }} ?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" title="Hapus"></i></button></a>
                 </td>
             </tr>

@@ -15,6 +15,7 @@ use App\Models\PersetujuanBA;
 use App\Models\PeluangPeningkatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\APIController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JadwalController;
@@ -105,6 +106,11 @@ Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, 
 Route::get('/jadwalaudit', [JadwalController::class, 'index'])->name('jadwalaudit');
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/user-sinkronisasi-sdm-test', [APIController::class, 'test'])->name('user.sinkronisasi.sdm.test');
+    Route::get('/user-sinkronisasi-sdm', [APIController::class, 'syncmasayu'])->name('user.sinkronisasi.sdm');
+    Route::get('/user-sinkronisasi-sdm-user/{nip}', [APIController::class, 'syncuser'])->name('user.sinkronisasi.sdm.user');
+
     Route::get('/landingpage-home', [HomeController::class, 'indexspm'])->name('home.spm');
     Route::get('/daftarAuditor-periode', [AuditorController::class, 'indexpertahun'])->name('auditor-periode');
     Route::get('/changeroleauditor/{id}', [UserController::class, 'changeroleauditor'])->name('changeroleauditor');
