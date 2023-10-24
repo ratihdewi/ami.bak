@@ -23,15 +23,27 @@ class APIController extends Controller
             $data = $token[0];
 
             $userData = User::where('nip', $nip)->first();
-            $userData->update([
-                'nip' => $data['nip'],
-                'name' => $data['name'],
-                'username' => $data['user_name'],
-                'noTelepon' => $data['phone'],
-                'email' => $data['email'],
-                'status' => strtolower($data['status']),
-            ]);
-            $userData->save();
+            if ($data['user_name'] == null) {
+                $userData->update([
+                    'nip' => $data['nip'],
+                    'name' => $data['name'],
+                    'username' => $data['user_name'],
+                    'noTelepon' => $data['phone'],
+                    'email' => $data['email'],
+                    'status' => strtolower($data['status']),
+                ]);
+                $userData->save();
+            } else {
+                $userData->update([
+                    'nip' => $data['nip'],
+                    'name' => $data['name'],
+                    'username' => $data['user_name'],
+                    'noTelepon' => $data['phone'],
+                    'email' => $data['email'],
+                    'status' => strtolower($data['status']),
+                ]);
+                $userData->save();
+            }
 
             if (count($data['positions']) == 3) {
                 if ($data['positions'][0]['position'] != null && $data['positions'][0]['unit_kerja'] != null) {
@@ -125,15 +137,26 @@ class APIController extends Controller
                 // dd($data);
     
                 $userData = User::find($user->id);
-                $userData->update([
-                    'nip' => $data['nip'],
-                    'name' => $data['name'],
-                    'username' => $data['user_name'],
-                    'noTelepon' => $data['phone'],
-                    'email' => $data['email'],
-                    'status' => strtolower($data['status']),
-                ]);
-                $userData->save();
+                if ($data['user_name'] == null) {
+                    $userData->update([
+                        'nip' => $data['nip'],
+                        'name' => $data['name'],
+                        'noTelepon' => $data['phone'],
+                        'email' => $data['email'],
+                        'status' => strtolower($data['status']),
+                    ]);
+                    $userData->save();
+                } else {
+                    $userData->update([
+                        'nip' => $data['nip'],
+                        'name' => $data['name'],
+                        'username' => $data['user_name'],
+                        'noTelepon' => $data['phone'],
+                        'email' => $data['email'],
+                        'status' => strtolower($data['status']),
+                    ]);
+                    $userData->save();
+                }
     
                 if (count($data['positions']) == 3) {
                     if ($data['positions'][0]['position'] != null && $data['positions'][0]['unit_kerja'] != null) {
