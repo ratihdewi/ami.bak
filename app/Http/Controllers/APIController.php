@@ -44,7 +44,7 @@ class APIController extends Controller
                 } 
 
                 if ($data['positions'][1]['position'] != null && $data['positions'][1]['unit_kerja'] != null) {
-                    $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->orWhere('fakultas', $data['positions'][1]['unit_kerja'])->first();
+                    $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
                     $userData->update([
                         'jabatan2' => $data['positions'][1]['position'],
                         'unitkerja_id2' => $unitKerja->id,
@@ -71,7 +71,7 @@ class APIController extends Controller
                 } 
 
                 if ($data['positions'][1]['position'] != null && $data['positions'][1]['unit_kerja'] != null) {
-                    $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->orWhere('fakultas', $data['positions'][1]['unit_kerja'])->first();
+                    $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
                     $userData->update([
                         'jabatan2' => $data['positions'][1]['position'],
                         'unitkerja_id2' => $unitKerja->id,
@@ -146,7 +146,7 @@ class APIController extends Controller
                     } 
     
                     if ($data['positions'][1]['position'] != null && $data['positions'][1]['unit_kerja'] != null) {
-                        $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->orWhere('fakultas', $data['positions'][1]['unit_kerja'])->first();
+                        $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
                         $userData->update([
                             'jabatan2' => $data['positions'][1]['position'],
                             'unitkerja_id2' => $unitKerja->id,
@@ -173,7 +173,7 @@ class APIController extends Controller
                     } 
     
                     if ($data['positions'][1]['position'] != null && $data['positions'][1]['unit_kerja'] != null) {
-                        $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->orWhere('fakultas', $data['positions'][1]['unit_kerja'])->first();
+                        $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
                         $userData->update([
                             'jabatan2' => $data['positions'][1]['position'],
                             'unitkerja_id2' => $unitKerja->id,
