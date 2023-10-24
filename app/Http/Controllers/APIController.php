@@ -18,7 +18,7 @@ class APIController extends Controller
 
         $tokenData = json_decode($tokenResponse->getBody()->getContents(), true);
 
-        if ($tokenData['error'] === false) {
+        if ($tokenData['error'] === false && (count($tokenData['data']) != 0)) {
             $token = $tokenData['data'];
             $data = $token[0];
 
@@ -106,7 +106,7 @@ class APIController extends Controller
 
             return redirect()->back()->with('success','Data telah berhasil disinkronkan!');
         } else {
-            return response()->json(['error' => 'Gagal mengambil token dari API'], 500);
+            return redirect()->back()->with('error','Data tidak dapat disinkoronkan!');
         }
     }
 
@@ -207,7 +207,7 @@ class APIController extends Controller
                 }
                 $result = redirect()->back()->with('success','Data telah berhasil disinkronkan!');
             } else {
-                $result = response()->json(['error' => 'Gagal mengambil token dari API'], 500);
+                $result = redirect()->back()->with('error','Data tidak dapat disinkoronkan!');
             }
         }
         return $result;
