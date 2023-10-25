@@ -85,6 +85,22 @@ a {
     transition: 0.5s;
     z-index: var(--z-fixed);
 }
+
+.l-navbar.show {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.l-navbar.show::-webkit-scrollbar {
+    width: 2px;
+    background-color: #ffff;
+}
+
+.l-navbar.show::-webkit-scrollbar-thumb {
+    background-color: #bfe9df;
+    border-radius: 6px;
+}
+
 .nav.nav-sidebar {
     min-height: 100vh;
     display: flex;
@@ -299,6 +315,22 @@ span.fc-title {
     .show {
         width: calc(var(--nav-width) + 156px);
     }
+
+    .l-navbar.show {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .l-navbar.show::-webkit-scrollbar {
+        width: 2px;
+        background-color: #ffff;
+    }
+    
+    .l-navbar.show::-webkit-scrollbar-thumb {
+        background-color: #bfe9df;
+        border-radius: 6px;
+    }
+  
     /* .body-pd {
         padding-left: calc(var(--nav-width) + 188px);
     } */
@@ -341,6 +373,22 @@ span.fc-title {
         margin-top: 12% !important;
         margin-bottom: 8% !important;
     }
+
+    .l-navbar.show {
+        height: 100%;
+        overflow-y: auto;
+    }
+    
+    .l-navbar.show::-webkit-scrollbar {
+        width: 2px;
+        background-color: #ffff;
+    }
+    
+    .l-navbar.show::-webkit-scrollbar-thumb {
+        background-color: #bfe9df;
+        border-radius: 6px;
+    }
+    
     
     /* table#tableAreaDaftarTilik td,
     table#tableDaftarTilik td {
@@ -361,6 +409,22 @@ span.fc-title {
         width: 100%;
         margin-left: 0px !important;
     }
+
+    .l-navbar.show {
+        height: 100%;
+        overflow-y: auto;
+    }
+    
+    .l-navbar.show::-webkit-scrollbar {
+        width: 2px;
+        background-color: #ffff;
+    }
+    
+    .l-navbar.show::-webkit-scrollbar-thumb {
+        background-color: #bfe9df;
+        border-radius: 6px;
+    }
+    
 }
 
 @media screen and (max-width: 450px) {
