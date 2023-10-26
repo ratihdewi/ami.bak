@@ -85,6 +85,22 @@ a {
     transition: 0.5s;
     z-index: var(--z-fixed);
 }
+
+.l-navbar.show-sidebar {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.l-navbar.show-sidebar::-webkit-scrollbar {
+    width: 2px;
+    background-color: #ffff;
+}
+
+.l-navbar.show-sidebar::-webkit-scrollbar-thumb {
+    background-color: #bfe9df;
+    border-radius: 6px;
+}
+
 .nav.nav-sidebar {
     height: 100%;
     display: flex;
@@ -310,6 +326,21 @@ span.fc-title {
     .show-sidebar {
         width: calc(var(--nav-width) + 156px);
     }
+
+    .l-navbar.show-sidebar {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .l-navbar.show-sidebar::-webkit-scrollbar {
+        width: 2px;
+        background-color: #ffff;
+    }
+
+    .l-navbar.show-sidebar::-webkit-scrollbar-thumb {
+        background-color: #bfe9df;
+        border-radius: 6px;
+    }
     /* .body-pd {
         padding-left: calc(var(--nav-width) + 188px);
     } */
@@ -322,6 +353,21 @@ span.fc-title {
         width: 55% !important;
         margin-top: 22% !important;
         margin-bottom: 8% !important;
+    }
+
+    .l-navbar.show-sidebar {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .l-navbar.show-sidebar::-webkit-scrollbar {
+        width: 2px;
+        background-color: #ffff;
+    }
+
+    .l-navbar.show-sidebar::-webkit-scrollbar-thumb {
+        background-color: #bfe9df;
+        border-radius: 6px;
     }
 
     #tableAuditor_wrapper,
@@ -370,6 +416,21 @@ span.fc-title {
     .inputGrupText .col-4 {
         width: 100%;
         margin-left: 0px !important;
+    }
+
+    .l-navbar.show-sidebar {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .l-navbar.show-sidebar::-webkit-scrollbar {
+        width: 2px;
+        background-color: #ffff;
+    }
+
+    .l-navbar.show-sidebar::-webkit-scrollbar-thumb {
+        background-color: #bfe9df;
+        border-radius: 6px;
     }
 }
 
@@ -599,6 +660,6 @@ button.tab-laporanami a {
 
 button.tab-laporanami a:hover,
 button.tab-laporanami.active a {
-    color: rgb(0, 0, 0);
+    color: #0b5ed7;
     font-weight: 500;
 }

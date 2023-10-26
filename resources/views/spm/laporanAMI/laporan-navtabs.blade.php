@@ -1,5 +1,9 @@
+<div class="button-pratinjau-laporan d-md-flex justify-content-md-end" id="button-pratinjau">
+    <a href="#"><button class="btn btn-primary mt-3">Pratinjau</button></a>
+</div>
+<br>
 <nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs tabs-laporanAMI d-flex" id="nav-tab" role="tablist">
         <div class="row">
             <button class="col nav-link tab-laporanami {{ Request::routeIs('laporan.spm.laporan.audit.mutu.internal') ? 'active' : '' }}" id="nav-cover-tab" data-bs-toggle="tab" data-bs-target="#nav-cover" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><a href="/laporan-spm-laporan-audit-mutu-internal">Cover</a></button>
             <button class="col nav-link tab-laporanami {{ Request::routeIs('laporan.spm.laporan.audit.mutu.internal.daftarisi') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.editdaftarisi') ? 'active' : '' }}" id="nav-daftarisi-tab" data-bs-toggle="tab" data-bs-target="#nav-daftarisi" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><a href="/laporan-spm-laporan-audit-mutu-internal-daftarisi">Daftar Isi</a></button>
