@@ -1,6 +1,6 @@
 @extends('layout.main') 
 
-@section('title') AMI - Tambah Auditee @endsection
+@section('title') AMI - Tambah User @endsection
 
 @section('linking')
     <a href="/usercontrol" class="mx-1">
@@ -99,7 +99,6 @@
                                                     Pilih Jabatan
                                                 </option>
                                             </select>
-                                            {{-- <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan" aria-label="Jabatan" required> --}}
                                         </div>    
                                     </div>
                                 </div>
@@ -135,7 +134,6 @@
                                                     Pilih Jabatan
                                                 </option>
                                             </select>
-                                            {{-- <input type="text" name="jabatan2" class="form-control" id="jabatan2" placeholder="Jabatan" aria-label="Jabatan"> --}}
                                         </div>    
                                     </div>
                                 </div>
@@ -171,7 +169,6 @@
                                                     Pilih Jabatan
                                                 </option>
                                             </select>
-                                            {{-- <input type="text" name="jabatan3" class="form-control" id="jabatan3" placeholder="Jabatan" aria-label="Jabatan"> --}}
                                         </div>    
                                     </div>
                                 </div>
