@@ -17,99 +17,129 @@ class DokLaporanController extends Controller
         $tahunPeriode = TahunPeriode::where('keterangan', 'Periode Auditee')->get();
         $auditees = Auditee::all();
 
-        return view('spm/laporan-index', compact('tahunPeriode', 'auditees'));
+        return view('spm/laporanAMI/laporan-index', compact('tahunPeriode', 'auditees'));
     }
 
     public function bodyindex()
     {
-        return view('spm/laporan-index-home');
+        return view('spm/laporanAMI/laporan-index-home');
     }
 
     public function showlaporanami()
     {
-        return view('spm/laporan-laporanAMI');
+        return view('spm/laporanAMI/laporan-laporanAMI');
     }
 
     public function showlaporanamidaftarisi()
     {
-        return view('spm/laporan-laporanAMI-daftarisi');
+        return view('spm/laporanAMI/laporan-laporanAMI-daftarisi');
     }
 
     public function editlaporanamidaftarisi()
     {
-        return view('spm/laporan-editlaporan-daftarisi');
+        return view('spm/laporanAMI/laporan-editlaporan-daftarisi');
     }
 
     public function showlaporanamikatapengantar()
     {
-        return view('spm/laporan-laporanAMI-katapengantar');
+        return view('spm/laporanAMI/laporan-laporanAMI-katapengantar');
     }
 
     public function editlaporanamikatapengantar()
     {
-        return view('spm/laporan-editlaporan-katapengantar');
+        return view('spm/laporanAMI/laporan-editlaporan-katapengantar');
     }
 
     public function showlaporanamipendahuluan()
     {
-        return view('spm/laporan-laporanAMI-pendahuluan');
+        return view('spm/laporanAMI/laporan-laporanAMI-pendahuluan');
     }
 
     public function editlaporanamipendahuluan()
     {
-        return view('spm/laporan-editlaporan-pendahuluan');
+        return view('spm/laporanAMI/laporan-editlaporan-pendahuluan');
     }
 
     public function showlaporanamitujuanaudit()
     {
-        return view('spm/laporan-laporanAMI-tujuanaudit');
+        return view('spm/laporanAMI/laporan-laporanAMI-tujuanaudit');
     }
 
     public function editlaporanamitujuanaudit()
     {
-        return view('spm/laporan-editlaporan-tujuanaudit');
+        return view('spm/laporanAMI/laporan-editlaporan-tujuanaudit');
     }
 
     public function showlaporanamilingkupaudit()
     {
-        return view('spm/laporan-laporanAMI-lingkupaudit');
+        return view('spm/laporanAMI/laporan-laporanAMI-lingkupaudit');
     }
 
     public function editlaporanamilingkupaudit()
     {
-        return view('spm/laporan-editlaporan-lingkupaudit');
+        return view('spm/laporanAMI/laporan-editlaporan-lingkupaudit');
     }
 
     public function showlaporanamijadwalaudit()
     {
-        return view('spm/laporan-laporanAMI-jadwalaudit');
+        return view('spm/laporanAMI/laporan-laporanAMI-jadwalaudit');
     }
 
     public function showlaporanamitemuanpositif()
     {
-        return view('spm/laporan-laporanAMI-temuanpositif');
+        return view('spm/laporanAMI/laporan-laporanAMI-temuanpositif');
     }
 
     public function editlaporanamitemuanpositif()
     {
-        return view('spm/laporan-editlaporan-temuanpositif');
+        return view('spm/laporanAMI/laporan-editlaporan-temuanpositif');
     }
 
     public function showlaporanamirta()
     {
-        return view('spm/laporan-laporanAMI-rta');
+        return view('spm/laporanAMI/laporan-laporanAMI-rta');
     }
 
     public function editlaporanamirta($auditee_id)
     {
         $pertanyaan_ = Pertanyaan::where('auditee_id', $auditee_id)->where('Kategori', '!=', 'Sesuai')->where('approvalAuditee', 'Disetujui Auditee')->where('approvalAuditor', 'Disetujui Auditor')->get();
         
-        return view('spm/laporan-editlaporan-rta', compact('pertanyaan_'));
+        return view('spm/laporanAMI/laporan-editlaporan-rta', compact('pertanyaan_'));
     }
 
     public function showlaporanamipeluangpeningkatan()
     {
-        return view('spm/laporan-laporanAMI-peluangpeningkatan');
+        return view('spm/laporanAMI/laporan-laporanAMI-peluangpeningkatan');
+    }
+
+    public function showlaporanamirekapitulasi()
+    {
+        return view('spm/laporanAMI/laporan-laporanAMI-rekapitulasi');
+    }
+
+    public function editlaporanamirekapitulasi()
+    {
+        return view('spm/laporanAMI/laporan-editlaporan-rekapitulasi');
+    }
+
+    public function showlaporanamikesimpulanaudit()
+    {
+        return view('spm/laporanAMI/laporan-laporanAMI-kesimpulanaudit');
+    }
+
+    public function editlaporanamikesimpulanaudit()
+    {
+        return view('spm/laporanAMI/laporan-editlaporan-kesimpulanaudit');
+    }
+
+    public function showlaporanamilampiran()
+    {
+        return view('spm/laporanAMI/laporan-laporanAMI-lampiran');
+    }
+
+    public function editlaporanamilampiran()
+    {
+        return view('spm/laporanAMI/laporan-editlaporan-lampiran');
     }
 
     public function laporanamipdfcover()
@@ -121,6 +151,11 @@ class DokLaporanController extends Controller
 
         $coverContent = View::make('laporanAMI.cover', $data)->render();
         $daftarIsiContent = View::make('laporanAMI.daftarisi', $data)->render();
+        $katPengantarContent = View::make('laporanAMI.katapengantar', $data)->render();
+        $pendahuluanContent = View::make('laporanAMI.pendahuluan', $data)->render();
+        $tujuanAuditContent = View::make('laporanAMI.tujuanaudit', $data)->render();
+        $lingkupAuditContent = View::make('laporanAMI.lingkupaudit', $data)->render();
+        $jadwalAuditContent = View::make('laporanAMI.jadwalaudit', $data)->render();
 
         // $pdfCover = PDF::loadHTML($coverContent);
         // $pdfCover->setPaper('A4');
@@ -133,9 +168,17 @@ class DokLaporanController extends Controller
         // $pdfCover->setOption('page-height', '297mm');
         
 
-        $combinedContent = $coverContent . $daftarIsiContent;
+        $combinedContent = $coverContent . $daftarIsiContent . $katPengantarContent . $pendahuluanContent . $tujuanAuditContent . $lingkupAuditContent . $jadwalAuditContent;
 
         $pdf = PDF::loadHTML($combinedContent);
+        $pdf->setPaper('A4');
+        $pdf->setOption('page-size', 'A4');
+        // $pdf->setOption('margin-top', 3);
+        // $pdf->setOption('margin-right', 3);
+        // $pdf->setOption('margin-bottom', 3);
+        // $pdf->setOption('margin-left', 4);
+        $pdf->setOption('page-width', '210mm');
+        $pdf->setOption('page-height', '297mm');
 
         return $pdf->stream('laporanAMI-cover-daftarisi.pdf');
     }

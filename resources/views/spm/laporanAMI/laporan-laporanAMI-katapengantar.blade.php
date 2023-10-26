@@ -10,12 +10,12 @@
 
 @section('container')
     <div class="container-fluid laporanAMI" style="min-height: 100vh">
-        @include('spm.laporan-navtabs')
+        @include('spm.laporanAMI.laporan-navtabs')
         <div class="previewcover text-center mt-5">
             <embed src="https://lldikti6.kemdikbud.go.id/wp-content/uploads/2022/06/1-MATERI-PENGERTIAN-AMI.pdf" type="application/pdf" width="90%" height="600px">
         </div>
         <div class="button-edit px-5 mx-4 my-3">
-            <a href="/laporan-spm-laporan-audit-mutu-internal-editrta/{{ 2 }}"><button type="button" class="btn btn-primary btn-sm float-end px-4">Edit</button></a>
+            <a href="/laporan-spm-laporan-audit-mutu-internal-editkatapengantar"><button type="button" class="btn btn-primary btn-sm float-end px-4">Edit</button></a>
         </div>
     </div>
 @endsection

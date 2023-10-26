@@ -10,7 +10,7 @@
 
 @section('container')
     <div class="container-fluid laporanAMI" style="min-height: 100vh">
-        @include('spm.laporan-navtabs')
+        @include('spm.laporanAMI.laporan-navtabs')
         <div class="input-cover my-5 d-flex justify-content-center">
             <input class="form-control btn-sm w-25 align-center" type="file" id="formCover" accept=".jpg, .jpeg, .png" required hidden>
 

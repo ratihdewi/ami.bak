@@ -10,7 +10,7 @@
 
 @section('container')
     <div class="container-fluid laporanAMI" style="min-height: 100vh">
-        @include('spm.laporan-navtabs')
+        @include('spm.laporanAMI.laporan-navtabs')
         <div class="card-rta my-5 mx-5">
             <h4 class="mb-2">Ringkasan Temuan Audit</h4>
             <div class="card text-center mb-4">

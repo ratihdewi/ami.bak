@@ -10,9 +10,9 @@
 
 @section('container')
     <div class="container-fluid laporanAMI" style="min-height: 100vh">
-        @include('spm.laporan-navtabs')
+        @include('spm.laporanAMI.laporan-navtabs')
         <div class="card-daftarisi my-5 mx-5">
-            <h4 class="mb-2">Lingkup Audit</h4>
+            <h4 class="mb-2">Temuan Positif</h4>
             <form action="" method="POST">
                 <div class="inputPendahuluan">
                     <textarea class="w-100" placeholder="Tuliskan pendahuluan" id="lingkupaudit"></textarea>

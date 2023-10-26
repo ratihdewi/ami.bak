@@ -102,7 +102,10 @@
                                     Request::routeIs('laporan.spm.laporan.audit.mutu.internal.jadwalaudit') ? 'active' : '' || 
                                     Request::routeIs('laporan.spm.laporan.audit.mutu.internal.temuanpositif') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.temuanpositif') ? 'active' : '' ||
                                     Request::routeIs('laporan.spm.laporan.audit.mutu.internal.rta') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.rta') ? 'active' : '' ||
-                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.peluangpeningkatan') ? 'active' : '' }}">
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.peluangpeningkatan') ? 'active' : '' ||
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.rekapitulasi') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.rekapitulasi') ? 'active' : '' ||
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.kesimpulan.audit') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.kesimpulan.audit') ? 'active' : '' || 
+                                    Request::routeIs('laporan.spm.laporan.audit.mutu.internal.lampiran') ? 'active' : '' || Request::routeIs('laporan.spm.laporan.audit.mutu.internal.lampiran') ? 'active' : ''}}">
                 {{-- <i class="bx nav_icon"
                     ><img
                         src="/asset/sideBar/laporan.png"

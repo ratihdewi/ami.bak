@@ -256,6 +256,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan-spm-laporan-audit-mutu-internal-rta', [DokLaporanController::class, 'showlaporanamirta'])->name('laporan.spm.laporan.audit.mutu.internal.rta');
     Route::get('/laporan-spm-laporan-audit-mutu-internal-editrta/{auditee_id}', [DokLaporanController::class, 'editlaporanamirta'])->name('laporan.spm.laporan.audit.mutu.internal.rta');
     Route::get('/laporan-spm-laporan-audit-mutu-internal-peluangpeningkatan', [DokLaporanController::class, 'showlaporanamipeluangpeningkatan'])->name('laporan.spm.laporan.audit.mutu.internal.peluangpeningkatan');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-rekapitulasi', [DokLaporanController::class, 'showlaporanamirekapitulasi'])->name('laporan.spm.laporan.audit.mutu.internal.rekapitulasi');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-editrekapitulasi', [DokLaporanController::class, 'editlaporanamirekapitulasi'])->name('laporan.spm.laporan.audit.mutu.internal.rekapitulasi');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-kesimpulan-audit', [DokLaporanController::class, 'showlaporanamikesimpulanaudit'])->name('laporan.spm.laporan.audit.mutu.internal.kesimpulan.audit');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-editkesimpulan-audit', [DokLaporanController::class, 'editlaporanamikesimpulanaudit'])->name('laporan.spm.laporan.audit.mutu.internal.kesimpulan.audit');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-lampiran', [DokLaporanController::class, 'showlaporanamilampiran'])->name('laporan.spm.laporan.audit.mutu.internal.lampiran');
+    Route::get('/laporan-spm-laporan-audit-mutu-internal-editlampiran', [DokLaporanController::class, 'editlaporanamilampiran'])->name('laporan.spm.laporan.audit.mutu.internal.lampiran');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
@@ -321,7 +327,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Laporan AMI
     Route::get('/laporanAMI-pdf-cover', [DokLaporanController::class, 'laporanamipdfcover'])->name('dokumenrelaporanAMI.pdf.cover');
-
 
     Route::get('/addAuditor/{tahunperiode}', [AuditorController::class, 'tambahauditor'])->name('tambahauditor');
     Route::post('/insertAuditor', [AuditorController::class, 'insertdata'])->name('insertauditor');

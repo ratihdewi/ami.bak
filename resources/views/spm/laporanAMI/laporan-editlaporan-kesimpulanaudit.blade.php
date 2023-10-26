@@ -10,12 +10,12 @@
 
 @section('container')
     <div class="container-fluid laporanAMI" style="min-height: 100vh">
-        @include('spm.laporan-navtabs')
+        @include('spm.laporanAMI.laporan-navtabs')
         <div class="card-daftarisi my-5 mx-5">
-            <h4 class="mb-2">Pendahuluan</h4>
+            <h4 class="mb-2">Kesimpulan Audit</h4>
             <form action="" method="POST">
                 <div class="inputPendahuluan">
-                    <textarea class="w-100" placeholder="Tuliskan pendahuluan" id="pendahuluan"></textarea>
+                    <textarea class="w-100" placeholder="Tuliskan pendahuluan" id="lingkupaudit"></textarea>
                 </div>
                 <div class="moreButton my-3 float-end">
                     <a href="/laporan-spm-laporan-audit-mutu-internal-pendahuluan"><button type="button" class="btn btn-secondary">Batal</button></a>
@@ -31,7 +31,7 @@
     <script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: 'textarea#pendahuluan',
+            selector: 'textarea#lingkupaudit',
             height: 500,
             menubar: false,
             plugins: [

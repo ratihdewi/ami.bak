@@ -6,13 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{ public_path('bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" media="all" href="{{ public_path('css/laporanAMI.css') }}">
-    <title>Laporan AMI - Daftar Isi</title>
+    <title>Laporan AMI - Pendahuluan</title>
+    {{-- <style>
+        body #pendahuluan {
+            font-size: 20px !important;
+        }
+    </style> --}}
 </head>
 <body>
-    <div class="container-daftarisi mx-4 my-5">
+    <div class="container-pendahuluan mx-4 my-5">
         @include('laporanAMI.header-laporan')
-        <div id="daftarisi-body" class="daftarisi-body">
-            <h2 class="text-center">DAFTAR ISI</h2>
+        <div id="pendahuluan-body" class="pendahuluan-body mx-0">
+            <h2>I. <span class="ms-5">PENDAHULUAN</span></h2>
         </div>
     </div>
 </body>

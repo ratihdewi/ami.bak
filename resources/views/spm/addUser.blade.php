@@ -1,6 +1,6 @@
 @extends('layout.main') 
 
-@section('title') AMI - Tambah Auditee @endsection
+@section('title') AMI - Tambah User @endsection
 
 @section('linking')
     <a href="/usercontrol" class="mx-1">
