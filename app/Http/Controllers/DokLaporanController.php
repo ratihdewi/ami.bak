@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use Mpdf\Mpdf;
 use App\Models\Auditee;
 use App\Models\Pertanyaan;
 use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class DokLaporanController extends Controller
 {
@@ -108,5 +111,34 @@ class DokLaporanController extends Controller
     {
         return view('spm/laporan-laporanAMI-peluangpeningkatan');
     }
+
+    public function laporanamipdfcover()
+    {
+        $data = [
+            'coverData' => 'Data Cover',
+            'daftarIsiData' => 'Data Daftar Isi',
+        ];
+
+        $coverContent = View::make('laporanAMI.cover', $data)->render();
+        $daftarIsiContent = View::make('laporanAMI.daftarisi', $data)->render();
+
+        // $pdfCover = PDF::loadHTML($coverContent);
+        // $pdfCover->setPaper('A4');
+        // $pdfCover->setOption('page-size', 'A4');
+        // $pdfCover->setOption('margin-top', 0);
+        // $pdfCover->setOption('margin-right', 0);
+        // $pdfCover->setOption('margin-bottom', 0);
+        // $pdfCover->setOption('margin-left', 0);
+        // $pdfCover->setOption('page-width', '210mm');
+        // $pdfCover->setOption('page-height', '297mm');
+        
+
+        $combinedContent = $coverContent . $daftarIsiContent;
+
+        $pdf = PDF::loadHTML($combinedContent);
+
+        return $pdf->stream('laporanAMI-cover-daftarisi.pdf');
+    }
+    
 
 }
