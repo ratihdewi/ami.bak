@@ -216,7 +216,6 @@ class JadwalController extends Controller
         // dd($request->addmore);
         $returns = null;
         foreach ($request->addmore as $key => $value) {
-            // dd($value);
             $dateString = $value['hari_tgl'];
             $dateArray = date_parse($dateString);
             $date = date("Y-m-d", mktime(0, 0, 0, $dateArray["month"], $dateArray["day"], $dateArray["year"]));
@@ -243,12 +242,9 @@ class JadwalController extends Controller
                 $returns = redirect()->route('jadwalaudit')->with('success', 'Jadwal audit berhasil ditambah');
             } elseif (!$isExistAuditee) {
                 $returns = redirect()->route('jadwalaudit')->with('error', 'Maaf, data tidak terdaftar sebagai Auditee. Silahkan input kembali data dengan benar!');
-                // return $return;
             } elseif ($value['th_ajaran1'] != $year || $value['th_ajaran2'] != $year) {
                 $returns = redirect()->route('jadwalaudit')->with('error', 'Maaf, tahun ajaran dan tanggal pelaksanaan tidak sesuai. Silahkan input kembali data dengan benar!');
-                // return $return;
             }
-            // $returns = $return;
         }
         
         return $returns;
@@ -258,13 +254,11 @@ class JadwalController extends Controller
         $data = Jadwal::find($id);
         $auditee_ = Auditee::all();
         $auditor_ = Auditor::find($data->auditor_id);
-        //dd($data);
         return view('spm/updateJadwalAudit', compact('data', 'auditor_', 'auditee_'));
     }
 
     public function updatedata(Request $request, $id)
     {
-        // dd($request->all());
         $data = Jadwal::find($id);
 
         foreach ($request->addmore as $key => $value) {

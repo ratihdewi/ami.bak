@@ -138,7 +138,7 @@
                                             >Kegiatan</label
                                         >
                                         <div class="col-sm-9">
-                                            <input
+                                            {{-- <input
                                                 type="text"
                                                 class="form-control"
                                                 id="kegiatan"
@@ -146,7 +146,25 @@
                                                 name="addmore[0][kegiatan]"
                                                 value="{{ $data->kegiatan }}"
                                                 required
-                                            />
+                                            /> --}}
+                                            <div class="dropdown" id="kegiatan">
+                                                <button
+                                                  type="button"
+                                                  class="btn btn-secondary dropdown-toggle w-100 d-flex justify-content-between text-secondary border border-secondary"
+                                                  data-bs-toggle="dropdown"
+                                                  aria-expanded="false"
+                                                  data-bs-auto-close="outside"
+                                                >
+                                                {{ $data->kegiatan }}
+                                                </button>
+                                                <ul class="dropdown-menu w-100">
+                                                  <li><a class="dropdown-item" data-value="Asesmen kecukupan" id="asesmenkecukupan">Asesmen kecukupan</a></li>
+                                                  <li><a class="dropdown-item" data-value="Asesmen lapangan" id="asesmenlapangan">Asesmen lapangan</a></li>
+                                                  <li><a class="dropdown-item" data-value="Penandatanganan berita acara" id="penandatangananba">Penandatanganan berita acara</a></li>
+                                                  <li><hr class="dropdown-divider"></li>
+                                                  <li class="px-2"><input type="text" class="w-100 vh-50" id="kegiatanitem" placeholder="Lainnya" name="addmore[0][kegiatan]" value="{{ $data->kegiatan }}"></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -175,12 +193,35 @@
             console.log(hari_tgl);
             console.log($('#hari_tgl').val());
 
-            flatpickr("#hari_tgl", {
-                dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+            flatpickr("#waktu", {
+                enableTime: true,
+                noCalendar: true,
                 locale: "id",
-                enableTime: false, // Jangan aktifkan waktu
-                // time_24hr: true, // Gunakan format 24 jam
+                dateFormat: "H:i",
+                minTime: "00:00",
+                maxTime: "23:59",
+            });
+
+            flatpickr("#hari_tgl", {
+                dateFormat: "d-m-Y",
+                locale: "id",
+                enableTime: false,
                 timeZone: "Asia/Jakarta",
+            });
+
+            const dropdown = document.getElementById('kegiatan');
+            const lainnyaInput = document.getElementById('kegiatanitem');
+            const inputKegiatan = document.getElementById('kegiataninput');
+            const dropdownItems = dropdown.querySelectorAll('.dropdown-item[data-value]');
+
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const selectedValue = item.getAttribute('data-value');
+                    dropdown.querySelector('.btn').textContent = selectedValue;
+                    console.log("selectedValue" + selectedValue);
+
+                    $('#kegiatanitem').val(selectedValue);
+                });
             });
 
             var max_fields = 50;
