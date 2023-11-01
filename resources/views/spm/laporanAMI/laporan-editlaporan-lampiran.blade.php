@@ -14,11 +14,24 @@
         <div class="card-daftarisi my-5 mx-5">
             <h4 class="mb-2">Lampiran</h4>
             <form action="" method="POST">
-                <div class="inputPendahuluan">
-                    <textarea class="w-100" placeholder="Tuliskan pendahuluan" id="lingkupaudit"></textarea>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="kodedokumen" class="form-label fw-semibold">Kode Dokumen</label>
+                            <select id="kodedokumen" class="form-select" aria-label="Default select example">
+                                <option selected>Pilih kode dokumen</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="namadokumen" class="form-label fw-semibold">Nama Dokumen</label>
+                            <select id="namadokumen" class="form-select" aria-label="Default select example">
+                                <option selected>Pilih nama dokumen</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="moreButton my-3 float-end">
-                    <a href="/laporan-spm-laporan-audit-mutu-internal-pendahuluan"><button type="button" class="btn btn-secondary">Batal</button></a>
+                    <a href="/laporan-spm-laporan-audit-mutu-internal-lampiran"><button type="button" class="btn btn-secondary">Batal</button></a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
@@ -29,6 +42,7 @@
 @push('script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         tinymce.init({
             selector: 'textarea#lingkupaudit',
@@ -45,5 +59,8 @@
             'removeformat | help',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
+
+        $('#kodedokumen').select2();
+        $('#namadokumen').select2();
     </script>
 @endpush

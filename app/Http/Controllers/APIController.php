@@ -35,58 +35,6 @@ class APIController extends Controller
             ]);
             $userData->save();
 
-            
-            // for ($i=0; $i < count($data['positions']); $i++) { 
-
-            //     if ($data['positions'][$i]['unit_kerja'] != null) {
-            //         if ($i == 0) {
-            //             $unitKerja = UnitKerja::where('name', $data['positions'][0]['unit_kerja'])->first();
-            //             $userData->update([
-            //                 'jabatan' => $data['positions'][0]['position'],
-            //                 'unitkerja_id' => $unitKerja->id,
-            //             ]);
-            //             $userData->save();
-            //         } elseif ($i == 1) {
-            //             $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
-            //             $userData->update([
-            //                 'jabatan2' => $data['positions'][1]['position'],
-            //                 'unitkerja_id2' => $unitKerja->id,
-            //             ]);
-            //             $userData->save();
-            //         } elseif ($i == 2) {
-            //             $unitKerja = UnitKerja::where('name', $data['positions'][2]['unit_kerja'])->first();
-            //             $userData->update([
-            //                 'jabatan3' => $data['positions'][2]['position'],
-            //                 'unitkerja_id3' => $unitKerja->id,
-            //             ]);
-            //             $userData->save();
-            //         }
-            //     } elseif ($data['positions'][$i]['unit_kerja'] == null) {
-            //         if ($i == 0) {
-            //             $unitKerja = UnitKerja::where('name', $data['positions'][0]['unit_kerja'])->first();
-            //             $userData->update([
-            //                 'jabatan' => null,
-            //                 'unitkerja_id' => null,
-            //             ]);
-            //             $userData->save();
-            //         } elseif ($i == 1) {
-            //             $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
-            //             $userData->update([
-            //                 'jabatan2' => null,
-            //                 'unitkerja_id2' => null,
-            //             ]);
-            //             $userData->save();
-            //         } elseif ($i == 2) {
-            //             $unitKerja = UnitKerja::where('name', $data['positions'][2]['unit_kerja'])->first();
-            //             $userData->update([
-            //                 'jabatan3' => null,
-            //                 'unitkerja_id3' => null,
-            //             ]);
-            //             $userData->save();
-            //         }
-            //     }
-            // }
-
             if (count($data['positions']) == 3) {
                 if ($data['positions'][0]['position'] != null && $data['positions'][0]['unit_kerja'] != null) {
                     $unitKerja = UnitKerja::where('name', $data['positions'][0]['unit_kerja'])->first();
@@ -133,14 +81,11 @@ class APIController extends Controller
                     $userData->save();
                 }
 
-                // if ($data['positions'][2]['position'] == null && $data['positions'][2]['unit_kerja'] == null) {
-                    // $unitKerja = UnitKerja::where('name', $data['positions'][2]['unit_kerja'])->first();
-                    $userData->update([
-                        'jabatan3' => null,
-                        'unitkerja_id3' => null,
-                    ]);
-                    $userData->save();
-                // }
+                $userData->update([
+                    'jabatan3' => null,
+                    'unitkerja_id3' => null,
+                ]);
+                $userData->save();
 
             } elseif (count($data['positions']) == 1) {
                 if ($data['positions'][0]['position'] != null && $data['positions'][0]['unit_kerja'] != null) {
@@ -151,26 +96,13 @@ class APIController extends Controller
                     ]);
                     $userData->save();
                 } 
-
-                // if ($data['positions'][1]['position'] == null && $data['positions'][1]['unit_kerja'] == null) {
-                    // $unitKerja = UnitKerja::where('name', $data['positions'][1]['unit_kerja'])->first();
-                    $userData->update([
-                        'jabatan2' => null,
-                        'unitkerja_id2' => null,
-                        'jabatan3' => null,
-                        'unitkerja_id3' => null,
-                    ]);
-                    $userData->save();
-                // }
-
-                // if ($data['positions'][2]['position'] == null && $data['positions'][2]['unit_kerja'] == null) {
-                    // $unitKerja = UnitKerja::where('name', $data['positions'][2]['unit_kerja'])->first();
-                    // $userData->update([
-                    //     'jabatan3' => null,
-                    //     'unitkerja_id3' => null,
-                    // ]);
-                    // $userData->save();
-                // }
+                $userData->update([
+                    'jabatan2' => null,
+                    'unitkerja_id2' => null,
+                    'jabatan3' => null,
+                    'unitkerja_id3' => null,
+                ]);
+                $userData->save();
             }
 
             $homeController = new HomeController();

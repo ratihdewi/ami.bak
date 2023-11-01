@@ -1,5 +1,5 @@
 <div class="button-pratinjau-laporan d-md-flex justify-content-md-end" id="button-pratinjau">
-    <a href="#"><button class="btn btn-primary mt-3">Pratinjau</button></a>
+    <a href="/laporanAMI-pdf-cover" target="_blank"><button class="btn btn-primary mt-3">Pratinjau</button></a>
 </div>
 <br>
 <nav>

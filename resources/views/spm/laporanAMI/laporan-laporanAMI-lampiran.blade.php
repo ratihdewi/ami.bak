@@ -12,7 +12,8 @@
     <div class="container-fluid laporanAMI" style="min-height: 100vh">
         @include('spm.laporanAMI.laporan-navtabs')
         <div class="previewcover text-center mt-5">
-            <embed src="https://lldikti6.kemdikbud.go.id/wp-content/uploads/2022/06/1-MATERI-PENGERTIAN-AMI.pdf" type="application/pdf" width="90%" height="600px">
+            {{-- <embed src="https://lldikti6.kemdikbud.go.id/wp-content/uploads/2022/06/1-MATERI-PENGERTIAN-AMI.pdf" type="application/pdf" width="90%" height="600px"> --}}
+            <embed src="/laporanAMI-pdf-cover" type="application/pdf" width="90%" height="600px">
         </div>
         <div class="button-edit px-5 mx-4 my-3">
             <a href="laporan-spm-laporan-audit-mutu-internal-editlampiran"><button type="button" class="btn btn-primary btn-sm float-end px-4">Edit</button></a>

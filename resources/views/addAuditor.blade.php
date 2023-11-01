@@ -11,8 +11,7 @@
 <div class="container-fluid mt-3 mb-3" style="min-height: 100vh">
     <div class="row justify-content-center">
         <div class="col-8">
-            <h5 class="text-center mb-3">Tambah Auditor
-            </h5>
+            <h5 class="text-center mb-3">Tambah Auditor</h5>
             <form id="addForm" action="/insertAuditor" method="POST">
                 @csrf
                 <div class="card mb-3">
