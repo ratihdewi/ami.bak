@@ -250,22 +250,15 @@
         });
 
         function fillNipAuditorOptions(tahun) {
-            console.log('Berhasil');
             let tahunAwal = $('#tahunperiode0').val();
             let maxValue = parseInt($('#tahunperiode0').attr('max'));
             let minValue = parseInt($('#tahunperiode0').attr('min'));
             tahunAwal = parseInt(tahunAwal);
 
             let minvalue = $('#tahunperiode').attr('min', tahunAwal+1);
-            // let maxvalue = $('#tahunperiode').attr('max', tahunAwal+1);
 
             minvalue = parseInt($('#tahunperiode').attr('min'));
             maxvalue = parseInt($('#tahunperiode').attr('max'));
-
-            // let tahun = $('#tahunperiode').val();
-            // console.log('max th 0 :' + maxvalue);
-            // console.log(tahunAwal);
-            // console.log(tahun);
 
             $.ajax({
                 url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -273,7 +266,6 @@
                 dataType: 'json',
                 data: { q: '' },
                 success: function(data) {
-                    console.log(data);
                     $('#ketuaAuditor').empty();
                     $('#ketuaAuditor').append('<option value="" selected>Pilih Ketua Auditor</option>');
                     if (Array.isArray(data)) {
@@ -297,14 +289,12 @@
             });
 
             if ((tahun > minValue)) {
-                console.log('Gagal');
                 $.ajax({
                     url: "{{url('tambahauditee-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
                     type: 'GET',
                     dataType: 'json',
                     data: { q: '' },
                     success: function(data) {
-                        console.log(data);
                         $('#nipAuditee').empty();
                         $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Auditee</option>');
                         if (Array.isArray(data)) {
@@ -350,73 +340,6 @@
                 });
             }
         }
-
-        // $('#tahunperiode').change(function () {
-        //     console.log('Berhasil');
-        //     let tahunAwal = $('#tahunperiode0').val();
-        //     tahunAwal = parseInt(tahunAwal);
-
-        //     let minvalue = $('#tahunperiode').attr('min', tahunAwal+1);
-        //     let maxvalue = $('#tahunperiode').attr('max', tahunAwal+1);
-
-        //     minvalue = parseInt($('#tahunperiode').attr('min'));
-        //     maxvalue = parseInt($('#tahunperiode').attr('max'));
-
-        //     let tahun = $('#tahunperiode').val();
-        //     console.log(tahunAwal);
-        //     console.log(tahun);
-
-        //     if (tahun < minvalue || tahun > maxvalue) {
-        //         console.log('Gagal');
-        //         $.ajax({
-        //             url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
-        //             type: 'GET',
-        //             dataType: 'json',
-        //             data: { q: '' },
-        //             success: function(data) {
-        //                 $('#nipAuditee').empty();
-        //                 $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
-        //                 if (Array.isArray(data)) {
-        //                     $('#nipAuditee').select2();
-        //                 } else {
-        //                     console.error('Data yang diterima dari server bukan array yang valid.');
-        //                 }
-        //             },
-        //             error: function() {
-        //             console.error('Terjadi kesalahan saat memuat data users.');
-        //             }
-        //         });
-        //     } else {
-        //         $.ajax({
-        //             url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
-        //             type: 'GET',
-        //             dataType: 'json',
-        //             data: { q: '' },
-        //             success: function(data) {
-        //                 console.log(data);
-        //                 $('#nipAuditee').empty();
-        //                 $('#nipAuditee').append('<option value="" selected disabled>Pilih NIP Ketua Auditee</option>');
-        //                 if (Array.isArray(data)) {
-        //                     var mappedData = data.map(function(item) {
-        //                         return {
-        //                             id: item.nip,
-        //                             text: item.nip,
-        //                         };
-        //                     });
-
-        //                     $('#nipAuditee').select2({
-        //                         data: mappedData,
-        //                     });
-        //                 } else {
-        //                     console.error('Data yang diterima dari server bukan array yang valid.');
-        //                 }
-        //             },
-        //             error: function() {
-        //             console.error('Terjadi kesalahan saat memuat data users.');
-        //             }
-        //         });
-        //     }
-        // });
 
         $('#nipAuditee').change(function(){
             let nip = $('#nipAuditee').val();

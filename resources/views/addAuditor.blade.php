@@ -146,23 +146,11 @@
                             <div class="row mb-1">
                                 <div class="col">
                                     <label class="fw-semibold" for="tanggalmulai" class="form-label">Tanggal Mulai</label>
-                                    {{-- <div class="col">
-                                        <div class="input-group date" id="tglmulai">
-                                            <input type="text" class="form-control" id="tanggalmulai" name="tgl_mulai" placeholder="{{ $periode->tgl_mulai->translatedFormat('l, d M Y') }}">
-                                            <span class="input-group-append">
-                                            <span class="input-group-text bg-light d-block">
-                                                <i class="bi bi-calendar"></i>
-                                            </span>
-                                            </span>
-                                        </div>
-                                    </div> --}}
                                     <input
                                         type="text"
                                         name="tgl_mulai"
                                         class="form-control"
                                         id="tanggalmulai"
-                                        {{-- onfocus="(this.type='date')"
-                                        onblur="(this.type='text')" --}}
                                         placeholder="{{ $periode->tgl_mulai->translatedFormat('l, d M Y') }}"
                                         aria-label="Tanggal Mulai Tugas"
                                         value="{{ date('d-m-Y', strtotime($periode->tgl_mulai)) }}"
@@ -222,22 +210,6 @@
     <script>
         $(document).ready(function(){
 
-            // flatpickr("#tanggalmulai", {
-            //     dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
-            //     locale: "id",
-            //     enableTime: false, // Jangan aktifkan waktu
-            //     // time_24hr: true, // Gunakan format 24 jam
-            //     timeZone: "Asia/Jakarta",
-            // });
-
-            // flatpickr("#tanggalberakhir", {
-            //     dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
-            //     locale: "id",
-            //     enableTime: false, // Jangan aktifkan waktu
-            //     // time_24hr: true, // Gunakan format 24 jam
-            //     timeZone: "Asia/Jakarta",
-            // });
-
             var tahunAwal = $('#tahunperiode0').val();
             var tahunAkhir = $('#tahunperiode').val();
 
@@ -247,7 +219,6 @@
                 let tahunAwal = parseInt($('#tahunperiode0').val());
                 $('#tahunperiode').val(tahunAwal + 1);
                 
-                // Memanggil fungsi untuk mengisi opsi NIP auditor
                 fillNipAuditorOptions(tahunAwal + 1);
             });
 
@@ -374,12 +345,11 @@
         function validateInput() {
             minValue = parseInt($('#tahunperiode0').attr('min'));
             maxValue = parseInt($('#tahunperiode0').attr('max'));
-            // console.log(maxValue);
 
             let inputElement = document.getElementById('tahunperiode0');
             let validationMessageElement = document.getElementById('validationMessage');
 
-            // Dapatkan nilai input
+            // Nilai input
             let inputValue = parseInt(inputElement.value);
             let maxvalue = maxValue + 1;
 
@@ -398,7 +368,7 @@
             let inputElement = document.getElementById('tahunperiode');
             let validationMessageElement = document.getElementById('validationMessage');
 
-            // Dapatkan nilai input
+            // Nilai input
             let inputValue = parseInt(inputElement.value);
             
             let currentYear = {{ $currentYear; }};
@@ -432,7 +402,6 @@
             let minvalue = parseInt($('#tahunperiode').attr('min'));
 
             if (tahun == tahunAwal+1 && (tahunAwal >= minValue)) {
-                // console.log('berhasil');
                 $.ajax({
                     url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
                     type: 'GET',
@@ -489,7 +458,6 @@
             let thPeriode1 =  document.getElementById('tahunperiode').value;
             let validationDateMessageElement = document.getElementById('validationDateMessage');
 
-            // console.log('tgl mulai : ' + tglMulai);
             console.log('thPeriode0 : ' + thPeriode0);
             console.log('thPeriode : ' + thPeriode1);
 
