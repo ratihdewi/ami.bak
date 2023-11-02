@@ -82,7 +82,7 @@
                             {!! $d_pertanyaan->pertanyaan !!}
                         </td>
                         <td class="col-1 px-0 text-center">
-                            <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
+                            <a href="/daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}"
                                 ><button class="bg-primary border-0 rounded-1" title="Edit"><i class="bi bi-pencil-square text-white"></i></button></a>
                             <a href="/daftartilik-deletedatapertanyaandaftartilik/{{ $d_pertanyaan->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus butir standar {{ $d_pertanyaan->butirStandar }} ({{ $d_pertanyaan->nomorButir }}) Auditee {{ $data->auditee->unit_kerja }} ({{ $data->area }})')"><button class="bg-danger border-0 rounded-1" title="Hapus"><i class="bi bi-trash text-white"></i></button></a>
                         </td>

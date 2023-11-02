@@ -85,13 +85,6 @@
                 </div>
                 </form>
             </div>
-        {{-- <div class="d-flex justify-content-end">
-            <a href="/addAuditor" class="text-white" style="font-weight: 600; text-decoration: none">
-                <button type="button" class="btn btn-primary btn-sm float-end my-3 px-3">
-                    Tambah
-                </button>
-            </a>
-        </div> --}}
     </div>
 
     <div class="modal fade" id="editPeriodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
@@ -175,8 +168,7 @@
                         <th class="col-8">Periode {{ $item->tahunperiode1 }}/{{ $item->tahunperiode2 }}</th>
                         <th class="col-2 text-center">
                             <button class="border-0 rounded bg-primary" data-bs-toggle="modal" data-bs-target="#editPeriodeModal" onclick="editmodal({{ $item->id }})"><i class="bi bi-pencil-square text-white" title="Edit"></i></button>
-                            <a href="/daftarAuditor/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning me-1"><i class="bi bi-eye-fill" title="Buka"></i></button></a>
-                            {{-- <a href=""><button class="bg-primary border-0 rounded-1 me-0"><i class="bi bi-pencil-square text-white"></i></button></a> --}}
+                            <a href="/daftarAuditor/{{ $item->tahunperiode2 }}" style="text-decoration-line: none; color: black"><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill" title="Buka"></i></button></a>
                             <a href="/daftarauditor-deleteperiode/{{ $item->id }}" onclick="return confirm('Apakah Anda yakin akan menghapus periode ini?')"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" title="Hapus"></i></button></a>
                         </th>
                     </tr>

@@ -320,7 +320,7 @@
                       <td class="col-3 text-start">{!! $peningkatan->kelebihan !!}</td>
                       <td class="col-4 text-start">{!! $peningkatan->peningkatan !!}</td>
                       <td class="col-2 text-center">
-                        <a href="/BA-editpeluangpeningkatan/{{ $peningkatan->id }}/{{ $peningkatan->beritaacara->tahunperiode }}" class="me-2"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white" title="Edit"></i></button></a>
+                        <a href="/BA-editpeluangpeningkatan/{{ $peningkatan->id }}/{{ $peningkatan->beritaacara->tahunperiode }}"><button class="bg-primary border-0 rounded-1"><i class="bi bi-pencil-square text-white" title="Edit"></i></button></a>
                         <a href="/BA-deletepeluangpeningkatan/{{ $peningkatan->id }}"><button class="bg-danger border-0 rounded-1"><i class="bi bi-trash text-white" onclick="return confirm('Apakah Anda yakin akan menghapus data peluang peningkatan ini?')" title="Hapus"></i></button></a>
                       </td>
                     </tr>
