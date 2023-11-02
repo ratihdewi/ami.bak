@@ -69,7 +69,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="fakultas" class="form-label fw-semibold"
-                                            >Fakultas/Direktorat <span class="text-danger fw-bold">*</span></label
+                                            >Fakultas/Direktorat/Rektorat <span class="text-danger fw-bold">*</span></label
                                         >
                                         <input
                                             type="text"
@@ -102,7 +102,6 @@
                                     <div class="col">
                                         <input
                                             type="text"
-                                            name="fakultas"
                                             class="form-control"
                                             id="fakultas2"
                                             placeholder="Fakultas"
@@ -116,7 +115,6 @@
                                     <div class="col">
                                         <input
                                             type="text"
-                                            name="program_studi"
                                             class="form-control"
                                             id="programstudi2"
                                             placeholder="Program Studi"
@@ -132,7 +130,6 @@
                                     <div class="col">
                                         <input
                                             type="text"
-                                            name="fakultas"
                                             class="form-control"
                                             id="fakultas3"
                                             placeholder="Fakultas"
@@ -146,7 +143,6 @@
                                     <div class="col">
                                         <input
                                             type="text"
-                                            name="program_studi"
                                             class="form-control"
                                             id="programstudi3"
                                             placeholder="Program Studi"
@@ -211,112 +207,6 @@
     </div>
 @endsection
 
-{{-- @push('script')
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function(){
-
-            $('#tahunperiode').change(function () {
-                let tahun = $('#tahunperiode').val();
-                console.log(tahun);
-
-                $.ajax({
-                    url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahun,
-                    type: 'GET',
-                    dataType: 'json',
-                    data: { q: '' },
-                    success: function(data) {
-                        console.log(data);
-                        $('#nipAuditor').empty();
-                        $('#nipAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
-                        if (Array.isArray(data)) {
-                            var mappedData = data.map(function(item) {
-                                return {
-                                    id: item.nip,
-                                    text: item.nip,
-                                };
-                            });
-
-                            $('#nipAuditor').select2({
-                                data: mappedData,
-                            });
-                        } else {
-                            console.error('Data yang diterima dari server bukan array yang valid.');
-                        }
-                    },
-                    error: function() {
-                    console.error('Terjadi kesalahan saat memuat data users.');
-                    }
-                });
-            })
-
-            $('#nipAuditor').change(function(){
-                var id = $(this).val();
-                var url = '{{ route("auditor-searchAuditor") }}';
-                
-                $.ajax({
-                    url: url,
-                    type: 'get',
-                    dataType: 'json',
-                    success: function(response){
-                        
-                        if(response != null){
-                            response.forEach(respon => {
-                                if (respon.nip == id) {
-                                    $('#user_id').val(respon.id);
-                                    $('#namaAuditor').val(respon.name);
-                                    
-                                    var unitKerja = respon.unitkerja;
-
-                                    $('#fakultas').val(unitKerja.fakultas);
-                                    $('#programstudi').val(unitKerja.name);
-                                    $('#nomorTelepon').val(respon.noTelepon);
-                                }
-                            });
-                            
-                        }
-                    }
-                });
-            });
-        });
-
-        $(document).ready(function () {
-            let tahun = $('#tahunperiode').val();
-            console.log(tahun);
-
-            $.ajax({
-                url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahun,
-                type: 'GET',
-                dataType: 'json',
-                data: { q: '' },
-                success: function(data) {
-                    console.log(data);
-                    // $('#nipAuditor').empty();
-                    // $('#nipAuditor').append('<option value="" selected disabled>Pilih NIP Ketua Auditor</option>');
-                    if (Array.isArray(data)) {
-                        var mappedData = data.map(function(item) {
-                            return {
-                                id: item.nip,
-                                text: item.nip,
-                            };
-                        });
-
-                        $('#nipAuditor').select2({
-                            data: mappedData,
-                        });
-                    } else {
-                        console.error('Data yang diterima dari server bukan array yang valid.');
-                    }
-                },
-                error: function() {
-                console.error('Terjadi kesalahan saat memuat data users.');
-                }
-            });
-        });
-    </script>
-@endpush --}}
-
 @push('script') 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -326,20 +216,6 @@
 
     <script>
         $(document).ready(function(){
-
-            // flatpickr("#tanggalmulai", {
-            //     dateFormat: "d-m-Y",
-            //     locale: "id",
-            //     enableTime: false,
-            //     timeZone: "Asia/Jakarta",
-            // });
-
-            // flatpickr("#tanggalberakhir", {
-            //     dateFormat: "d-m-Y",
-            //     locale: "id",
-            //     enableTime: false,
-            //     timeZone: "Asia/Jakarta",
-            // });
 
             var user_unitkerja2 = "{{ $user->unitkerja_id2 }}";
             var user_unitkerja3 = "{{ $user->unitkerja_id3 }}";
@@ -434,35 +310,6 @@
                 
                 fillNipAuditorOptions(tahun);
             });
-
-            // $('#nipAuditor').change(function(){
-            //     var id = $(this).val();
-            //     var url = '{{ route("auditor-searchAuditor") }}';
-                
-            //     $.ajax({
-            //         url: url,
-            //         type: 'get',
-            //         dataType: 'json',
-            //         success: function(response){
-                        
-            //             if(response != null){
-            //                 response.forEach(respon => {
-            //                     if (respon.nip == id) {
-            //                         $('#user_id').val(respon.id);
-            //                         $('#namaAuditor').val(respon.name);
-
-            //                         var unitKerja = respon.unitkerja;
-
-            //                         $('#fakultas').val(unitKerja.fakultas);
-            //                         $('#programstudi').val(unitKerja.name);
-            //                         $('#nomorTelepon').val(respon.noTelepon);
-            //                     }
-            //                 });
-                            
-            //             }
-            //         }
-            //     });
-            // });
 
             $('#nipAuditor').change(function(){
                 var id = $(this).val();

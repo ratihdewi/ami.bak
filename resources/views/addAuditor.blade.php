@@ -72,7 +72,7 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label class="fw-semibold" for="fakultas" class="form-label"
-                                        >Fakultas/Direktorat <span class="text-danger fw-bold">*</span></label
+                                        >Fakultas/Direktorat/Rektorat <span class="text-danger fw-bold">*</span></label
                                     >
                                     <input
                                         type="text"
