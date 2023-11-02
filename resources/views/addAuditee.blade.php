@@ -88,23 +88,6 @@
                         </div>         
                     </div>
                     <div class="mb-3">
-                        <label class="fw-semibold" for="selectUnitKerja" class="form-label"
-                            >Unit Kerja <span class="text-danger fw-bold">*</span></label
-                        >
-                        <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" required readonly>
-                        {{-- <select
-                            id="selectUnitKerja"
-                            class="form-select"
-                            name="unit_kerja"
-                            required
-                        >
-                            <option selected disabled>Pilih unit kerja yang akan diaudit</option>
-                            @foreach ($unitkerjas as $unitkerja)
-                                <option value="{{ $unitkerja->id }}">{{ $unitkerja->name }}</option>
-                            @endforeach
-                        </select> --}}
-                    </div>
-                    <div class="mb-3">
                         <label class="fw-semibold" for="ketuaAuditee" class="form-label"
                             >Ketua Auditee <span class="text-danger fw-bold">*</span></label
                         >
@@ -117,6 +100,19 @@
                             required
                             readonly
                         />
+                    </div>
+                    <div class="mb-3">
+                        <label class="fw-semibold" for="selectUnitKerja" class="form-label"
+                            >Unit Kerja <span class="text-danger fw-bold">*</span></label
+                        >
+                        <select
+                            id="selectUnitKerja"
+                            class="form-select"
+                            name="unit_kerja"
+                            required
+                        >
+                            <option selected disabled>Pilih unit kerja yang akan diaudit</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label class="fw-semibold" for="jabatanKetuaAuditee" class="form-label"
@@ -216,7 +212,7 @@
 
         $('#nipAuditee').change(function(){
             let nip = $('#nipAuditee').val();
-            var url = "{{url('/tambahauditee-searchAuditee')}}";
+            var url = "{{url('/tambahauditee-exsearchAuditee')}}";
 
             $.ajax({
                 url: url,
@@ -224,20 +220,79 @@
                 dataType: 'json',
                 success: function(response){
                     if(response != null){
-                        response.forEach(respon => {
+                        response.users.forEach(respon => {
                             if (respon.nip == nip) {
                                 $('#user_id').val(respon.id);
-
-                                var unitKerja = respon.unitkerja;
-
-                                $('#selectUnitKerja').val(unitKerja.name);
                                 $('#ketuaAuditee').val(respon.name);
-                                $('#jabatanKetuaAuditee').val(respon.jabatan);
+
+                                $('#selectUnitKerja').empty();
+                                $('#selectUnitKerja').append('<option value="" selected disabled>Pilih Unit Kerja</option>');
+                                if (Array.isArray(response.unitkerjas)) {
+                                    var mappedData = [];
+
+                                    response.unitkerjas.forEach(function(item) {
+                                        if (item.id == respon.unitkerja_id) {
+                                            mappedData.push({
+                                                id: item.name,
+                                                text: item.name,
+                                            });
+                                        }
+                                        if (item.id == respon.unitkerja_id2) {
+                                            mappedData.push({
+                                                id: item.name,
+                                                text: item.name,
+                                            });
+                                        }
+                                        if (item.id == respon.unitkerja_id3) {
+                                            mappedData.push({
+                                                id: item.name,
+                                                text: item.name,
+                                            });
+                                        }
+                                    });
+
+                                    $('#selectUnitKerja').select2({
+                                        data: mappedData,
+                                    });
+                                } else {
+                                    console.error('Data yang diterima dari server bukan array yang valid.');
+                                }
 
                                 timauditor(tahunAkhir);
                             }
                         });
                         
+                    }
+                }
+            });
+        });
+
+        $('#selectUnitKerja').change(function () {
+            var selectedUnitKerja = $(this).val();
+            var selectedUser = $('#ketuaAuditee').val();
+            var url = "{{url('/tambahauditee-exsearchAuditee')}}";
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
+                    if (Array.isArray(response.unitkerjas)) {
+                        response.unitkerjas.forEach(function(item) {
+                            if (item.name == selectedUnitKerja) {
+                                response.users.forEach(function(user) {
+                                    if (item.id == user.unitkerja_id) {
+                                        $('#jabatanKetuaAuditee').val(user.jabatan);
+                                    } else if (item.id == user.unitkerja_id2) {
+                                        $('#jabatanKetuaAuditee').val(user.jabatan2);
+                                    } else if (item.id == user.unitkerja_id3) {
+                                        $('#jabatanKetuaAuditee').val(user.jabatan3);
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
                     }
                 }
             });
@@ -507,164 +562,9 @@
             validationMessageElement.textContent = "Harap masukkan tahun periode dengan benar!";
             validationMessageElement.style.marginTop = '5px';
         } else {
-            validationMessageElement.textContent = ""; // Hapus pesan validasi jika input valid
+            validationMessageElement.textContent = "";
         }
     }
 </script>
-
-{{-- <script>
-    $('#nipAuditee').change(function(){
-        var nip = $(this).val();
-        var tahun = $('#tahunperiode').val();
-        var url = '{{ route("searchAuditee") }}';
-        console.log(tahun);
-
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function(response){
-                
-                if(response != null){
-                    response.forEach(respon => {
-                        if (respon.nip== nip) {
-                            $('#user_id').val(respon.id);
-                            $('#selectUnitKerja').val(respon.unit_kerja);
-                            $('#ketuaAuditee').val(respon.name);
-                            $('#jabatanKetuaAuditee').val(respon.jabatan);
-                            
-                        }
-                    });
-                    
-                }
-            }
-        });
-    });
-</script>
-
-<script>
-    var selectpickernip = $('#nipAuditee');
-    
-    $('#tahunperiode').on("change", function(){
-        var tahun = $(this).val();
-        getnip(tahun);
-        console.log(tahun);
-        var url = '{{ route("searchAuditor") }}';
-        
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function(response){
-                
-                if(response != null){
-                    var daftarauditors = [];
-                    var selectpicker1 = $('#ketuaAuditor');
-                    var selectpicker2 = $('#anggotaAuditor');
-                    var selectpicker3 = $('#anggotaAuditor2');
-
-                    selectpicker1.html('');
-                    selectpicker2.html('');
-                    selectpicker3.html('');
-
-                    response.forEach(respon => {
-                        if (respon.tahunperiode == tahun) {
-                            // var options = [
-                            //     { value: respon.nama, text: respon.nama },
-                            // ];
-                            selectpicker1.append($('<option>', { 
-                                value: respon.nama,
-                                text : respon.nama, 
-                            }));
-                            selectpicker2.append($('<option>', { 
-                                value: respon.nama,
-                                text : respon.nama, 
-                            }));
-                            selectpicker3.append($('<option>', { 
-                                value: respon.nama,
-                                text : respon.nama, 
-                            }));
-
-                            // daftarauditors = daftarauditors.concat(options);
-                        }
-                    });
-                    console.log(daftarauditors);
-                    // var selectpicker1 = $('#ketuaAuditor');
-                    // var selectpicker2 = $('#anggotaAuditor');
-                    // var selectpicker3 = $('#anggotaAuditor2');
-
-                    // selectpicker1.empty();
-                    // selectpicker2.empty();
-                    // selectpicker3.empty();
-
-                    // $.each(daftarauditors, function(index, daftarauditor) {
-                    //     daftarauditors = daftarauditors.filter(daftarauditor => !daftarauditors.some(existingOption => existingOption.value === daftarauditor.value));
-                    //     selectpicker1.append('<option value="' + daftarauditor.value + '">' + daftarauditor.text + '</option>');
-                    //     selectpicker2.append('<option value="' + daftarauditor.value + '">' + daftarauditor.text + '</option>');
-                    //     selectpicker3.append('<option value="' + daftarauditor.value + '">' + daftarauditor.text + '</option>');
-                    // });
-
-                    selectpicker1.selectpicker('refresh');
-                    selectpicker2.selectpicker('refresh');
-                    selectpicker3.selectpicker('refresh');
-                }
-            }
-        });   
-    });
-
-    function getnip(tahun) {
-        var urlnip = '{{ route("searchnipuser") }}';
-        $.ajax({
-            url: urlnip,
-            type: 'get',
-            dataType: 'json',
-            success: function(response){
-                if(response != null){
-                    var nipusers = [];
-
-                    console.log(nipusers.length, 'ganti');
-
-                    response.users.forEach(user =>  {
-                        var isDifferentAuditor = true;
-
-                        response.auditors.forEach(auditor => {
-                            if (auditor.tahunperiode == tahun && auditor.user_id == user.id) {
-                                isDifferentAuditor = false;
-                            }
-                        });
-
-                        if (isDifferentAuditor) {
-                            var isDifferentAuditee = true;
-
-                            response.auditees.forEach(auditee => {
-                                if (auditee.tahunperiode == tahun && auditee.user_id == user.id) {
-                                    isDifferentAuditee = false;
-                                }
-                            });
-
-                            if (isDifferentAuditee) {
-                                var availableuser = [
-                                    { value: user.nip, text: user.nip },
-                                ];
-
-                                nipusers = nipusers.concat(availableuser);
-                            }
-                        }
-                    });
-                    console.log(nipusers);
-                    $('#nipAuditee').empty();
-                    var list = '';
-
-                    for (var i = 0; i < nipusers.length; i++) {
-                        nipusers = nipusers.filter(daftarauditor => !nipusers.some(existingOption => existingOption.value === nipusers.value));
-                        $('#nipAuditee').append('<option value="' + nipusers[i].value + '">' + nipusers[i].text + '</option>');
-                        console.log(i);
-                    };
-                    $('#nipAuditee').selectpicker('refresh');
-                }
-            }
-        });
-    }
-</script> --}}
     
 @endpush

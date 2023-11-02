@@ -86,12 +86,6 @@
                         </div>         
                     </div>
                     <div class="mb-3">
-                        <label for="selectUnitKerja" class="form-label"
-                            >Unit Kerja</label
-                        >
-                        <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" value="{{ $data->unit_kerja }}" readonly required>
-                    </div>
-                    <div class="mb-3">
                         <label for="ketuaAuditee" class="form-label"
                             >Ketua Auditee</label
                         >
@@ -105,6 +99,20 @@
                             readonly
                             required
                         />
+                    </div>
+                    <div class="mb-3">
+                        <label for="selectUnitKerja" class="form-label"
+                            >Unit Kerja</label
+                        >
+                        {{-- <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" value="{{ $data->unit_kerja }}" readonly required> --}}
+                        <select
+                            id="selectUnitKerja"
+                            class="form-select"
+                            name="unit_kerja"
+                            required
+                        >
+                            <option value="{{ $data->unit_kerja }}" selected>{{ $data->unit_kerja }}</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="jabatanKetuaAuditee" class="form-label"
@@ -188,8 +196,6 @@
         let tahun = $('#tahunperiode').val();
         let anggotaAuditor = $('#anggotaAuditor').val();
         let ketuaAuditor = $('#ketuaAuditor').val();
-        console.log(anggotaAuditor);
-        console.log(tahun);
 
         $.ajax({
             url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -197,8 +203,6 @@
             dataType: 'json',
             data: { q: '' },
             success: function(data) {
-                console.log(data);
-                // $('#ketuaAuditor').empty();
                 if (Array.isArray(data)) {
                     var mappedData = data.map(function(item) {
                         return {
@@ -243,7 +247,6 @@
 
         $('#tahunperiode').change(function(){
             let tahun = $('#tahunperiode').val();
-            console.log(tahun);
 
             $.ajax({
                 url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
@@ -251,7 +254,6 @@
                 dataType: 'json',
                 data: { q: '' },
                 success: function(data) {
-                    console.log(data);
                     if (Array.isArray(data)) {
                         var mappedData = data.map(function(item) {
                             return {
@@ -275,24 +277,51 @@
 
         $('#nipAuditee').change(function(){
             let nip = $('#nipAuditee').val();
-            var url = "{{url('/tambahauditee-searchAuditee')}}";
+            var url = "{{url('/tambahauditee-exsearchAuditee')}}";
 
             $.ajax({
                 url: url,
                 type: 'get',
                 dataType: 'json',
                 success: function(response){
-                    console.log(nip);
                     if(response != null){
-                        response.forEach(respon => {
+                        response.users.forEach(respon => {
                             if (respon.nip == nip) {
                                 $('#user_id').val(respon.id);
-
-                                // var unitKerja = respon.unitkerja;
-
-                                // $('#selectUnitKerja').val(unitKerja.name);
                                 $('#ketuaAuditee').val(respon.name);
-                                $('#jabatanKetuaAuditee').val(respon.jabatan);
+
+                                $('#selectUnitKerja').empty();
+                                $('#selectUnitKerja').append('<option value="" selected disabled>Pilih Unit Kerja</option>');
+                                if (Array.isArray(response.unitkerjas)) {
+                                    var mappedData = [];
+
+                                    response.unitkerjas.forEach(function(item) {
+                                        if (item.id == respon.unitkerja_id) {
+                                            mappedData.push({
+                                                id: item.name,
+                                                text: item.name,
+                                            });
+                                        }
+                                        if (item.id == respon.unitkerja_id2) {
+                                            mappedData.push({
+                                                id: item.name,
+                                                text: item.name,
+                                            });
+                                        }
+                                        if (item.id == respon.unitkerja_id3) {
+                                            mappedData.push({
+                                                id: item.name,
+                                                text: item.name,
+                                            });
+                                        }
+                                    });
+
+                                    $('#selectUnitKerja').select2({
+                                        data: mappedData,
+                                    });
+                                } else {
+                                    console.error('Data yang diterima dari server bukan array yang valid.');
+                                }
                             }
                         });
                         
@@ -301,9 +330,39 @@
             });
         });
 
+        $('#selectUnitKerja').change(function () {
+            var selectedUnitKerja = $(this).val();
+            var selectedUser = $('#ketuaAuditee').val();
+            var url = "{{url('/tambahauditee-exsearchAuditee')}}";
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
+                    if (Array.isArray(response.unitkerjas)) {
+                        response.unitkerjas.forEach(function(item) {
+                            if (item.name == selectedUnitKerja) {
+                                response.users.forEach(function(user) {
+                                    if (item.id == user.unitkerja_id) {
+                                        $('#jabatanKetuaAuditee').val(user.jabatan);
+                                    } else if (item.id == user.unitkerja_id2) {
+                                        $('#jabatanKetuaAuditee').val(user.jabatan2);
+                                    } else if (item.id == user.unitkerja_id3) {
+                                        $('#jabatanKetuaAuditee').val(user.jabatan3);
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                }
+            });
+        });
+
         $('#tahunperiode').change(function(){
             let tahun = $('#tahunperiode').val();
-            console.log(tahun);
 
             $.ajax({
                 url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -311,7 +370,6 @@
                 dataType: 'json',
                 data: { q: '' },
                 success: function(data) {
-                    console.log(data);
                     $('#ketuaAuditor').empty();
                     $('#ketuaAuditor').append('<option value="" selected>Pilih Ketua Auditor</option>');
                     if (Array.isArray(data)) {
@@ -338,8 +396,6 @@
         $('#ketuaAuditor').change(function(){
             let ketuaAuditor = $(this).val();
             let tahun = $('#tahunperiode').val();
-            console.log(ketuaAuditor);
-            console.log(tahun);
 
             $.ajax({
                 url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -347,7 +403,6 @@
                 dataType: 'json',
                 data: { q: '' },
                 success: function(data) {
-                    console.log(data);
                     $('#anggotaAuditor').empty();
                     $('#anggotaAuditor').append('<option value="" selected>Pilih NIP Ketua Auditee</option>');
                     if (Array.isArray(data)) {
@@ -359,7 +414,6 @@
                                 };
                             }
                         });
-                        console.log(mappedData);
                         $('#anggotaAuditor').select2({
                             data: mappedData,
                         });
@@ -377,8 +431,6 @@
             let anggotaAuditor = $(this).val();
             let ketuaAuditor = $('#ketuaAuditor').val();
             let tahun = $('#tahunperiode').val();
-            console.log(anggotaAuditor);
-            console.log(tahun);
 
             $.ajax({
                 url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -386,7 +438,6 @@
                 dataType: 'json',
                 data: { q: '' },
                 success: function(data) {
-                    console.log(data);
                     $('#anggotaAuditor2').empty();
                     $('#anggotaAuditor2').append('<option value="" selected>Pilih NIP Ketua Auditee</option>');
                     if (Array.isArray(data)) {
@@ -398,7 +449,6 @@
                                 };
                             }
                         });
-                        console.log(mappedData);
                         $('#anggotaAuditor2').select2({
                             data: mappedData,
                         });
@@ -415,11 +465,9 @@
     });
 
     $(document).ready(function(){
-        // let tahun = $('#tahunperiode').val();
         let tahunAwal = $('#tahunperiode0').val();
         let tahun = $('#tahunperiode').val();
-
-        console.log("tahun periode : " + tahunAwal + "/" + tahun);
+        let nip = $('#nipAuditee').val();
 
         $.ajax({
             url: "{{url('/tambahauditor-searchnipuser')}}/"+ tahunAwal + "/" + tahun,
@@ -427,7 +475,6 @@
             dataType: 'json',
             data: { q: '' },
             success: function(data) {
-                console.log(data);
                 if (Array.isArray(data)) {
                     var mappedData = data.map(function(item) {
                         return {
@@ -448,32 +495,53 @@
             }
         });
 
-        // $.ajax({
-        //     url: "{{url('tambahauditee-searchnipuser')}}/"+ tahun,
-        //     type: 'GET',
-        //     dataType: 'json',
-        //     data: { q: '' },
-        //     success: function(data) {
-        //         console.log("suksesssss");
-        //         if (Array.isArray(data)) {
-        //             var mappedData = data.map(function(item) {
-        //                 return {
-        //                     id: item.nip,
-        //                     text: item.nip,
-        //                 };
-        //             });
+        $.ajax({
+            url: '/tambahauditee-exsearchAuditee',
+            type: 'get',
+            dataType: 'json',
+            success: function(response){
+                if(response != null){
+                    response.users.forEach(respon => {
+                        if (respon.nip == nip) {
+                            $('#user_id').val(respon.id);
+                            $('#ketuaAuditee').val(respon.name);
+                            
+                            if (Array.isArray(response.unitkerjas)) {
+                                var mappedData = [];
 
-        //             $('#nipAuditee').select2({
-        //                 data: mappedData,
-        //             });
-        //         } else {
-        //             console.error('Data yang diterima dari server bukan array yang valid.');
-        //         }
-        //     },
-        //     error: function() {
-        //     console.error('Terjadi kesalahan saat memuat data users.');
-        //     }
-        // });
+                                response.unitkerjas.forEach(function(item) {
+                                    if (item.id == respon.unitkerja_id) {
+                                        mappedData.push({
+                                            id: item.name,
+                                            text: item.name,
+                                        });
+                                    }
+                                    if (item.id == respon.unitkerja_id2) {
+                                        mappedData.push({
+                                            id: item.name,
+                                            text: item.name,
+                                        });
+                                    }
+                                    if (item.id == respon.unitkerja_id3) {
+                                        mappedData.push({
+                                            id: item.name,
+                                            text: item.name,
+                                        });
+                                    }
+                                });
+
+                                $('#selectUnitKerja').select2({
+                                    data: mappedData,
+                                });
+                            } else {
+                                console.error('Data yang diterima dari server bukan array yang valid.');
+                            }
+                        }
+                    });
+                    
+                }
+            }
+        });
     })
 </script>
     

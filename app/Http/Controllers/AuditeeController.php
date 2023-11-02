@@ -72,6 +72,19 @@ class AuditeeController extends Controller
         return response()->json($data);
     }
 
+    public function exGetAuditee()
+    {
+        $users = User::with('unitkerja')->get();
+        $unitkerjas = UnitKerja::all();
+
+        $data = [
+            'users' => $users,
+            'unitkerjas' => $unitkerjas
+        ];
+
+        return response()->json($data);
+    }
+
     public function getAuditor($tahun)
     {
         $auditor_ = Auditor::where('tahunperiode', $tahun)->get();
