@@ -141,7 +141,7 @@ class DaftarTilikController extends Controller
     public function pratinjaudt($auditee_id, $area)
     {
         $daftartilik = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->first();
-        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->orderBy('nomorButir')->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
         $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
         // dd($jadwal_);
@@ -152,7 +152,7 @@ class DaftarTilikController extends Controller
     public function auditor_pratinjaudt($auditee_id, $area)
     {
         $daftartilik = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->first();
-        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->orderBy('nomorButir')->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
         $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
         // dd($jadwal_);
@@ -163,7 +163,7 @@ class DaftarTilikController extends Controller
     public function auditee_pratinjaudt($auditee_id, $area)
     {
         $daftartilik = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->first();
-        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->get();
+        $pertanyaan_ = Pertanyaan::where('daftartilik_id', $daftartilik->id)->where('auditee_id', $auditee_id)->orderBy('nomorButir')->get();
         $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
         $jadwal_ = Jadwal::where('auditee_id', $auditee_id)->where('auditor_id', $daftartilik->auditor_id)->get();
         // dd($jadwal_);

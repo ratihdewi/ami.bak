@@ -21,7 +21,7 @@ class PertanyaanController extends Controller
     {
         $data = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('area', $area)->first();
         $daftartilik_id = $data->id;
-        $data_ = Pertanyaan::all()->where('daftartilik_id', $daftartilik_id);
+        $data_ = Pertanyaan::where('daftartilik_id', $daftartilik_id)->orderBy('nomorButir')->get();
         //dd($data_);
         return view('spm/areaDaftarTilik', compact('data', 'data_'));
     }
@@ -107,12 +107,8 @@ class PertanyaanController extends Controller
 
     public function saveFormData(Request $request)
     {
-        // Validasi data form jika diperlukan
-
-        // Simpan data ke database
         $newData = Pertanyaan::create($request->all());
 
-        // Mengirimkan data yang baru dibuat sebagai respons JSON
         return response()->json(['message' => 'Data berhasil disimpan', 'data' => $newData]);
     }
 
@@ -296,9 +292,6 @@ class PertanyaanController extends Controller
             }
         }
 
-        
-
-        // return redirect()->back()->with('success', 'Data berhasil diupdate');
         if (Auth::user()->peran == "spm") {
             return redirect()->route('areadaftartilik', ['auditee_id' => $data->auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil diupdate!');
         } elseif (Auth::user()->peran == "auditor") {
@@ -333,7 +326,7 @@ class PertanyaanController extends Controller
     {
         $data = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('area', $area)->first();
         $daftartilik_id = $data->id;
-        $data_ = Pertanyaan::all()->where('daftartilik_id', $daftartilik_id);
+        $data_ = Pertanyaan::where('daftartilik_id', $daftartilik_id)->orderBy('nomorButir')->get();
 
         // dd(Auth::user()->role);
 
@@ -345,12 +338,8 @@ class PertanyaanController extends Controller
     {
         $data = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('area', $area)->first();
         $daftartilik_id = $data->id;
-        $data_ = Pertanyaan::all()->where('daftartilik_id', $daftartilik_id);
-        // $data_ = Pertanyaan::where('daftartilik_id', $daftartilik_id)->where('butirStandar', '!=', null)->where('nomorButir', '!=', null)->where('indikatormutu', '!=', null)->where('butirStandar', '!=', null)->where('targetStandar', '!=', null)->where('pertanyaan', '!=', null)->get();
-
-        // dd(Auth::user()->role);
-
-        //dd($data_);
+        $data_ = Pertanyaan::where('daftartilik_id', $daftartilik_id)->orderBy('nomorButir')->get();
+        
         return view('/auditee/areaDaftarTilik', compact('data', 'data_'));
     }
 

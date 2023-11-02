@@ -50,9 +50,9 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
         )
         ->where('daftartilik_id', $this->id)
         ->where('auditee_id', $this->auditee_id)
+        ->orderBy('nomorButir')
         ->get();
     
-        // Loop melalui hasil dan lakukan strip_tags pada kolom "pertanyaan"
         foreach ($pertanyaans as $pertanyaan) {
             $pertanyaan->pertanyaan = strip_tags($pertanyaan->pertanyaan);
             $pertanyaan->indikatormutu = strip_tags($pertanyaan->indikatormutu);
@@ -79,13 +79,10 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
     public function styles(Worksheet $sheet)
     {
 
-        // Atur wrap text untuk kolom A pada baris 1 hingga 1000
         $sheet->getStyle('B9:B1000')->getAlignment()->setWrapText(true);
 
-        // Atur gaya teks bold untuk baris 8
         $sheet->getStyle('8')->getFont()->setBold(true);
 
-        // Auto-size kolom sesuai dengan kontennya
         $sheet->getColumnDimension('A')->setWidth(20);
         $sheet->getColumnDimension('B')->setWidth(50);
         $sheet->getColumnDimension('C')->setWidth(30);
@@ -95,12 +92,7 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
         $sheet->getColumnDimension('G')->setWidth(20);
         $sheet->getColumnDimension('H')->setWidth(20);
         $sheet->getColumnDimension('I')->setWidth(20);
-        // return [
-        //     8 => [
-        //         'font' => ['bold' => true],
-        //     ],
-        //     $sheet->wrapText('A1:A1000'),
-        // ];
+
         return $sheet;
     }
 
@@ -116,7 +108,6 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
                 $daftartilik_ = DaftarTilik::where('id', $this->id)->where('auditee_id', $this->auditee_id)->first();
                 $auditee_ = Auditee::where('id', $this->auditee_id)->first();
                 $auditor_ = Auditor::where('id', $daftartilik_->auditor_id)->first();
-                // $daftartilik_ = DaftarTilik::where('auditee_id', $auditee_id)->where('area', $area)->get();
                 $jadwal_ = Jadwal::where('auditee_id', $this->auditee_id)->where('auditor_id', $daftartilik_->auditor_id)->get();
                 
                 if (count($jadwal_) != 0) {
@@ -126,7 +117,6 @@ class DaftarTilikExport implements FromCollection, WithHeadings, WithStyles, Wit
                 } else {
                     $waktu[] = "";
                 }
-                // dd($waktu);
                 
                 $event->sheet->setCellValue('A2', 'Auditee: ');
                 $event->sheet->setCellValue('A3', 'Auditor: ');
