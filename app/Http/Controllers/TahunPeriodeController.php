@@ -31,6 +31,14 @@ class TahunPeriodeController extends Controller
                 $data->keterangan = "Periode Auditor";
                 $data->save();
 
+                $data = new TahunPeriode;
+                $data->tahunperiode1 = $request->tahunperiode1;
+                $data->tahunperiode2 = $request->tahunperiode2;
+                $data->tgl_mulai = $request->tgl_mulai;
+                $data->tgl_berakhir = $request->tgl_berakhir;
+                $data->keterangan = "Periode Auditee";
+                $data->save();
+
                 return redirect()->route('auditor-periode')->with('success', 'Tahun periode berhasil ditambahkan!');
             } else {
                 return redirect()->route('auditor-periode')->with('error', 'Tanggal tidak sesuai dengan tahun periode. Silahkan masukkan data kembali!');

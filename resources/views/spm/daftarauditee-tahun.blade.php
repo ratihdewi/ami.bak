@@ -30,7 +30,7 @@
         @endif
 
         <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-primary btn-sm my-3 px-3" data-bs-toggle="modal" data-bs-target="#addPeriodeModal">Tambah Periode</button>
+            <button type="button" class="btn btn-primary btn-sm my-3 px-3" data-bs-toggle="modal" data-bs-target="#addPeriodeModal" hidden>Tambah Periode</button>
         </div>
 
         <div class="modal fade" id="addPeriodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
