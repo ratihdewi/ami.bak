@@ -174,7 +174,6 @@
                 <tr class="">
                     <th class="col-1 text-center">No</th>
                     <th class="col-7 text-center">Kegiatan</th>
-                    {{-- <th class="col-3 text-center">Sub Kegiatan</th> --}}
                     <th class="col-4 text-center">Waktu</th>
                 </tr>
             </thead>
@@ -184,7 +183,6 @@
                 <tr>
                   <td scope="row" class="col-1 text-center">{{ $no_++ }}</td>
                   <td class="col-7">{{ $jdami->kegiatan }}</td>
-                  {{-- <td class="text-center">{{ $jdami->subkegiatan }}</td> --}}
                   <td class="col-4 text-center">
                     @if ($jdami->tgl_mulai == $jdami->tgl_berakhir)
                       {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }}
@@ -231,6 +229,7 @@
             center:'title',
             right:'month'
         },
+        eventOrder: 'session',
         events:'/auditee_ketersediaan-jadwal',
         eventRender: function(event, element) {
             if (event.peran == 'auditor') {
@@ -247,7 +246,7 @@
             if (view.calendar.getEventSources()[0].events.some(event => event.peran === 'auditee')) {
                 return true;
             } else {
-                return false; // Nonaktifkan selectable
+                return false;
             }
         },
         // selectable:true,

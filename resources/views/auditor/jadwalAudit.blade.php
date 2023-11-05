@@ -176,7 +176,6 @@
                 <tr class="">
                     <th class="col-1 text-center">No</th>
                     <th class="col-6 text-center">Kegiatan</th>
-                    {{-- <th class="col-3 text-center">Sub Kegiatan</th> --}}
                     <th class="col-3 text-center">Waktu</th>
                 </tr>
             </thead>
@@ -186,7 +185,6 @@
                 <tr>
                   <td scope="row" class="col-1 text-center">{{ $no_++ }}</td>
                   <td class="col-6">{{ $jdami->kegiatan }}</td>
-                  {{-- <td class="">{{ $jdami->subkegiatan }}</td> --}}
                   <td class="col-3 text-center">
                     @if ($jdami->tgl_mulai == $jdami->tgl_berakhir)
                       {{ $jdami->tgl_mulai->translatedFormat('l, d M Y') }}
@@ -234,6 +232,7 @@
             center:'title',
             right:'month'
         },
+        eventOrder: 'session',
         events:'/auditor_ketersediaan-jadwal',
         eventRender: function(event, element) {
             if (event.peran == 'auditor') {

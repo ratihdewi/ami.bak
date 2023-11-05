@@ -381,32 +381,10 @@
             center:'title',
             right:'month'
         },
-        // events:'/ketersediaan-jadwal',
-        events: {
-            url: '/ketersediaan-jadwal',
-            success: function (events) {
-              function compareSession(a, b) {
-                // Potong session hingga kurung buka pertama
-                var sessionA = a.session.split("(")[0].trim();
-                var sessionB = b.session.split("(")[0].trim();
-
-                // Bandingkan sesuai dengan session yang telah dipotong
-                return sessionA.localeCompare(sessionB);
-              }
-
-              // Urutkan array events menggunakan fungsi pembanding kustom
-              events.sort(compareSession);
-
-              console.log(events);
-
-              sortedEvents = events;
-
-              // calendar.fullCalendar('renderEvents', events);
-              // callback(events);
-            }
-        },
+        eventOrder: 'session',
+        events: '/ketersediaan-jadwal',
         eventRender: function(event, element) {
-          console.log(event.session);
+          console.log(event);
           if (event.peran == 'auditor') {
             $(element).find('.fc-content').css('background-color', '#367E18');
           } else if (event.peran == 'spm') {
@@ -432,11 +410,6 @@
               $('#saveBtn').off('click').on('click', function() {
                 var title = $('#inisialnama').val();
                 var session = $('#session').val();
-
-                console.log(start);
-                console.log(end);
-                console.log(title);
-                console.log(session);
 
                 $.ajax({
                     url:"/ketersediaan-jadwal/action",
