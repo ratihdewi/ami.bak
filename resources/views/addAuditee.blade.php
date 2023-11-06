@@ -280,12 +280,16 @@
                     if (Array.isArray(response.unitkerjas)) {
                         response.unitkerjas.forEach(function(item) {
                             if (item.name == selectedUnitKerja) {
+                                console.log(selectedUnitKerja);
                                 response.users.forEach(function(user) {
                                     if (item.id == user.unitkerja_id) {
+                                        console.log(user.jabatan);
                                         $('#jabatanKetuaAuditee').val(user.jabatan);
                                     } else if (item.id == user.unitkerja_id2) {
+                                        console.log(user.jabatan2);
                                         $('#jabatanKetuaAuditee').val(user.jabatan2);
                                     } else if (item.id == user.unitkerja_id3) {
+                                        console.log(user.jabatan3);
                                         $('#jabatanKetuaAuditee').val(user.jabatan3);
                                     }
                                 });
