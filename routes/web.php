@@ -35,6 +35,7 @@ use App\Http\Controllers\FotoKegiatanController;
 use App\Http\Controllers\FullCalenderController;
 use App\Http\Controllers\TahunPeriodeController;
 use App\Http\Controllers\TindakanKoreksiController;
+use App\Http\Controllers\MasterPertanyaanController;
 use App\Http\Controllers\PeluangPeningkatanController;
 
 /*
@@ -130,6 +131,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/auditor-searchAuditor', [AuditorController::class, 'getAuditor'])->name('auditor-searchAuditor');
     Route::get('/tambahauditee-searchAuditee', [AuditeeController::class, 'getAuditee'])->name('searchAuditee');
     Route::get('/tambahauditee-exsearchAuditee', [AuditeeController::class, 'exGetAuditee'])->name('ex.searchAuditee');
+    Route::get('/tambahauditee-exgetjabatan/{nip}', [AuditeeController::class, 'exGetJabatan'])->name('ex.getjabatan');
     Route::get('/tambahauditee-searchAuditor/{tahun}', [AuditeeController::class, 'getAuditor'])->name('searchAuditor');
     Route::get('tambahauditee-searchnipuser/{tahunAwal}/{tahun}', [AuditeeController::class, 'getnipuser'])->name('searchnipuser');
     Route::get('/editperiodeauditee-searchdatamodal/{id}', [AuditeeController::class, 'getdatamodal'])->name('searchdatamodal');
@@ -229,6 +231,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/auditlapangan-autoapprove/{id}', [PertanyaanController::class, 'autoapprove'])->name('auditlapangan-autoapprove');
     Route::get('/tindakankoreksi-signrencanatindakan/{noPTK}', [TindakanKoreksiController::class, 'signrencanatindakan'])->name('tindakankoreksi-signrencanatindakan');
     Route::post('/update-batasan-akses-auditor/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('update-batasan-akses-auditor');
+    Route::get('/master-pertanyaan-index', [MasterPertanyaanController::class, 'index'])->name('masterpertanyaan.index');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

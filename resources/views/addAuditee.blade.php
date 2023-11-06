@@ -268,9 +268,10 @@
         });
 
         $('#selectUnitKerja').change(function () {
+            var nip = $('#nipAuditee').val();
             var selectedUnitKerja = $(this).val();
             var selectedUser = $('#ketuaAuditee').val();
-            var url = "{{url('/tambahauditee-exsearchAuditee')}}";
+            var url = "{{url('/tambahauditee-exgetjabatan')}}/" + nip;
 
             $.ajax({
                 url: url,
@@ -280,19 +281,16 @@
                     if (Array.isArray(response.unitkerjas)) {
                         response.unitkerjas.forEach(function(item) {
                             if (item.name == selectedUnitKerja) {
-                                console.log(selectedUnitKerja);
-                                response.users.forEach(function(user) {
-                                    if (item.id == user.unitkerja_id) {
-                                        console.log(user.jabatan);
-                                        $('#jabatanKetuaAuditee').val(user.jabatan);
-                                    } else if (item.id == user.unitkerja_id2) {
-                                        console.log(user.jabatan2);
-                                        $('#jabatanKetuaAuditee').val(user.jabatan2);
-                                    } else if (item.id == user.unitkerja_id3) {
-                                        console.log(user.jabatan3);
-                                        $('#jabatanKetuaAuditee').val(user.jabatan3);
-                                    }
-                                });
+                                if (item.id == response.users.unitkerja_id) {
+                                    console.log(response.users.jabatan);
+                                    $('#jabatanKetuaAuditee').val(response.users.jabatan);
+                                } else if (item.id == response.users.unitkerja_id2) {
+                                    console.log(response.users.jabatan2);
+                                    $('#jabatanKetuaAuditee').val(response.users.jabatan2);
+                                } else if (item.id == response.users.unitkerja_id3) {
+                                    console.log(response.users.jabatan3);
+                                    $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                                }
                             }
                         });
                     } else {
