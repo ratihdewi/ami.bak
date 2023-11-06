@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col">
                                         <label for="pwd" class="form-label fw-semibold">Password <span class="text-danger fw-bold">*</span></label>
-                                        <input type="password" name="password" class="form-control" id="pwd" placeholder="Password" aria-label="Password" required>
+                                        <input type="password" name="password" class="form-control bg-secondary bg-opacity-50" id="pwd" placeholder="Password" aria-label="Password" value="user123" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">

@@ -27,7 +27,6 @@ class APIController extends Controller
                 $userData->update([
                     'nip' => $data['nip'],
                     'name' => $data['name'],
-                    'noTelepon' => $data['phone'],
                     'email' => $data['email'],
                     'status' => strtolower($data['status']),
                 ]);
@@ -37,7 +36,6 @@ class APIController extends Controller
                     'nip' => $data['nip'],
                     'name' => $data['name'],
                     'username' => $data['user_name'],
-                    'noTelepon' => $data['phone'],
                     'email' => $data['email'],
                     'status' => strtolower($data['status']),
                 ]);
@@ -140,7 +138,6 @@ class APIController extends Controller
                     $userData->update([
                         'nip' => $data['nip'],
                         'name' => $data['name'],
-                        'noTelepon' => $data['phone'],
                         'email' => $data['email'],
                         'status' => strtolower($data['status']),
                     ]);
@@ -150,7 +147,6 @@ class APIController extends Controller
                         'nip' => $data['nip'],
                         'name' => $data['name'],
                         'username' => $data['user_name'],
-                        'noTelepon' => $data['phone'],
                         'email' => $data['email'],
                         'status' => strtolower($data['status']),
                     ]);

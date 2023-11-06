@@ -63,24 +63,13 @@ a {
     font-weight: 600px !important;
     
 }
-/* .l-navbar:hover {
-    position: fixed;
-    top: 0;
-    width: calc(var(--nav-width) + 156px);
-    height: 100vh;
-    background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%);
-    transition: 0.5s;
-    z-index: var(--z-fixed);
-} */
 .l-navbar {
     position: fixed;
     top: 5%;
     left: -30%;
     width: var(--nav-width);
     min-height: 100vh;
-    /* background-color: #bfe9df !important; */
     background-color: #bfe9df !important;
-    /* background: linear-gradient(180deg, #6dc7fe 0%, #f8ffc9 50%); */
     padding: 0.5rem 1rem 0 0;
     transition: 0.5s;
     z-index: var(--z-fixed);
@@ -163,9 +152,6 @@ a {
 .show {
     left: 0;
 }
-/* .body-pd {
-    padding-left: calc(var(--nav-width) + 1rem);
-} */
 nav .active {
     color: var(--medBlack-color);
     background-color: #ffffff;
@@ -352,7 +338,8 @@ span.fc-title {
     #tableTemuanBA_wrapper,
     .container-pratinjau,
     #jadwalaudit_wrapper,
-    #tableareaDT_wrapper {
+    #tableareaDT_wrapper,
+    #tableUser_wrapper {
         overflow-x: auto;
     }
 }
