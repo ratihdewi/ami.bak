@@ -74,7 +74,7 @@ class AuditeeController extends Controller
 
     public function exGetAuditee()
     {
-        $users = User::with('unitkerja')->get();
+        $users = User::all();
         $unitkerjas = UnitKerja::all();
 
         $data = [
