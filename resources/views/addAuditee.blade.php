@@ -210,6 +210,9 @@
             fillNipAuditorOptions(tahun);
         });
 
+        var mappedUnitKerja;
+        var selectedIndex;
+
         $('#nipAuditee').change(function(){
             let nip = $('#nipAuditee').val();
             var url = "{{url('/tambahauditee-exsearchAuditee')}}";
@@ -228,31 +231,32 @@
                                 $('#selectUnitKerja').empty();
                                 $('#selectUnitKerja').append('<option value="" selected disabled>Pilih Unit Kerja</option>');
                                 if (Array.isArray(response.unitkerjas)) {
-                                    var mappedData = [];
+                                    mappedUnitKerja = [];
 
                                     response.unitkerjas.forEach(function(item) {
                                         if (item.id == respon.unitkerja_id) {
-                                            mappedData.push({
+                                            mappedUnitKerja.push({
                                                 id: item.name,
                                                 text: item.name,
                                             });
                                         }
                                         if (item.id == respon.unitkerja_id2) {
-                                            mappedData.push({
+                                            mappedUnitKerja.push({
                                                 id: item.name,
                                                 text: item.name,
                                             });
                                         }
                                         if (item.id == respon.unitkerja_id3) {
-                                            mappedData.push({
+                                            mappedUnitKerja.push({
                                                 id: item.name,
                                                 text: item.name,
                                             });
                                         }
                                     });
+                                    console.log(mappedUnitKerja);
 
                                     $('#selectUnitKerja').select2({
-                                        data: mappedData,
+                                        data: mappedUnitKerja,
                                     });
                                 } else {
                                     console.error('Data yang diterima dari server bukan array yang valid.');
@@ -268,6 +272,7 @@
         });
 
         $('#selectUnitKerja').change(function () {
+            selectedIndex = $(this)[0].selectedIndex;
             var nip = $('#nipAuditee').val();
             var selectedUnitKerja = $(this).val();
             var selectedUser = $('#ketuaAuditee').val();
@@ -281,15 +286,22 @@
                     if (Array.isArray(response.unitkerjas)) {
                         response.unitkerjas.forEach(function(item) {
                             if (item.name == selectedUnitKerja) {
-                                if (item.id == response.users.unitkerja_id) {
-                                    console.log(response.users.jabatan);
-                                    $('#jabatanKetuaAuditee').val(response.users.jabatan);
-                                } else if (item.id == response.users.unitkerja_id2) {
-                                    console.log(response.users.jabatan2);
-                                    $('#jabatanKetuaAuditee').val(response.users.jabatan2);
-                                } else if (item.id == response.users.unitkerja_id3) {
-                                    console.log(response.users.jabatan3);
-                                    $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                                if (response.users.unitkerja_id == response.users.unitkerja_id2 || response.users.unitkerja_id == response.users.unitkerja_id3 || response.users.unitkerja_id2 == response.users.unitkerja_id3) {
+                                    if (item.id == response.users.unitkerja_id && selectedIndex == 1) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan);
+                                    } else if (item.id == response.users.unitkerja_id2 && selectedIndex == 2) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan2);
+                                    } else if (item.id == response.users.unitkerja_id3 && selectedIndex == 3) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                                    }
+                                } else {
+                                    if (item.id == response.users.unitkerja_id) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan);
+                                    } else if (item.id == response.users.unitkerja_id2) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan2);
+                                    } else if (item.id == response.users.unitkerja_id3) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                                    }
                                 }
                             }
                         });

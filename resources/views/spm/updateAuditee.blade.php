@@ -104,7 +104,6 @@
                         <label for="selectUnitKerja" class="form-label"
                             >Unit Kerja</label
                         >
-                        {{-- <input type="text" class="form-control" id="selectUnitKerja" placeholder="Unit Kerja" name="unit_kerja" value="{{ $data->unit_kerja }}" readonly required> --}}
                         <select
                             id="selectUnitKerja"
                             class="form-select"
@@ -199,53 +198,53 @@
         let nip = $('#nipAuditee').val();
         var url = "{{url('/tambahauditee-exsearchAuditee')}}";
 
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function(response){
-                if(response != null){
-                    response.users.forEach(respon => {
-                        if (respon.nip == nip) {
-                            $('#user_id').val(respon.id);
-                            $('#ketuaAuditee').val(respon.name);
+        // $.ajax({
+        //     url: url,
+        //     type: 'get',
+        //     dataType: 'json',
+        //     success: function(response){
+        //         if(response != null){
+        //             response.users.forEach(respon => {
+        //                 if (respon.nip == nip) {
+        //                     $('#user_id').val(respon.id);
+        //                     $('#ketuaAuditee').val(respon.name);
 
-                            if (Array.isArray(response.unitkerjas)) {
-                                var mappedData = [];
+        //                     if (Array.isArray(response.unitkerjas)) {
+        //                         var mappedData = [];
 
-                                response.unitkerjas.forEach(function(item) {
-                                    if (item.id == respon.unitkerja_id) {
-                                        mappedData.push({
-                                            id: item.name,
-                                            text: item.name,
-                                        });
-                                    }
-                                    if (item.id == respon.unitkerja_id2) {
-                                        mappedData.push({
-                                            id: item.name,
-                                            text: item.name,
-                                        });
-                                    }
-                                    if (item.id == respon.unitkerja_id3) {
-                                        mappedData.push({
-                                            id: item.name,
-                                            text: item.name,
-                                        });
-                                    }
-                                });
+        //                         response.unitkerjas.forEach(function(item) {
+        //                             if (item.id == respon.unitkerja_id) {
+        //                                 mappedData.push({
+        //                                     id: item.name,
+        //                                     text: item.name,
+        //                                 });
+        //                             }
+        //                             if (item.id == respon.unitkerja_id2) {
+        //                                 mappedData.push({
+        //                                     id: item.name,
+        //                                     text: item.name,
+        //                                 });
+        //                             }
+        //                             if (item.id == respon.unitkerja_id3) {
+        //                                 mappedData.push({
+        //                                     id: item.name,
+        //                                     text: item.name,
+        //                                 });
+        //                             }
+        //                         });
 
-                                $('#selectUnitKerja').select2({
-                                    data: mappedData,
-                                });
-                            } else {
-                                console.error('Data yang diterima dari server bukan array yang valid.');
-                            }
-                        }
-                    });
+        //                         $('#selectUnitKerja').select2({
+        //                             data: mappedData,
+        //                         });
+        //                     } else {
+        //                         console.error('Data yang diterima dari server bukan array yang valid.');
+        //                     }
+        //                 }
+        //             });
                     
-                }
-            }
-        });
+        //         }
+        //     }
+        // });
 
         $.ajax({
             url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -388,10 +387,14 @@
         });
 
         $('#selectUnitKerja').change(function () {
+            selectedIndex = $(this)[0].selectedIndex;
             var nip = $('#nipAuditee').val();
             var selectedUnitKerja = $(this).val();
+            selectedUnitKerja = selectedUnitKerja.split(".");
             var selectedUser = $('#ketuaAuditee').val();
             var url = "{{url('/tambahauditee-exgetjabatan')}}/" + nip;
+
+            console.log(selectedUnitKerja[0]);
 
             $.ajax({
                 url: url,
@@ -400,16 +403,23 @@
                 success: function(response){
                     if (Array.isArray(response.unitkerjas)) {
                         response.unitkerjas.forEach(function(item) {
-                            if (item.name == selectedUnitKerja) {
-                                if (item.id == response.users.unitkerja_id) {
-                                    console.log(response.users.jabatan);
-                                    $('#jabatanKetuaAuditee').val(response.users.jabatan);
-                                } else if (item.id == response.users.unitkerja_id2) {
-                                    console.log(response.users.jabatan2);
-                                    $('#jabatanKetuaAuditee').val(response.users.jabatan2);
-                                } else if (item.id == response.users.unitkerja_id3) {
-                                    console.log(response.users.jabatan3);
-                                    $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                            if (item.name == selectedUnitKerja[0]) {
+                                if (response.users.unitkerja_id == response.users.unitkerja_id2 || response.users.unitkerja_id == response.users.unitkerja_id3 || response.users.unitkerja_id2 == response.users.unitkerja_id3) {
+                                    if (item.id == response.users.unitkerja_id && selectedIndex == 1) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan);
+                                    } else if (item.id == response.users.unitkerja_id2 && selectedIndex == 2) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan2);
+                                    } else if (item.id == response.users.unitkerja_id3 && selectedIndex == 3) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                                    }
+                                } else {
+                                    if (item.id == response.users.unitkerja_id) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan);
+                                    } else if (item.id == response.users.unitkerja_id2) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan2);
+                                    } else if (item.id == response.users.unitkerja_id3) {
+                                        $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                                    }
                                 }
                             }
                         });
@@ -571,10 +581,9 @@
                         if (respon.nip == nip) {
                             $('#user_id').val(respon.id);
                             $('#ketuaAuditee').val(respon.name);
-                            
+
                             if (Array.isArray(response.unitkerjas)) {
                                 var mappedData = [];
-
                                 response.unitkerjas.forEach(function(item) {
                                     if (item.id == respon.unitkerja_id) {
                                         mappedData.push({
@@ -596,9 +605,52 @@
                                     }
                                 });
 
-                                $('#selectUnitKerja').select2({
-                                    data: mappedData,
-                                });
+                                console.log(mappedData);
+                                if (mappedData.length == 3) {
+                                    if (mappedData[0].text == mappedData[1].text || mappedData[0].text == mappedData[2].text || mappedData[1].text == mappedData[2].text) {
+                                        $('#selectUnitKerja').select2({
+                                            data: [
+                                                mappedData[0].text + ".",
+                                                mappedData[1].text + ".",
+                                                mappedData[2].text + ".",
+                                            ],
+                                            templateSelection: function (selectedData) {
+                                                console.log(selectedData);
+                                                if (selectedData.id != '') {
+                                                    return selectedData.id;
+                                                } else {
+                                                    return "Pilih NIP Auditee";
+                                                }
+                                            },
+                                        });
+                                    } else {
+                                        $('#selectUnitKerja').select2({
+                                            data: mappedData,
+                                        });
+                                    }
+                                } else if (mappedData.length == 2) {
+                                    if (mappedData[0].text == mappedData[1].text) {
+                                        $('#selectUnitKerja').select2({
+                                            data: [
+                                                mappedData[0].text + ".",
+                                                mappedData[1].text + ".",
+                                            ],
+                                            templateSelection: function (selectedData) {
+                                                selectedData = selectedData.id;
+                                                selectedData = selectedData.split(".");
+                                                return selectedData[0];
+                                            },
+                                        });
+                                    } else {
+                                        $('#selectUnitKerja').select2({
+                                            data: mappedData,
+                                        });
+                                    }
+                                } else {
+                                    $('#selectUnitKerja').select2({
+                                        data: mappedData,
+                                    });
+                                }
                             } else {
                                 console.error('Data yang diterima dari server bukan array yang valid.');
                             }

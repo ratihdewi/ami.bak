@@ -10,7 +10,7 @@
 @endsection
 
 @section('container')
-<div class="container vh-100 my-4"  style="font-size: 15px">
+<div class="container my-4"  style="font-size: 15px; min-height: 100vh">
     <div class="row">
         {{-- <div class="d-flex justify-content-end">
             <a href="/addAuditee" class="text-white" style="font-weight: 600; text-decoration: none">
