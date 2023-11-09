@@ -147,12 +147,6 @@ class AuditeeController extends Controller
         $unitkerja = UnitKerja::where('name', $request->unit_kerja)->first();
         $unitkerja2 = null;
         $unitkerja3 = null;
-
-        if (condition) {
-            # code...
-        } else {
-            # code...
-        }
         
         if ($unitkerja != null) {
             $existKetuaAuditee = User::where('nip', $request->nip)
@@ -162,7 +156,7 @@ class AuditeeController extends Controller
                                                 ->orWhere('unitkerja_id3', $unitkerja->id);
                                         })
                                         ->where('name', $request->ketua_auditee)
-                                        ->where(function($query) use ($unitkerja) {
+                                        ->where(function($query) use ($request) {
                                             $query->->where('jabatan', $request->jabatan_ketua_auditee)
                                                 ->orWhere('jabatan2', $request->jabatan_ketua_auditee)
                                                 ->orWhere('jabatan3', $request->jabatan_ketua_auditee);
