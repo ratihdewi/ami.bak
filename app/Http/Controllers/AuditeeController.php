@@ -145,8 +145,29 @@ class AuditeeController extends Controller
         $data = Auditee::find($id);
         $existAuditor = Auditor::where('user_id', $data->user_id)->where('tahunperiode', $data->tahunperiode)->exists();
         $unitkerja = UnitKerja::where('name', $request->unit_kerja)->first();
+        $unitkerja2 = null;
+        $unitkerja3 = null;
+
+        if (condition) {
+            # code...
+        } else {
+            # code...
+        }
+        
         if ($unitkerja != null) {
-            $existKetuaAuditee = User::where('nip', $request->nip)->where('unitkerja_id', $unitkerja->id)->where('name', $request->ketua_auditee)->where('jabatan', $request->jabatan_ketua_auditee)->doesntExist();
+            $existKetuaAuditee = User::where('nip', $request->nip)
+                                        ->where(function($query) use ($unitkerja) {
+                                            $query->where('unitkerja_id', $unitkerja->id)
+                                                ->orWhere('unitkerja_id2', $unitkerja->id);
+                                                ->orWhere('unitkerja_id3', $unitkerja->id);
+                                        })
+                                        ->where('name', $request->ketua_auditee)
+                                        ->where(function($query) use ($unitkerja) {
+                                            $query->->where('jabatan', $request->jabatan_ketua_auditee)
+                                                ->orWhere('jabatan2', $request->jabatan_ketua_auditee);
+                                                ->orWhere('jabatan3', $request->jabatan_ketua_auditee);
+                                        })
+                                        ->doesntExist();
         } else {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Unit kerja tidak terdaftar!');
         }
