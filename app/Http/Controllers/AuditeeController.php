@@ -157,7 +157,7 @@ class AuditeeController extends Controller
                                         })
                                         ->where('name', $request->ketua_auditee)
                                         ->where(function($query) use ($request) {
-                                            $query->->where('jabatan', $request->jabatan_ketua_auditee)
+                                            $query->where('jabatan', $request->jabatan_ketua_auditee)
                                                 ->orWhere('jabatan2', $request->jabatan_ketua_auditee)
                                                 ->orWhere('jabatan3', $request->jabatan_ketua_auditee);
                                         })
