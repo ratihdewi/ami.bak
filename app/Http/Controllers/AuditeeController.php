@@ -158,13 +158,13 @@ class AuditeeController extends Controller
             $existKetuaAuditee = User::where('nip', $request->nip)
                                         ->where(function($query) use ($unitkerja) {
                                             $query->where('unitkerja_id', $unitkerja->id)
-                                                ->orWhere('unitkerja_id2', $unitkerja->id);
+                                                ->orWhere('unitkerja_id2', $unitkerja->id)
                                                 ->orWhere('unitkerja_id3', $unitkerja->id);
                                         })
                                         ->where('name', $request->ketua_auditee)
                                         ->where(function($query) use ($unitkerja) {
                                             $query->->where('jabatan', $request->jabatan_ketua_auditee)
-                                                ->orWhere('jabatan2', $request->jabatan_ketua_auditee);
+                                                ->orWhere('jabatan2', $request->jabatan_ketua_auditee)
                                                 ->orWhere('jabatan3', $request->jabatan_ketua_auditee);
                                         })
                                         ->doesntExist();
