@@ -245,12 +245,19 @@
                         var mappedData = data.map(function(item) {
                             return {
                                 id: item.nip,
-                                text: item.nip,
+                                text: item.nip + ' - ' + item.name,
                             };
                         });
 
                         $('#nipAuditor').select2({
                             data: mappedData,
+                            templateSelection: function (selectedData) {
+                                if (selectedData.id != '') {
+                                    return selectedData.id;
+                                } else {
+                                    return "Pilih NIP Auditor";
+                                }
+                            },
                         });
                     } else {
                         console.error('Data yang diterima dari server bukan array yang valid.');

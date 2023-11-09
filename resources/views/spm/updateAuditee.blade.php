@@ -196,6 +196,56 @@
         let tahun = $('#tahunperiode').val();
         let anggotaAuditor = $('#anggotaAuditor').val();
         let ketuaAuditor = $('#ketuaAuditor').val();
+        let nip = $('#nipAuditee').val();
+        var url = "{{url('/tambahauditee-exsearchAuditee')}}";
+
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function(response){
+                if(response != null){
+                    response.users.forEach(respon => {
+                        if (respon.nip == nip) {
+                            $('#user_id').val(respon.id);
+                            $('#ketuaAuditee').val(respon.name);
+
+                            if (Array.isArray(response.unitkerjas)) {
+                                var mappedData = [];
+
+                                response.unitkerjas.forEach(function(item) {
+                                    if (item.id == respon.unitkerja_id) {
+                                        mappedData.push({
+                                            id: item.name,
+                                            text: item.name,
+                                        });
+                                    }
+                                    if (item.id == respon.unitkerja_id2) {
+                                        mappedData.push({
+                                            id: item.name,
+                                            text: item.name,
+                                        });
+                                    }
+                                    if (item.id == respon.unitkerja_id3) {
+                                        mappedData.push({
+                                            id: item.name,
+                                            text: item.name,
+                                        });
+                                    }
+                                });
+
+                                $('#selectUnitKerja').select2({
+                                    data: mappedData,
+                                });
+                            } else {
+                                console.error('Data yang diterima dari server bukan array yang valid.');
+                            }
+                        }
+                    });
+                    
+                }
+            }
+        });
 
         $.ajax({
             url: "{{url('/tambahauditee-searchAuditor')}}/"+ tahun,
@@ -258,19 +308,26 @@
                         var mappedData = data.map(function(item) {
                             return {
                                 id: item.nip,
-                                text: item.nip,
+                                text: item.nip + " - " + item.name,
                             };
                         });
 
                         $('#nipAuditee').select2({
                             data: mappedData,
+                            templateSelection: function (selectedData) {
+                                if (selectedData.id != '') {
+                                    return selectedData.id;
+                                } else {
+                                    return "Pilih NIP Auditee";
+                                }
+                            },
                         });
                     } else {
                         console.error('Data yang diterima dari server bukan array yang valid.');
                     }
                 },
                 error: function() {
-                console.error('Terjadi kesalahan saat memuat data users.');
+                    console.error('Terjadi kesalahan saat memuat data users.');
                 }
             });
         });
@@ -331,9 +388,10 @@
         });
 
         $('#selectUnitKerja').change(function () {
+            var nip = $('#nipAuditee').val();
             var selectedUnitKerja = $(this).val();
             var selectedUser = $('#ketuaAuditee').val();
-            var url = "{{url('/tambahauditee-exsearchAuditee')}}";
+            var url = "{{url('/tambahauditee-exgetjabatan')}}/" + nip;
 
             $.ajax({
                 url: url,
@@ -343,15 +401,16 @@
                     if (Array.isArray(response.unitkerjas)) {
                         response.unitkerjas.forEach(function(item) {
                             if (item.name == selectedUnitKerja) {
-                                response.users.forEach(function(user) {
-                                    if (item.id == user.unitkerja_id) {
-                                        $('#jabatanKetuaAuditee').val(user.jabatan);
-                                    } else if (item.id == user.unitkerja_id2) {
-                                        $('#jabatanKetuaAuditee').val(user.jabatan2);
-                                    } else if (item.id == user.unitkerja_id3) {
-                                        $('#jabatanKetuaAuditee').val(user.jabatan3);
-                                    }
-                                });
+                                if (item.id == response.users.unitkerja_id) {
+                                    console.log(response.users.jabatan);
+                                    $('#jabatanKetuaAuditee').val(response.users.jabatan);
+                                } else if (item.id == response.users.unitkerja_id2) {
+                                    console.log(response.users.jabatan2);
+                                    $('#jabatanKetuaAuditee').val(response.users.jabatan2);
+                                } else if (item.id == response.users.unitkerja_id3) {
+                                    console.log(response.users.jabatan3);
+                                    $('#jabatanKetuaAuditee').val(response.users.jabatan3);
+                                }
                             }
                         });
                     } else {
