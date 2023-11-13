@@ -252,15 +252,24 @@ class AuditeeController extends Controller
             $data->save();
 
             if ($request->wakil_ketua_auditee) {
-                $wakilKetuaAuditees = AnggotaAuditee::where("auditee_id", $id)->where('posisi', '1')->first();
+                $waKetExist = AnggotaAuditee::where("auditee_id", $id)->where('anggota_auditee', $request->wakil_ketua_auditee)->exists();
+                $wakilKetuaAuditees = AnggotaAuditee::where("auditee_id", $id)->where('anggota_auditee', $request->wakil_ketua_auditee)->first();
                 $wakilKetuaAuditee = User::where('id', $wakilKetuaAuditees->user_id)->first();
-                $wakilKetuaAuditees->update ([
-                    "user_id" => $wakilKetuaAuditee->id,
-                    "anggota_auditee" => $request->wakil_ketua_auditee,
-                    "posisi" => '1',
-
-                ]);
-                $wakilKetuaAuditees->save();
+                if ($waKetExist) {
+                    $wakilKetuaAuditees->update ([
+                        "posisi" => '1',
+    
+                    ]);
+                    $wakilKetuaAuditees->save();
+                } else {
+                    $newWaKet = new AnggotaAuditees();
+                    $newWaKet->auditee_id = $data->id;
+                    $newWaKet->user_id = $wakilKetuaAuditee->user_id;
+                    $newWaKet->anggota_auditee = $request->anggota_auditee;
+                    $newWaKet->editor = Auth::user()->name;
+                    $newWaKet->posisi = '1';
+                    $newAnggotaAuditees->save();
+                }
             }
 
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');
