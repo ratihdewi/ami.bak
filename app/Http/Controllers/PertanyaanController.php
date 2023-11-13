@@ -47,7 +47,6 @@ class PertanyaanController extends Controller
         $_area = DaftarTilik::all()->where('auditee_id', $auditee_id)->where('id', $daftartilik_id)->first();
         $existNoButir = Pertanyaan::where('daftartilik_id', $request->daftartilik_id)->where('auditee_id', $request->auditee_id)->where('auditor_id', $request->auditor_id)->where('butirStandar', $request->butirStandar)->where('nomorButir', $request->nomorButir)->exists();
 
-        // $requestData = $request->all();
         if (!$existNoButir) {
             $pertanyaan =new Pertanyaan([
                 "daftartilik_id" => $request->daftartilik_id,
@@ -65,8 +64,6 @@ class PertanyaanController extends Controller
                 "inisialAuditor"=> $request->inisialAuditor,
                 "skorAuditor"=> $request->skorAuditor,
                 "Kategori"=> $request->Kategori,
-                // "approvalAuditee"=> $request->approvalAuditee,
-                // "approvalAuditor"=> $request->approvalAuditor,
                 "narasiPLOR"=> $request->narasiPLOR,
             ]);
             $pertanyaan->save();
@@ -353,26 +350,29 @@ class PertanyaanController extends Controller
             $request->session()->flash('error', 'Mohon maaf, Auditor belum mengisi AL atau mengajukan persetujuan! Silahkan tunggu!');
         } elseif (Auth::user()->peran != "auditee") {
             $request->session()->flash('error', 'Saat ini Anda berada pada role user. Silahkan beralih role terlebih dahulu menjadi Auditee!');
-        } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee' && $auditee_->ketua_auditee == Auth::user()->name && Auth::user()->peran == "auditee") {
+        } elseif (($approve_->responAuditee != null && count($doksahihs) > 0) && $approve_->approvalAuditee != 'Disetujui Auditee' && ($auditee_->ketua_auditee == Auth::user()->name || $auditee_->wakil_ketua_auditee == Auth::user()->name) && Auth::user()->peran == "auditee") {
 
             $approve_->approvalAuditee = 'Disetujui Auditee';
 
             $persetujuanAL = new PersetujuanAL;
             $persetujuanAL->pertanyaan_id = $approve_->id;
-            $persetujuanAL->posisi = 'Ketua Auditee';
-            $persetujuanAL->nama = $approve_->auditee->ketua_auditee;
+            if (Auth::user()->name == $auditee_->ketua_auditee) {
+                $persetujuanAL->posisi = 'Ketua Auditee';
+            } else if (Auth::user()->name == $auditee_->wakil_ketua_auditee) {
+                $persetujuanAL->posisi = 'Wakil Ketua Auditee';
+            }
+            $persetujuanAL->nama = Auth::user()->name;
             $persetujuanAL->eSign = $approve_->approvalAuditee;
             $persetujuanAL->save();
 
-            $request->session()->flash('success', 'Audit Lapangan sudah berhasil disetujui oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
-    
+            $request->session()->flash('success', 'Audit Lapangan sudah berhasil disetujui oleh ('.Auth::user()->name.')');
             $approve_->save();
         } elseif ($approve_->responAuditee == null || count($doksahihs) == 0) {
             $request->session()->flash('error', 'Mohon isikan respon Auditee beserta Dokumen Bukti Sahih terlebih dahulu!');
         } elseif ($approve_->approvalAuditee == 'Disetujui Auditee') {
             $request->session()->flash('success', 'Anda sudah menyetujui Audit Lapangan!');
-        } elseif ($auditee_->ketua_auditee != Auth::user()->name) {
-            $request->session()->flash('error', 'Persetujuan AL hanya dilakukan oleh Ketua Auditee ('.$auditee_->ketua_auditee.')');
+        } elseif ($auditee_->ketua_auditee != Auth::user()->name && $auditee_->wakil_ketua_auditee != Auth::user()->name) {
+            $request->session()->flash('error', 'Persetujuan AL hanya dilakukan oleh Ketua Auditee ('.$auditee_->ketua_auditee.') atau wWakil Ketua Auditee ('.$auditee_->wakil_ketua_auditee.')');
         }
         // dd($approve_);
         return redirect()->back();
