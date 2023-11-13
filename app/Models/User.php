@@ -84,6 +84,6 @@ class User extends Authenticatable
 
     public function anggotaauditee()
     {
-        return $this->belongsTo(AnggotaAuditee::class);
+        return $this->hasMany(AnggotaAuditee::class);
     }
 }
