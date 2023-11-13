@@ -20,8 +20,6 @@ class BeritaAcaraController extends Controller
     {
         $auditee_ = Auditee::all();
         $daftartilik_ = DaftarTilik::all();
-        // $beritaacaras_ = BeritaAcara::where
-        
 
         foreach ($auditee_ as $key => $auditee) {
             
@@ -34,8 +32,9 @@ class BeritaAcaraController extends Controller
                     'tahunperiode' =>$auditee->tahunperiode,
                 ]);
             }
+
         }
-        // dd($auditee_->beritaacara()->get());
+
         return view('spm/beritaAcara', compact('auditee_', 'daftartilik_'));
     }
 
@@ -114,25 +113,56 @@ class BeritaAcaraController extends Controller
     public function indexAuditor()
     {
         $auditees = Auditee::where('ketua_auditor', Auth::user()->name)->orWhere('anggota_auditor', Auth::user()->name)->orWhere('anggota_auditor2', Auth::user()->name)->get();
-        //$daftartilik_ = DaftarTilik::where('auditor_id', $auditor_->id)->get();
         $beritaacara_ = BeritaAcara::all();
+
+        $auditee_ = Auditee::all();
+
+        foreach ($auditee_ as $key => $auditee) {
+            
+            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee->id)->where('tahunperiode', $auditee->tahunperiode)->get();
+            $notExist = BeritaAcara::where('auditee_id', $auditee->id)->where('tahunperiode', $auditee->tahunperiode)->doesntExist();
+            
+            if ($notExist) {
+                BeritaAcara::create([
+                    'auditee_id' => $auditee->id,
+                    'tahunperiode' =>$auditee->tahunperiode,
+                ]);
+            }
+
+        }
 
         return view('auditor/beritaAcara', compact('auditees', 'beritaacara_'));
     }
 
     public function indexAuditee()
     {
+        $auditees_ = Auditee::all();
+
+        foreach ($auditees_ as $key => $auditee) {
+            
+            $beritaacara_ = BeritaAcara::where('auditee_id', $auditee->id)->where('tahunperiode', $auditee->tahunperiode)->get();
+            $notExist = BeritaAcara::where('auditee_id', $auditee->id)->where('tahunperiode', $auditee->tahunperiode)->doesntExist();
+            
+            if ($notExist) {
+                BeritaAcara::create([
+                    'auditee_id' => $auditee->id,
+                    'tahunperiode' =>$auditee->tahunperiode,
+                ]);
+            }
+
+        }
         $user_unitkerja = UnitKerja::where('id', Auth::user()->unitkerja_id)->first();
         $user_unitkerja2 = UnitKerja::where('id', Auth::user()->unitkerja_id2)->first();
         $user_unitkerja3 = UnitKerja::where('id', Auth::user()->unitkerja_id3)->first();
+
         if ($user_unitkerja2 != null && $user_unitkerja3 != null) {
-            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja2->name)->orWhere('unit_kerja', $user_unitkerja3->name)->get();
+            $auditee_ = Auditee::where('id', Auth::user()->anggotaauditee()->first()->anggota_auditee)->orWhere('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja2->name)->orWhere('unit_kerja', $user_unitkerja3->name)->get();
         } elseif ($user_unitkerja2 != null && $user_unitkerja3 == null) {
-            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja2->name)->get();
+            $auditee_ = Auditee::where('wakil_ketua_auditee', Auth::user()->anggotaauditee()->first()->anggota_auditee)->orWhere('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja2->name)->get();
         } elseif ($user_unitkerja2 == null && $user_unitkerja3 != null) {
-            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja3->name)->get();
+            $auditee_ = Auditee::where('id', Auth::user()->anggotaauditee()->first()->anggota_auditee)->orWhere('unit_kerja', $user_unitkerja->name)->orWhere('unit_kerja', $user_unitkerja3->name)->get();
         } else {
-            $auditee_ = Auditee::where('unit_kerja', $user_unitkerja->name)->get();
+            $auditee_ = Auditee::where('id', Auth::user()->anggotaauditee()->first()->anggota_auditee)->orWhere('unit_kerja', $user_unitkerja->name)->get();
         }
         
         $daftartilik_ = DaftarTilik::all();

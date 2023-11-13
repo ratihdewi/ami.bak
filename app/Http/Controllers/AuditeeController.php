@@ -143,15 +143,27 @@ class AuditeeController extends Controller
             $newAuditee->anggota_auditor3 = $request->anggota_auditor3;
             $newAuditee->save();
 
-            foreach ($request->anggota_auditee as $key => $value) {
-                $user_id = User::where('name', $value)->first();
+            $userWaket = User::where('name', $newAuditee->wakil_ketua_auditee)->first();
+            $newAnggota = new AnggotaAuditee;
+            $newAnggota->auditee_id = $newAuditee->id;
+            $newAnggota->user_id = $userWaket->id;
+            $newAnggota->anggota_auditee = $newAuditee->wakil_ketua_auditee;
+            $newAnggota->editor = Auth::user()->name;
+            $newAnggota->posisi = '1';
+            $newAnggota->save();
 
-                $newAnggota = new AnggotaAuditee;
-                $newAnggota->auditee_id = $newAuditee->id;
-                $newAnggota->user_id = $user_id->id;
-                $newAnggota->anggota_auditee = $value;
-                $newAnggota->editor = Auth::user()->name;
-                $newAnggota->save();
+            if ($request->anggota_auditee) {
+                foreach ($request->anggota_auditee as $key => $value) {
+                    $user_id = User::where('name', $value)->first();
+    
+                    $newAnggota = new AnggotaAuditee;
+                    $newAnggota->auditee_id = $newAuditee->id;
+                    $newAnggota->user_id = $user_id->id;
+                    $newAnggota->anggota_auditee = $value;
+                    $newAnggota->editor = Auth::user()->name;
+                    $newAnggota->posisi = '0';
+                    $newAnggota->save();
+                }
             }
             
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil ditambah pada periode '.$request->tahunperiode0.'/'.$request->tahunperiode);
@@ -163,7 +175,7 @@ class AuditeeController extends Controller
         $data = Auditee::find($id);
         $users_ = User::all();
         $auditee = Auditee::all();
-        $anggotaAuditees = AnggotaAuditee::where('auditee_id', $id)->get();
+        $anggotaAuditees = AnggotaAuditee::where('auditee_id', $id)->where('posisi', '0')->get();
         
         return view('spm/updateAuditee', compact('data', 'auditee', 'anggotaAuditees'));
     }
@@ -206,20 +218,22 @@ class AuditeeController extends Controller
         } elseif ($unitkerja == null) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Unit kerja tidak terdaftar!');
         } else {
-            $anggotaAuditees = AnggotaAuditee::where("auditee_id", $id)->get();
+            $anggotaAuditees = AnggotaAuditee::where("auditee_id", $id)->where('posisi', '0')->get();
             
             foreach ($anggotaAuditees as $key => $anggotaAuditee) {
                 $anggotaAuditee->delete();
             };
-            foreach ($request->anggota_auditee as $key => $inputAnggotaAuditee) {
-                $user = User::where('name', $inputAnggotaAuditee)->first();
-
-                $newAnggotaAuditees = new AnggotaAuditee;
-                $newAnggotaAuditees->auditee_id = $id;
-                $newAnggotaAuditees->user_id = $user->id;
-                $newAnggotaAuditees->anggota_auditee = $inputAnggotaAuditee;
-                $newAnggotaAuditees->editor = Auth::user()->name;
-                $newAnggotaAuditees->save();
+            if ($request->anggota_auditee) {
+                foreach ($request->anggota_auditee as $key => $inputAnggotaAuditee) {
+                    $user = User::where('name', $inputAnggotaAuditee)->first();
+    
+                    $newAnggotaAuditees = new AnggotaAuditee;
+                    $newAnggotaAuditees->auditee_id = $id;
+                    $newAnggotaAuditees->user_id = $user->id;
+                    $newAnggotaAuditees->anggota_auditee = $inputAnggotaAuditee;
+                    $newAnggotaAuditees->editor = Auth::user()->name;
+                    $newAnggotaAuditees->save();
+                }
             }
             
             $data->update([
@@ -237,7 +251,17 @@ class AuditeeController extends Controller
             ]);
             $data->save();
 
+            if ($request->wakil_ketua_auditee) {
+                $wakilKetuaAuditees = AnggotaAuditee::where("auditee_id", $id)->where('posisi', '1')->first();
+                $wakilKetuaAuditee = User::where('id', $wakilKetuaAuditees->user_id)->first();
+                $wakilKetuaAuditees->update ([
+                    "user_id" => $wakilKetuaAuditee->id,
+                    "anggota_auditee" => $request->wakil_ketua_auditee,
+                    "posisi" => '1',
 
+                ]);
+                $wakilKetuaAuditees->save();
+            }
 
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');
         }

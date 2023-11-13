@@ -14,6 +14,7 @@ class AnggotaAuditee extends Model
         "user_id",
         "anggota_auditee",
         "editor",
+        "posisi",
     ];
 
     public function user()
@@ -23,6 +24,6 @@ class AnggotaAuditee extends Model
 
     public function auditee()
     {
-        return $this->belongsTo(Auditee::class);
+        return $this->hasMany(Auditee::class);
     }
 }
