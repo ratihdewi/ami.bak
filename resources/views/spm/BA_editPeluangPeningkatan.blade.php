@@ -79,23 +79,10 @@
 @endsection
 
 @push('script')
-  {{-- ck editor --}}
   <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.tiny.cloud/1/giukfcgxmwoga5mpve1dcvfwuwqcbliwn88cqrd4ffjc17h1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
-    // ClassicEditor
-    //     .create( document.querySelector( '#inputKelebihan' ) )
-    //     .catch( error => {
-    //         console.error( error );
-    //     } );
-
-    // ClassicEditor
-    //     .create( document.querySelector( '#inputPeluang' ) )
-    //     .catch( error => {
-    //         console.error( error );
-    //     } );
-
     tinymce.init({
       selector: 'textarea#inputKelebihan',
       toolbar: false,

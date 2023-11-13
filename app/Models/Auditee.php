@@ -13,6 +13,7 @@ class Auditee extends Model
         'unit_kerja',
         'ketua_auditee',
         'jabatan_ketua_auditee',
+        'wakil_ketua_auditee',
         'ketua_auditor',
         'anggota_auditor',
         'anggota_auditor2',
@@ -39,6 +40,11 @@ class Auditee extends Model
     public function beritaacara()
     {
         return $this->hasOne(BeritaAcara::class);
+    }
+
+    public function anggotaauditee()
+    {
+        return $this->hasOne(AnggotaAuditee::class);
     }
 
     public function daftarhadir()

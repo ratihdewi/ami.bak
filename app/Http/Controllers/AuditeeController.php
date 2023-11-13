@@ -9,6 +9,8 @@ use App\Models\Auditor;
 use App\Models\UnitKerja;
 use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
+use App\Models\AnggotaAuditee;
+use Illuminate\Support\Facades\Auth;
 
 class AuditeeController extends Controller
 {
@@ -114,8 +116,8 @@ class AuditeeController extends Controller
 
     public function insertdata(Request $request)
     {
+        // dd($request->all());
         $isAlreadyExistAuditee = Auditee::where('tahunperiode', $request->tahunperiode)->where('unit_kerja', $request->unit_kerja)->exists();
-
 
         if ($request->ketua_auditor == $request->anggota_auditor || $request->ketua_auditor == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditor tidak dapat menjadi anggota Auditor secara bersamaan!');
@@ -126,7 +128,32 @@ class AuditeeController extends Controller
         } elseif ($request->ketua_auditee == $request->ketua_auditor || $request->ketua_auditee == $request->anggota_auditor || $request->ketua_auditee == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditee dan Tim Auditor tidak dapat memilik data yang sama!');
         } else {
-            Auditee::create($request->all());
+            $newAuditee = new Auditee;
+            $newAuditee->tahunperiode0 = $request->tahunperiode0;
+            $newAuditee->tahunperiode = $request->tahunperiode;
+            $newAuditee->nip = $request->nip;
+            $newAuditee->user_id = $request->user_id;
+            $newAuditee->ketua_auditee = $request->ketua_auditee;
+            $newAuditee->unit_kerja = $request->unit_kerja;
+            $newAuditee->jabatan_ketua_auditee = $request->jabatan_ketua_auditee;
+            $newAuditee->wakil_ketua_auditee = $request->wakil_ketua_auditee;
+            $newAuditee->ketua_auditor = $request->ketua_auditor;
+            $newAuditee->anggota_auditor = $request->anggota_auditor;
+            $newAuditee->anggota_auditor2 = $request->anggota_auditor2;
+            $newAuditee->anggota_auditor3 = $request->anggota_auditor3;
+            $newAuditee->save();
+
+            foreach ($request->anggota_auditee as $key => $value) {
+                $user_id = User::where('name', $value)->first();
+
+                $newAnggota = new AnggotaAuditee;
+                $newAnggota->auditee_id = $newAuditee->id;
+                $newAnggota->user_id = $user_id->id;
+                $newAnggota->anggota_auditee = $value;
+                $newAnggota->editor = Auth::user()->name;
+                $newAnggota->save();
+            }
+            
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil ditambah pada periode '.$request->tahunperiode0.'/'.$request->tahunperiode);
         }
         
@@ -136,12 +163,14 @@ class AuditeeController extends Controller
         $data = Auditee::find($id);
         $users_ = User::all();
         $auditee = Auditee::all();
-        //dd($data);
-        return view('spm/updateAuditee', compact('data', 'auditee'));
+        $anggotaAuditees = AnggotaAuditee::where('auditee_id', $id)->get();
+        
+        return view('spm/updateAuditee', compact('data', 'auditee', 'anggotaAuditees'));
     }
 
     public function updatedata(Request $request, $id)
     {
+        //ddd($request->all());
         $data = Auditee::find($id);
         $existAuditor = Auditor::where('user_id', $data->user_id)->where('tahunperiode', $data->tahunperiode)->exists();
         $unitkerja = UnitKerja::where('name', $request->unit_kerja)->first();
@@ -166,9 +195,7 @@ class AuditeeController extends Controller
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Unit kerja tidak terdaftar!');
         }
         
-        if ($existAuditor) {
-            return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data sudah terdaftar sebagai Auditor di tahun yang sama!');
-        } elseif ($request->ketua_auditee == $request->ketua_auditor || $request->ketua_auditee == $request->anggota_auditor || $request->ketua_auditee == $request->anggota_auditor2) {
+        if ($request->ketua_auditee == $request->ketua_auditor || $request->ketua_auditee == $request->anggota_auditor || $request->ketua_auditee == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditee dan Tim Auditor tidak dapat memiliki data yang sama!');
         } elseif ($request->ketua_auditor == $request->anggota_auditor || $request->ketua_auditor == $request->anggota_auditor2) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Ketua Auditor tidak dapat menjadi anggota Auditor secara bersamaan!');
@@ -179,7 +206,39 @@ class AuditeeController extends Controller
         } elseif ($unitkerja == null) {
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('error', 'Unit kerja tidak terdaftar!');
         } else {
-            $data->update($request->all());
+            $anggotaAuditees = AnggotaAuditee::where("auditee_id", $id)->get();
+            
+            foreach ($anggotaAuditees as $key => $anggotaAuditee) {
+                $anggotaAuditee->delete();
+            };
+            foreach ($request->anggota_auditee as $key => $inputAnggotaAuditee) {
+                $user = User::where('name', $inputAnggotaAuditee)->first();
+
+                $newAnggotaAuditees = new AnggotaAuditee;
+                $newAnggotaAuditees->auditee_id = $id;
+                $newAnggotaAuditees->user_id = $user->id;
+                $newAnggotaAuditees->anggota_auditee = $inputAnggotaAuditee;
+                $newAnggotaAuditees->editor = Auth::user()->name;
+                $newAnggotaAuditees->save();
+            }
+            
+            $data->update([
+                "tahunperiode0" => $request->tahunperiode0,
+                "tahunperiode" => $request->tahunperiode,
+                "nip" => $request->nip,
+                "user_id" => $request->user_id,
+                "ketua_auditee" => $request->ketua_auditee,
+                "unit_kerja" => $request->unit_kerja,
+                "jabatan_ketua_auditee" => $request->jabatan_ketua_auditee,
+                "wakil_ketua_auditee" => $request->wakil_ketua_auditee,
+                "ketua_auditor" => $request->ketua_auditor,
+                "anggota_auditor" => $request->anggota_auditor,
+                "anggota_auditor2" => $request->anggota_auditor2,
+            ]);
+            $data->save();
+
+
+
             return redirect()->route('auditee', ['tahunperiode' => $request->tahunperiode])->with('success', 'Data berhasil diupdate');
         }
     }

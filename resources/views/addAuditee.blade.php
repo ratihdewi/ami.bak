@@ -9,7 +9,7 @@
         {{ $tahunperiode->tahunperiode0 }}/{{ $tahunperiode->tahunperiode }}
     </a>/ --}}
 
-    <a href="/addAuditee/{{ $periode->tahunperiode1 }}/{{ $periode->tahunperiode1 }}" class="mx-1">
+    <a href="/addAuditee/{{ $periode->tahunperiode1 }}/{{ $periode->tahunperiode2 }}" class="mx-1">
         Tambah Auditee
     </a>/
 
@@ -129,41 +129,70 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <label class="fw-semibold" for="ketuaAuditor" class="form-label">Ketua Auditor <span class="text-danger fw-bold">*</span></label> <br>
-                        <select
-                            class="form-select" aria-label="Default select example"
-                            id="ketuaAuditor"
-                            placeholder="Pilih ketua Auditor yang akan mengaudit"
-                            name="ketua_auditor"
-                            required
+                        <label class="fw-semibold" for="wakilKetuaAuditee" class="form-label"
+                            >Wakil Ketua Auditee <span class="text-danger fw-bold">*</span></label
                         >
-                        <option selected disabled>Pilih Ketua Auditor</option> 
+                        <select
+                            id="wakilKetuaAuditee"
+                            class="form-select"
+                            name="wakil_ketua_auditee"
+                        >
+                        <option value="" selected disabled>Pilih Wakil Ketua Auditee</option>
                         </select>
                     </div>
-                    <div id="anggotaauditor" class="row mb-3">
-                        <div class="col">
-                            <label class="fw-semibold" for="anggotaAuditor" class="form-label">Anggota Auditor 1 <span class="text-danger fw-bold">*</span></label> <br>
-                            <select
-                                class="form-select" aria-label="Default select example"
-                                id="anggotaAuditor"
-                                placeholder="Masukkan nama Anggota Auditor"
-                                name="anggota_auditor"
-                                required
-                            >
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label class="fw-semibold" for="anggota_auditeee" class="form-label"
+                            >Anggota Auditee <span class="text-danger fw-bold">*</span></label
+                        >
+                        <select
+                            id="anggota_auditeee"
+                            class="form-select"
+                            name="anggota_auditee[]"
+                            multiple
+                        >
+                        </select>
                     </div>
-                    <div id="anggotaauditor2" class="row mb-3">
-                        <div class="col">
-                            <label class="fw-semibold" for="anggotaAuditor2" class="form-label">Anggota Auditor 2 (Opsional)</label> <br>
-                            <select
-                                class="form-select" aria-label="Default select example"
-                                id="anggotaAuditor2"
-                                placeholder="Masukkan nama Anggota Auditor"
-                                name="anggota_auditor2"
-                            >
-                                
-                            </select>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="fw-semibold" for="ketuaAuditor" class="form-label">Ketua Auditor <span class="text-danger fw-bold">*</span></label> <br>
+                                <select
+                                    class="form-select" aria-label="Default select example"
+                                    id="ketuaAuditor"
+                                    placeholder="Pilih ketua Auditor yang akan mengaudit"
+                                    name="ketua_auditor"
+                                    required
+                                >
+                                <option selected disabled>Pilih Ketua Auditor</option> 
+                                </select>
+                            </div>
+                            <div id="anggotaauditor" class="row mb-3">
+                                <div class="col">
+                                    <label class="fw-semibold" for="anggotaAuditor" class="form-label">Anggota Auditor 1 <span class="text-danger fw-bold">*</span></label> <br>
+                                    <select
+                                        class="form-select" aria-label="Default select example"
+                                        id="anggotaAuditor"
+                                        placeholder="Masukkan nama Anggota Auditor"
+                                        name="anggota_auditor"
+                                        required
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="anggotaauditor2" class="row mb-3">
+                                <div class="col">
+                                    <label class="fw-semibold" for="anggotaAuditor2" class="form-label">Anggota Auditor 2 (Opsional)</label> <br>
+                                    <select
+                                        class="form-select" aria-label="Default select example"
+                                        id="anggotaAuditor2"
+                                        placeholder="Masukkan nama Anggota Auditor"
+                                        name="anggota_auditor2"
+                                    >
+                                        
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -172,7 +201,7 @@
                 <button type="submit" class="btn btn-primary float-end">
                     Simpan
                 </button>
-                <a href="{{ route('auditee-periode') }}">
+                <a href="/daftarAuditee/{{$periode->tahunperiode2}}">
                     <button type="button" class="btn btn-secondary me-3 float-end">Kembali</button>
                 </a>
             </div>
@@ -190,9 +219,23 @@
 
 <script>
     $(document).ready(function() {
-
+        var i = 1;
         var tahunAwal = $('#tahunperiode0').val();
         var tahunAkhir = $('#tahunperiode').val();
+        var wrapper = $('#anggotaAuditeeParent');
+        var max_fields = 400;
+        $('#anggota_auditeee').select2({
+            placeholder: 'Pilih Anggota Auditor',
+            allowClear: true
+        });
+        $('#anggotaAuditor').select2({
+            placeholder: 'Pilih Anggota Auditor',
+            allowClear: true
+        });
+        $('#anggotaAuditor2').select2({
+            placeholder: 'Pilih Anggota Auditor',
+            allowClear: true
+        });
 
         fillNipAuditorOptions(tahunAkhir);
 
@@ -216,6 +259,8 @@
         $('#nipAuditee').change(function(){
             let nip = $('#nipAuditee').val();
             var url = "{{url('/tambahauditee-exsearchAuditee')}}";
+
+            console.log(ketuaAuditee);
 
             $.ajax({
                 url: url,
@@ -269,6 +314,38 @@
                     }
                 }
             });
+            
+            $.ajax({
+                url: "{{url('tambahauditee-searchnipuser')}}/"+ tahunAwal + "/" + tahunAkhir,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    $('#wakilKetuaAuditee').empty();
+                    $('#wakilKetuaAuditee').append('<option value="" selected>Pilih Wakil Ketua Auditee</option>');
+                    if (Array.isArray(data)) {
+                        var filteredData = data.filter(function(item) {
+                            return item.nip != nip;
+                        });
+
+                        var mappedData = filteredData.map(function(item) {
+                            return {
+                                id: item.name,
+                                text: item.name,
+                            };
+                        });
+
+                        $('#wakilKetuaAuditee').select2({
+                            data: mappedData,
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                },
+                error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
         });
 
         $('#selectUnitKerja').change(function () {
@@ -308,6 +385,43 @@
                     } else {
                         console.error('Data yang diterima dari server bukan array yang valid.');
                     }
+                }
+            });
+        });
+
+        $('#wakilKetuaAuditee').change(function () {
+            var wakilKetuaAuditee = $('#wakilKetuaAuditee').val();
+            var ketuaAuditee = $('#ketuaAuditee').val();
+
+            $.ajax({
+                url: "{{url('tambahauditee-searchnipuser')}}/"+ tahunAwal + "/" + tahunAkhir,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    $('#anggota_auditeee').empty();
+                    if (Array.isArray(data)) {
+                        var filteredData = data.filter(function(item) {
+                            return item.name != ketuaAuditee && item.name != wakilKetuaAuditee;
+                        });
+
+                        var mappedData = filteredData.map(function(item) {
+                            return {
+                                id: item.name,
+                                text: item.name,
+                            };
+                        });
+
+                        $('#anggota_auditeee').select2({
+                            data: mappedData,
+                            placeholder: "-- Pilih Anggota Auditee --"
+                        });
+                    } else {
+                        console.error('Data yang diterima dari server bukan array yang valid.');
+                    }
+                },
+                error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
                 }
             });
         });
@@ -465,19 +579,17 @@
                     $('#anggotaAuditor').empty();
                     $('#anggotaAuditor').append('<option value="" selected disabled>Pilih Anggota Auditor</option>');
                     if (Array.isArray(data)) {
-                        var mappedData = data.map(function(item) {
-                            if (item.nama != ketuaAuditor && item.nama != namaauditee) {
-                                return {
+                        var filteredData = data.filter(function(item) {
+                            return item.nama != ketuaAuditor && item.nama != namaauditee;
+                        });
+
+                        var mappedData = filteredData.map(function(item) {
+                            return {
                                 id: item.nama,
                                 text: item.nama,
-                                };
-                            } else {
-                                return {
-                                    hidden: true,
-                                };
-                            }
+                            };
                         });
-                        console.log(mappedData);
+
                         $('#anggotaAuditor').select2({
                             data: mappedData,
                         });
@@ -505,19 +617,20 @@
                 dataType: 'json',
                 data: { q: '' },
                 success: function(data) {
-                    console.log(data);
                     $('#anggotaAuditor2').empty();
                     $('#anggotaAuditor2').append('<option value="" selected disabled>Pilih Anggota Auditor</option>');
                     if (Array.isArray(data)) {
-                        var mappedData = data.map(function(item) {
-                            if (item.nama != anggotaAuditor && item.nama != ketuaAuditor && item.nama != namaauditee) {
-                                return {
+                        var filteredData = data.filter(function(item) {
+                            return item.nama != anggotaAuditor && item.nama != ketuaAuditor && item.nama != namaauditee;
+                        });
+
+                        var mappedData = filteredData.map(function(item) {
+                            return {
                                 id: item.nama,
                                 text: item.nama,
-                                };
-                            }
+                            };
                         });
-                        console.log(mappedData);
+
                         $('#anggotaAuditor2').select2({
                             data: mappedData,
                         });
@@ -526,7 +639,7 @@
                     }
                 },
                 error: function() {
-                console.error('Terjadi kesalahan saat memuat data users.');
+                    console.error('Terjadi kesalahan saat memuat data users.');
                 }
             });
         })
