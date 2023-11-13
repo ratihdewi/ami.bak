@@ -44,10 +44,11 @@ class DaftarTilikController extends Controller
         $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
         $listAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         $periode = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->first();
-        $areas = Area::all();
+        // $areas = Area::all();
         $categories = kategoriUnitKerja::all();
         
-        return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor', 'locale', 'timeZone', 'periode', 'areas', 'categories'));
+        return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor', 'locale', 'timeZone', 'periode', 'categories'));
+        // return view('spm/addAreaDaftarTilik', compact('listAuditee', 'listAuditor', 'locale', 'timeZone', 'periode', 'areas', 'categories'));
     }
 
     public function insertdataArea(Request $request)
@@ -117,10 +118,11 @@ class DaftarTilikController extends Controller
         $data = DaftarTilik::find($id);
         $listAuditee = Auditee::where('tahunperiode', $tahunperiode)->get();
         $listAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
-        $areas = Area::all();
+        // $areas = Area::all();
         $categories = kategoriUnitKerja::all();
         
-        return view('spm/updateAreaDaftarTilik', compact('data','listAuditee','listAuditor', 'locale', 'timeZone', 'areas', 'categories'));
+        return view('spm/updateAreaDaftarTilik', compact('data','listAuditee','listAuditor', 'locale', 'timeZone', 'categories'));
+        // return view('spm/updateAreaDaftarTilik', compact('data','listAuditee','listAuditor', 'locale', 'timeZone', 'areas', 'categories'));
     }
 
     public function getAuditee($id)
