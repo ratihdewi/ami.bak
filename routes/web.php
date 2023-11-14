@@ -97,7 +97,11 @@ Route::get('/auditor-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, 
 Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, $pertanyaan_id){
     $auditee = Auditee::find($auditee_id);
     $user = User::where('id', $auditee->user_id)->first();
-    $persetujuan = PersetujuanAL::where('pertanyaan_id', $pertanyaan_id)->where('posisi', 'Ketua Auditee')->orWhere('posisi', 'Wakil Ketua Auditee')->first();
+    $persetujuan = PersetujuanAL::where('pertanyaan_id', $pertanyaan_id)
+                                ->where(function($query){
+                                    $query->where('posisi', 'Ketua Auditee')
+                                        ->orWhere('posisi', 'Wakil Ketua Auditee');
+                                })->first();
     
     return view('/auditor/AL_qrcode', compact('auditee', 'user', 'persetujuan'));
 });
