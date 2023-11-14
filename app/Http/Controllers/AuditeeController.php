@@ -143,14 +143,16 @@ class AuditeeController extends Controller
             $newAuditee->anggota_auditor3 = $request->anggota_auditor3;
             $newAuditee->save();
 
-            $userWaket = User::where('name', $newAuditee->wakil_ketua_auditee)->first();
-            $newAnggota = new AnggotaAuditee;
-            $newAnggota->auditee_id = $newAuditee->id;
-            $newAnggota->user_id = $userWaket->id;
-            $newAnggota->anggota_auditee = $newAuditee->wakil_ketua_auditee;
-            $newAnggota->editor = Auth::user()->name;
-            $newAnggota->posisi = '1';
-            $newAnggota->save();
+            if ($request->wakil_ketua_auditee) {
+                $userWaket = User::where('name', $newAuditee->wakil_ketua_auditee)->first();
+                $newAnggota = new AnggotaAuditee;
+                $newAnggota->auditee_id = $newAuditee->id;
+                $newAnggota->user_id = $userWaket->id;
+                $newAnggota->anggota_auditee = $newAuditee->wakil_ketua_auditee;
+                $newAnggota->editor = Auth::user()->name;
+                $newAnggota->posisi = '1';
+                $newAnggota->save();
+            }
 
             if ($request->anggota_auditee) {
                 foreach ($request->anggota_auditee as $key => $value) {
@@ -252,23 +254,26 @@ class AuditeeController extends Controller
             $data->save();
 
             if ($request->wakil_ketua_auditee) {
-                $waKetExist = AnggotaAuditee::where("auditee_id", $id)->where('anggota_auditee', $request->wakil_ketua_auditee)->exists();
-                $wakilKetuaAuditees = AnggotaAuditee::where("auditee_id", $id)->where('anggota_auditee', $request->wakil_ketua_auditee)->first();
-                $wakilKetuaAuditee = User::where('id', $wakilKetuaAuditees->user_id)->first();
-                if ($waKetExist) {
+                $waKetExist = AnggotaAuditee::where("auditee_id", $id)->where('posisi', '1')->exists();
+                $wakilKetuaAuditees = AnggotaAuditee::where("auditee_id", $id)->where('posisi', '1')->first();
+                $wakilKetuaAuditee = User::where('name', $request->wakil_ketua_auditee)->first();
+                
+                if (($waKetExist && $wakilKetuaAuditees->anggota_auditee != $request->wakil_ketua_auditee) || ($waKetExist && $wakilKetuaAuditees->anggota_auditee == $request->wakil_ketua_auditee)) {
                     $wakilKetuaAuditees->update ([
+                        "user_id" => $wakilKetuaAuditee->id,
+                        "anggota_auditee" => $request->wakil_ketua_auditee,
                         "posisi" => '1',
     
                     ]);
                     $wakilKetuaAuditees->save();
                 } else {
-                    $newWaKet = new AnggotaAuditees();
+                    $newWaKet = new AnggotaAuditee;
                     $newWaKet->auditee_id = $data->id;
-                    $newWaKet->user_id = $wakilKetuaAuditee->user_id;
-                    $newWaKet->anggota_auditee = $request->anggota_auditee;
+                    $newWaKet->user_id = $wakilKetuaAuditee->id;
+                    $newWaKet->anggota_auditee = $request->wakil_ketua_auditee;
                     $newWaKet->editor = Auth::user()->name;
                     $newWaKet->posisi = '1';
-                    $newAnggotaAuditees->save();
+                    $newWaKet->save();
                 }
             }
 

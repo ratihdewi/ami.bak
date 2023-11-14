@@ -567,7 +567,7 @@
                             return item.name != ketuaAuditee && item.name != wakilKetuaAuditee;
                         });
                         
-                        var mappedData = data.map(function(item) {
+                        var mappedData = filteredData.map(function(item) {
                             return {
                                 id: item.name,
                                 text: item.name,
