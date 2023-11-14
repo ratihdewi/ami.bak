@@ -52,9 +52,11 @@
                 <a class="dropdown-item" href="/changeroleauditor/{{ Auth::user()->id }}" style="text-decoration: none; color:black">Beralih Role (Auditor)</a>
             </li>
             <li
-                @if (count(Auth::user()->auditee()->get('user_id')) == 0 && Auth::user()->anggotaauditee()->first()->posisi == '0')
-                    hidden
-                @endif
+                @foreach (Auth::user()->anggotaauditee()->get()->unique('auditee_id') as $item)
+                    @if ((count(Auth::user()->auditee()->get('user_id')) == 0 && $item->posisi == '0') || (count(Auth::user()->auditee()->get('user_id')) == 0))
+                        hidden
+                    @endif
+                @endforeach
                 @if (Auth::user()->peran == 'auditee')
                     class="roleAuditee disabled"
                 @endif
