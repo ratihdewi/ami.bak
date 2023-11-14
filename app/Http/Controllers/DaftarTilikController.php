@@ -73,7 +73,7 @@ class DaftarTilikController extends Controller
                     $areadt->tgl_pelaksanaan = $request->tgl_pelaksanaan;
                     $areadt->tempat = $request->tempat;
                     $areadt->area = $request->area;
-                    $areadt->sasaran = $request->sasaran;
+                    // $areadt->sasaran = $request->sasaran;
                     $areadt->bataspengisianRespon = $request->bataspengisianRespon;
                     $areadt->save();
 
