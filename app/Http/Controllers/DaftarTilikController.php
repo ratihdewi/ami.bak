@@ -77,22 +77,22 @@ class DaftarTilikController extends Controller
                     $areadt->bataspengisianRespon = $request->bataspengisianRespon;
                     $areadt->save();
 
-                    $masterdata = MasterPertanyaan::where('sasaran_id', $areadt->sasaran)->where('area', $areadt->area)->where('status', 1)->get();
-                    foreach ($masterdata as $key => $value) {
-                        $pertanyaan =new Pertanyaan([
-                            "daftartilik_id" => $areadt->id,
-                            "auditee_id"=> $areadt->auditee_id,
-                            "auditor_id"=> $areadt->auditor_id,
-                            "butirStandar" => $value->butirStandar,
-                            "nomorButir"=> $value->nomorButir,
-                            "indikatormutu"=> $value->indikatormutu,
-                            "targetStandar"=> $value->targetStandar,
-                            "referensi"=> $value->referensi,
-                            "keterangan"=> $value->keterangan,
-                            "pertanyaan"=> $value->pertanyaan,
-                        ]);
-                        $pertanyaan->save();
-                    }
+                    // $masterdata = MasterPertanyaan::where('sasaran_id', $areadt->sasaran)->where('area', $areadt->area)->where('status', 1)->get();
+                    // foreach ($masterdata as $key => $value) {
+                    //     $pertanyaan =new Pertanyaan([
+                    //         "daftartilik_id" => $areadt->id,
+                    //         "auditee_id"=> $areadt->auditee_id,
+                    //         "auditor_id"=> $areadt->auditor_id,
+                    //         "butirStandar" => $value->butirStandar,
+                    //         "nomorButir"=> $value->nomorButir,
+                    //         "indikatormutu"=> $value->indikatormutu,
+                    //         "targetStandar"=> $value->targetStandar,
+                    //         "referensi"=> $value->referensi,
+                    //         "keterangan"=> $value->keterangan,
+                    //         "pertanyaan"=> $value->pertanyaan,
+                    //     ]);
+                    //     $pertanyaan->save();
+                    // }
                     
                     return redirect()->route('daftartilik', ['tahunperiode' => $auditee_->tahunperiode])->with('success', 'Data berhasil ditambah!');
                    } else {
