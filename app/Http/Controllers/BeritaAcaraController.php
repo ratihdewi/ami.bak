@@ -162,7 +162,11 @@ class BeritaAcaraController extends Controller
             array_push($auditee_, $auditee);
             foreach (Auth::user()->anggotaauditee->unique('auditee_id') as $key => $anggotaAuditee) {
                 $anggotaauditee = Auditee::where('id', $anggotaAuditee->auditee_id)->get();
-                array_push($auditee_, $anggotaauditee);
+                foreach ($auditee as $key => $item) {
+                    if ($item->id != $anggotaAuditee->auditee_id) {
+                        array_push($auditee_, $anggotaauditee);
+                    }
+                }
             }
             $auditee_ = collect($auditee_)->flatten()->all();
             // dd($auditee_);
@@ -171,7 +175,11 @@ class BeritaAcaraController extends Controller
             array_push($auditee_, $auditee);
             foreach (Auth::user()->anggotaauditee->unique('auditee_id') as $key => $anggotaAuditee) {
                 $anggotaauditee = Auditee::where('id', $anggotaAuditee->auditee_id)->get();
-                array_push($auditee_, $anggotaauditee);
+                foreach ($auditee as $key => $item) {
+                    if ($item->id != $anggotaAuditee->auditee_id) {
+                        array_push($auditee_, $anggotaauditee);
+                    }
+                }
             }
             $auditee_ = collect($auditee_)->flatten()->all();
         } elseif ($user_unitkerja2 == null && $user_unitkerja3 != null) {
@@ -179,7 +187,11 @@ class BeritaAcaraController extends Controller
             array_push($auditee_, $auditee);
             foreach (Auth::user()->anggotaauditee->unique('auditee_id') as $key => $anggotaAuditee) {
                 $anggotaauditee = Auditee::where('id', $anggotaAuditee->auditee_id)->get();
-                array_push($auditee_, $anggotaauditee);
+                foreach ($auditee as $key => $item) {
+                    if ($item->id != $anggotaAuditee->auditee_id) {
+                        array_push($auditee_, $anggotaauditee);
+                    }
+                }
             }
             $auditee_ = collect($auditee_)->flatten()->all();
             // dd($auditee_);
@@ -188,7 +200,11 @@ class BeritaAcaraController extends Controller
             array_push($auditee_, $auditee);
             foreach (Auth::user()->anggotaauditee->unique('auditee_id') as $key => $anggotaAuditee) {
                 $anggotaauditee = Auditee::where('id', $anggotaAuditee->auditee_id)->get();
-                array_push($auditee_, $anggotaauditee);
+                foreach ($auditee as $key => $item) {
+                    if ($item->id != $anggotaAuditee->auditee_id) {
+                        array_push($auditee_, $anggotaauditee);
+                    }
+                }
             }
             $auditee_ = collect($auditee_)->flatten()->all();
             // dd($auditee_);
