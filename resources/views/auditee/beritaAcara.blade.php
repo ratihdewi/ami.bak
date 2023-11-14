@@ -33,7 +33,7 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                @foreach ($auditee_ as $auditee)
+                @foreach ($auditee_->unique('id') as $auditee)
                 @foreach ($auditee->beritaacara()->get() as $item)
                 <tr class="">
                     <td class="col text-center">{{ $no++ }}</td>
