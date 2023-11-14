@@ -97,7 +97,7 @@ Route::get('/auditor-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, 
 Route::get('/auditee-esign/{auditee_id}/{pertanyaan_id}', function($auditee_id, $pertanyaan_id){
     $auditee = Auditee::find($auditee_id);
     $user = User::where('id', $auditee->user_id)->first();
-    $persetujuan = PersetujuanAL::where('pertanyaan_id', $pertanyaan_id)->where('posisi', 'Ketua Auditee')->first();
+    $persetujuan = PersetujuanAL::where('pertanyaan_id', $pertanyaan_id)->where('posisi', 'Ketua Auditee')->orWhere('posisi', 'Wakil Ketua Auditee')->first();
     
     return view('/auditor/AL_qrcode', compact('auditee', 'user', 'persetujuan'));
 });
@@ -232,6 +232,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tindakankoreksi-signrencanatindakan/{noPTK}', [TindakanKoreksiController::class, 'signrencanatindakan'])->name('tindakankoreksi-signrencanatindakan');
     Route::post('/update-batasan-akses-auditor/{noPTK}', [TindakanKoreksiController::class, 'store'])->name('update-batasan-akses-auditor');
     Route::get('/master-pertanyaan-index', [MasterPertanyaanController::class, 'index'])->name('masterpertanyaan.index');
+    Route::get('/master-pertanyaan-sasaran-area/{thperiode0}/{thperiode1}/{id}/{area}', [MasterPertanyaanController::class, 'indexsasaranarea'])->name('masterpertanyaan.sasaran.area');
+    Route::get('/master-pertanyaan-edit/{id}', [MasterPertanyaanController::class, 'editsasaranarea'])->name('masterpertanyaan.edit');
+    Route::post('/masterdata-pertanyaan-update/{id}', [MasterPertanyaanController::class, 'updatemasterdata'])->name('masterdata.pertanyaan.update');
+    Route::get('/masterdata-pertanyaan-delete/{id}', [MasterPertanyaanController::class, 'delete'])->name('masterdata.pertanyaan.delete');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
