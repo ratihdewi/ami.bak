@@ -50,8 +50,8 @@ class BeritaAcaraController extends Controller
         $qrCodeAuditee = [];
         
         foreach ($pertanyaan_ as $key => $pertanyaan) {
-            $urlAuditee = url('/auditee-esign/'.$pertanyaan->auditee_id.'/'.$pertanyaan->id);
-            $urlAuditor = url('/auditor-esign/'.$pertanyaan->auditee_id.'/'.$pertanyaan->id);
+            $urlAuditee = url('/auditee-esign/'.$auditee_id.'/'.$pertanyaan->id);
+            $urlAuditor = url('/auditor-esign/'.$auditee_id.'/'.$pertanyaan->id);
 
             array_push($qrCodeAuditor, QrCode::generate($urlAuditor));
             array_push($qrCodeAuditee, QrCode::generate($urlAuditee));

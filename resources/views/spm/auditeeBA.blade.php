@@ -117,7 +117,7 @@
                             ></a>
                         </td>
                     </tr>
-                {{-- {{ $i++ }} --}}
+                    <?php $i++; ?>
                 @endforeach
             </tbody>
         </table>
