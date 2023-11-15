@@ -202,7 +202,6 @@
           </div>     
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar">{{ $datas->targetStandar }}</textarea>
-            <label for="targetStandar" style="font-size: 12px">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
             <div class="col-7 border rounded me-5">
@@ -369,6 +368,18 @@
           toolbar: false,
           menubar: false,
           height: 100,
+          setup: function (editor) {
+              editor.on('change', function () {
+                  saveFormData();
+              });
+          },
+        });
+
+        tinymce.init({
+          selector: 'textarea#targetStandar',
+          toolbar: false,
+          menubar: false,
+          height: 80,
           setup: function (editor) {
               editor.on('change', function () {
                   saveFormData();
