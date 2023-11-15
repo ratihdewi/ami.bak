@@ -34,7 +34,7 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach ($auditee_ as $auditee)
-                @foreach ($auditee->beritaacara()->get()->unique('id') as $item)
+                @foreach ($auditee->beritaacara()->get()->unique('auditee_id') as $item)
                 <tr class="">
                     <td class="col text-center">{{ $no++ }}</td>
                     <td class="col-6">{{ $item->auditee->unit_kerja }}</td>
