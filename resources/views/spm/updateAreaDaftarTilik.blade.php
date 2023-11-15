@@ -51,8 +51,6 @@
                         id="tgl-pelaksanaan"
                         class="form-control"
                         placeholder="Masukkan Hari/Tanggal Pelaksanaan"
-                        {{-- onfocus="(this.type='date')"
-                        onblur="(this.type='text')" --}}
                         aria-label="Masukkan Hari/Tanggal Pelaksanaan"
                         name="tgl_pelaksanaan"
                         value="{{ date('d-m-Y', strtotime($data->tgl_pelaksanaan)) }}"
@@ -76,10 +74,10 @@
                     <label class="fw-semibold" for="area">Area Audit <span class="text-danger fw-semibold">*</span></label>
                     <select id="area" class="form-select" name="area">
                         <option selected disabled>{{ $data->area }}</option>
-                        <option>Pendidikan</option>
-                        <option>Penelitian</option>
-                        <option>PkM</option>
-                        <option>Tambahan</option>
+                        <option value="Pendidikan">Pendidikan</option>
+                        <option value="Penelitian">Penelitian</option>
+                        <option value="PkM">PkM</option>
+                        <option value="Tambahan">Tambahan</option>
                     </select>
                 </div>
             </div>
@@ -91,8 +89,6 @@
                         type="text"
                         class="form-control"
                         placeholder="Berikan Batas Pengisian Respon Auditee"
-                        {{-- onfocus="(this.type='date')"
-                        onblur="(this.type='text')" --}}
                         aria-label="Berika Batas Pengisian Respon Auditee"
                         name="bataspengisianRespon"
                         value="{{ date('d-m-Y', strtotime($data->bataspengisianRespon)) }}"
@@ -171,113 +167,10 @@
             }
         });
 
-        // var defaultView_ = $('#tgl-pelaksanaan');
-        // var copyDate_ = defaultView_.attr("type", "date");
-        // var copyText_ = defaultView_.attr("type", "text");
-        // var valueAwal_ = $('#tgl-pelaksanaan').val()
-        // var valueSementara_ = valueAwal_;
-        // var valueSementara2 = valueAwal_;
-
-        // var formattedDateDefault_ = moment(valueSementara_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        // copyText_.val(formattedDateDefault_);
-
-        // $("#tgl-pelaksanaan").on("focus", function () {
-            
-        //     $(this).attr("type", "date");
-        //     copyDate_.val(formattedDateDefault_);
-        // });
-
-        // $("#tgl-pelaksanaan").on("blur", function () {
-            
-        //     if (!isValidDate($(this).val())) {
-
-        //         var value_ = valueSementara2_;
-                
-        //         var formattedDateBlur_ = moment(value_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        //         copyText_.val(formattedDateBlur_);
-        //     } else {
-        //         valueAwal_ = $(this).val();
-        //         var formattedDate_ = moment(valueAwal_, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        //         copyText_.val(formattedDate_);
-        //     }
-        // });
-
-        // function isValidDate(value_) {
-        //     var date = new Date(value_);
-        //     return !isNaN(date.getTime());
-        // }
-
-        // var defaultView = $('#bataspengisianRespon');
-        // var copyDate = defaultView.attr("type", "date");
-        // var copyText = defaultView.attr("type", "text");
-        // var valueAwal = $('#bataspengisianRespon').val()
-        // var valueSementara = valueAwal;
-        // var valueSementara2 = valueAwal;
-
-        // var formattedDateDefault = moment(valueSementara, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        // copyText.val(formattedDateDefault);
-
-        // $("#bataspengisianRespon").on("focus", function () {
-            
-        //     $(this).attr("type", "date");
-        //     copyDate.val(formattedDateDefault);
-        // });
-
-        // $("#bataspengisianRespon").on("blur", function () {
-            
-        //     if (!isValidDate($(this).val())) {
-
-        //         var value = valueSementara2;
-                
-        //         var formattedDateBlur = moment(value, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        //         copyText.val(formattedDateBlur);
-        //     } else {
-        //         valueAwal = $(this).val();
-        //         var formattedDate = moment(valueAwal, "YYYY-MM-DD").format("dddd, DD MMM YYYY");
-        //         copyText.val(formattedDate);
-        //     }
-        // });
-
-        // function isValidDate(value) {
-        //     var date = new Date(value);
-        //     return !isNaN(date.getTime());
-        // }
-
-        // flatpickr("#tgl-pelaksanaan", {
-        //     locale: "{{ $locale }}",
-        //     dateFormat: "dddd, D MMM Y",
-        //     altFormat: "DD-MM-YYYY",
-        //     enableTime: false,
-        //     time_24hr: true,
-        //     timeZone: "Asia/Jakarta",
-        //     parseDate: (datestr, format, locale) => {
-        //         return moment(datestr, format, true).toDate();
-        //     },
-        //     formatDate: (date, format) => {
-        //         // locale can also be used
-        //         return moment(date).format(format);
-        //     }
-        // });
-
-        // flatpickr("#bataspengisianRespon", {
-        //     locale: "{{ $locale }}",
-        //     dateFormat: "dddd, D MMM Y",
-        //     altFormat: "DD-MM-YYYY",
-        //     enableTime: false,
-        //     time_24hr: true,
-        //     timeZone: "Asia/Jakarta",
-        //     parseDate: (datestr, format, locale) => {
-        //         return moment(datestr, format, true).toDate();
-        //     },
-        //     formatDate: (date, format) => {
-        //         // locale can also be used
-        //         return moment(date).format(format);
-        //     }
-        // });
-
         $('#auditee_id').select2();
         $('#area').select2();
         $('#auditor').select2();
+        // $('#sasaran').select2();
 
         var auditee_id = $('#auditee_id').val();
         console.log(auditee_id);
@@ -289,8 +182,6 @@
             dataType: 'json',
             data: { q: '' },
             success: function(data) {
-                // $('#auditor').empty();
-                // $('#auditor').append('<option value="" selected disabled>Pilih Auditor</option>');
                 if (Array.isArray(data)) {
                     console.log(auditee_id);
                     var mappedData = data.map(function(item) {
