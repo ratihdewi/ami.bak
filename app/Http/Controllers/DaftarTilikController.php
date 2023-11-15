@@ -149,32 +149,32 @@ class DaftarTilikController extends Controller
             'tgl_pelaksanaan' => $request->tgl_pelaksanaan,
             'tempat' => $request->tempat,
             'area' => $request->area,
-            'sasaran' => $request->sasaran,
+            // 'sasaran' => $request->sasaran,
             'bataspengisianRespon' => $request->bataspengisianRespon,
         ]);
         $data->save();
 
-        $pertanyaans = Pertanyaan::where('daftartilik_id', $data->id)->get();
-        foreach ($pertanyaans as $key => $pertanyaan) {
-            $pertanyaan->delete();
-        }
+        // $pertanyaans = Pertanyaan::where('daftartilik_id', $data->id)->get();
+        // foreach ($pertanyaans as $key => $pertanyaan) {
+        //     $pertanyaan->delete();
+        // }
 
-        $masterdata = MasterPertanyaan::where('sasaran_id', $data->sasaran)->where('area', $data->area)->where('status', 1)->get();
-        foreach ($masterdata as $key => $value) {
-            $pertanyaan =new Pertanyaan([
-                "daftartilik_id" => $data->id,
-                "auditee_id"=> $data->auditee_id,
-                "auditor_id"=> $data->auditor_id,
-                "butirStandar" => $value->butirStandar,
-                "nomorButir"=> $value->nomorButir,
-                "indikatormutu"=> $value->indikatormutu,
-                "targetStandar"=> $value->targetStandar,
-                "referensi"=> $value->referensi,
-                "keterangan"=> $value->keterangan,
-                "pertanyaan"=> $value->pertanyaan,
-            ]);
-            $pertanyaan->save();
-        }
+        // $masterdata = MasterPertanyaan::where('sasaran_id', $data->sasaran)->where('area', $data->area)->where('status', 1)->get();
+        // foreach ($masterdata as $key => $value) {
+        //     $pertanyaan =new Pertanyaan([
+        //         "daftartilik_id" => $data->id,
+        //         "auditee_id"=> $data->auditee_id,
+        //         "auditor_id"=> $data->auditor_id,
+        //         "butirStandar" => $value->butirStandar,
+        //         "nomorButir"=> $value->nomorButir,
+        //         "indikatormutu"=> $value->indikatormutu,
+        //         "targetStandar"=> $value->targetStandar,
+        //         "referensi"=> $value->referensi,
+        //         "keterangan"=> $value->keterangan,
+        //         "pertanyaan"=> $value->pertanyaan,
+        //     ]);
+        //     $pertanyaan->save();
+        // }
 
         return redirect()->route('daftartilik', ['tahunperiode' => $data->auditee->tahunperiode])->with('success', 'Data berhasil diupdate');
     }
@@ -250,52 +250,128 @@ class DaftarTilikController extends Controller
         $unitkerja3 = UnitKerja::where('id', Auth::user()->unitkerja_id3)->first();
         $anggotaAuditees = AnggotaAuditee::all();
         $userSession = Auth::user()->name;
-        
-        if ($unitkerja2 != null && $unitkerja3 == null) {
-            foreach ($anggotaAuditees as $key => $anggotaAuditee) {
-                $data_ = Auditee::where('tahunperiode', $tahunperiode)
-                        ->where(function($query) use ($unitkerja, $unitkerja2, $anggotaAuditee, $userSession) {
-                            $query->where('id', $anggotaAuditee->auditee_id)
-                                ->orWhere('unit_kerja', $unitkerja->name)
-                                ->orWhere('unit_kerja', $unitkerja2->name)
-                                ->orWhere('wakil_ketua_auditee', $userSession);
-                        })
-                        ->get();
-            }
-        } elseif ($unitkerja3 != null && $unitkerja2 == null) {
-            foreach ($anggotaAuditees as $key => $anggotaAuditee) {
-                $data_ = Auditee::where('tahunperiode', $tahunperiode)
-                                ->where(function($query) use ($unitkerja, $unitkerja3, $anggotaAuditee, $userSession) {
-                                    $query->where('id', $anggotaAuditee->auditee_id)
-                                        ->orWhere('unit_kerja', $unitkerja->name)
-                                        ->orWhere('unit_kerja', $unitkerja3->name)
-                                        ->orWhere('wakil_ketua_auditee', $userSession);
-                                })
-                                ->get();    
-            }
-        } elseif ($unitkerja2 != null && $unitkerja3 != null) {
-            foreach ($anggotaAuditees as $key => $anggotaAuditee) {
-                $data_ = Auditee::where('tahunperiode', $tahunperiode)
-                            ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3, $anggotaAuditee, $userSession) {
-                                $query->where('id', $anggotaAuditee->auditee_id)
-                                    ->orWhere('unit_kerja', $unitkerja->name)
-                                    ->orWhere('unit_kerja', $unitkerja2->name)
-                                    ->orWhere('unit_kerja', $unitkerja3->name)
-                                    ->orWhere('wakil_ketua_auditee', $userSession);
-                            })
-                            ->get();  
-            }
-        } else {
-            foreach ($anggotaAuditees as $key => $anggotaAuditee) {
-                $data_ = Auditee::where('tahunperiode', $tahunperiode)
-                            ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3, $anggotaAuditee, $userSession) {
-                                $query->where('id', $anggotaAuditee->auditee_id)
-                                    ->orWhere('unit_kerja', $unitkerja->name)
-                                    ->orWhere('wakil_ketua_auditee', $userSession);
-                            })
-                            ->get();  
+
+        foreach ($anggotaAuditees as $key => $anggotaAuditee) {
+            if (Auth::user()->id == $anggotaAuditee->user_id) {
+                if ($unitkerja2 != null && $unitkerja3 == null) {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $unitkerja2, $anggotaAuditee, $userSession) {
+                                        $query->where('id', $anggotaAuditee->auditee_id)
+                                            ->orWhere('unit_kerja', $unitkerja->name)
+                                            ->orWhere('unit_kerja', $unitkerja2->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();
+                } elseif ($unitkerja3 != null && $unitkerja2 == null) {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $unitkerja3, $anggotaAuditee, $userSession) {
+                                        $query->where('id', $anggotaAuditee->auditee_id)
+                                            ->orWhere('unit_kerja', $unitkerja->name)
+                                            ->orWhere('unit_kerja', $unitkerja3->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();  
+                } elseif ($unitkerja2 != null && $unitkerja3 != null) {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3, $anggotaAuditee, $userSession) {
+                                        $query->where('id', $anggotaAuditee->auditee_id)
+                                            ->orWhere('unit_kerja', $unitkerja->name)
+                                            ->orWhere('unit_kerja', $unitkerja2->name)
+                                            ->orWhere('unit_kerja', $unitkerja3->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();
+                } else {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3, $anggotaAuditee, $userSession) {
+                                        $query->where('id', $anggotaAuditee->auditee_id)
+                                            ->orWhere('unit_kerja', $unitkerja->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();
+                }
+            } else {
+                if ($unitkerja2 != null && $unitkerja3 == null) {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $unitkerja2, $userSession) {
+                                        $query->where('unit_kerja', $unitkerja->name)
+                                            ->orWhere('unit_kerja', $unitkerja2->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();
+                } elseif ($unitkerja3 != null && $unitkerja2 == null) {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $unitkerja3, $userSession) {
+                                        $query->where('unit_kerja', $unitkerja->name)
+                                            ->orWhere('unit_kerja', $unitkerja3->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();  
+                } elseif ($unitkerja2 != null && $unitkerja3 != null) {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3, $userSession) {
+                                        $query->where('unit_kerja', $unitkerja->name)
+                                            ->orWhere('unit_kerja', $unitkerja2->name)
+                                            ->orWhere('unit_kerja', $unitkerja3->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();
+                } else {
+                    $data_ = Auditee::where('tahunperiode', $tahunperiode)
+                                    ->where(function($query) use ($unitkerja, $userSession) {
+                                        $query->where('unit_kerja', $unitkerja->name)
+                                            ->orWhere('wakil_ketua_auditee', $userSession);
+                                    })
+                                    ->get();
+                }
             }
         }
+        
+        // if ($unitkerja2 != null && $unitkerja3 == null) {
+        //     foreach ($anggotaAuditees as $key => $anggotaAuditee) {
+        //         $data_ = Auditee::where('tahunperiode', $tahunperiode)
+        //                 ->where(function($query) use ($unitkerja, $unitkerja2, $anggotaAuditee, $userSession) {
+        //                     $query->where('id', $anggotaAuditee->auditee_id)
+        //                         ->orWhere('unit_kerja', $unitkerja->name)
+        //                         ->orWhere('unit_kerja', $unitkerja2->name)
+        //                         ->orWhere('wakil_ketua_auditee', $userSession);
+        //                 })
+        //                 ->get();
+        //     }
+        // } elseif ($unitkerja3 != null && $unitkerja2 == null) {
+        //     foreach ($anggotaAuditees as $key => $anggotaAuditee) {
+        //         $data_ = Auditee::where('tahunperiode', $tahunperiode)
+        //                         ->where(function($query) use ($unitkerja, $unitkerja3, $anggotaAuditee, $userSession) {
+        //                             $query->where('id', $anggotaAuditee->auditee_id)
+        //                                 ->orWhere('unit_kerja', $unitkerja->name)
+        //                                 ->orWhere('unit_kerja', $unitkerja3->name)
+        //                                 ->orWhere('wakil_ketua_auditee', $userSession);
+        //                         })
+        //                         ->get();    
+        //     }
+        // } elseif ($unitkerja2 != null && $unitkerja3 != null) {
+        //     foreach ($anggotaAuditees as $key => $anggotaAuditee) {
+        //         $data_ = Auditee::where('tahunperiode', $tahunperiode)
+        //                     ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3, $anggotaAuditee, $userSession) {
+        //                         $query->where('id', $anggotaAuditee->auditee_id)
+        //                             ->orWhere('unit_kerja', $unitkerja->name)
+        //                             ->orWhere('unit_kerja', $unitkerja2->name)
+        //                             ->orWhere('unit_kerja', $unitkerja3->name)
+        //                             ->orWhere('wakil_ketua_auditee', $userSession);
+        //                     })
+        //                     ->get();  
+        //     }
+        // } else {
+        //     foreach ($anggotaAuditees as $key => $anggotaAuditee) {
+        //         $data_ = Auditee::where('tahunperiode', $tahunperiode)
+        //                     ->where(function($query) use ($unitkerja, $unitkerja2, $unitkerja3, $anggotaAuditee, $userSession) {
+        //                         $query->where('id', $anggotaAuditee->auditee_id)
+        //                             ->orWhere('unit_kerja', $unitkerja->name)
+        //                             ->orWhere('wakil_ketua_auditee', $userSession);
+        //                     })
+        //                     ->get();  
+        //     }
+        // }
         
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditee')->get();
         
