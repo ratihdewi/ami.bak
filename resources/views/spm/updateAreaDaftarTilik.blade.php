@@ -73,7 +73,7 @@
                 <div class="col">
                     <label class="fw-semibold" for="area">Area Audit <span class="text-danger fw-semibold">*</span></label>
                     <select id="area" class="form-select" name="area">
-                        <option selected disabled>{{ $data->area }}</option>
+                        <option value="{{ $data->area }}" selected>{{ $data->area }}</option>
                         <option value="Pendidikan">Pendidikan</option>
                         <option value="Penelitian">Penelitian</option>
                         <option value="PkM">PkM</option>
