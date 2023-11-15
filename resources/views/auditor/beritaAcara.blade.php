@@ -33,17 +33,15 @@
             </thead>
             <tbody>
                 @php $no = 1; @endphp
-                @foreach ($auditees->unique('unit_kerja', 'tahunperiode') as $auditee)
-                {{-- @foreach ($auditee->daftartilik()->get() as $item) --}}
-                <tr class="">
-                    <td class="col text-center">{{ $no++ }}</td>
-                    <td class="col-6">{{ $auditee->unit_kerja }}</td>
-                    <td class="col text-center">{{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}</td>
-                    <td class="col text-center">
-                        <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill" title="Buka"></i></button></a>
-                    </td>
-                </tr>
-                {{-- @endforeach --}}
+                @foreach ($auditees as $auditee)
+                    <tr class="">
+                        <td class="col text-center">{{ $no++ }}</td>
+                        <td class="col-6">{{ $auditee->unit_kerja }}</td>
+                        <td class="col text-center">{{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}</td>
+                        <td class="col text-center">
+                            <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode}}" class="text-decoration-none text-black" ><button class="border-0 rounded bg-warning"><i class="bi bi-eye-fill" title="Buka"></i></button></a>
+                        </td>
+                    </tr>
                 @endforeach   
             </tbody>
         </table>
