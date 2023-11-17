@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Auditee;
 use App\Models\Auditor;
 use App\Models\UnitKerja;
+use App\Models\DaftarTilik;
 use App\Models\TahunPeriode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -142,9 +143,14 @@ class AuditorController extends Controller
     public function deletedata($id, $tahunperiode)
     {
         $data = Auditor::find($id);
-        $data->delete();
-
-        return redirect()->route('auditor', ['tahunperiode' => $tahunperiode])->with('success', 'Data berhasil dihapus');
+        $auditeeExist = Auditee::where('id_ketuaauditor', $id)->orWhere('id_anggotaauditor1', $id)->orWhere('id_anggotaauditor2', $id)->exists();
+        $daftartilikExist = DaftarTilik::where('auditor_id', $id)->exists();
+        if ($auditeeExist || $daftartilikExist) {
+            return redirect()->route('auditor', ['tahunperiode' => $tahunperiode])->with('error', 'Data tidak dapat dihapus karena telah terdaftar pada Auditee dan Daftar Tilik.');
+        } else {
+            $data->delete();
+            return redirect()->route('auditor', ['tahunperiode' => $tahunperiode])->with('success', 'Data berhasil dihapus');
+        }
     }
     //role spm end
 
