@@ -143,7 +143,8 @@ class AuditorController extends Controller
     public function deletedata($id, $tahunperiode)
     {
         $data = Auditor::find($id);
-        $auditeeExist = Auditee::where('id_ketuaauditor', $id)->orWhere('id_anggotaauditor1', $id)->orWhere('id_anggotaauditor2', $id)->exists();
+        // $auditeeExist = Auditee::where('id_ketuaauditor', $id)->orWhere('id_anggotaauditor1', $id)->orWhere('id_anggotaauditor2', $id)->orWhere('ketua_auditor', $data->nama)->orWhere('anggota_auditor', $data->nama)->orWhere('anggota_auditor2', $data->nama)->exists();
+        $auditeeExist = Auditee::where('ketua_auditor', $data->nama)->orWhere('anggota_auditor', $data->nama)->orWhere('anggota_auditor2', $data->nama)->exists();
         $daftartilikExist = DaftarTilik::where('auditor_id', $id)->exists();
         if ($auditeeExist || $daftartilikExist) {
             return redirect()->route('auditor', ['tahunperiode' => $tahunperiode])->with('error', 'Data tidak dapat dihapus karena telah terdaftar pada Auditee dan Daftar Tilik.');
