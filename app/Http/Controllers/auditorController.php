@@ -98,7 +98,7 @@ class AuditorController extends Controller
         $tahun = Carbon::parse($tahunmulai)->year;
         $tahun_ = Carbon::parse($tahunakhir)->year;
         
-        if ($isAuditorExist && $isAuditeeExist) {
+        if ($isAuditorExist) {
             return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Data sudah tersedia!');
         } elseif (($tahun < $request->tahunperiode0 || $tahun > $request->tahunperiode) && ($tahun_ < $request->tahunperiode0 || $tahun > $request->tahunperiode)) {
             return redirect()->route('auditor', ['tahunperiode' => $request->tahunperiode])->with('error', 'Tanggal tidak sesuai dengan periode pelaksanaan!');
@@ -160,8 +160,9 @@ class AuditorController extends Controller
     {
         $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditor')->get();
+        $unitkerja = UnitKerja::all();
         
-        return view('auditor/daftarAuditor', compact('dataAuditor', 'periodes'));
+        return view('auditor/daftarAuditor', compact('dataAuditor', 'periodes', 'unitkerja'));
     }
 
     public function indexauditorpertahun()
@@ -205,8 +206,9 @@ class AuditorController extends Controller
     {
         $dataAuditor = Auditor::where('tahunperiode', $tahunperiode)->get();
         $periodes = TahunPeriode::where('tahunperiode2', $tahunperiode)->where('keterangan', 'Periode Auditor')->get();
+        $unitkerja = UnitKerja::all();
         // dd($data);
-        return view('auditee/daftarAuditor', compact('dataAuditor', 'periodes'));
+        return view('auditee/daftarAuditor', compact('dataAuditor', 'periodes', 'unitkerja'));
     }
 
     public function indexauditorpertahun_()

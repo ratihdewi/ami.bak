@@ -40,8 +40,38 @@
                     <td scope="row" class="text-center">{{ $no++ }}</td>
                     <td>{{ $item->nama }}</td>
                     <td class="text-center">{{ $item->nip }}</td>
-                    <td>{{ $item->program_studi }}</td>
-                    <td>{{ $item->fakultas }}</td>
+                    <td>
+                        {{ $item->program_studi }}
+                        @if (($item->user->unitkerja_id2 != null || $item->user->unitkerja_id2 != '') && ($item->user->unitkerja_id3 == null || $item->user->unitkerja_id3 == ''))
+                            @foreach ($unitkerja->where('id', $item->user->unitkerja_id2) as $unitkerja2)
+                                ;<br>{{ $unitkerja2->name }}
+                            @endforeach
+                        @elseif (($item->user->unitkerja_id2 != null || $item->user->unitkerja_id2 != '') && ($item->user->unitkerja_id3 != null || $item->user->unitkerja_id3 != ''))
+                            @foreach ($unitkerja->where('id', $item->user->unitkerja_id2) as $unitkerja2)
+                                ;<br>{{ $unitkerja2->name }}
+                            @endforeach
+
+                            @foreach ($unitkerja->where('id', $item->user->unitkerja_id3) as $unitkerja3)
+                                ;<br>{{ $unitkerja3->name }}
+                            @endforeach
+                        @endif
+                    </td>
+                    <td>
+                        {{ $item->fakultas }}
+                        @if (($item->user->unitkerja_id2 != null || $item->user->unitkerja_id2 != '') && ($item->user->unitkerja_id3 == null || $item->user->unitkerja_id3 == ''))
+                            @foreach ($unitkerja->where('id', $item->user->unitkerja_id2) as $unitkerja2)
+                                ;<br>{{ $unitkerja2->fakultas }}
+                            @endforeach
+                        @elseif (($item->user->unitkerja_id2 != null || $item->user->unitkerja_id2 != '') && ($item->user->unitkerja_id3 != null || $item->user->unitkerja_id3 != ''))
+                            @foreach ($unitkerja->where('id', $item->user->unitkerja_id2) as $unitkerja2)
+                                ;<br>{{ $unitkerja2->fakultas }}
+                            @endforeach
+
+                            @foreach ($unitkerja->where('id', $item->user->unitkerja_id3) as $unitkerja3)
+                                ;<br>{{ $unitkerja3->fakultas }}
+                            @endforeach
+                        @endif
+                    </td>
                     <td class="text-center">{{ $item->noTelepon }}</td>
                 </tr>
                 @endforeach
