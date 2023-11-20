@@ -315,7 +315,7 @@ class PertanyaanController extends Controller
 
 
         $data->delete();
-        return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $_area->area])->with('success', 'Data berhasil dihapus');
+        return redirect()->route('areadaftartilik', ['auditee_id' => $auditee_id, 'area' => $data->daftartilik->area])->with('success', 'Data berhasil dihapus');
     }
 
     // Role Auditor

@@ -24,19 +24,53 @@
         </div>
         @endif
     </div>
-    <div class="container-fluid float-end mb-4 mt-2">
-        <a
-            href="/auditor-daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
-            class="text-white"
-            style="font-weight: 600; text-decoration: none;"
-            ><button
-                type="button"
-                class="btn btn-sm float-end my-2 px-3 me-2 text-white"
-                style="background-color: #0061BB"
+    <div class="container-fluid  d-flex justify-content-between mb-4 mt-2">
+        {{-- @foreach ($data_ as $item)  --}}
+        <div class="ketOtherAction d-flex justify-content-between border rounded-1 p-3">
+            <div class="leftSide me-3">
+                <button class="btn btn-outline-success btn-sm my-1" style="font-size: 8px; pointer-events: none">
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle text-success" style="font-size: 8px"></i>
+                </button>
+                <span style="font-size: 15px">Respon Auditee telah diisi.</span><br>
+                <button class="btn btn-outline-success btn-sm my-1" style="font-size: 8px; pointer-events: none">
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle text-success" style="font-size: 8px"></i>
+                </button>
+                <span style="font-size: 15px">Respon Auditee dan Auditor telah diisi.</span>
+            </div>
+            <div class="rightSide">
+                <button class="btn btn-outline-success btn-sm my-1" style="font-size: 8px; pointer-events: none">
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle-fill text-warning" style="font-size: 8px"></i>
+                </button>
+                <span style="font-size: 15px">Persetujuan perlu dilakukan finalisasi (Auditor/Auditee).</span> <br>
+                <button class="btn btn-outline-success btn-sm my-1" style="font-size: 8px; pointer-events: none">
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                    <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
+                </button>
+                <span style="font-size: 15px">Daftar Tilik lengkap dan telah disetujui.</span> <br>
+            </div>
+        </div>
+        <div class="btnTambahPratinjau">
+            <a
+                href="/auditor-daftartilik-pratinjaudaftartilik/{{ $data->auditee_id }}/{{ $data->area }}"
+                class="text-white"
+                style="font-weight: 600; text-decoration: none;"
+                ><button
+                    type="button"
+                    class="btn btn-sm float-end my-2 px-3 me-2 text-white"
+                    style="background-color: #0061BB"
+                >
+                    Pratinjau
+                </button></a
             >
-                Pratinjau
-            </button></a
-        >
+        </div>
+        {{-- @endforeach --}}
     </div>
     
     <div class="tableDaftarTilik mx-3 mb-3">
@@ -66,9 +100,28 @@
                             {!! $d_pertanyaan->pertanyaan !!}
                         </td>
                         <td class="col-1 px-0 text-center">
-                            <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}" class="mx-2"
+                            <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}"
                                 ><button class="bg-primary border-0 rounded-1" title="Edit"><i class="bi bi-pencil-square text-white"></i></button></i
-                            ></a>
+                            ></a> <br>
+                            <button class="btn btn-outline-success btn-sm my-1 px-1" style="font-size: 12px; pointer-events: none; padding-top: 1px; padding-bottom: 1.5px"
+                                @if ($d_pertanyaan->responAuditee == null || count($d_pertanyaan->doksahih()->get()) == 0)
+                                    hidden
+                                @endif
+                            >
+                                <i class="bi bi-circle-fill text-success" style="font-size: 10px"></i>
+                                @if ($d_pertanyaan->responAuditor == null || $d_pertanyaan->Kategori == null || $d_pertanyaan->inisialAuditor == null)
+                                    <i class="bi bi-circle text-success" style="font-size: 10px"></i>
+                                @else
+                                    <i class="bi bi-circle-fill text-success" style="font-size: 10px"></i>
+                                @endif
+                                @if ($d_pertanyaan->approvalAuditor == "Belum disetujui Auditor" && $d_pertanyaan->approvalAuditee == "Belum disetujui Auditee")
+                                    <i class="bi bi-circle text-success" style="font-size: 10px"></i>
+                                @elseif(($d_pertanyaan->approvalAuditor == "Menunggu persetujuan Auditee" && $d_pertanyaan->approvalAuditee == "Belum disetujui Auditee") || ($d_pertanyaan->approvalAuditor == "Menunggu persetujuan Auditee" && $d_pertanyaan->approvalAuditee == "Disetujui Auditee"))
+                                    <i class="bi bi-circle-fill text-warning" style="font-size: 10px"></i>
+                                @else
+                                    <i class="bi bi-circle-fill text-success" style="font-size: 10px"></i>
+                                @endif
+                            </button>
                         </td>
                     </tr>
                 @endforeach
