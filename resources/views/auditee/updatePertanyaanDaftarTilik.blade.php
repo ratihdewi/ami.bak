@@ -293,7 +293,7 @@
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
               <label for="inisialAuditor" class="form-label fw-semibold">Inisial Auditor</label>
-              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}" disabled>
+              <input id="inisialAuditor" type="text" class="form-control" placeholder="Inisial Auditor" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}" disabled>
             </div>
             <div class="col border rounded px-4 py-4 ms-2">
               <label for="skorAuditor" class="form-label fw-semibold">Skor Auditor</label>

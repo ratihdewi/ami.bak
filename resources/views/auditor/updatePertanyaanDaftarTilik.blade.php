@@ -190,7 +190,6 @@
           </div>            
           <div class="form-floating mb-4 mx-4">
             <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar">{{ $datas->targetStandar }}</textarea>
-            <label for="targetStandar" style="font-size: 12px">Masukkan target standar</label>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4">
             <div class="col-7 border rounded me-5">
@@ -303,7 +302,7 @@
           <div class="row g-3 mb-4 mx-4">
             <div class="col border rounded px-4 py-4 me-2">
               <label for="inisialAuditor" class="form-label fw-semibold">Inisial Auditor <span class="text-danger fw-bold">*</span></label>
-              <input id="inisialAuditor" type="text" class="form-control" placeholder="Butir Standar" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}"
+              <input id="inisialAuditor" type="text" class="form-control" placeholder="Inisial Auditor" aria-label="Masukkan Inisial Auditor" name="inisialAuditor" value="{{ $datas->inisialAuditor }}"
               @if ((Auth::user()->name != $datas->auditee->ketua_auditor && Auth::user()->name != $datas->auditee->anggota_auditor && Auth::user()->name != $datas->auditee->anggota_auditor2) || ($datas->approvalAuditor == 'Disetujui Auditor' && $datas->approvalAuditee == 'Disetujui Auditee') || ($currentDate > $datas->daftartilik->bataspengisianRespon)){{ "readonly" }}@endif
               >
             </div>
@@ -367,6 +366,18 @@
 
   tinymce.init({
     selector: 'textarea#indikatorMutu',
+    toolbar: false,
+    menubar: false,
+    height: 100,
+    setup: function (editor) {
+        editor.on('change', function () {
+            saveFormData();
+        });
+    },
+  });
+
+  tinymce.init({
+    selector: 'textarea#targetStandar',
     toolbar: false,
     menubar: false,
     height: 100,
