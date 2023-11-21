@@ -111,7 +111,7 @@
                     <td class="text-center">{{ $pertanyaan->butirStandar }}</td>
                     <td class="text-start" style="width: 20%;">{!! $pertanyaan->pertanyaan !!}</td>
                     <td class="text-start" style="width: 20%;">{!! $pertanyaan->indikatormutu !!}</td>
-                    <td class="text-center">{{ $pertanyaan->targetStandar }}</td>
+                    <td class="text-center">{!! $pertanyaan->targetStandar !!}</td>
                     <td class="text-center">{{ $pertanyaan->referensi }}</td>
                     <td class="text-center">{{ $pertanyaan->inisialAuditor }}</td>
                     <td class="text-start" style="width: 10%;">{{ $pertanyaan->responAuditee }}</td>
