@@ -26,8 +26,10 @@
     </div>
     <div class="container-fluid  d-flex justify-content-between mb-4 mt-2">
         {{-- @foreach ($data_ as $item)  --}}
-        <div class="ketOtherAction d-flex justify-content-between border rounded-1 p-3">
-            <div class="leftSide me-3">
+        <div class="ketOtherAction d-flex justify-content-between 
+            {{-- border rounded-1 p-3 --}}
+        ">
+            <div class="leftSide me-3" hidden>
                 <button class="btn btn-outline-success btn-sm my-1" style="font-size: 8px; pointer-events: none">
                     <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
                     <i class="bi bi-circle text-success" style="font-size: 8px"></i>
@@ -41,7 +43,7 @@
                 </button>
                 <span style="font-size: 15px">Respon Auditee dan Auditor telah diisi.</span>
             </div>
-            <div class="rightSide">
+            <div class="rightSide" hidden>
                 <button class="btn btn-outline-success btn-sm my-1" style="font-size: 8px; pointer-events: none">
                     <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
                     <i class="bi bi-circle-fill text-success" style="font-size: 8px"></i>
@@ -103,7 +105,44 @@
                             <a href="/auditor-daftartilik-tampilpertanyaandaftartilik/{{ $d_pertanyaan->id }}"
                                 ><button class="bg-primary border-0 rounded-1" title="Edit"><i class="bi bi-pencil-square text-white"></i></button></i
                             ></a> <br>
-                            <button class="btn btn-outline-success btn-sm my-1 px-1" style="font-size: 12px; pointer-events: none; padding-top: 1px; padding-bottom: 1.5px"
+                            @if ($d_pertanyaan->responAuditee == null || count($d_pertanyaan->doksahih()->get()) == 0)
+                                <div class="progress w-75 mx-auto my-2" style="height: 10px">
+                                    <div id="progressAuditee" class="progress-bar bg-transparent" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progressAuditor" class="progress-bar bg-transparent" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-transparent" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            @elseif(($d_pertanyaan->responAuditee != null && count($d_pertanyaan->doksahih()->get()) > 0) && $d_pertanyaan->responAuditor == null || $d_pertanyaan->Kategori == null || $d_pertanyaan->inisialAuditor == null)
+                                <div class="progress w-75 mx-auto my-2" style="height: 10px">
+                                    <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
+                                    <div id="progressAuditor" class="progress-bar bg-transparent" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-transparent" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            @elseif(($d_pertanyaan->responAuditee != null && count($d_pertanyaan->doksahih()->get()) > 0) && ($d_pertanyaan->responAuditor != null && $d_pertanyaan->Kategori != null && $d_pertanyaan->inisialAuditor != null) && ($d_pertanyaan->approvalAuditor == "Belum disetujui Auditor" && $d_pertanyaan->approvalAuditee == "Belum disetujui Auditee"))
+                                <div class="progress w-75 mx-auto my-2" style="height: 10px">
+                                    <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
+                                    <div id="progressAuditor" class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditor terisi"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-success bg-opacity-0" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 0/3"></div>
+                                </div>
+                            @elseif(($d_pertanyaan->responAuditee != null && count($d_pertanyaan->doksahih()->get()) > 0) && ($d_pertanyaan->responAuditor != null && $d_pertanyaan->Kategori != null && $d_pertanyaan->inisialAuditor != null) && ($d_pertanyaan->approvalAuditor == "Menunggu persetujuan Auditee" && $d_pertanyaan->approvalAuditee == "Belum disetujui Auditee"))
+                                <div class="progress w-75 mx-auto my-2" style="height: 10px">
+                                    <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
+                                    <div id="progressAuditor" class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditor terisi"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-success bg-opacity-25" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 1/3"></div>
+                                </div>
+                            @elseif(($d_pertanyaan->responAuditee != null && count($d_pertanyaan->doksahih()->get()) > 0) && ($d_pertanyaan->responAuditor != null && $d_pertanyaan->Kategori != null && $d_pertanyaan->inisialAuditor != null) && ($d_pertanyaan->approvalAuditor == "Menunggu persetujuan Auditee" && $d_pertanyaan->approvalAuditee == "Disetujui Auditee"))
+                                <div class="progress w-75 mx-auto my-2" style="height: 10px">
+                                    <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
+                                    <div id="progressAuditor" class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditor terisi"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-success bg-opacity-75" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 1/3"></div>
+                                </div>
+                            @elseif(($d_pertanyaan->responAuditee != null && count($d_pertanyaan->doksahih()->get()) > 0) && ($d_pertanyaan->responAuditor != null && $d_pertanyaan->Kategori != null && $d_pertanyaan->inisialAuditor != null) && ($d_pertanyaan->approvalAuditor == "Disetujui Auditor" && $d_pertanyaan->approvalAuditee == "Disetujui Auditee"))
+                                <div class="progress w-75 mx-auto my-2" style="height: 10px">
+                                    <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
+                                    <div id="progressAuditor" class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditor terisi"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-success" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 2/3"></div>
+                                </div>
+                            @endif
+                            {{-- <button class="btn btn-outline-success btn-sm my-1 px-1" style="font-size: 12px; pointer-events: none; padding-top: 1px; padding-bottom: 1.5px"
                                 @if ($d_pertanyaan->responAuditee == null || count($d_pertanyaan->doksahih()->get()) == 0)
                                     hidden
                                 @endif
@@ -121,7 +160,7 @@
                                 @else
                                     <i class="bi bi-circle-fill text-success" style="font-size: 10px"></i>
                                 @endif
-                            </button>
+                            </button> --}}
                         </td>
                     </tr>
                 @endforeach
