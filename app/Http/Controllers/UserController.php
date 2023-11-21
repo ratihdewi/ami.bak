@@ -79,13 +79,60 @@ class UserController extends Controller
         ]);
         $data->save();
         $auditor_ = Auditor::where('nama', $request->name)->first();
-        
-        if ($auditor_) {
+        if ($auditor_) 
+        {
             $auditor_->update([
                 'noTelepon' => $request->noTelepon
             ]);
-            $auditor_->save();
         }
+        // $auditors = Auditor::where('user_id', $data->id)->get();
+        // foreach ($auditors as $key => $auditor) {
+        //     $auditor->update([
+        //         'nama' => $data->name,
+        //         'nip' => $data->nip,
+        //         'program_studi' => $data->unitkerja->name,
+        //         'fakultas' => $data->unitkerja->fakultas,
+        //         'noTelepon' => $data->noTelepon,
+        //     ]);
+        //     $auditor->save();
+
+        //     $timAuditors = Auditee::where('id_ketuaauditor', $auditor->id)->orWhere('id_anggotaauditor1', $auditor->id)->orWhere('id_anggotaauditor2', $auditor->id)->get();
+        //     foreach ($timAuditors as $key => $timAuditor) {
+        //         if ($timAuditor->id_ketuaauditor == $auditor->id) {
+        //             $timAuditor->update([
+        //                 'ketua_auditor' => $data->name,
+        //             ]);
+        //             $timAuditor->save();
+        //         } elseif ($timAuditor->id_anggotaauditor1 == $auditor->id) {
+        //             $timAuditor->update([
+        //                 'anggota_auditor' => $data->name,
+        //             ]);
+        //             $timAuditor->save();
+        //         } elseif ($timAuditor->id_anggotaauditor2 == $auditor->id) {
+        //             $timAuditor->update([
+        //                 'anggota_auditor2' => $data->name,
+        //             ]);
+        //             $timAuditor->save();
+        //         }
+                
+        //     }
+        // }
+        
+        // $auditees = Auditee::where('user_id', $data->id)->orWhere('id_wakilketua', $data->id)->get();
+        // foreach ($auditees as $key => $auditee) {
+        //     if ($auditee->user_id == $data->id) {
+        //         $auditee->update([
+        //             'ketua_auditee' => $data->name,
+        //         ]);
+        //         $auditee->save();
+        //     } elseif ($auditee->id_wakilketua == $data->id) {
+        //         $auditee->update([
+        //             'wakil_ketua_auditee' => $data->name,
+        //         ]);
+        //         $auditee->save();
+        //     }
+            
+        // }
         return redirect()->route('daftaruser')->with('success', 'Data berhasil diupdate');
     }
 
@@ -117,7 +164,8 @@ class UserController extends Controller
 
     public function changeroleauditee($id)
     {
-        $auditee_ = Auditee::where('user_id', $id)->exists();
+        $auditee_ = Auditee::where('user_id', $id)->orWhere('wakil_ketua_auditee', Auth::user()->name)->exists();
+        // $auditee_ = Auditee::where('user_id', $id)->orWhere('id_wakilketua', $id)->exists();
         $user = User::find($id);
 
         $user->update([
@@ -125,7 +173,7 @@ class UserController extends Controller
         ]);
         $user->save();
 
-        if ($auditee_) {
+        if ($auditee_ || $user) {
             return redirect()->route('home.auditee')->with('success', 'Selamat datang di halaman Auditee!');
         } else {
             return redirect()->back();
