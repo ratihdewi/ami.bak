@@ -1,5 +1,6 @@
 iframe#auditeeindikatorMutu_ifr,
-iframe#auditeepertanyaan_ifr {
+iframe#auditeepertanyaan_ifr,
+iframe#auditeetargetStandar_ifr {
     background-color: #e9ecef !important;
 }
 

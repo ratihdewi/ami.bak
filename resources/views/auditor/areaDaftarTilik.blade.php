@@ -121,7 +121,7 @@
                                 <div class="progress w-75 mx-auto my-2" style="height: 10px">
                                     <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
                                     <div id="progressAuditor" class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditor terisi"></div>
-                                    <div id="progressPersetujuan" class="progress-bar bg-success bg-opacity-0" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 0/3"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-success bg-opacity-10" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 0/3"></div>
                                 </div>
                             @elseif(($d_pertanyaan->responAuditee != null && count($d_pertanyaan->doksahih()->get()) > 0) && ($d_pertanyaan->responAuditor != null && $d_pertanyaan->Kategori != null && $d_pertanyaan->inisialAuditor != null) && ($d_pertanyaan->approvalAuditor == "Menunggu persetujuan Auditee" && $d_pertanyaan->approvalAuditee == "Belum disetujui Auditee"))
                                 <div class="progress w-75 mx-auto my-2" style="height: 10px">
@@ -133,13 +133,13 @@
                                 <div class="progress w-75 mx-auto my-2" style="height: 10px">
                                     <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
                                     <div id="progressAuditor" class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditor terisi"></div>
-                                    <div id="progressPersetujuan" class="progress-bar bg-success bg-opacity-75" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 1/3"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-success bg-opacity-75" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 2/3"></div>
                                 </div>
                             @elseif(($d_pertanyaan->responAuditee != null && count($d_pertanyaan->doksahih()->get()) > 0) && ($d_pertanyaan->responAuditor != null && $d_pertanyaan->Kategori != null && $d_pertanyaan->inisialAuditor != null) && ($d_pertanyaan->approvalAuditor == "Disetujui Auditor" && $d_pertanyaan->approvalAuditee == "Disetujui Auditee"))
                                 <div class="progress w-75 mx-auto my-2" style="height: 10px">
                                     <div id="progressAuditee" class="progress-bar bg-info" role="progressbar" aria-label="Segment one" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditee terisi"></div>
                                     <div id="progressAuditor" class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Respon Auditor terisi"></div>
-                                    <div id="progressPersetujuan" class="progress-bar bg-success" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 2/3"></div>
+                                    <div id="progressPersetujuan" class="progress-bar bg-success" role="progressbar" aria-label="Segment three" style="width: 33.33%" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" title="Persetujuan AL 3/3"></div>
                                 </div>
                             @endif
                             {{-- <button class="btn btn-outline-success btn-sm my-1 px-1" style="font-size: 12px; pointer-events: none; padding-top: 1px; padding-bottom: 1.5px"
