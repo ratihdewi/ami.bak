@@ -177,4 +177,11 @@ class BeritaAcaraController extends Controller
     {
         return view('spm/BA_qrcode');
     }
+
+    public function changePenyetujuBA($id)
+    {
+        $data = Auditee::find($id);
+
+        return response()->json($data);
+    }
 }
