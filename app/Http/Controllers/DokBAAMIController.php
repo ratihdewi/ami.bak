@@ -39,6 +39,7 @@ class DokBAAMIController extends Controller
         }
 
         $auditee = Auditee::find($auditee_id);
+        $id_persetujuanBA = PersetujuanBA::where('beritaacara_id', $auditee->beritaacara->id)->get();
         
         $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
         $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
@@ -57,7 +58,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('spm/beritaAcaraAMI', compact('auditee', 'daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('spm/beritaAcaraAMI', compact('auditee', 'daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee', 'id_persetujuanBA'));
     }
 
     public function auditor_tampilBA_AMI($auditee_id, $tahunperiode)
@@ -76,6 +77,7 @@ class DokBAAMIController extends Controller
         } 
 
         $auditee = Auditee::find($auditee_id);
+        $id_persetujuanBA = PersetujuanBA::where('beritaacara_id', $auditee->beritaacara->id)->get();
         
         $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
         $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
@@ -94,7 +96,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('auditor/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee', 'id_persetujuanBA'));
     }
 
     public function auditee_tampilBA_AMI($auditee_id, $tahunperiode)
@@ -113,6 +115,7 @@ class DokBAAMIController extends Controller
         } 
 
         $auditee = Auditee::find($auditee_id);
+        $id_persetujuanBA = PersetujuanBA::where('beritaacara_id', $auditee->beritaacara->id)->get();
         
         $urlAuditee = url('/auditee-esignba/'.$beritaacaras->id);
         $urlAuditor = url('/auditor-esignba/'.$beritaacaras->id);
@@ -131,7 +134,7 @@ class DokBAAMIController extends Controller
         $dokumenpendukung_ = DokLampiran::where('auditee_id', $auditee_id)->get();
         $dokumenpendukung__ = DokLampiran::where('auditee_id', $auditee_id);
 
-        return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee'));
+        return view('auditee/beritaAcaraAMI', compact('daftartilik_', 'pertanyaan_', 'ba_ami', 'beritaacara_', 'auditee_', 'jadwalAudit_', 'daftarhadir_', 'pelpeningkatan_', 'dokumenpendukung_', 'dokumenpendukung__', 'eSign', 'qrCodeAuditor', 'qrCodeAuditee', 'id_persetujuanBA'));
     }
 
     public function ubahdataDokumenBA($auditee_id, $tahunperiode)
@@ -247,14 +250,20 @@ class DokBAAMIController extends Controller
     public function approvalAuditee($id)
     {
         $approve_ = DokBA_AMI::find($id);
-
+        $auditee = Auditee::find($approve_->auditee_id);
+        // dd(Auth::user());
         if (Auth::user()->peran == "auditee") {
             $approve_->eSignAuditee = 'Disetujui';
 
             $persetujuan = new PersetujuanBA;
             $persetujuan->beritaacara_id = $approve_->beritaacara_id;
-            $persetujuan->posisi = 'Ketua Auditee';
-            $persetujuan->nama = $approve_->auditee->ketua_auditee;
+            if (Auth::user()->name == $auditee->ketua_auditee) {
+                $persetujuan->posisi = 'Ketua Auditee';
+                $persetujuan->nama = $auditee->ketua_auditee;
+            } else if (Auth::user()->name == $auditee->wakil_ketua_auditee) {
+                $persetujuan->posisi = 'Wakil Ketua Auditee';
+                $persetujuan->nama = $auditee->wakil_ketua_auditee;
+            }
             $persetujuan->eSign = $approve_->eSignAuditee;
             $persetujuan->save();
      
@@ -262,7 +271,7 @@ class DokBAAMIController extends Controller
     
             return redirect()->back()->with('message', 'Dokumen BA-AMI sudah berhasil disetujui oleh Ketua Auditee');
         } else {
-            return redirect()->back()->with('error', 'Dokumen BA-AMI hanya dapat disetujui oleh role Auditee yang memiliki peran Ketua Auditee!');
+            return redirect()->back()->with('error', 'Dokumen BA-AMI hanya dapat disetujui oleh Ketua Auditee atau Wakil Ketua Auditee!');
         }
         
         

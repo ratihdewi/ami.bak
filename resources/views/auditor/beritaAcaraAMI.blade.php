@@ -21,18 +21,18 @@
   <div class="container">
       <div class="d-flex my-4 justify-content-between">
         @foreach ($auditee_ as $auditee)
-          <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}"><button class="btn btn-primary btn-sm me-2" type="button">Kembali</button></a>
+          <a href="/auditor-auditeeBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}"><button class="btn btn-secondary btn-sm me-2 fw-semibold" type="button">Kembali</button></a>
           @endforeach
         <div class="btn-right">
           @foreach ($auditee_ as $auditee)
           <a href="/auditor-BAAMI-pratinjauBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
           @endforeach
-            <button class="btn btn-primary btn-sm" type="button">Pratinjau</button>
+            <button class="btn btn-warning btn-sm fw-semibold" type="button">Pratinjau</button>
           </a>
           @foreach ($auditee_ as $auditee)
           <a href="/BAAMI-downloadBA/{{ $auditee->id }}/{{ $auditee->tahunperiode }}">
           @endforeach
-            <button class="btn btn-primary btn-sm" type="button">Cetak</button>
+            <button class="btn btn-success btn-sm fw-semibold" type="button">Cetak</button>
           </a>
         </div>
       </div>
@@ -392,19 +392,19 @@
                           style="background: none"></button>
                         @else
                             @foreach ($ba_ami->get() as $ba)
-                            @if ($ba->eSignAuditor == "Disetujui")
-                            {{ $qrCodeAuditor }}
-                            @else
-                              @foreach ($ba_ami->get() as $ba)
-                              <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}" disabled>
-                              @endforeach
-                                <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
-                                @if ((Auth::user()->name != $auditee->ketua_auditor))
-                                    {{ "disabled" }}
-                                @endif
-                                style="background: none"></button>
-                              </a>
-                            @endif
+                              @if ($ba->eSignAuditor == "Disetujui")
+                              {{ $qrCodeAuditor }}
+                              @else
+                                @foreach ($ba_ami->get() as $ba)
+                                <a href="/BAAMI-approvalKetuaAuditor/{{ $ba->id }}" disabled>
+                                @endforeach
+                                  <button class="border-0 bi bi-pen" type="button" onclick="return confirm('Apakah Anda yakin akan mengajukan persetujuan atau menyetujui Audit Lapangan ini?')"
+                                  @if ((Auth::user()->name != $auditee->ketua_auditor) || count($auditee->doklampiran()->get()) == 0 || count($pelpeningkatan_) == 0 || count($daftarhadir_) == 0 || $ba_ami->doesntExist())
+                                      {{ "disabled" }}
+                                  @endif
+                                  style="background: none"></button>
+                                </a>  
+                              @endif
                             @endforeach
                         
                         @endif
@@ -413,8 +413,56 @@
                     </tr>
                     <tr>
                         <td scope="row" class="text-center">{{ $no++ }}</td>
-                        <td class="col-2 text-center">Ketua Auditee</td>
-                        <td class="col-3 text-start">{{ $auditee->ketua_auditee }}</td>
+                        <td class="col-2 text-center">
+                          @if ($ba_ami->doesntExist())
+                            <select id="selectJabatan" class="rounded-1">
+                              <option value="1" selected>Ketua Auditee</option>
+                              <option value="0">Wakil Ketua Auditee</option>
+                            </select>
+                          @else
+                            @foreach ($ba_ami->get() as $ba)
+                              @if ($ba->eSignAuditee == "Disetujui")
+                                @foreach ($id_persetujuanBA as $persetujuanBA)
+                                    @if ($persetujuanBA->posisi == "Ketua Auditee")
+                                      <select id="selectJabatan" class="rounded-1">
+                                        <option value="1" selected>Ketua Auditee</option>
+                                        <option value="0" disabled>Wakil Ketua Auditee</option>
+                                      </select>
+                                    @elseif ($persetujuanBA->posisi == "Wakil Ketua Auditee")
+                                      <select id="selectJabatan" class="rounded-1">
+                                        <option value="1" disabled>Ketua Auditee</option>
+                                        <option value="0" selected>Wakil Ketua Auditee</option>
+                                      </select>
+                                    @endif                                    
+                                @endforeach
+                              @else
+                                <select id="selectJabatan" class="rounded-1">
+                                  <option value="1" selected>Ketua Auditee</option>
+                                  <option value="0">Wakil Ketua Auditee</option>
+                                </select>
+                              @endif
+                            @endforeach
+                          @endif
+                        </td>
+                        <td class="col-3 text-start" id="pemilikJabatan">
+                          @if ($ba_ami->doesntExist())
+                            {{ $auditee->ketua_auditee }}
+                          @else
+                            @foreach ($ba_ami->get() as $ba)
+                              @if ($ba->eSignAuditee == "Disetujui")
+                                @foreach ($id_persetujuanBA as $persetujuanBA)
+                                  @if ($persetujuanBA->posisi == "Ketua Auditee")
+                                    {{ $persetujuanBA->nama }}
+                                  @elseif ($persetujuanBA->posisi == "Wakil Ketua Auditee")
+                                    {{ $persetujuanBA->nama }}
+                                  @endif
+                                @endforeach
+                              @else
+                                {{ $auditee->ketua_auditee }}
+                              @endif
+                            @endforeach
+                          @endif
+                        </td>
                         <td id="signed" class="col-2 text-center">
                           @if ($ba_ami->doesntExist())
                             <button class="bi bi-pen border-0" type="button" onclick="return confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?')" 
@@ -449,14 +497,73 @@
 @push('script')
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
-    {{-- <script>
-      var button = document.getElementById('eSign');
-      var contentDiv = document.getElementById('signed');
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script>
+      $(document).ready(function(){
+        var userName = "{{ Auth::user()->name }}";
+        var auditee_id = "{{ $auditee->id }}";
 
-      // Event listener untuk saat button diklik
-      button.addEventListener('click', function() {
-          // Ganti isi dari elemen div dengan ID content
-          contentDiv.innerHTML = '<img src="data:image/png;base64,{{DNS2D::getBarcodePNG("https://www.google.com/", 'QRCODE', 3, 3)}}" alt="barcode" />';
-      });
-    </script> --}}
+        $('#selectJabatan').change(function() {
+          var selectJabatan = $(this).val();
+
+          if (selectJabatan == 0) {
+            $.ajax({
+                url: "{{url('/beritaacara-persetujuan-BA')}}/"+ auditee_id,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    $('#pemilikJabatan').text(data.wakil_ketua_auditee);
+                },
+                error: function() {
+                console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
+          } else if (selectJabatan == 1) {
+            $.ajax({
+                url: "{{url('/beritaacara-persetujuan-BA')}}/"+ auditee_id,
+                type: 'GET',
+                dataType: 'json',
+                data: { q: '' },
+                success: function(data) {
+                    $('#pemilikJabatan').text(data.ketua_auditee);
+                },
+                error: function() {
+                  console.error('Terjadi kesalahan saat memuat data users.');
+                }
+            });
+          }
+        });
+
+        $('#doesnExist').on('click', function() {
+          var selectJabatan = $('#selectJabatan').val();
+          var pemilikJabatan = $('#pemilikJabatan').text();
+
+          if (pemilikJabatan != userName) {
+            confirm('Persetujuan BA hanya dapat dilakukan oleh Ketua atau Wakil Ketua Auditee.');
+          } else {
+            confirm('Mohon lengkapi dahulu data dokumen berita acara.');
+          }
+        })
+
+        $('#existsBA').on('click', function() {
+          var selectJabatan = $('#selectJabatan').val();
+          var pemilikJabatan = $('#pemilikJabatan').text();
+          var ba_id = $(this).data('baid');
+          var link = $('#approvalAuditeeLink');
+
+          if (pemilikJabatan != userName) {
+            confirm('Persetujuan BA hanya dapat dilakukan oleh Ketua atau Wakil Ketua Auditee.');
+            link.removeAttr('href');
+          } else {
+            var confirm_alert = confirm('Apakah Anda yakin akan menyetujui seluruh data yang akan digunakan pada Dokumen BA AMI ini?');
+            if (confirm_alert) {
+              console.log("confirmed");
+              var url = '/BAAMI-approvalKetuaAuditee/' + ba_id;
+              link.attr('href', url);
+            }
+          }
+        })
+      })
+    </script>
 @endpush
