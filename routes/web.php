@@ -240,6 +240,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/master-pertanyaan-edit/{id}', [MasterPertanyaanController::class, 'editsasaranarea'])->name('masterpertanyaan.edit');
     Route::post('/masterdata-pertanyaan-update/{id}', [MasterPertanyaanController::class, 'updatemasterdata'])->name('masterdata.pertanyaan.update');
     Route::get('/masterdata-pertanyaan-delete/{id}', [MasterPertanyaanController::class, 'delete'])->name('masterdata.pertanyaan.delete');
+    Route::get('/beritaacara-persetujuan-BA/{id}', [BeritaAcaraController::class, 'changePenyetujuBA'])->name('beritaacara.persetujuan.BA');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');
