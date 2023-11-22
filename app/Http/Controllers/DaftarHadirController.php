@@ -195,7 +195,7 @@ class DaftarHadirController extends Controller
                     } elseif (!$notExist) {
                         $daftarhadirexist = DaftarHadir::where('namapeserta', $value['namapeserta'])->first();
                         
-                        if ($daftarhadirexist != null) {
+                        if ($daftarhadirexist) {
                             $daftarhadirexist->update([
                                 'deletedBy' => null,
                             ]);
