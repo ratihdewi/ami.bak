@@ -199,8 +199,7 @@ class DaftarHadirController extends Controller
                             $daftarhadirexist->update([
                                 'deletedBy' => null,
                             ]);
-
-                            dd($daftarhadirexist);
+                            $daftarhadirexist->save();
 
                             $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
                         } else {
