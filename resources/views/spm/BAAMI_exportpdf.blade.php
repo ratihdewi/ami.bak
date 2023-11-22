@@ -7,7 +7,9 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{ public_path('bootstrap.min.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ public_path('bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" media="all" href="{{ public_path('css/export.css') }}">
-    <title>Table</title>
+    <title>
+        Berita Acara - {{ $auditee->unit_kerja }}
+    </title>
     {{-- <style>
         
         body {
