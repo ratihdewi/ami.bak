@@ -241,6 +241,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/masterdata-pertanyaan-update/{id}', [MasterPertanyaanController::class, 'updatemasterdata'])->name('masterdata.pertanyaan.update');
     Route::get('/masterdata-pertanyaan-delete/{id}', [MasterPertanyaanController::class, 'delete'])->name('masterdata.pertanyaan.delete');
     Route::get('/beritaacara-persetujuan-BA/{id}', [BeritaAcaraController::class, 'changePenyetujuBA'])->name('beritaacara.persetujuan.BA');
+    Route::post('/beritaacara-BA-AMI-Berita-Acara-AMI/{id}', [DokBAAMIController::class, 'addInfoTerbitBA'])->name('beritaacara.BAAMI.BeritaAcaraAMI.Terbit');
 
     // Role Auditor
     Route::get('/auditor-daftarauditee/{tahunperiode}', [AuditeeController::class, 'indexauditor'])->name('auditor-daftarauditee');

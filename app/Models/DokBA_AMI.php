@@ -17,9 +17,12 @@ class DokBA_AMI extends Model
         'tgl_revisi',
         'tgl_berlaku',
         'revisiKe',
+        'tgl_terbitBA',
+        'waktu_terbitBA',
+        'tempat_terbitBA',
     ];
 
-    protected $dates = ['tgl_revisi', 'tgl_berlaku'];
+    protected $dates = ['tgl_revisi', 'tgl_berlaku', 'tgl_terbitBA', 'waktu_terbitBA'];
 
     public function beritaacara()
     {
@@ -34,5 +37,10 @@ class DokBA_AMI extends Model
     public function auditee()
     {
         return $this->belongsTo(Auditee::class);
+    }
+
+    public function persetujuanBA()
+    {
+        return $this->hasMany(PersetujuanBA::class);
     }
 }

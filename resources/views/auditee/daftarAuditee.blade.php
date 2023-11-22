@@ -39,7 +39,11 @@
                             <td>{{ $item->ketua_auditee }}</td>
                             <td>{{ $item->jabatan_ketua_auditee }}</td>
                             <td>{{ $item->ketua_auditor }}</td>
-                            <td>{{ $item->anggota_auditor }}</td>
+                            @if ($item->anggota_auditor2 != null)
+                                <td>{{ $item->anggota_auditor }};<br> {{ $item->anggota_auditor2 }}</td>
+                            @else
+                                <td>{{ $item->anggota_auditor }}</td>
+                            @endif
                         </tr>
                     @endforeach
                     

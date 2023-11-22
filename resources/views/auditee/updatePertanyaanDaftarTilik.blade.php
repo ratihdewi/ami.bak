@@ -189,8 +189,7 @@
             <p class="fw-semibold mb-0">Target Standar</p>
           </div>        
           <div class="form-floating mb-4 mx-4">
-            <textarea class="form-control" placeholder="Masukkan target standar" id="targetStandar" name="targetStandar" disabled>{{ $datas->targetStandar }}</textarea>
-            <label for="targetStandar" style="font-size: 12px">Masukkan target standar</label>
+            <textarea class="form-control" placeholder="Masukkan target standar" id="auditeetargetStandar" name="targetStandar" disabled>{{ $datas->targetStandar }}</textarea>
           </div>
           <div class="inputGrupText row justify-content-between g-3 mb-4 mx-4" id="inputGrupOpsional">
             <div class="col-7 border rounded me-5">
@@ -361,6 +360,14 @@
     height: 100,
     readonly: true,
     // content_style: '/css/tinyAuditee.css',
+  });
+
+  tinymce.init({
+    selector: 'textarea#auditeetargetStandar',
+    toolbar: false,
+    menubar: false,
+    height: 100,
+    readonly: true,
   });
 
   var plor = '<textarea class="form-control" placeholder="Tuliskan narasi PLOR (Problem, Location, Objective, Reference)" id="responAuditor" style="height: 100px" name="narasiPLOR" value="{{ $datas->narasiPLOR }}" disabled>{{ $datas->narasiPLOR }}</textarea><label for="responAuditor">Tuliskan narasi PLOR (Problem, Location, Objective, Reference)<b>**)</b></label>';

@@ -130,21 +130,23 @@
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
                 <div class="col-9 border py-2 text-start">
-                  @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                  {{-- @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
                   {{ $jadwalAudit->auditee->unit_kerja }}
-                  @endforeach
+                  @endforeach --}}
+                  {{ $auditee->unit_kerja }}
                 </div>
               </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Tahun Ajaran</div>
               <div class="col border py-2 text-start">
-                @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                {{-- @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
                   {{ $jadwalAudit->th_ajaran1 }}/{{ $jadwalAudit->th_ajaran2 }}
-                @endforeach
+                @endforeach --}}
+                {{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}
               </div>
               <div class="col label border py-2 fw-semibold text-start">Waktu</div>
               <div class="col border py-2 text-start">
-                <?php $i=1; ?>
+                {{-- <?php $i=1; ?>
                 @foreach ($jadwalAudit_ as $jadwal)
                     @if (count($jadwalAudit_) == 1)
                         {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
@@ -156,13 +158,16 @@
                         @endif
                     @endif
                     <?php $i++; ?>
-                @endforeach  
+                @endforeach   --}}
+                @foreach ($ba_ami->get() as $item)
+                    {{ $item->waktu_terbitBA->isoFormat('HH:mm') }} WIB
+                @endforeach
               </div>
             </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Hari/Tanggal</div>
               <div class="col border py-2 text-start">
-                <?php $i=1; ?>
+                {{-- <?php $i=1; ?>
                 @foreach ($jadwalAudit_ as $jadwal)
                     @if (count($jadwalAudit_) == 1)
                         {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }}
@@ -174,11 +179,14 @@
                         @endif
                     @endif
                     <?php $i++; ?>
+                @endforeach --}}
+                @foreach ($ba_ami->get() as $item)
+                    {{ $item->tgl_terbitBA->translatedFormat('l, d M Y') }}
                 @endforeach
               </div>
               <div class="col label border py-2 fw-semibold text-start">Tempat</div>
               <div class="col border py-2 text-start">
-                <?php $i=1; ?>
+                {{-- <?php $i=1; ?>
                 @foreach ($jadwalAudit_->unique('tempat') as $jadwal)
                     @if (count($jadwalAudit_->unique('tempat')) == 1)
                         {{ $jadwal->tempat }}
@@ -190,6 +198,9 @@
                         @endif
                     @endif
                     <?php $i++; ?>
+                @endforeach --}}
+                @foreach ($ba_ami->get() as $item)
+                    {{ $item->tempat_terbitBA }}
                 @endforeach
               </div>
               </div>

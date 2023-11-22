@@ -247,6 +247,19 @@ class DokBAAMIController extends Controller
         return redirect()->back()->with('success', 'Data Dokumen AMI berhasil diupdate!');
     }
 
+    public function addInfoTerbitBA(Request $request, $id)
+    {
+        $baAMI = DokBA_AMI::where('id', $id)->first();
+        $baAMI->update([
+            'tgl_terbitBA' => $request->tgl_terbitBA,
+            'waktu_terbitBA' => $request->waktu_terbitBA,
+            'tempat_terbitBA' => $request->tempatTerbitBA,
+        ]);
+        $baAMI->save();
+        
+        return redirect()->back();
+    }
+
     public function approvalAuditee($id)
     {
         $approve_ = DokBA_AMI::find($id);
@@ -538,6 +551,7 @@ class DokBAAMIController extends Controller
             'qrCodeAuditee' => $qrCodeAuditee,
             'waktu' => $waktu,
             'jadwalaudit' => $jadwalaudit,
+            'auditee' => $auditee,
         ];
 
         $pdf = PDF::loadView('spm/BAAMI_exportpdf', $data);

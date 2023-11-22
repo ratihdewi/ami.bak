@@ -121,27 +121,131 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Berita Acara AMI</button>
             </li>
+            <li>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+              @foreach ($ba_ami->get() as $item)
+                  @if ($item->tgl_terbitBA == null && $item->waktu_terbitBA && $item->tempat_terbitBA)
+                    data-bs-target="#addTanggalBAAMI"
+                  @else
+                    data-bs-target="#editTanggalBAAMI"
+                  @endif
+              @endforeach
+              >
+                Ubah Data
+              </button>
+            </li>
           </ul>
         </div>
+
+        <!-- Modal Add Tanggal BA AMI -->
+        <div class="modal" id="addTanggalBAAMI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addTanggalBAAMILabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              @foreach ($ba_ami->get() as $baAMI)
+              <form action="/beritaacara-BA-AMI-Berita-Acara-AMI/{{ $baAMI->id }}" method="POST">
+              @endforeach
+                @csrf
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Berita Acara AMI</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row mb-3">
+                    <label for="inputTglTerbitBA" class="col-sm-4 col-form-label">Hari/Tanggal <span class="fw-bold text-danger">*</span></label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="inputTglTerbitBA" placeholder="DD/MM/YYYY" name="tgl_terbitBA">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputWaktuTerbitBA" class="col-sm-4 col-form-label">Waktu <span class="fw-bold text-danger">*</span></label>
+                    <div class="col-sm-8">
+                      <input type="time" class="form-control" id="inputWaktuTerbitBA" name="waktu_terbitBA">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputTmptTerbitBA" class="col-sm-4 col-form-label">Tempat <span class="fw-bold text-danger">*</span></label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="inputTmptTerbitBA" placeholder="Tempat terbit BA" name="tempatTerbitBA">
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Edit Tanggal BA AMI -->
+        <div class="modal" id="editTanggalBAAMI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addTanggalBAAMILabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              @foreach ($ba_ami->get() as $baAMI)
+              <form action="/beritaacara-BA-AMI-Berita-Acara-AMI/{{ $baAMI->id }}" method="POST">
+              @endforeach
+                @csrf
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Berita Acara AMI</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row mb-3">
+                    <label for="inputTglTerbitBA" class="col-sm-4 col-form-label">Hari/Tanggal <span class="fw-bold text-danger">*</span></label>
+                    <div class="col-sm-8">
+                      @foreach ($ba_ami->get() as $item)
+                        <input type="text" class="form-control" id="inputTglTerbitBA" placeholder="DD/MM/YYYY" name="tgl_terbitBA" value="{{ $item->tgl_terbitBA->translatedFormat('d-m-Y') }}">
+                      @endforeach
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputWaktuTerbitBA" class="col-sm-4 col-form-label">Waktu <span class="fw-bold text-danger">*</span></label>
+                    <div class="col-sm-8">
+                      @foreach ($ba_ami->get() as $item)
+                        <input type="time" class="form-control" id="inputWaktuTerbitBA" name="waktu_terbitBA" value="{{ $item->waktu_terbitBA->isoFormat('HH:mm') }}">
+                      @endforeach
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputTmptTerbitBA" class="col-sm-4 col-form-label">Tempat <span class="fw-bold text-danger">*</span></label>
+                    <div class="col-sm-8">
+                      @foreach ($ba_ami->get() as $item)
+                        <input type="text" class="form-control" id="inputTmptTerbitBA" placeholder="Tempat terbit BA" name="tempatTerbitBA" value="{{ $item->tempat_terbitBA }}">
+                      @endforeach
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
         <div class="container text-center dataDokumenBA my-3 px-3">
               <div class="row">
                 <div class="col-3 label border py-2 fw-semibold text-start">Unit Kerja</div>
                 <div class="col-9 border py-2 text-start">
-                  @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
-                  {{ $jadwalAudit->auditee->unit_kerja }}
-                  @endforeach
+                  {{-- @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                    {{ $jadwalAudit->auditee->unit_kerja }}
+                  @endforeach --}}
+                  {{ $auditee->unit_kerja }}
                 </div>
               </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Tahun Ajaran</div>
               <div class="col border py-2 text-start">
-                @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
+                {{-- @foreach ($jadwalAudit_->unique('auditee_id') as $jadwalAudit)
                   {{ $jadwalAudit->th_ajaran1 }}/{{ $jadwalAudit->th_ajaran2 }}
-                @endforeach
+                @endforeach --}}
+                {{ $auditee->tahunperiode0 }}/{{ $auditee->tahunperiode }}
               </div>
               <div class="col label border py-2 fw-semibold text-start">Waktu</div>
               <div class="col border py-2 text-start">
-                <?php $i=1; ?>
+                {{-- <?php $i=1; ?>
                 @foreach ($jadwalAudit_ as $jadwal)
                     @if (count($jadwalAudit_) == 1)
                         {{ $jadwal->waktu->isoFormat('HH:mm') }} WIB
@@ -153,13 +257,16 @@
                         @endif
                     @endif
                     <?php $i++; ?>
-                @endforeach 
+                @endforeach  --}}
+                @foreach ($ba_ami->get() as $item)
+                    {{ $item->waktu_terbitBA->isoFormat('HH:mm') }} WIB
+                @endforeach
               </div>
             </div>
             <div class="row">
               <div class="col label border py-2 fw-semibold text-start">Hari/Tanggal</div>
               <div class="col border py-2 text-start">
-                <?php $i=1; ?>
+                {{-- <?php $i=1; ?>
                 @foreach ($jadwalAudit_ as $jadwal)
                     @if (count($jadwalAudit_) == 1)
                         {{ $jadwal->hari_tgl->translatedFormat('l, d M Y') }}
@@ -171,11 +278,14 @@
                         @endif
                     @endif
                     <?php $i++; ?>
+                @endforeach --}}
+                @foreach ($ba_ami->get() as $item)
+                    {{ $item->tgl_terbitBA->translatedFormat('l, d M Y') }}
                 @endforeach
               </div>
               <div class="col label border py-2 fw-semibold text-start">Tempat</div>
               <div class="col border py-2 text-start">
-                <?php $i=1; ?>
+                {{-- <?php $i=1; ?>
                 @foreach ($jadwalAudit_->unique('tempat') as $jadwal)
                     @if (count($jadwalAudit_->unique('tempat')) == 1)
                         {{ $jadwal->tempat }}
@@ -187,6 +297,9 @@
                         @endif
                     @endif
                     <?php $i++; ?>
+                @endforeach --}}
+                @foreach ($ba_ami->get() as $item)
+                    {{ $item->tempat_terbitBA }}
                 @endforeach
               </div>
               </div>
@@ -506,10 +619,27 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/l10n/id.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
+      const myModal = document.getElementById('addTanggalBAAMI')
+      const myInput = document.getElementById('myInput')
+
+      myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+      })
       $(document).ready(function(){
         var userName = "{{ Auth::user()->name }}";
         var auditee_id = "{{ $auditee->id }}";
+
+        flatpickr("#inputTglTerbitBA", {
+            dateFormat: "d-m-Y", // Sesuaikan dengan format yang Anda inginkan
+            locale: "id",
+            enableTime: false, // Jangan aktifkan waktu
+            time_24hr: true, // Gunakan format 24 jam
+            timeZone: "Asia/Jakarta",
+        });
 
         $('#selectJabatan').change(function() {
           var selectJabatan = $(this).val();

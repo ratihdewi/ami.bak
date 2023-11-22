@@ -118,12 +118,13 @@
                 <tbody>
                     <tr>
                         <td rowspan="3" class="w-50">Fungsi : 
-                            @foreach ($jadwalAudit_->unique('auditee_id') as $jadwal)
+                            {{-- @foreach ($jadwalAudit_->unique('auditee_id') as $jadwal)
                             {{ $jadwal->auditee->unit_kerja }}
-                            @endforeach
+                            @endforeach --}}
+                            {{ $auditee->unit_kerja }}
                         </td>
                         <td class="w-50">Hari/Tanggal : 
-                            {{ $waktu->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }}
+                            {{-- {{ $waktu->hari_tgl->isoFormat('dddd/ D MMMM YYYY') }} --}}
                             {{-- <?php $i=1; ?>
                             @foreach ($jadwalAudit_ as $jadwal)
                                 @if (count($jadwalAudit_) == 1)
@@ -137,11 +138,14 @@
                                 @endif
                                 <?php $i++; ?>
                             @endforeach --}}
+                            @foreach ($ba_ami->get() as $item)
+                            {{ $item->tgl_terbitBA->isoFormat('dddd/ D MMMM YYYY') }}
+                        @endforeach
                         </td>
                     </tr>
                     <tr>
                         <td class="w-50">Waktu : 
-                            {{ $waktu->waktu->isoFormat('HH:mm') }} WIB
+                            {{-- {{ $waktu->waktu->isoFormat('HH:mm') }} WIB --}}
                             {{-- <?php $i=1; ?>
                             @foreach ($jadwalAudit_ as $jadwal)
                                 @if (count($jadwalAudit_) == 1)
@@ -155,11 +159,14 @@
                                 @endif
                                 <?php $i++; ?>
                             @endforeach  --}}
+                            @foreach ($ba_ami->get() as $item)
+                                {{ $item->waktu_terbitBA->isoFormat('HH:mm') }} WIB
+                            @endforeach
                         </td>
                     </tr>
                     <tr>
                         <td class="w-50">Tempat : 
-                            <?php $i=1; ?>
+                            {{-- <?php $i=1; ?>
                             @foreach ($jadwalAudit_->unique('tempat') as $jadwal)
                                 @if (count($jadwalAudit_->unique('tempat')) == 1)
                                     {{ $jadwal->tempat }}
@@ -171,6 +178,9 @@
                                     @endif
                                 @endif
                                 <?php $i++; ?>
+                            @endforeach --}}
+                            @foreach ($ba_ami->get() as $item)
+                                {{ $item->tempat_terbitBA }}
                             @endforeach
                         </td>
                     </tr>
@@ -179,7 +189,10 @@
         </div>
 
         <div id="bodydoc" class="bodydoc my-3 mx-4 py-2">
-            <p style="text-align: justify">1. Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
+            <p style="text-align: justify">1. Pada hari 
+                @foreach ($ba_ami->get() as $item)
+                    {{ $item->tgl_terbitBA->translatedFormat('l') }}
+                @endforeach
                 telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
                 @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
                     @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
@@ -188,39 +201,6 @@
                 @endforeach
                 oleh:
             </p>
-            {{-- <div class="first-text d-flex">
-                <p style="display: inline;">1. </p>
-                <p style="display: inline; text-align: justify !important">Pada hari {{ $waktu->hari_tgl->translatedFormat('l') }}
-                    <?php $i=0; ?>
-                    @foreach ($jadwalaudit as $jadwal)
-                        @if (count($jadwalaudit) == 1)
-                            {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                        @elseif (count($jadwalaudit) == 2)
-                            @if ($i < count($jadwalaudit) && $i != (count($jadwalaudit)-1))
-                                {{ $jadwal->hari_tgl->translatedFormat('l') }} dan
-                            @elseif ($i == (count($jadwalaudit)-1))
-                                {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                            @endif
-                        @elseif (count($jadwalaudit) > 2 && count($jadwalaudit) != 1)
-                            @if ($i < count($jadwalaudit) && $i != count($jadwalaudit) && $i != (count($jadwalaudit)-1))
-                                {{ $jadwal->hari_tgl->translatedFormat('l') }},
-                            @elseif ($i == (count($jadwalaudit)-1) && $i != count($jadwalaudit) && $i != count($jadwalaudit))
-                                dan {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                            @elseif ($i == count($jadwalaudit))
-                                {{ $jadwal->hari_tgl->translatedFormat('l') }}
-                            @endif
-                        @endif
-                        <?php $i++; ?>
-                    @endforeach
-                    telah dilaksanakan Audit Mutu Internal Tahun Ajaran 
-                    @foreach ($jadwalAudit_->unique('th_ajaran1', 'th_ajaran2') as $jadwal)
-                        @if ($jadwal->th_ajaran1 == $jadwal->hari_tgl->isoFormat('Y') || $jadwal->th_ajaran2 == $jadwal->hari_tgl->isoFormat('Y'))
-                        {{ $jadwal->th_ajaran1 }}/{{ $jadwal->th_ajaran2 }} 
-                        @endif
-                    @endforeach
-                    oleh:
-                </p>
-            </div> --}}
             <div class="tabledaftarhadir mb-5">
                 <table class="table table-bordered">
                     <thead>

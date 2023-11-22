@@ -6,13 +6,8 @@
     <a href="/daftarAuditee-periode" class="mx-1">
         Periode Auditee
     </a>/
-
-    {{-- @foreach ($data->unique('tahunperiode') as $auditee) --}}
     <a href="/daftarAuditee/{{ $periode->tahunperiode2 }}" class="mx-1">
-    {{-- @endforeach --}}
-    {{-- @foreach ($data->unique('tahunperiode') as $periode) --}}
     {{ $periode->tahunperiode1 }}/{{ $periode->tahunperiode2 }}
-    {{-- @endforeach --}}
     </a>/
 
 @endsection
@@ -61,7 +56,7 @@
                                 <td>{{ $item->jabatan_ketua_auditee }}</td>
                                 <td>{{ $item->ketua_auditor }}</td>
                                 @if ($item->anggota_auditor2 != null)
-                                    <td>{{ $item->anggota_auditor }}, {{ $item->anggota_auditor2 }}</td>
+                                    <td>{{ $item->anggota_auditor }};<br> {{ $item->anggota_auditor2 }}</td>
                                 @else
                                     <td>{{ $item->anggota_auditor }}</td>
                                 @endif
