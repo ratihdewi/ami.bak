@@ -119,7 +119,7 @@
               <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" disabled>Berita Acara AMI</button>
             </li>
             <li>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" 
               @foreach ($ba_ami->get() as $item)
                   @if ($item->tgl_terbitBA == null && $item->waktu_terbitBA && $item->tempat_terbitBA)
                     data-bs-target="#addTanggalBAAMI"
