@@ -261,7 +261,9 @@
                     <?php $i++; ?>
                 @endforeach  --}}
                 @foreach ($ba_ami->get() as $item)
+                  @if ($item->waktu_terbitBA != null)
                     {{ $item->waktu_terbitBA->isoFormat('HH:mm') }} WIB
+                  @endif
                 @endforeach
               </div>
             </div>
@@ -282,7 +284,9 @@
                     <?php $i++; ?>
                 @endforeach --}}
                 @foreach ($ba_ami->get() as $item)
+                  @if ($item->tgl_terbitBA != null)
                     {{ $item->tgl_terbitBA->translatedFormat('l, d M Y') }}
+                  @endif
                 @endforeach
               </div>
               <div class="col label border py-2 fw-semibold text-start">Tempat</div>
