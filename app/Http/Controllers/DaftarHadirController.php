@@ -200,6 +200,8 @@ class DaftarHadirController extends Controller
                                 'deletedBy' => null,
                             ]);
 
+                            dd($daftarhadirexist);
+
                             $return = redirect()->back()->with('success', 'Data peserta berhasil ditambah!');
                         } else {
                             $return = redirect()->back()->with('error', 'Data peserta sudah tersedia!');
