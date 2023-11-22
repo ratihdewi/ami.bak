@@ -273,37 +273,33 @@
                 $('#inputAbsenNama1').empty();
                 $('#inputAbsenNama1').append('<option value="" selected disabled>Pilih Auditor</option>');
                 if (Array.isArray(data)) {
-                  console.log(data);
-                    var mappedData = data.map(function(item) {
-                      if (item.id == auditee_id) {
-                        return {
-                            id: item.ketua_auditor,
-                            text: item.ketua_auditor,
-                        };
-                      }
-                    });
+                  var filteredData = data.filter(function(item) {
+                      return item.id == auditee_id;
+                  });
+                  var mappedData = filteredData.map(function(item) {
+                    return {
+                        id: item.ketua_auditor,
+                        text: item.ketua_auditor,
+                    };
+                  });
 
-                    data.forEach(function(item) {
-                      if (item.id == auditee_id) {
-                        mappedData.push({
-                            id: item.anggota_auditor,
-                            text: item.anggota_auditor,
-                        });
-                      }
+                  filteredData.forEach(function(item) {
+                    mappedData.push({
+                        id: item.anggota_auditor,
+                        text: item.anggota_auditor,
                     });
+                  });
 
-                    data.forEach(function(item) {
-                      if (item.id == auditee_id) {
-                        mappedData.push({
-                            id: item.anggota_auditor2,
-                            text: item.anggota_auditor2,
-                        });
-                      }
+                  filteredData.forEach(function(item) {
+                    mappedData.push({
+                        id: item.anggota_auditor2,
+                        text: item.anggota_auditor2,
                     });
+                  });
 
-                    $('#inputAbsenNama1').select2({
-                        data: mappedData,
-                    });
+                  $('#inputAbsenNama1').select2({
+                      data: mappedData,
+                  });
                 } else {
                     console.error('Data yang diterima dari server bukan array yang valid.');
                 }
@@ -340,37 +336,33 @@
                       $('#inputAbsenNama'+i).empty();
                       $('#inputAbsenNama'+i).append('<option value="" selected disabled>Pilih Auditor</option>');
                       if (Array.isArray(data)) {
-                        console.log(data);
-                          var mappedData = data.map(function(item) {
-                            if (item.id == auditee_id) {
-                              return {
-                                  id: item.ketua_auditor,
-                                  text: item.ketua_auditor,
-                              };
-                            }
-                          });
+                        var filteredData = data.filter(function(item) {
+                            return item.id == auditee_id;
+                        });
+                        var mappedData = filteredData.map(function(item) {
+                          return {
+                              id: item.ketua_auditor,
+                              text: item.ketua_auditor,
+                          };
+                        });
 
-                          data.forEach(function(item) {
-                            if (item.id == auditee_id) {
-                              mappedData.push({
-                                  id: item.anggota_auditor,
-                                  text: item.anggota_auditor,
-                              });
-                            }
+                        filteredData.forEach(function(item) {
+                          mappedData.push({
+                              id: item.anggota_auditor,
+                              text: item.anggota_auditor,
                           });
+                        });
 
-                          data.forEach(function(item) {
-                            if (item.id == auditee_id) {
-                              mappedData.push({
-                                  id: item.anggota_auditor2,
-                                  text: item.anggota_auditor2,
-                              });
-                            }
+                        filteredData.forEach(function(item) {
+                          mappedData.push({
+                              id: item.anggota_auditor2,
+                              text: item.anggota_auditor2,
                           });
+                        });
 
-                          $('#inputAbsenNama'+i).select2({
-                              data: mappedData,
-                          });
+                        $('#inputAbsenNama'+i).select2({
+                            data: mappedData,
+                        });
                       } else {
                           console.error('Data yang diterima dari server bukan array yang valid.');
                       }
