@@ -195,7 +195,11 @@
                     <label for="inputTglTerbitBA" class="col-sm-4 col-form-label">Hari/Tanggal <span class="fw-bold text-danger">*</span></label>
                     <div class="col-sm-8">
                       @foreach ($ba_ami->get() as $item)
-                        <input type="text" class="form-control" id="inputTglTerbitBA" placeholder="DD/MM/YYYY" name="tgl_terbitBA" value="{{ $item->tgl_terbitBA->translatedFormat('d-m-Y') }}">
+                        <input type="text" class="form-control" id="inputTglTerbitBA" placeholder="DD/MM/YYYY" name="tgl_terbitBA"
+                          @if ($item->tgl_terbitBA != null)
+                            value="{{ $item->tgl_terbitBA->translatedFormat('d-m-Y') }}"
+                          @endif 
+                        >
                       @endforeach
                     </div>
                   </div>
@@ -203,7 +207,11 @@
                     <label for="inputWaktuTerbitBA" class="col-sm-4 col-form-label">Waktu <span class="fw-bold text-danger">*</span></label>
                     <div class="col-sm-8">
                       @foreach ($ba_ami->get() as $item)
-                        <input type="time" class="form-control" id="inputWaktuTerbitBA" name="waktu_terbitBA" value="{{ $item->waktu_terbitBA->isoFormat('HH:mm') }}">
+                          <input type="time" class="form-control" id="inputWaktuTerbitBA" name="waktu_terbitBA" 
+                            @if ($item->waktu_terbitBA != null)
+                              value="{{ $item->waktu_terbitBA->isoFormat('HH:mm') }}"
+                            @endif
+                          >
                       @endforeach
                     </div>
                   </div>
